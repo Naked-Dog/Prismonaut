@@ -7,28 +7,16 @@ public class MenuController : MonoBehaviour
 {
     [SerializeField] private GameObject solidBG;
     [SerializeField] private GameObject mainMenuPanel;
-
     [SerializeField] private GameObject gameMenuPanel;
-    [SerializeField] private GameObject creditsPanel;
     [SerializeField] private GameObject losePanel;
-    
-    public static MenuController Instance;
+    public static MenuController Instance {get; private set;}
 
     private void Awake(){
-        if(Instance == null){
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        } else {
+        if(Instance != null && Instance != this){
             Destroy(gameObject);
-        }
-    }
-
-    private void Update(){
-        if(Input.GetKeyDown(KeyCode.Escape)){
-            if(SceneManager.GetActiveScene().name != "Menu")
-            {
-                DisplayPanel(gameMenuPanel);
-            }
+        } else {
+            Instance = this;
+            DontDestroyOnLoad(this);
         }
     }
 
@@ -75,7 +63,11 @@ public class MenuController : MonoBehaviour
     }
 
     public void DisplayLosePanel(){
-        losePanel.SetActive(true);     
+        DisplayPanel(losePanel);  
+    }
+
+    public void DisplayGamePanel(){
+        DisplayPanel(gameMenuPanel);     
     }
 
     private void setMenuDisplay(string sceneName){
