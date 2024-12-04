@@ -3,6 +3,8 @@ using System.Collections;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.Splines;
+using UnityEngine.InputSystem;
+using UnityEngine.Animations;
 
 public class Player2DController : MonoBehaviour
 {
@@ -165,6 +167,12 @@ public class Player2DController : MonoBehaviour
     }
 
     private bool once = false;
+    private InputAction moveAction;
+    private InputAction jumpAction;
+    private InputAction trianglePowerAction;
+    private InputAction squarePowerAction;
+    private InputAction circlePowerAction;
+    private InputAction pauseAction;
     public static Player2DController Instance;
 
     private void Awake()
@@ -246,15 +254,17 @@ public class Player2DController : MonoBehaviour
                 audioSource.PlayOneShot(breakSound);
             }
         };
-    }
 
+        FindInputActions();
+    }
     private void Update()
     {
         velocityUpdate();
 
-        if (Input.GetKeyDown(KeyCode.J)) formInput(FormState.Circle);
-        if (Input.GetKeyDown(KeyCode.K)) formInput(FormState.Triangle);
-        if (Input.GetKeyDown(KeyCode.L)) formInput(FormState.Square);
+        if (circlePowerAction.WasPressedThisFrame()) formInput(FormState.Circle);
+        if (trianglePowerAction.WasPressedThisFrame()) formInput(FormState.Triangle);
+        if (squarePowerAction.WasPressedThisFrame()) formInput(FormState.Square);
+        if (pauseAction.WasPressedThisFrame()) MenuController.Instance.DisplayGamePanel();
 
         isMoving = Mathf.Abs(rb2d.velocity.x) > 0.1f;
         playerSpriteRender.flipX = rb2d.velocity.x < 0;
@@ -267,7 +277,7 @@ public class Player2DController : MonoBehaviour
 
     private void velocityUpdate()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float horizontalInput = moveAction.ReadValue<Vector2>().x;
         float formMaxVelocity = form == FormState.Circle ? maxCircleVelocity : maxVelocity;
         float formDeacceleration = form == FormState.Circle ? circleDeacceleration : deacceleration;
 
@@ -290,7 +300,7 @@ public class Player2DController : MonoBehaviour
         if (form != FormState.Circle || !isUsingPower)
         {
             newVerticalVelocity = rb2d.velocity.y - (form == FormState.Triangle ? triangleGravity : gravity) * Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            if (jumpAction.IsPressed() && isGrounded)
             {
                 newVerticalVelocity = form == FormState.Triangle ? triangleJumpVelocity : jumpVelocity;
                 audioSource.PlayOneShot(jumpSound);
@@ -473,4 +483,15 @@ public class Player2DController : MonoBehaviour
         enabled = true;
         splineAnimate.Completed -= onCompletedSpline;
     }
+
+    private void FindInputActions()
+    {
+        moveAction = InputSystem.actions.FindAction("Move");
+        jumpAction = InputSystem.actions.FindAction("Jump");
+        trianglePowerAction = InputSystem.actions.FindAction("TrianglePower");
+        squarePowerAction = InputSystem.actions.FindAction("SquarePower");
+        circlePowerAction = InputSystem.actions.FindAction("CirclePower");
+        pauseAction = InputSystem.actions.FindAction("Pause");
+    }
+
 }
