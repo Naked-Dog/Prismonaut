@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WB_InvisibleGround
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 353431168, guid: e04f0ca2d2323a846865b7d7e100048a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_Transform:
     e00: 1
     e01: 0
