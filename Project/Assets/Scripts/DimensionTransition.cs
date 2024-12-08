@@ -5,86 +5,100 @@ using UnityEngine.InputSystem;
 using System;
 using Cinemachine;
 
+[ExecuteInEditMode]
 public class DimensionTransition : MonoBehaviour
 {
-    [SerializeField] private Vector2 secondTravelPoint = Vector2.zero;
+    [Header("Settings")]
+    [SerializeField] private Vector2 secondTravelPoint = Vector2.one * 5;
     [SerializeField] private GameObject player3DModel;
-    private Vector3 secondTravelWorldPoint 
-    { 
-        get 
-        {
-            return new Vector3(transform.position.x + secondTravelPoint.x, transform.position.y + secondTravelPoint.y, 0);
-        }
-    }
-    private BoxCollider2D[] box2DColliders{ get => GetComponents<BoxCollider2D>(); }
-    private Vector3 firstTravelPoint;
-    private bool isTraveling = false;
-    private CinemachineVirtualCamera virtualCamera;
+
+    private Vector3 secondTravelWorldPoint => transform.position + (Vector3)secondTravelPoint;
+    private BoxCollider2D[] box2DColliders => GetComponents<BoxCollider2D>();
+
+    private Vector3 firstTravelPoint => transform.position;
+    private CinemachineVirtualCamera virtualCamera => FindObjectOfType<CinemachineVirtualCamera>();
+    private bool isTraveling;
     private Player2DController playerController = null;
     private InputAction trianglePowerAction;
     private InputAction squarePowerAction;
     private InputAction circlePowerAction;
 
-    void Awake()
+    private void Awake()
     {
-        CheckCollidersNumber();
+        EnsureRequiredBoxColliders();
     }
 
-    void Start()
+    private void Start()
     {
-        firstTravelPoint = transform.position;
-        virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
-        SetBoxColliders();
-
-        trianglePowerAction = InputSystem.actions.FindAction("TrianglePower");
-        squarePowerAction = InputSystem.actions.FindAction("SquarePower");
-        circlePowerAction = InputSystem.actions.FindAction("CirclePower");
+        UpdateBoxColliders();
+        InitializeInputActions();
     }
 
-    void Update() 
+    private void Update() 
     {
-        bool isActionPressed = trianglePowerAction.WasPressedThisFrame() || squarePowerAction.WasPressedThisFrame() || circlePowerAction.WasPressedThisFrame();
-        if(playerController != null && isActionPressed && !isTraveling)
+        HandleTravelInput();
+    }
+
+    private void InitializeInputActions()
+    {
+        var inputActions = InputSystem.actions;
+        trianglePowerAction = inputActions.FindAction("TrianglePower");
+        squarePowerAction = inputActions.FindAction("SquarePower");
+        circlePowerAction = inputActions.FindAction("CirclePower");
+    }
+
+    private void HandleTravelInput()
+    {
+        if (playerController == null || isTraveling) return;
+
+        if (trianglePowerAction.WasPressedThisFrame() || squarePowerAction.WasPressedThisFrame() || circlePowerAction.WasPressedThisFrame())
         {
-            float dist1 = Math.Abs((playerController.transform.position - firstTravelPoint).x);
-            float dist2 = Math.Abs((playerController.transform.position - secondTravelWorldPoint).x);
-            StartCoroutine(TravelTransition(playerController, dist1 < dist2 ? secondTravelWorldPoint : firstTravelPoint));
+            var playerPosition = playerController.transform.position;
+            var closestPoint = GetTravelPoint(playerPosition);
+            StartCoroutine(TravelTransition(playerController, closestPoint));
         }
     }
 
-    private void CheckCollidersNumber()
+    private Vector3 GetTravelPoint(Vector3 playerPosition)
     {
-        if(box2DColliders.Length < 2) 
+        float distanceToFirst = Vector3.Distance(playerPosition, firstTravelPoint);
+        float distanceToSecond = Vector3.Distance(playerPosition, secondTravelWorldPoint);
+        return distanceToFirst < distanceToSecond ? secondTravelWorldPoint : firstTravelPoint;
+    }
+
+
+    private void EnsureRequiredBoxColliders()
+    {
+        while (box2DColliders.Length < 2) 
         {
-            for (int i = box2DColliders.Length; i < 2; i++)
-            {
-                gameObject.AddComponent<BoxCollider2D>();
-            }
+            gameObject.AddComponent<BoxCollider2D>();
         } 
-        else 
+
+        while(box2DColliders.Length > 2) 
         {
-            for (int i = box2DColliders.Length - 1; i > 1; i--)
-            {
-                Destroy(box2DColliders[i]);
-            }
+            Destroy(box2DColliders[box2DColliders.Length - 1]);
         }
     }
 
-    private void SetBoxColliders()
+    private void UpdateBoxColliders()
     {
+        if (box2DColliders.Length < 2) return;
+
         box2DColliders[0].offset = Vector2.zero;
         box2DColliders[1].offset = secondTravelPoint;
-        foreach(BoxCollider2D box in box2DColliders)
+
+        foreach (var collider in box2DColliders)
         {
-            box.isTrigger = true;
+            collider.isTrigger = true;
         }
     }
     public IEnumerator TravelTransition(Player2DController player, Vector3 targetPosition)
     {
         isTraveling = true;
         player.gameObject.SetActive(false);
+
         GameObject model3D = Instantiate(player3DModel, player.transform.position, Quaternion.identity);
-        model3D.transform.localScale = new  Vector3(0.5f,0.5f,0.5f);
+        model3D.transform.localScale = Vector3.one * 0.5f;
         model3D.transform.LookAt(targetPosition);
         virtualCamera.Follow = model3D.transform;
 
@@ -102,8 +116,10 @@ public class DimensionTransition : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(transform.position, 0.15f);
+
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(secondTravelWorldPoint, 0.15f);
+
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position,secondTravelWorldPoint);
     }
@@ -125,7 +141,7 @@ public class DimensionTransition : MonoBehaviour
 
     public void OnValidate()
     {
-        SetBoxColliders();
+        UpdateBoxColliders();
     }
 
 }
