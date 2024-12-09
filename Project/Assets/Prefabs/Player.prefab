@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1767910178151767957}
-  - component: {fileID: 1857519769555752223}
+  - component: {fileID: 1765731316314090775}
   - component: {fileID: 285264918639432098}
   - component: {fileID: 6560087033564703386}
   - component: {fileID: 6606604844634264972}
@@ -42,7 +42,7 @@ Transform:
   - {fileID: 2036454028420129739}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1857519769555752223
+--- !u!114 &1765731316314090775
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -51,53 +51,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1236071349304804809}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b417c01af226eed4b8083e43ca49fcd1, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d8cf4eb710cb1e4b88ea3e244f2ac50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 7
-  maxCircleVelocity: 10
-  acceleration: 20
-  deacceleration: 10
-  circleDeacceleration: 2
-  jumpVelocity: 11
-  triangleJumpVelocity: 11
-  trianglePowerVelocity: 9
-  squarePowerVelocity: 15
-  circlePowerVelocity: 20
-  gravity: 20
-  triangleGravity: 15
-  powerDuration: 0.3
-  staggerDuration: 0.5
-  staggerVelocity: 5
-  invulnerabilityTime: 3
-  startingFallDamageDistance: 10
-  intervalFallDamageDistance: 6
-  circlePowerColor: {r: 0.9339623, g: 0.41852084, b: 0.42893386, a: 1}
-  squarePowerColor: {r: 0.9245283, g: 0.42301533, b: 0.6575538, a: 1}
-  trianglePowerColor: {r: 0.31038624, g: 0.7075472, b: 0.48513708, a: 1}
-  circleSprite: {fileID: -2127438510, guid: aca21eef57ce4794f978a63bd8428427, type: 3}
-  squareSprite: {fileID: -241852358, guid: aca21eef57ce4794f978a63bd8428427, type: 3}
-  triangleSprite: {fileID: -1312105810, guid: aca21eef57ce4794f978a63bd8428427, type: 3}
+  avatarRigidbody2D: {fileID: 285264918639432098}
+  spriteAnimator: {fileID: 3014582218926206383}
   groundTrigger: {fileID: 6330523030317470590}
-  topTrigger: {fileID: 6438164688059498295}
-  leftTrigger: {fileID: 2264470363599488113}
-  rightTrigger: {fileID: 7298546434045326552}
-  animator: {fileID: 3014582218926206383}
-  playerSpriteRender: {fileID: 2420910708975536949}
-  virtualCamera: {fileID: 0}
-  walkSound: {fileID: 8300000, guid: 2690a0b30176767b3a2077dddb1cec93, type: 3}
-  switchPowerSound: {fileID: 8300000, guid: 019c5dbfd085c34bda6c27d7e1fbc4d9, type: 3}
-  circlePowerSound: {fileID: 8300000, guid: b7ef06661c70bcd8485669ad63317b21, type: 3}
-  squarePowerSound: {fileID: 8300000, guid: ee87488c3cdae2e958154857424a8cd8, type: 3}
-  trianglePowerSound: {fileID: 8300000, guid: f5e249d8a02930ce78d0f4dfac207b31, type: 3}
-  damageSound: {fileID: 8300000, guid: ffe94e2545c273edbab443bb956b8b4f, type: 3}
-  breakSound: {fileID: 8300000, guid: 75dddd284d41fe5e1927f9cf56914adc, type: 3}
-  pipeSound: {fileID: 8300000, guid: 5303d7f32166e1fc38f6eba4c4594b1e, type: 3}
-  collectSound: {fileID: 8300000, guid: d34a5437b905566a699b4bfc5bd20356, type: 3}
-  jumpSound: {fileID: 8300000, guid: 3e25ff1acbbbb2c329f452b322617a6d, type: 3}
-  helmetRenderer: {fileID: 4533460467198538667}
-  circleWhileTubeSprite: {fileID: 545450208, guid: 9fb30c8981e42d3438321e08e18ad491, type: 3}
-  squarePowerSprite: {fileID: -979016618, guid: 9fb30c8981e42d3438321e08e18ad491, type: 3}
+  movementValues: {fileID: 11400000, guid: c65272a994cec7551933f096bf6b3a5f, type: 2}
 --- !u!50 &285264918639432098
 Rigidbody2D:
   serializedVersion: 4
@@ -414,6 +374,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95fbfa18a15957c6986d7b5595b8d2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnTriggerEnter2DAction:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerStay2DAction:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerExit2DAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5398377200039917567
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,6 +580,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95fbfa18a15957c6986d7b5595b8d2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnTriggerEnter2DAction:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerStay2DAction:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerExit2DAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7692272950507168486
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,6 +679,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95fbfa18a15957c6986d7b5595b8d2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnTriggerEnter2DAction:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerStay2DAction:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerExit2DAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7990249695492964847
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,6 +778,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95fbfa18a15957c6986d7b5595b8d2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnTriggerEnter2DAction:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerStay2DAction:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerExit2DAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8574966060637271533
 GameObject:
   m_ObjectHideFlags: 0
