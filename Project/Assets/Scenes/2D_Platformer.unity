@@ -6117,7 +6117,7 @@ Transform:
   m_GameObject: {fileID: 1540473789}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.63, y: 1.27, z: 0}
+  m_LocalPosition: {x: 8.8, y: 1.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6155,7 +6155,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 7.01, y: 2.3}
+  m_Offset: {x: 6.92, y: 2.24}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -6225,8 +6225,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed063e02a0ebf14f921358614d74fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondTravelPoint: {x: 7.01, y: 2.3}
   player3DModel: {fileID: 919132149155446097, guid: d529cbe309fc3e541a63a15694cf4ece, type: 3}
+  targetPoint: {x: 6.92, y: 2.24}
+  startCurvePoint: {x: 2.55, y: 0, z: -3.58}
+  endCurvePoint: {x: 7.81, y: 1.48, z: -2.87}
+  transitionTime: 1
 --- !u!1 &1576374819
 GameObject:
   m_ObjectHideFlags: 0
