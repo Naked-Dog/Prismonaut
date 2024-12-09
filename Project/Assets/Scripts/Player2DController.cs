@@ -73,6 +73,7 @@ public class Player2DController : MonoBehaviour
     public static event Action<FormState, int> OnLifesChangedEvent;
     public static event Action<int> OnPrismsChangedEvent;
 
+
     private bool _isMoving = false;
     private bool isMoving
     {
