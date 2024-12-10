@@ -22,12 +22,10 @@ namespace PlayerSystem
             {
                 rb2d.velocity = new Vector2(0, -10f);
                 eventBus.Publish(new UseSquarePowerEvent(true));
-                Debug.Log("Square Power On");
             }
             else
             {
                 eventBus.Publish(new UseSquarePowerEvent(false));
-                Debug.Log("Square Power Off");
             }
 
             isPowerActive = toggle;

@@ -4,6 +4,7 @@ namespace PlayerSystem
     public struct UpdateEvent { }
     public struct FixedUpdateEvent { }
 
+
     // Input Events
     public struct HorizontalInputEvent
     {
@@ -19,6 +20,7 @@ namespace PlayerSystem
     public struct TrianglePowerInputEvent { }
     public struct CirclePowerInputEvent { }
 
+
     // Movement Events
     public struct HorizontalMovementEvent
     {
@@ -28,6 +30,7 @@ namespace PlayerSystem
     public struct JumpMovementEvent { }
     public struct UngroundedMovementEvent { }
     public struct GroundedMovementEvent { }
+
 
     // Power Events
     public struct UseSquarePowerEvent
