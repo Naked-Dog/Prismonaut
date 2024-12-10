@@ -11,7 +11,11 @@ namespace PlayerSystem
         public HorizontalInputEvent(float amount) { this.amount = amount; }
     }
     public struct JumpInputEvent { }
-    public struct SquarePowerInputEvent { }
+    public struct SquarePowerInputEvent
+    {
+        public bool toggle;
+        public SquarePowerInputEvent(bool toggle) { this.toggle = toggle; }
+    }
     public struct TrianglePowerInputEvent { }
     public struct CirclePowerInputEvent { }
 
@@ -26,7 +30,11 @@ namespace PlayerSystem
     public struct GroundedMovementEvent { }
 
     // Power Events
-    public struct UseSquarePowerEvent { }
+    public struct UseSquarePowerEvent
+    {
+        public bool toggle;
+        public UseSquarePowerEvent(bool toggle) { this.toggle = toggle; }
+    }
     public struct UseTrianglePowerEvent { }
     public struct UseCirclePowerEvent { }
 }

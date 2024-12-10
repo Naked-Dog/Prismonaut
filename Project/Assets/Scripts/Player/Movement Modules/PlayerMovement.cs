@@ -4,6 +4,8 @@ namespace PlayerSystem
     {
         protected EventBus eventBus;
         protected PlayerMovementScriptable movementValues;
+        protected bool isMovementBlocked = false;
+        protected bool isJumpingBlocked = false;
 
         protected PlayerMovement(EventBus eventBus, PlayerMovementScriptable movementValues)
         {

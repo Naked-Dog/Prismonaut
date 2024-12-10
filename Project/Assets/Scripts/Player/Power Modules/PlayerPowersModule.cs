@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace PlayerSystem
 {
     public class PlayerPowersModule
@@ -7,10 +9,14 @@ namespace PlayerSystem
         private TrianglePowerModule trianglePower;
         private CirclePowerModule circlePower;
 
-        public PlayerPowersModule(EventBus eventBus)
+        private bool isSquarePowerAvailable = true;
+        private bool isTrianglePowerAvailable = true;
+        private bool isCirclePowerAvailable = true;
+
+        public PlayerPowersModule(EventBus eventBus, Rigidbody2D rb2d)
         {
             this.eventBus = eventBus;
-            squarePower = new SquarePowerModule(eventBus);
+            squarePower = new SquarePowerModule(eventBus, rb2d);
             trianglePower = new TrianglePowerModule(eventBus);
             circlePower = new CirclePowerModule(eventBus);
 
@@ -21,17 +27,17 @@ namespace PlayerSystem
 
         private void UseSquarePower(SquarePowerInputEvent e)
         {
-            eventBus.Publish(new UseSquarePowerEvent());
+            if (isSquarePowerAvailable) squarePower.togglePower(e.toggle);
         }
 
         private void UseTrianglePower(TrianglePowerInputEvent e)
         {
-            eventBus.Publish(new UseTrianglePowerEvent());
+            if (isTrianglePowerAvailable) eventBus.Publish(new UseTrianglePowerEvent());
         }
 
         private void UseCirclePower(CirclePowerInputEvent e)
         {
-            eventBus.Publish(new UseCirclePowerEvent());
+            if (isCirclePowerAvailable) eventBus.Publish(new UseCirclePowerEvent());
         }
     }
 }

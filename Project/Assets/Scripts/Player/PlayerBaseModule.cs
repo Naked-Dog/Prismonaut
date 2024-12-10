@@ -24,8 +24,8 @@ namespace PlayerSystem
 
             inputModule = new HardKeyboardInput(eventBus);
             movementModule = new Tight2DMovement(eventBus, movementValues, this, state, avatarRigidbody2D, groundTrigger);
-            visualsModule = new Sprite2DAnimatorVisuals(eventBus, state, spriteAnimator);
-            powersModule = new PlayerPowersModule(eventBus);
+            visualsModule = new Sprite2DAnimatorVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator);
+            powersModule = new PlayerPowersModule(eventBus, avatarRigidbody2D);
         }
 
         protected void Update()
