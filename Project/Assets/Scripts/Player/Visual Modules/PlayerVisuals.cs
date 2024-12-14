@@ -18,7 +18,9 @@ namespace PlayerSystem
             this.animator = animator;
 
             eventBus.Subscribe<UpdateEvent>(updateAnimatorParameters);
-            eventBus.Subscribe<UseSquarePowerEvent>(onSquarePowerToggle);
+            eventBus.Subscribe<ToggleSquarePowerEvent>(toggleSquarePower);
+            eventBus.Subscribe<ToggleTrianglePowerEvent>(toggleTrianglePower);
+            eventBus.Subscribe<ToggleCirclePowerEvent>(toggleCirclePower);
         }
 
         private void updateAnimatorParameters(UpdateEvent e)
@@ -30,9 +32,19 @@ namespace PlayerSystem
             animator.SetBool("isGrounded", isGrounded);
         }
 
-        private void onSquarePowerToggle(UseSquarePowerEvent e)
+        private void toggleSquarePower(ToggleSquarePowerEvent e)
         {
             animator.SetBool("isUsingSquarePower", e.toggle);
+        }
+
+        private void toggleTrianglePower(ToggleTrianglePowerEvent e)
+        {
+            animator.SetBool("isUsingTrianglePower", e.toggle);
+        }
+
+        private void toggleCirclePower(ToggleCirclePowerEvent e)
+        {
+            animator.SetBool("isUsingCirclePower", e.toggle);
         }
     }
 }

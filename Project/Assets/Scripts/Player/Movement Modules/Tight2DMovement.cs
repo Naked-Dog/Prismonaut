@@ -9,9 +9,8 @@ namespace PlayerSystem
 
         private PlayerState playerState;
 
-        public Tight2DMovement(EventBus eventBus, PlayerMovementScriptable movementValues, MonoBehaviour mb, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler groundTrigger) : base(eventBus, movementValues)
+        public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger) : base(eventBus, movementValues)
         {
-            this.mb = mb;
             this.playerState = playerState;
             this.rb2d = rb2d;
             SetGroundCallbacks(groundTrigger);
@@ -19,7 +18,7 @@ namespace PlayerSystem
             eventBus.Subscribe<HorizontalInputEvent>(MoveHorizontally);
             eventBus.Subscribe<JumpInputEvent>(Jump);
             eventBus.Subscribe<UpdateEvent>(UpdateGravity);
-            eventBus.Subscribe<UseSquarePowerEvent>(onSquarePowerToggle);
+            eventBus.Subscribe<ToggleSquarePowerEvent>(onSquarePowerToggle);
         }
 
         public override void Jump(JumpInputEvent input)
@@ -66,7 +65,12 @@ namespace PlayerSystem
             rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y - movementValues.gravity * Time.deltaTime);
         }
 
-        private void onSquarePowerToggle(UseSquarePowerEvent e)
+        private void onSquarePowerToggle(ToggleSquarePowerEvent e)
+        {
+            isMovementBlocked = isJumpingBlocked = e.toggle;
+        }
+
+        private void onCirclePowerToggle(ToggleCirclePowerEvent e)
         {
             isMovementBlocked = isJumpingBlocked = e.toggle;
         }

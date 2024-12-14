@@ -1,5 +1,40 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &735407679744654946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3698157737393529556}
+  m_Layer: 0
+  m_Name: Power Triggers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3698157737393529556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735407679744654946}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 436796778933603075}
+  - {fileID: 5197019577935902593}
+  - {fileID: 2036454028420129739}
+  - {fileID: 168356462862043191}
+  m_Father: {fileID: 1767910178151767957}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1236071349304804809
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +46,6 @@ GameObject:
   - component: {fileID: 1767910178151767957}
   - component: {fileID: 2576048620030230097}
   - component: {fileID: 285264918639432098}
-  - component: {fileID: 6560087033564703386}
   - component: {fileID: 6606604844634264972}
   - component: {fileID: 6642275358410668762}
   - component: {fileID: 5500301668130077949}
@@ -37,9 +71,7 @@ Transform:
   m_Children:
   - {fileID: 3435264702214863053}
   - {fileID: 4316748013917873663}
-  - {fileID: 436796778933603075}
-  - {fileID: 5197019577935902593}
-  - {fileID: 2036454028420129739}
+  - {fileID: 3698157737393529556}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2576048620030230097
@@ -57,6 +89,10 @@ MonoBehaviour:
   avatarRigidbody2D: {fileID: 285264918639432098}
   spriteAnimator: {fileID: 3014582218926206383}
   groundTrigger: {fileID: 6330523030317470590}
+  leftTrigger: {fileID: 2264470363599488113}
+  rightTrigger: {fileID: 7298546434045326552}
+  upTrigger: {fileID: 6438164688059498295}
+  downTrigger: {fileID: 7838880276084729994}
   movementValues: {fileID: 11400000, guid: c65272a994cec7551933f096bf6b3a5f, type: 2}
 --- !u!50 &285264918639432098
 Rigidbody2D:
@@ -85,41 +121,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!58 &6560087033564703386
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1236071349304804809}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: c454553def854474193a2d83bd550ac0, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!61 &6606604844634264972
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -152,7 +153,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.047136158}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -163,7 +164,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6, y: 0.9}
+  m_Size: {x: 0.6, y: 0.80572766}
   m_EdgeRadius: 0.05
 --- !u!114 &6642275358410668762
 MonoBehaviour:
@@ -284,6 +285,96 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &2338365986527800756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 168356462862043191}
+  - component: {fileID: 2313988862958341350}
+  - component: {fileID: 7838880276084729994}
+  m_Layer: 0
+  m_Name: Down Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &168356462862043191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2338365986527800756}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.667, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3698157737393529556}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2313988862958341350
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2338365986527800756}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: c454553def854474193a2d83bd550ac0, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 0.3}
+  m_EdgeRadius: 0
+--- !u!114 &7838880276084729994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2338365986527800756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95fbfa18a15957c6986d7b5595b8d2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2768277519126438984
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,15 +465,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95fbfa18a15957c6986d7b5595b8d2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnTriggerEnter2DAction:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTriggerStay2DAction:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTriggerExit2DAction:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &5398377200039917567
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,7 +584,7 @@ GameObject:
   - component: {fileID: 9075962189341326616}
   - component: {fileID: 6438164688059498295}
   m_Layer: 0
-  m_Name: Top Trigger
+  m_Name: Up Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -516,12 +598,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5828510411990590162}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.55, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.54999995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1767910178151767957}
+  m_Father: {fileID: 3698157737393529556}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &9075962189341326616
 BoxCollider2D:
@@ -580,15 +662,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95fbfa18a15957c6986d7b5595b8d2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnTriggerEnter2DAction:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTriggerStay2DAction:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTriggerExit2DAction:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &7692272950507168486
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,12 +688,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7692272950507168486}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1767910178151767957}
+  m_Father: {fileID: 3698157737393529556}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &5115389987811527292
 BoxCollider2D:
@@ -679,15 +752,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95fbfa18a15957c6986d7b5595b8d2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnTriggerEnter2DAction:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTriggerStay2DAction:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTriggerExit2DAction:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &7990249695492964847
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,12 +778,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7990249695492964847}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1767910178151767957}
+  m_Father: {fileID: 3698157737393529556}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2271466197575541534
 BoxCollider2D:
@@ -778,15 +842,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95fbfa18a15957c6986d7b5595b8d2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnTriggerEnter2DAction:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTriggerStay2DAction:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTriggerExit2DAction:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &8574966060637271533
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -7,10 +8,15 @@ namespace PlayerSystem
         [SerializeField] private Rigidbody2D avatarRigidbody2D;
         [SerializeField] private Animator spriteAnimator;
         [SerializeField] private TriggerEventHandler groundTrigger;
+        [SerializeField] private TriggerEventHandler leftTrigger;
+        [SerializeField] private TriggerEventHandler rightTrigger;
+        [SerializeField] private TriggerEventHandler upTrigger;
+        [SerializeField] private TriggerEventHandler downTrigger;
         [SerializeField] private PlayerMovementScriptable movementValues;
 
         private PlayerState state;
         private EventBus eventBus;
+        private Dictionary<Direction, TriggerEventHandler> triggers;
 
         private PlayerInput inputModule;
         private PlayerMovement movementModule;
@@ -22,10 +28,17 @@ namespace PlayerSystem
             state = new PlayerState();
             eventBus = new EventBus();
 
+            triggers = new Dictionary<Direction, TriggerEventHandler>() {
+                {Direction.Up, upTrigger},
+                {Direction.Down, downTrigger},
+                {Direction.Left, leftTrigger},
+                {Direction.Right, rightTrigger}
+            };
+
             inputModule = new HardKeyboardInput(eventBus);
-            movementModule = new Tight2DMovement(eventBus, movementValues, this, state, avatarRigidbody2D, groundTrigger);
+            movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger);
             visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator);
-            powersModule = new PlayerPowersModule(eventBus, avatarRigidbody2D);
+            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers);
         }
 
         protected void Update()

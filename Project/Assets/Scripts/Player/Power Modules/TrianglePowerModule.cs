@@ -6,13 +6,13 @@ namespace PlayerSystem
     {
         private EventBus eventBus;
 
-        public TrianglePowerModule(EventBus eventBus)
+        public TrianglePowerModule(EventBus eventBus, TriggerEventHandler upTrigger)
         {
             this.eventBus = eventBus;
-            eventBus.Subscribe<UseTrianglePowerEvent>(usePower);
+            eventBus.Subscribe<ToggleTrianglePowerEvent>(usePower);
         }
 
-        private void usePower(UseTrianglePowerEvent e)
+        private void usePower(ToggleTrianglePowerEvent e)
         {
             Debug.Log("Triangle Power");
         }

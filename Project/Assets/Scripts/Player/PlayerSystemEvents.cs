@@ -33,11 +33,19 @@ namespace PlayerSystem
 
 
     // Power Events
-    public struct UseSquarePowerEvent
+    public struct ToggleSquarePowerEvent
     {
         public bool toggle;
-        public UseSquarePowerEvent(bool toggle) { this.toggle = toggle; }
+        public ToggleSquarePowerEvent(bool toggle) { this.toggle = toggle; }
     }
-    public struct UseTrianglePowerEvent { }
-    public struct UseCirclePowerEvent { }
+    public struct ToggleTrianglePowerEvent
+    {
+        public bool toggle;
+        public ToggleTrianglePowerEvent(bool toggle) { this.toggle = toggle; }
+    }
+    public struct ToggleCirclePowerEvent
+    {
+        public bool toggle;
+        public ToggleCirclePowerEvent(bool toggle) { this.toggle = toggle; }
+    }
 }

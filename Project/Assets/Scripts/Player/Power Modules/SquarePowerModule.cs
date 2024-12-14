@@ -6,9 +6,8 @@ namespace PlayerSystem
     {
         private EventBus eventBus;
         private Rigidbody2D rb2d;
-        private bool isPowerActive = false;
 
-        public SquarePowerModule(EventBus eventBus, Rigidbody2D rb2d)
+        public SquarePowerModule(EventBus eventBus, Rigidbody2D rb2d, TriggerEventHandler groundTrigger)
         {
             this.eventBus = eventBus;
             this.rb2d = rb2d;
@@ -16,19 +15,9 @@ namespace PlayerSystem
 
         public void togglePower(bool toggle)
         {
-            if (isPowerActive == toggle) return;
 
-            if (toggle)
-            {
-                rb2d.velocity = new Vector2(0, -10f);
-                eventBus.Publish(new UseSquarePowerEvent(true));
-            }
-            else
-            {
-                eventBus.Publish(new UseSquarePowerEvent(false));
-            }
-
-            isPowerActive = toggle;
+            if (toggle) rb2d.velocity = new Vector2(0, -10f);
+            eventBus.Publish(new ToggleSquarePowerEvent(toggle));
         }
     }
 }
