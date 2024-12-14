@@ -46,6 +46,7 @@ namespace PlayerSystem
     public struct ToggleCirclePowerEvent
     {
         public bool toggle;
-        public ToggleCirclePowerEvent(bool toggle) { this.toggle = toggle; }
+        public Direction direction;
+        public ToggleCirclePowerEvent(bool toggle, Direction direction) { this.toggle = toggle; this.direction = direction; }
     }
 }

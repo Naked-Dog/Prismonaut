@@ -3,9 +3,9 @@ using UnityEngine.Events;
 
 public class TriggerEventHandler : MonoBehaviour
 {
-    [System.NonSerialized] public UnityEvent<Collider2D> OnTriggerEnter2DAction;
-    [System.NonSerialized] public UnityEvent<Collider2D> OnTriggerStay2DAction;
-    [System.NonSerialized] public UnityEvent<Collider2D> OnTriggerExit2DAction;
+    [System.NonSerialized] public UnityEvent<Collider2D> OnTriggerEnter2DAction = new UnityEvent<Collider2D>();
+    [System.NonSerialized] public UnityEvent<Collider2D> OnTriggerStay2DAction = new UnityEvent<Collider2D>();
+    [System.NonSerialized] public UnityEvent<Collider2D> OnTriggerExit2DAction = new UnityEvent<Collider2D>();
 
 
     void OnTriggerStay2D(Collider2D other)

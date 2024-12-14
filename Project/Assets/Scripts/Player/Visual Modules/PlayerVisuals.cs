@@ -17,17 +17,19 @@ namespace PlayerSystem
             this.rb2d = rb2d;
             this.animator = animator;
 
-            eventBus.Subscribe<UpdateEvent>(updateAnimatorParameters);
+            eventBus.Subscribe<UpdateEvent>(updateVisuals);
             eventBus.Subscribe<ToggleSquarePowerEvent>(toggleSquarePower);
             eventBus.Subscribe<ToggleTrianglePowerEvent>(toggleTrianglePower);
             eventBus.Subscribe<ToggleCirclePowerEvent>(toggleCirclePower);
         }
 
-        private void updateAnimatorParameters(UpdateEvent e)
+        private void updateVisuals(UpdateEvent e)
         {
             bool isMoving = Mathf.Abs(rb2d.velocity.x) > 0.1f;
             bool isGrounded = playerState.groundState == GroundState.Grounded;
-            if (isMoving) animator.gameObject.transform.localScale = new Vector3(Mathf.Sign(rb2d.velocity.x), 1, 1);
+            int facingHorizontalScale = Math.Sign(rb2d.velocity.x);
+            if (isMoving) animator.gameObject.transform.localScale = new Vector3(facingHorizontalScale, 1, 1);
+            if (isMoving) playerState.facingDirection = facingHorizontalScale > 0 ? Direction.Right : Direction.Left;
             animator.SetBool("isMoving", isMoving);
             animator.SetBool("isGrounded", isGrounded);
         }

@@ -19,13 +19,14 @@ namespace PlayerSystem
             eventBus.Subscribe<JumpInputEvent>(Jump);
             eventBus.Subscribe<UpdateEvent>(UpdateGravity);
             eventBus.Subscribe<ToggleSquarePowerEvent>(onSquarePowerToggle);
+            eventBus.Subscribe<ToggleCirclePowerEvent>(onCirclePowerToggle);
         }
 
         public override void Jump(JumpInputEvent input)
         {
             if (playerState.groundState != GroundState.Grounded) return;
             if (playerState.healthState == HealthState.Stagger) return;
-            if (isJumpingBlocked) return;
+            if (isJumpingDisabled) return;
             rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpVelocity);
             playerState.groundState = GroundState.Airborne;
             eventBus.Publish(new JumpMovementEvent());
@@ -34,7 +35,7 @@ namespace PlayerSystem
         public override void MoveHorizontally(HorizontalInputEvent input)
         {
             if (playerState.healthState == HealthState.Stagger) return;
-            if (isMovementBlocked) return;
+            if (isMovementDisabled) return;
             rb2d.velocity = new Vector2(input.amount * movementValues.horizontalVelocity, rb2d.velocity.y);
             eventBus.Publish(new HorizontalMovementEvent(input.amount));
         }
@@ -62,17 +63,18 @@ namespace PlayerSystem
 
         public override void UpdateGravity(UpdateEvent e)
         {
+            if (isGravityDisabled) return;
             rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y - movementValues.gravity * Time.deltaTime);
         }
 
         private void onSquarePowerToggle(ToggleSquarePowerEvent e)
         {
-            isMovementBlocked = isJumpingBlocked = e.toggle;
+            isMovementDisabled = isJumpingDisabled = isGravityDisabled = e.toggle;
         }
 
         private void onCirclePowerToggle(ToggleCirclePowerEvent e)
         {
-            isMovementBlocked = isJumpingBlocked = e.toggle;
+            isMovementDisabled = isJumpingDisabled = isGravityDisabled = e.toggle;
         }
     }
 }

@@ -11,13 +11,15 @@ namespace PlayerSystem
         {
             this.eventBus = eventBus;
             this.rb2d = rb2d;
+
+            eventBus.Subscribe<SquarePowerInputEvent>(togglePower);
         }
 
-        public void togglePower(bool toggle)
+        public void togglePower(SquarePowerInputEvent e)
         {
 
-            if (toggle) rb2d.velocity = new Vector2(0, -10f);
-            eventBus.Publish(new ToggleSquarePowerEvent(toggle));
+            if (e.toggle) rb2d.velocity = new Vector2(0, -10f);
+            eventBus.Publish(new ToggleSquarePowerEvent(e.toggle));
         }
     }
 }

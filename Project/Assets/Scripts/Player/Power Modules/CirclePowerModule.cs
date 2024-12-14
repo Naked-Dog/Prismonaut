@@ -5,19 +5,23 @@ namespace PlayerSystem
     public class CirclePowerModule
     {
         private EventBus eventBus;
+        private PlayerState playerState;
         private Rigidbody2D rb2d;
 
-        public CirclePowerModule(EventBus eventBus, Rigidbody2D rb2d, TriggerEventHandler leftTrigger, TriggerEventHandler rightTrigger)
+        public CirclePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler leftTrigger, TriggerEventHandler rightTrigger)
         {
             this.eventBus = eventBus;
+            this.playerState = playerState;
             this.rb2d = rb2d;
-            eventBus.Subscribe<ToggleCirclePowerEvent>(togglePower);
+
+            eventBus.Subscribe<CirclePowerInputEvent>(togglePower);
         }
 
-        private void togglePower(ToggleCirclePowerEvent e)
+        private void togglePower(CirclePowerInputEvent e)
         {
-            rb2d.velocity = new Vector2(0, -10f);
-            eventBus.Publish(new ToggleSquarePowerEvent(true));
+            int facingDirectionInt = playerState.facingDirection == Direction.Right ? 1 : -1;
+            rb2d.velocity = new Vector2(10f * facingDirectionInt, 0f);
+            eventBus.Publish(new ToggleCirclePowerEvent(true, playerState.facingDirection));
         }
     }
 }
