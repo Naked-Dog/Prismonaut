@@ -103,7 +103,7 @@ public class Player2DController : MonoBehaviour
             }
             _isFalling = value;
         }
-    } */
+    } 
     private bool _isGrounded;
     private bool isGrounded
     {
@@ -116,7 +116,7 @@ public class Player2DController : MonoBehaviour
             //if (value) isFalling = false;
         }
     }
-
+*/
     private bool _isUsingSquarePower;
     private bool _isUsingCirclePower;
     private bool _isUsingTrianglePower;
@@ -213,31 +213,31 @@ public class Player2DController : MonoBehaviour
                 playerSpriteRender.color = Color.white;
             }
 
-            if (other.gameObject.tag == "Ground" || other.gameObject.tag == "Platform" || other.gameObject.tag == "Breakable")
+            if (other.gameObject.CompareTag("Platform"))
             {
-                if (other.gameObject.tag == "Platform")
-                {
-                    rb2d.interpolation = RigidbodyInterpolation2D.None;
-                    if (other.gameObject.GetComponent<IPlatform>() != null)
-                    {
-                        other.gameObject.GetComponent<IPlatform>().PlatformAction();
-                    }
-                    transform.parent = other.gameObject.transform;
-                }
+                rb2d.interpolation = RigidbodyInterpolation2D.None;
+                Debug.Log("PlatformAction");
+                other.gameObject.GetComponent<IPlatform>()?.PlatformAction();
+                transform.parent = other.gameObject.transform;
+            }
+
+            if (other.gameObject.tag == "Ground" || other.gameObject.tag == "Breakable")
+            {
+
 
                 //isGrounded = true;
-                float fallDistance = fallHeight - transform.position.y;
+                /* float fallDistance = fallHeight - transform.position.y;
                 if (!isInvulnerable && form != FormState.Square && fallDistance > startingFallDamageDistance)
                 {
                     reduceLife(1 + (int)Math.Floor((fallDistance - startingFallDamageDistance) / intervalFallDamageDistance));
                     if (!isDead) StartCoroutine(staggerPlayer(Vector2.up));
-                }
+                } */
                 lastPowerUsed = FormState.Undefined;
             }
         };
         groundTrigger.OnTriggerExit2DEvent += (other) =>
         {
-            if (other.gameObject.tag == "Platform")
+            if (other.gameObject.CompareTag("Platform"))
             {
                 rb2d.interpolation = RigidbodyInterpolation2D.Interpolate;
                 transform.parent = null;
@@ -323,7 +323,7 @@ public class Player2DController : MonoBehaviour
         {
             newVerticalVelocity = rb2d.velocity.y - (form == FormState.Triangle ? triangleGravity : gravity) * Time.deltaTime;
 
-            if (jumpAction.IsPressed())
+            if (jumpAction.WasPressedThisFrame())
             {
                 if (IsGrounded())
                 {
