@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour
+public class MovingPlatform : MonoBehaviour, IPlatform
 {
     public Transform pointA;
     public Transform pointB;
@@ -60,5 +60,10 @@ public class MovingPlatform : MonoBehaviour
         {
             collision.gameObject.transform.parent = null;
         }
+    }
+
+    public void PlatformAction()
+    {
+        Debug.Log("In moving platform action");
     }
 }

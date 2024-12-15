@@ -208,8 +208,17 @@ public class Player2DController : MonoBehaviour
                 playerSpriteRender.color = Color.white;
             }
 
-            if (other.gameObject.tag == "Ground" || other.gameObject.tag == "Breakable")
+            if (other.gameObject.tag == "Ground" || other.gameObject.tag == "Platform" || other.gameObject.tag == "Breakable")
             {
+                if (other.gameObject.tag == "Platform")
+                {
+                    if (other.gameObject.GetComponent<IPlatform>() != null)
+                    {
+                        other.gameObject.GetComponent<IPlatform>().PlatformAction();
+                    }
+                    transform.parent = other.gameObject.transform;
+                }
+
                 isGrounded = true;
                 float fallDistance = fallHeight - transform.position.y;
                 if (!isInvulnerable && form != FormState.Square && fallDistance > startingFallDamageDistance)
@@ -222,8 +231,16 @@ public class Player2DController : MonoBehaviour
         };
         groundTrigger.OnTriggerExit2DEvent += (other) =>
         {
+            if (other.gameObject.tag == "Platform")
+            {
+                Debug.Log("On trigger exit platform");
+                transform.parent = null;
+                isGrounded = false;
+            }
+
             if (other.gameObject.tag == "Ground" || other.gameObject.tag == "Breakable")
             {
+                Debug.Log("On trigger exit ground/platform/breakable");
                 isGrounded = false;
             }
         };
