@@ -9,11 +9,7 @@ public class FallingPlatform : MonoBehaviour, IPlatform
     public float destroyWait = 1f;
 
     private Rigidbody2D rigidBody;
-    /* [SerializeField]
-    private GameObject platform; */
-    bool isFalling;
 
-    // Start is called before the first frame update
     void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -21,7 +17,6 @@ public class FallingPlatform : MonoBehaviour, IPlatform
 
     private IEnumerator Fall()
     {
-        isFalling = true;
         yield return new WaitForSeconds(fallWait);
         rigidBody.bodyType = RigidbodyType2D.Dynamic;
         Destroy(gameObject, destroyWait);

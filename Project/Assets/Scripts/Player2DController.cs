@@ -51,6 +51,11 @@ public class Player2DController : MonoBehaviour
     public AudioClip collectSound;
     public AudioClip jumpSound;
 
+    [Header("Ground Check")]
+    public Transform groundCheckPos;
+    public Vector2 groundCheckSize = new Vector2(0.5f, 0.5f);
+    public LayerMask groundLayer;
+
 
     private int[] lifes = new int[3] { GameManager.maxLifes, GameManager.maxLifes, GameManager.maxLifes };
     private int prisms = 0;
@@ -85,7 +90,7 @@ public class Player2DController : MonoBehaviour
         }
     }
 
-    private bool _isFalling = false;
+    /* private bool _isFalling = false;
     private bool isFalling
     {
         get { return _isFalling; }
@@ -98,7 +103,7 @@ public class Player2DController : MonoBehaviour
             }
             _isFalling = value;
         }
-    }
+    } */
     private bool _isGrounded;
     private bool isGrounded
     {
@@ -108,7 +113,7 @@ public class Player2DController : MonoBehaviour
             if (_isGrounded == value) return;
             _isGrounded = value;
             animator.SetBool("isGrounded", value);
-            if (value) isFalling = false;
+            //if (value) isFalling = false;
         }
     }
 
@@ -212,6 +217,7 @@ public class Player2DController : MonoBehaviour
             {
                 if (other.gameObject.tag == "Platform")
                 {
+                    rb2d.interpolation = RigidbodyInterpolation2D.None;
                     if (other.gameObject.GetComponent<IPlatform>() != null)
                     {
                         other.gameObject.GetComponent<IPlatform>().PlatformAction();
@@ -219,7 +225,7 @@ public class Player2DController : MonoBehaviour
                     transform.parent = other.gameObject.transform;
                 }
 
-                isGrounded = true;
+                //isGrounded = true;
                 float fallDistance = fallHeight - transform.position.y;
                 if (!isInvulnerable && form != FormState.Square && fallDistance > startingFallDamageDistance)
                 {
@@ -233,15 +239,14 @@ public class Player2DController : MonoBehaviour
         {
             if (other.gameObject.tag == "Platform")
             {
-                Debug.Log("On trigger exit platform");
+                rb2d.interpolation = RigidbodyInterpolation2D.Interpolate;
                 transform.parent = null;
-                isGrounded = false;
             }
 
             if (other.gameObject.tag == "Ground" || other.gameObject.tag == "Breakable")
             {
                 Debug.Log("On trigger exit ground/platform/breakable");
-                isGrounded = false;
+                //isGrounded = false;
             }
         };
 
@@ -289,7 +294,7 @@ public class Player2DController : MonoBehaviour
 
     private void LateUpdate()
     {
-        isFalling = !isGrounded && rb2d.velocity.y < 0f;
+        //isFalling = !isGrounded && rb2d.velocity.y < 0f;
     }
 
     private void velocityUpdate()
@@ -317,10 +322,15 @@ public class Player2DController : MonoBehaviour
         if (form != FormState.Circle || !isUsingPower)
         {
             newVerticalVelocity = rb2d.velocity.y - (form == FormState.Triangle ? triangleGravity : gravity) * Time.deltaTime;
-            if (jumpAction.IsPressed() && isGrounded)
+
+            if (jumpAction.IsPressed())
             {
-                newVerticalVelocity = form == FormState.Triangle ? triangleJumpVelocity : jumpVelocity;
-                audioSource.PlayOneShot(jumpSound);
+                if (IsGrounded())
+                {
+                    newVerticalVelocity = form == FormState.Triangle ? triangleJumpVelocity : jumpVelocity;
+                    animator.SetBool("isGrounded", false);
+                    audioSource.PlayOneShot(jumpSound);
+                }
             }
         }
 
@@ -379,7 +389,7 @@ public class Player2DController : MonoBehaviour
                 powerColor = circlePowerColor;
                 break;
             case FormState.Square:
-                if (isGrounded) yield break;
+                if (/* isGrounded */IsGrounded()) yield break;
                 rb2d.velocity = new Vector2(rb2d.velocity.x, -squarePowerVelocity);
                 audioSource.PlayOneShot(squarePowerSound);
                 powerColor = squarePowerColor;
@@ -397,7 +407,7 @@ public class Player2DController : MonoBehaviour
         lastPowerUsed = form;
         yield return new WaitForSecondsRealtime(powerDuration);
         isPowerOnCooldown = false;
-        if (isGrounded) lastPowerUsed = FormState.Undefined;
+        if (IsGrounded()) lastPowerUsed = FormState.Undefined;
         if (form != FormState.Square)
         {
             isUsingPower = false;
@@ -511,4 +521,20 @@ public class Player2DController : MonoBehaviour
         pauseAction = InputSystem.actions.FindAction("Pause");
     }
 
+    private bool IsGrounded()
+    {
+        if (Physics2D.OverlapBox(groundCheckPos.position, groundCheckSize, 0, groundLayer))
+        {
+            animator.SetBool("isGrounded", true);
+            Debug.Log("is grounded true");
+            return true;
+        }
+        return false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(groundCheckPos.position, groundCheckSize);
+    }
 }
