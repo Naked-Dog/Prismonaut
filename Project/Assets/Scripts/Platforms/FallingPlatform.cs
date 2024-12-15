@@ -14,6 +14,10 @@ public class FallingPlatform : MonoBehaviour, IPlatform
     private bool isFalling = false;
     private Vector3 startingPosition;
 
+    private PlatformType _platformType = PlatformType.FallingPlatform;
+
+    public PlatformType PlatformType { get => _platformType; set => _platformType = value; }
+
     void Awake()
     {
         startingPosition = transform.position;
@@ -29,16 +33,12 @@ public class FallingPlatform : MonoBehaviour, IPlatform
         spriteRenderer.enabled = false;
         yield return new WaitForSeconds(respawnWait);
         rigidBody.bodyType = RigidbodyType2D.Static;
-        if (gameObject.transform.GetChild(gameObject.transform.childCount - 1).CompareTag("Player"))
-        {
-            gameObject.transform.GetChild(gameObject.transform.childCount - 1).transform.parent = null;
-        }
         transform.position = startingPosition;
         spriteRenderer.enabled = true;
         isFalling = false;
     }
 
-    public void PlatformAction()
+    public void PlatformAction(Player2DController player2DController)
     {
         if (isFalling) return;
         Debug.Log("In falling platform action");

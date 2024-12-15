@@ -13,6 +13,11 @@ public class MovingPlatform : MonoBehaviour, IPlatform
     private int currentPointIndex = 0;
     private int direction = 1;
 
+
+    private PlatformType _platformType = PlatformType.MovingPlatform;
+
+    public PlatformType PlatformType { get => _platformType; set => _platformType = value; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,7 +71,7 @@ public class MovingPlatform : MonoBehaviour, IPlatform
         }
     }
 
-    public void PlatformAction()
+    public void PlatformAction(Player2DController player2DController)
     {
         Debug.Log("In moving platform action");
     }

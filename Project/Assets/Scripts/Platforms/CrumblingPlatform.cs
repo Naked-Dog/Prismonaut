@@ -12,6 +12,9 @@ public class CrumblingPlatform : MonoBehaviour, IPlatform
     private bool isCrumbling = false;
 
     private BoxCollider2D boxCollider;
+    private PlatformType _platformType = PlatformType.CrumblingPlatform;
+
+    public PlatformType PlatformType { get => _platformType; set => _platformType = value; }
 
     void Awake()
     {
@@ -23,10 +26,6 @@ public class CrumblingPlatform : MonoBehaviour, IPlatform
         isCrumbling = true;
         yield return new WaitForSeconds(crumbleWait);
         boxCollider.enabled = false;
-        if (gameObject.transform.GetChild(gameObject.transform.childCount - 1).CompareTag("Player"))
-        {
-            gameObject.transform.GetChild(gameObject.transform.childCount - 1).transform.parent = null;
-        }
         spriteRenderer.enabled = false;
         yield return new WaitForSeconds(respawnWait);
         boxCollider.enabled = true;
@@ -34,10 +33,26 @@ public class CrumblingPlatform : MonoBehaviour, IPlatform
         isCrumbling = false;
     }
 
-    public void PlatformAction()
+    private IEnumerator DestroyPlatform()
+    {
+        boxCollider.enabled = false;
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(respawnWait);
+        boxCollider.enabled = true;
+        spriteRenderer.enabled = true;
+    }
+
+    public void PlatformAction(Player2DController player2DController)
     {
         if (isCrumbling) return;
         Debug.Log("In crumbling platform action");
-        StartCoroutine(Crumble());
+        if (player2DController.form == FormState.Square && player2DController.isUsingPower)
+        {
+            StartCoroutine(DestroyPlatform());
+        }
+        else
+        {
+            StartCoroutine(Crumble());
+        }
     }
 }

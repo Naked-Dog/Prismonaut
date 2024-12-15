@@ -1,4 +1,6 @@
 public interface IPlatform
 {
-    public void PlatformAction();
+    PlatformType PlatformType { get; set; }
+
+    public void PlatformAction(Player2DController player2DController);
 }
