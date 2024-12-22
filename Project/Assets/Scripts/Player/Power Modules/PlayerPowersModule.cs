@@ -11,9 +11,9 @@ namespace PlayerSystem
         private TrianglePowerModule trianglePower;
         private CirclePowerModule circlePower;
 
-        private bool isSquarePowerAvailable = true;
-        private bool isTrianglePowerAvailable = true;
-        private bool isCirclePowerAvailable = true;
+        // private bool isSquarePowerAvailable = true;
+        // private bool isTrianglePowerAvailable = true;
+        // private bool isCirclePowerAvailable = true;
 
         public PlayerPowersModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, Dictionary<Direction, TriggerEventHandler> triggers)
         {
