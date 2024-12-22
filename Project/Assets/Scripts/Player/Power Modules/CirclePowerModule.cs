@@ -28,9 +28,9 @@ namespace PlayerSystem
             int facingDirectionInt = playerState.facingDirection == Direction.Right ? 1 : -1;
             rb2d.velocity = new Vector2(10f * facingDirectionInt, 0f);
             currentPowerTime = 0f;
-            cooldownTimeLeft = 2f;
+            cooldownTimeLeft = 1f;
             eventBus.Subscribe<UpdateEvent>(timeoutPower);
-            // eventBus.Subscribe<UpdateEvent>(reducePowerCooldown);
+            eventBus.Subscribe<UpdateEvent>(reducePowerCooldown);
             eventBus.Publish(new ToggleCirclePowerEvent(true, playerState.facingDirection));
         }
 
@@ -45,9 +45,9 @@ namespace PlayerSystem
 
         private void reducePowerCooldown(UpdateEvent e)
         {
-            // cooldownTimeLeft -= Time.deltaTime;
-            // if (cooldownTimeLeft > 0f) return;
-            // eventBus.Unsubscribe<UpdateEvent>(reducePowerCooldown);
+            cooldownTimeLeft -= Time.deltaTime;
+            if (cooldownTimeLeft > 0f) return;
+            eventBus.Unsubscribe<UpdateEvent>(reducePowerCooldown);
         }
     }
 }
