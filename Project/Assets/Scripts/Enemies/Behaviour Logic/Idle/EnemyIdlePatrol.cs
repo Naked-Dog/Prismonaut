@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Idle-Patrol", menuName = "Enemy Logic/Idle Logic/Patrol")]
 public class EnemyIdlePatrol : EnemyIdleSOBase
 {
-    [SerializeField] private float PatrolovementSpeed = 1f;
+    [SerializeField] private float PatrolMovementSpeed = 1f;
     private Vector3 _direction;
     private Transform PointA;
     private Transform PointB;
@@ -39,16 +39,13 @@ public class EnemyIdlePatrol : EnemyIdleSOBase
             enemy.StateMachine.ChangeState(enemy.FollowState);
         }
         _direction = (_currentTargetPoint.position - enemy.transform.position).normalized;
-        enemy.gameObject.GetComponent<IEnemyMoveable>()?.MoveEnemy(_direction * PatrolovementSpeed);
-        /* if ((enemy.transform.position - _currentTargetPoint.position).sqrMagnitude < 0.0f)
-        {
-            _currentTargetPoint = GetNextPosition();
-        } */
+        enemy.gameObject.GetComponent<IEnemyMoveable>()?.MoveEnemy(_direction * PatrolMovementSpeed);
         if ((enemy.transform.position - _currentTargetPoint.position).sqrMagnitude < 0.05f)
         {
             _currentTargetPoint = GetNextPosition();
         }
     }
+
     public override void DoPhysicsLogic()
     {
         base.DoPhysicsLogic();

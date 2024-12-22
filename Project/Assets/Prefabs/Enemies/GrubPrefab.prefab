@@ -124,6 +124,7 @@ MonoBehaviour:
   EnemyIdleBase: {fileID: 11400000, guid: 5a52b28604c137b43ae5c5b39527967e, type: 2}
   EnemyFollowBase: {fileID: 11400000, guid: 0d2005e81a0cd07469defdf7120a7f09, type: 2}
   EnemyAttackBase: {fileID: 11400000, guid: 990c470ca1bcd774581a09fe2c9e455f, type: 2}
+  EnemyStunBase: {fileID: 11400000, guid: aa2a52338e2de2c409b056441acead0b, type: 2}
   PointA: {fileID: 8885150155005278872}
   PointB: {fileID: 5973913200492754649}
 --- !u!1 &2453238549623615020
@@ -447,7 +448,7 @@ GameObject:
   - component: {fileID: 3429260521456497514}
   m_Layer: 0
   m_Name: GrubPrefab
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

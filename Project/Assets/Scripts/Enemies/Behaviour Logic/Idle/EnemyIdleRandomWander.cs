@@ -33,7 +33,7 @@ public class EnemyIdleRandomWander : EnemyIdleSOBase
             enemy.StateMachine.ChangeState(enemy.FollowState);
         }
         _direction = (_targetPos - enemy.transform.position).normalized;
-        (enemy as Grub).MoveEnemy(_direction * RandomMovementSpeed);
+        enemy.gameObject.GetComponent<IEnemyMoveable>()?.MoveEnemy(_direction * RandomMovementSpeed);
         if ((enemy.transform.position - _targetPos).sqrMagnitude < 0.0f)
         {
             _targetPos = GetRandomPointInCircle();

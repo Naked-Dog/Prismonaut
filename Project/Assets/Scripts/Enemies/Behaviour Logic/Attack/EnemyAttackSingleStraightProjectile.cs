@@ -12,10 +12,6 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
     private float _timer;
     private float _timeBetweenShots = 2f;
 
-    /*     private float _exitTimer;
-        private float _timeTillExit = 3f;
-        private float _distanceToCountExit = 3f; */
-
     public override void DoAnimationATriggerEventLogic(Enemy.AnimationTriggerType triggerType)
     {
         base.DoAnimationATriggerEventLogic(triggerType);
@@ -51,19 +47,6 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
             enemy.StateMachine.ChangeState(enemy.IdleState);
         }
 
-        /* if (Vector2.Distance(playerTransform.position, enemy.transform.position) > _distanceToCountExit)
-        {
-            _exitTimer += Time.deltaTime;
-
-            if (_exitTimer > _timeTillExit)
-            {
-                enemy.StateMachine.ChangeState(enemy.FollowState);
-            }
-        }
-        else
-        {
-            _exitTimer = 0f;
-        } */
         _timer += Time.deltaTime;
     }
 
@@ -75,7 +58,7 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
     private async void DestroyProjectileAfterDelay(GameObject projectile)
     {
         await Task.Delay((int)(3.0f * 1000));
-        Destroy(projectile);
+        DestroyImmediate(projectile);
     }
 
     public override void Initialize(GameObject gameObject, Enemy enemy)

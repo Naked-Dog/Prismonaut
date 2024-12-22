@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     public EnemyIdleState IdleState { get; set; }
     public EnemyFollowState FollowState { get; set; }
     public EnemyAttackState AttackState { get; set; }
+    public EnemyStunState StunState { get; set; }
 
     #endregion
 
@@ -29,11 +30,12 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     [SerializeField] private EnemyFollowSOBase EnemyFollowBase;
 
     [SerializeField] private EnemyAttackSOBase EnemyAttackBase;
+    [SerializeField] private EnemyStunSOBase EnemyStunBase;
 
     public EnemyIdleSOBase EnemyIdleBaseInstance { get; set; }
     public EnemyFollowSOBase EnemyFollowBaseInstance { get; set; }
-
     public EnemyAttackSOBase EnemyAttackBaseInstance { get; set; }
+    public EnemyStunSOBase EnemyStunBaseInstance { get; set; }
 
     #endregion
 
@@ -42,12 +44,14 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
         EnemyIdleBaseInstance = Instantiate(EnemyIdleBase);
         if (EnemyFollowBase != null) EnemyFollowBaseInstance = Instantiate(EnemyFollowBase);
         EnemyAttackBaseInstance = Instantiate(EnemyAttackBase);
+        if (EnemyStunBase != null) EnemyStunBaseInstance = Instantiate(EnemyStunBase);
 
         StateMachine = new EnemyStateMachine();
 
         IdleState = new EnemyIdleState(this, StateMachine);
         FollowState = new EnemyFollowState(this, StateMachine);
         AttackState = new EnemyAttackState(this, StateMachine);
+        StunState = new EnemyStunState(this, StateMachine);
     }
 
     private void Start()
@@ -59,6 +63,7 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
         EnemyIdleBaseInstance.Initialize(gameObject, this);
         if (EnemyFollowBase != null) EnemyFollowBaseInstance.Initialize(gameObject, this);
         EnemyAttackBaseInstance.Initialize(gameObject, this);
+        if (EnemyStunBase != null) EnemyStunBaseInstance.Initialize(gameObject, this);
 
         StateMachine.Initialize(IdleState);
     }

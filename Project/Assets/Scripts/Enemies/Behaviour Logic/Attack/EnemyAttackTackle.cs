@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Attack-Tackle", menuName = "Enemy Logic/Attack Logic/Tackle")]
 
 public class EnemyAttackTackle : EnemyAttackSOBase
 {
-    [SerializeField] private Rigidbody2D bulletPrefab { get; set; }
-    private float _timer;
-    private float _timeBetweenShots = 2f;
-    private float _exitTimer;
-    private float _timeTillExit = 3f;
-    private float _distanceToCountExit = 3f;
+    [SerializeField] private float _tackleForce = 2f;
+    private float _timer = 0f;
+    private float _timeTillExit = 2f;
+    private bool _isAttacking = false;
+
+    private Color _startingColor;
 
     public override void DoAnimationATriggerEventLogic(Enemy.AnimationTriggerType triggerType)
     {
@@ -31,36 +32,41 @@ public class EnemyAttackTackle : EnemyAttackSOBase
     public override void DoFrameUpdateLogic()
     {
         base.DoFrameUpdateLogic();
-        enemy.MoveEnemy(Vector2.zero);
-        Debug.Log("isAttacking");
-        if (!enemy.IsWithinStrikingDistance)
-        {
-            enemy.StateMachine.ChangeState(enemy.FollowState);
-        }
-        /* if (_timer > _timeBetweenShots)
+        if (_isAttacking) return;
+
+        if (enemy.IsWithinStrikingDistance && enemy.IsAggroed)
         {
             _timer = 0f;
-
-            Vector2 dir = (playerTransform.position - enemy.transform.position).normalized;
-
-            Rigidbody2D bullet = GameObject.Instantiate(bulletPrefab, enemy.transform.position, Quaternion.identity);
-            bullet.velocity = dir * 10f;
+            _isAttacking = true;
+            Tackle();
         }
-
-        if (Vector2.Distance(playerTransform.position, enemy.transform.position) > _distanceToCountExit)
+        else if (!enemy.IsWithinStrikingDistance && enemy.IsAggroed)
         {
-            _exitTimer += Time.deltaTime;
-
-            if (_exitTimer > _timeTillExit)
+            if (_timer >= _timeTillExit)
             {
                 enemy.StateMachine.ChangeState(enemy.FollowState);
             }
+            _timer += Time.deltaTime;
         }
-        else
+        else if (!enemy.IsWithinStrikingDistance && !enemy.IsAggroed)
         {
-            _exitTimer = 0f;
+            enemy.StateMachine.ChangeState(enemy.IdleState);
         }
-        _timer += Time.deltaTime; */
+    }
+
+    private async void Tackle()
+    {
+        Debug.Log("Attack windup");
+        enemy.MoveEnemy(Vector2.zero);
+        enemy.GetComponentInChildren<SpriteRenderer>().color = Color.yellow;
+        await Task.Delay((int)(0.5f * 1000));
+        enemy.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+        Debug.Log("Attacking");
+        float direction = enemy.IsFacingRight ? 1.0f : -1.0f;
+        enemy.RigidBody.velocity = new Vector2(_tackleForce * direction, enemy.RigidBody.velocity.y);
+        await Task.Delay((int)(0.35f * 1000));
+        enemy.GetComponentInChildren<SpriteRenderer>().color = _startingColor;
+        _isAttacking = false;
     }
 
     public override void DoPhysicsLogic()
@@ -71,5 +77,6 @@ public class EnemyAttackTackle : EnemyAttackSOBase
     public override void Initialize(GameObject gameObject, Enemy enemy)
     {
         base.Initialize(gameObject, enemy);
+        _startingColor = enemy.GetComponentInChildren<SpriteRenderer>().color;
     }
 }

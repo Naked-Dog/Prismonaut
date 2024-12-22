@@ -7,8 +7,8 @@ public class EnemyFollowDirectToPlayer : EnemyFollowSOBase
 {
     [SerializeField] private float _movementSpeed = 1.1f;
     [SerializeField] private float _outOfSightCooldown = 0.5f;
-
     private float _outOfSightTimer = 0f;
+
     public override void DoAnimationATriggerEventLogic(Enemy.AnimationTriggerType triggerType)
     {
         base.DoAnimationATriggerEventLogic(triggerType);
@@ -28,15 +28,13 @@ public class EnemyFollowDirectToPlayer : EnemyFollowSOBase
     {
         base.DoFrameUpdateLogic();
         Vector2 moveDirection = (playerTransform.position - enemy.transform.position).normalized;
-        (enemy as Grub).MoveEnemy(moveDirection * _movementSpeed);
+        enemy.gameObject.GetComponent<IEnemyMoveable>()?.MoveEnemy(moveDirection * _movementSpeed);
         if (enemy.IsWithinStrikingDistance)
         {
-            Debug.Log("Changing to Attack");
             enemy.StateMachine.ChangeState(enemy.AttackState);
         }
         if (!enemy.IsAggroed)
         {
-            Debug.Log("Changing to Idle");
             _outOfSightTimer += Time.deltaTime;
             if (_outOfSightTimer >= _outOfSightCooldown) enemy.StateMachine.ChangeState(enemy.IdleState);
         }
@@ -44,7 +42,6 @@ public class EnemyFollowDirectToPlayer : EnemyFollowSOBase
         {
             _outOfSightTimer = 0f;
         }
-
     }
 
     public override void DoPhysicsLogic()
