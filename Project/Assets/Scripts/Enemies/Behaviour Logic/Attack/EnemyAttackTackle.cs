@@ -11,7 +11,6 @@ public class EnemyAttackTackle : EnemyAttackSOBase
     private float _timer = 0f;
     private float _timeTillExit = 2f;
     private bool _isAttacking = false;
-
     private Color _startingColor;
 
     public override void DoAnimationATriggerEventLogic(Enemy.AnimationTriggerType triggerType)
@@ -63,7 +62,7 @@ public class EnemyAttackTackle : EnemyAttackSOBase
         enemy.GetComponentInChildren<SpriteRenderer>().color = Color.red;
         Debug.Log("Attacking");
         float direction = enemy.IsFacingRight ? 1.0f : -1.0f;
-        enemy.RigidBody.velocity = new Vector2(_tackleForce * direction, enemy.RigidBody.velocity.y);
+        enemy.MoveEnemy(new Vector2(_tackleForce * direction, enemy.RigidBody.velocity.y));
         await Task.Delay((int)(0.35f * 1000));
         enemy.GetComponentInChildren<SpriteRenderer>().color = _startingColor;
         _isAttacking = false;

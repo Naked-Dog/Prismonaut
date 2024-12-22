@@ -8,9 +8,11 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
 {
     [SerializeField] private Rigidbody2D projectilePrefab;
     [SerializeField] private float projectileSpeed = 10f;
+    [SerializeField] private float _timeBetweenShots = 2f;
 
     private float _timer;
-    private float _timeBetweenShots = 2f;
+    private bool _isAttacking = false;
+    private Color _startingColor;
 
     public override void DoAnimationATriggerEventLogic(Enemy.AnimationTriggerType triggerType)
     {
@@ -20,6 +22,7 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+        _timer = _timeBetweenShots;
     }
 
     public override void DoExitLogic()
@@ -30,20 +33,18 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
     public override void DoFrameUpdateLogic()
     {
         base.DoFrameUpdateLogic();
+        if (_isAttacking) return;
 
-        if (_timer > _timeBetweenShots)
+        if (_timer >= _timeBetweenShots)
         {
+            _isAttacking = true;
             _timer = 0f;
-
-            Vector2 direction = (playerTransform.position - enemy.transform.position).normalized;
-
-            Rigidbody2D bullet = GameObject.Instantiate(projectilePrefab, enemy.transform.position, Quaternion.identity);
-            bullet.velocity = direction * projectileSpeed;
-            DestroyProjectileAfterDelay(bullet.gameObject);
+            ShootProjectile();
         }
 
         if (!enemy.IsWithinStrikingDistance)
         {
+            _timer = 0f;
             enemy.StateMachine.ChangeState(enemy.IdleState);
         }
 
@@ -55,7 +56,21 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
         base.DoPhysicsLogic();
     }
 
-    private async void DestroyProjectileAfterDelay(GameObject projectile)
+    private async void ShootProjectile()
+    {
+        enemy.GetComponentInChildren<SpriteRenderer>().color = Color.yellow;
+        await Task.Delay((int)(0.5f * 1000));
+        enemy.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+        Vector2 direction = (playerTransform.position - enemy.transform.position).normalized;
+        Rigidbody2D bullet = GameObject.Instantiate(projectilePrefab, enemy.transform.position, Quaternion.identity);
+        bullet.velocity = direction * projectileSpeed;
+        await Task.Delay((int)(0.2f * 1000));
+        _isAttacking = false;
+        enemy.GetComponentInChildren<SpriteRenderer>().color = _startingColor;
+        DestroyProjectile(bullet.gameObject);
+    }
+
+    private async void DestroyProjectile(GameObject projectile)
     {
         await Task.Delay((int)(3.0f * 1000));
         DestroyImmediate(projectile);
@@ -64,5 +79,7 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
     public override void Initialize(GameObject gameObject, Enemy enemy)
     {
         base.Initialize(gameObject, enemy);
+        _startingColor = enemy.GetComponentInChildren<SpriteRenderer>().color;
+
     }
 }
