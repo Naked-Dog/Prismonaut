@@ -40,12 +40,15 @@ public class EnemyIdlePatrol : EnemyIdleSOBase
         }
         _direction = (_currentTargetPoint.position - enemy.transform.position).normalized;
         enemy.gameObject.GetComponent<IEnemyMoveable>()?.MoveEnemy(_direction * PatrolovementSpeed);
-        if ((enemy.transform.position - _currentTargetPoint.position).sqrMagnitude < 0.0f)
+        /* if ((enemy.transform.position - _currentTargetPoint.position).sqrMagnitude < 0.0f)
+        {
+            _currentTargetPoint = GetNextPosition();
+        } */
+        if ((enemy.transform.position - _currentTargetPoint.position).sqrMagnitude < 0.05f)
         {
             _currentTargetPoint = GetNextPosition();
         }
     }
-
     public override void DoPhysicsLogic()
     {
         base.DoPhysicsLogic();

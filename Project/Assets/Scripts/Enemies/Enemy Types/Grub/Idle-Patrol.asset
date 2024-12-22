@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea2b91a670d6e54fbcade516f2ac37c, type: 3}
   m_Name: Idle-Patrol
   m_EditorClassIdentifier: 
-  PatrolovementSpeed: 2
+  PatrolovementSpeed: 1

@@ -5,7 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Follow-Direct Follow", menuName = "Enemy Logic/Follow Logic/Direct Follow")]
 public class EnemyFollowDirectToPlayer : EnemyFollowSOBase
 {
-    [SerializeField] private float _movementSpeed = 1.75f;
+    [SerializeField] private float _movementSpeed = 1.1f;
+    [SerializeField] private float _outOfSightCooldown = 0.5f;
+
+    private float _outOfSightTimer = 0f;
     public override void DoAnimationATriggerEventLogic(Enemy.AnimationTriggerType triggerType)
     {
         base.DoAnimationATriggerEventLogic(triggerType);
@@ -28,8 +31,20 @@ public class EnemyFollowDirectToPlayer : EnemyFollowSOBase
         (enemy as Grub).MoveEnemy(moveDirection * _movementSpeed);
         if (enemy.IsWithinStrikingDistance)
         {
+            Debug.Log("Changing to Attack");
             enemy.StateMachine.ChangeState(enemy.AttackState);
         }
+        if (!enemy.IsAggroed)
+        {
+            Debug.Log("Changing to Idle");
+            _outOfSightTimer += Time.deltaTime;
+            if (_outOfSightTimer >= _outOfSightCooldown) enemy.StateMachine.ChangeState(enemy.IdleState);
+        }
+        else
+        {
+            _outOfSightTimer = 0f;
+        }
+
     }
 
     public override void DoPhysicsLogic()

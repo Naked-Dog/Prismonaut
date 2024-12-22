@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7540351384289664250}
   - component: {fileID: 8644864429688968927}
   m_Layer: 0
-  m_Name: SpitterProjectile
+  m_Name: SpitterProjectilePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
