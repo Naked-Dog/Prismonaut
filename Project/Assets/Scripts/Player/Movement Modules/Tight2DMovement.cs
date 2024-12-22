@@ -19,6 +19,7 @@ namespace PlayerSystem
             eventBus.Subscribe<JumpInputEvent>(Jump);
             eventBus.Subscribe<UpdateEvent>(UpdateGravity);
             eventBus.Subscribe<ToggleSquarePowerEvent>(onSquarePowerToggle);
+            eventBus.Subscribe<ToggleTrianglePowerEvent>(onTrianglePowerToggle);
             eventBus.Subscribe<ToggleCirclePowerEvent>(onCirclePowerToggle);
         }
 
@@ -70,6 +71,11 @@ namespace PlayerSystem
         private void onSquarePowerToggle(ToggleSquarePowerEvent e)
         {
             isMovementDisabled = isJumpingDisabled = isGravityDisabled = e.toggle;
+        }
+
+        private void onTrianglePowerToggle(ToggleTrianglePowerEvent e)
+        {
+            isMovementDisabled = isJumpingDisabled = e.toggle;
         }
 
         private void onCirclePowerToggle(ToggleCirclePowerEvent e)
