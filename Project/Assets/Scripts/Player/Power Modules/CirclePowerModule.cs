@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -31,16 +30,15 @@ namespace PlayerSystem
             cooldownTimeLeft = 1f;
             eventBus.Subscribe<UpdateEvent>(timeoutPower);
             eventBus.Subscribe<UpdateEvent>(reducePowerCooldown);
-            eventBus.Publish(new ToggleCirclePowerEvent(true, playerState.facingDirection));
+            eventBus.Publish(new ToggleCirclePowerEvent(true));
         }
 
         private void timeoutPower(UpdateEvent e)
         {
             currentPowerTime += Time.deltaTime;
-
             if (currentPowerTime < maxPowerDuration) return;
             eventBus.Unsubscribe<UpdateEvent>(timeoutPower);
-            eventBus.Publish(new ToggleCirclePowerEvent(false, playerState.facingDirection));
+            eventBus.Publish(new ToggleCirclePowerEvent(false));
         }
 
         private void reducePowerCooldown(UpdateEvent e)
