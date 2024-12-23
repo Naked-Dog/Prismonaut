@@ -1,24 +1,25 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TriggerEventHandler : MonoBehaviour
 {
-    public event System.Action<Collider2D> OnTriggerEnter2DEvent;
-    public event System.Action<Collider2D> OnTriggerStay2DEvent;
-    public event System.Action<Collider2D> OnTriggerExit2DEvent;
+    [System.NonSerialized] public UnityEvent<Collider2D> OnTriggerEnter2DAction = new UnityEvent<Collider2D>();
+    [System.NonSerialized] public UnityEvent<Collider2D> OnTriggerStay2DAction = new UnityEvent<Collider2D>();
+    [System.NonSerialized] public UnityEvent<Collider2D> OnTriggerExit2DAction = new UnityEvent<Collider2D>();
 
 
     void OnTriggerStay2D(Collider2D other)
     {
-        OnTriggerStay2DEvent?.Invoke(other);
+        OnTriggerStay2DAction?.Invoke(other);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        OnTriggerEnter2DEvent?.Invoke(other);
+        OnTriggerEnter2DAction?.Invoke(other);
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        OnTriggerExit2DEvent?.Invoke(other);
+        OnTriggerExit2DAction?.Invoke(other);
     }
 }
