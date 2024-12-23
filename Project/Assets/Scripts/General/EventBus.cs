@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 // The EventBus is a messaging system that allows classes to subscribe to and publish events.
 // These allows classes to remain strictly decoupled from eachother while still being able to communicate.
 
 // Example: 
-// ClassA subbsribes one of its methods to eventX
+// ClassA subbscribes one of its methods to eventX
 // Later, ClassB publishes eventX
 // The method subscribed to eventX is executed
 
@@ -17,9 +18,11 @@ using System.Linq;
 public class EventBus
 {
     private Dictionary<Type, List<Delegate>> _events = new Dictionary<Type, List<Delegate>>();
+    private bool isPaused = false;
 
     public void Publish<T>(T eventData)
     {
+        if (isPaused) return;
         if (_events.TryGetValue(typeof(T), out var handlers))
         {
             // Iterate over a copy of the handlers to avoid modification during iteration
@@ -38,6 +41,7 @@ public class EventBus
             _events[typeof(T)] = handlers;
         }
 
+        if (-1 < handlers.FindIndex(h => h.Equals(handler))) UnityEngine.Debug.Log("Handler already exists");
         handlers.Add(handler); // Store the original delegate
     }
 
@@ -54,5 +58,10 @@ public class EventBus
                 _events.Remove(typeof(T));
             }
         }
+    }
+
+    public void togglePause(bool toggle)
+    {
+        isPaused = toggle;
     }
 }
