@@ -7,6 +7,7 @@ namespace PlayerSystem
     {
         private EventBus eventBus;
         private Rigidbody2D rb2d;
+        private TriggerEventHandler groundTrigger;
 
         private readonly float cooldownDuration = 0.5f;
         private float cooldownTimeLeft = 0f;
@@ -16,6 +17,7 @@ namespace PlayerSystem
         {
             this.eventBus = eventBus;
             this.rb2d = rb2d;
+            this.groundTrigger = groundTrigger;
 
             eventBus.Subscribe<SquarePowerInputEvent>(togglePower);
         }
@@ -33,6 +35,7 @@ namespace PlayerSystem
 
             isActive = true;
             rb2d.velocity = new Vector2(0, -10f);
+            groundTrigger.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
             eventBus.Publish(new ToggleSquarePowerEvent(true));
         }
 
@@ -44,10 +47,18 @@ namespace PlayerSystem
             eventBus.Unsubscribe<UpdateEvent>(reduceCooldown);
         }
 
+        private void onTriggerEnter(Collider2D other)
+        {
+            if (other.CompareTag("Breakable")) GameObject.Destroy(other.gameObject);
+
+            // Todo: Place enemy collision logic here
+        }
+
         private void deactivate()
         {
             isActive = false;
             cooldownTimeLeft = cooldownDuration;
+            groundTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
             eventBus.Subscribe<UpdateEvent>(reduceCooldown);
             eventBus.Publish(new ToggleSquarePowerEvent(false));
         }

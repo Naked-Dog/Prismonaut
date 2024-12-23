@@ -8,9 +8,10 @@ namespace PlayerSystem
         private Rigidbody2D rb2d;
         private TriggerEventHandler upTrigger;
 
-        private readonly float maxPowerDuration = 0.5f;
-        private float currentPowerTime = 0f;
+        private readonly float powerDuration = 0.5f;
+        private float powerTimeLeft = 0f;
         private float cooldownTimeLeft = 0f;
+        private bool isActive = false;
 
         public TrianglePowerModule(EventBus eventBus, Rigidbody2D rb2d, TriggerEventHandler upTrigger)
         {
@@ -18,32 +19,49 @@ namespace PlayerSystem
             this.rb2d = rb2d;
             this.upTrigger = upTrigger;
 
-            eventBus.Subscribe<TrianglePowerInputEvent>(togglePower);
+            eventBus.Subscribe<TrianglePowerInputEvent>(activate);
         }
 
-        private void togglePower(TrianglePowerInputEvent e)
+        private void activate(TrianglePowerInputEvent e)
         {
+            if (isActive) return;
             if (cooldownTimeLeft > 0f) return;
 
+            isActive = true;
             rb2d.velocity = new Vector2(0, 10f);
-            cooldownTimeLeft = 1f;
-            currentPowerTime = 0f;
+            powerTimeLeft = powerDuration;
 
             upTrigger.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
 
-            eventBus.Subscribe<UpdateEvent>(timeoutPower);
-            eventBus.Subscribe<UpdateEvent>(reducePowerCooldown);
+            eventBus.Subscribe<UpdateEvent>(reduceTimeLeft);
+            eventBus.Subscribe<UpdateEvent>(deactivateOnMomentumLoss);
             eventBus.Publish(new ToggleTrianglePowerEvent(true));
         }
 
-        private void timeoutPower(UpdateEvent e)
+        private void reduceTimeLeft(UpdateEvent e)
         {
-            currentPowerTime += Time.deltaTime;
-            if (currentPowerTime < maxPowerDuration) return;
+            powerTimeLeft -= Time.deltaTime;
+            if (0 < powerTimeLeft) return;
+            deactivate();
+        }
+
+        private void deactivateOnMomentumLoss(UpdateEvent e)
+        {
+            if (0 < Mathf.Abs(rb2d.velocity.y)) return;
+            deactivate();
+        }
+
+        private void deactivate()
+        {
+            isActive = false;
 
             upTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
 
-            eventBus.Unsubscribe<UpdateEvent>(timeoutPower);
+            cooldownTimeLeft = 1f;
+            eventBus.Subscribe<UpdateEvent>(reducePowerCooldown);
+
+            eventBus.Unsubscribe<UpdateEvent>(reduceTimeLeft);
+            eventBus.Unsubscribe<UpdateEvent>(deactivateOnMomentumLoss);
             eventBus.Publish(new ToggleTrianglePowerEvent(false));
         }
 

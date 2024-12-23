@@ -16,6 +16,7 @@ namespace PlayerSystem
         private readonly float cooldownDuration = 1f;
         private float powerTimeLeft = 0f;
         private float cooldownTimeLeft = 0f;
+        private bool isActive = false;
 
         public CirclePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler leftTrigger, TriggerEventHandler rightTrigger)
         {
@@ -30,8 +31,10 @@ namespace PlayerSystem
 
         private void activate(CirclePowerInputEvent e)
         {
+            if (isActive) return;
             if (cooldownTimeLeft > 0f) return;
 
+            isActive = true;
             int facingDirectionInt = playerState.facingDirection == Direction.Right ? 1 : -1;
             rb2d.velocity = new Vector2(10f * facingDirectionInt, 0f);
             powerTimeLeft = powerDuration;
@@ -40,7 +43,7 @@ namespace PlayerSystem
             triggerToActivate.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
 
             eventBus.Subscribe<UpdateEvent>(reduceTimeLeft);
-            eventBus.Subscribe<UpdateEvent>(deactivateOnStandstill);
+            eventBus.Subscribe<UpdateEvent>(deactivateOnMomentumLoss);
             eventBus.Publish(new ToggleCirclePowerEvent(true));
         }
 
@@ -53,6 +56,8 @@ namespace PlayerSystem
 
         private void deactivate()
         {
+            isActive = false;
+
             leftTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
             rightTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
 
@@ -60,7 +65,7 @@ namespace PlayerSystem
             eventBus.Subscribe<UpdateEvent>(reduceCooldown);
 
             eventBus.Unsubscribe<UpdateEvent>(reduceTimeLeft);
-            eventBus.Unsubscribe<UpdateEvent>(deactivateOnStandstill);
+            eventBus.Unsubscribe<UpdateEvent>(deactivateOnMomentumLoss);
             eventBus.Publish(new ToggleCirclePowerEvent(false));
         }
 
@@ -68,10 +73,11 @@ namespace PlayerSystem
         {
             cooldownTimeLeft -= Time.deltaTime;
             if (cooldownTimeLeft > 0f) return;
+
             eventBus.Unsubscribe<UpdateEvent>(reduceCooldown);
         }
 
-        private void deactivateOnStandstill(UpdateEvent e)
+        private void deactivateOnMomentumLoss(UpdateEvent e)
         {
             if (0.1f < Mathf.Abs(rb2d.velocity.x)) return;
             deactivate();
