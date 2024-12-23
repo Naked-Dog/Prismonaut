@@ -43,11 +43,26 @@ namespace PlayerSystem
 
         protected void Update()
         {
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                if (!state.isPaused)
+                {
+                    state.velocity = avatarRigidbody2D.velocity;
+                    avatarRigidbody2D.velocity = Vector2.zero;
+                }
+                else
+                {
+                    avatarRigidbody2D.velocity = state.velocity;
+                }
+                state.isPaused = !state.isPaused;
+            }
+            if (state.isPaused) return;
             eventBus.Publish(new UpdateEvent());
         }
 
         protected void FixedUpdate()
         {
+            if (state.isPaused) return;
             eventBus.Publish(new FixedUpdateEvent());
         }
     }
