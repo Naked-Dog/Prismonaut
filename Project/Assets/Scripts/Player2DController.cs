@@ -78,6 +78,7 @@ public class Player2DController : MonoBehaviour
     public static event Action<FormState, int> OnLifesChangedEvent;
     public static event Action<int> OnPrismsChangedEvent;
 
+
     private bool _isMoving = false;
     private bool isMoving
     {
@@ -199,7 +200,7 @@ public class Player2DController : MonoBehaviour
         splineAnimate = GetComponent<SplineAnimate>();
         formInput(GameManager.startingForm, false);
 
-        groundTrigger.OnTriggerEnter2DEvent += (other) =>
+        groundTrigger.OnTriggerEnter2DAction.AddListener((other) =>
         {
             if (form == FormState.Square && isUsingPower && other.gameObject.tag == "Breakable")
             {
@@ -237,8 +238,8 @@ public class Player2DController : MonoBehaviour
                 } */
                 lastPowerUsed = FormState.Undefined;
             }
-        };
-        groundTrigger.OnTriggerExit2DEvent += (other) =>
+        });
+        groundTrigger.OnTriggerExit2DAction.AddListener((other) =>
         {
             if (other.gameObject.CompareTag("Platform"))
             {
@@ -253,34 +254,34 @@ public class Player2DController : MonoBehaviour
                 Debug.Log("On trigger exit ground/platform/breakable");
                 //isGrounded = false;
             }
-        };
+        });
 
-        topTrigger.OnTriggerEnter2DEvent += (other) =>
+        topTrigger.OnTriggerEnter2DAction.AddListener((other) =>
         {
             if (form == FormState.Triangle && isUsingPower && other.gameObject.tag == "Breakable")
             {
                 Destroy(other.gameObject);
                 audioSource.PlayOneShot(breakSound);
             }
-        };
+        });
 
-        leftTrigger.OnTriggerEnter2DEvent += (other) =>
+        leftTrigger.OnTriggerEnter2DAction.AddListener((other) =>
         {
             if (form == FormState.Circle && isUsingPower && other.gameObject.tag == "Breakable")
             {
                 Destroy(other.gameObject);
                 audioSource.PlayOneShot(breakSound);
             }
-        };
+        });
 
-        rightTrigger.OnTriggerEnter2DEvent += (other) =>
+        rightTrigger.OnTriggerEnter2DAction.AddListener((other) =>
         {
             if (form == FormState.Circle && isUsingPower && other.gameObject.tag == "Breakable")
             {
                 Destroy(other.gameObject);
                 audioSource.PlayOneShot(breakSound);
             }
-        };
+        });
 
         FindInputActions();
     }
