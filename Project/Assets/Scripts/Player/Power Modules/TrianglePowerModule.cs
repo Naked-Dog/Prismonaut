@@ -5,6 +5,7 @@ namespace PlayerSystem
     public class TrianglePowerModule
     {
         private EventBus eventBus;
+        private PlayerState playerState;
         private Rigidbody2D rb2d;
         private TriggerEventHandler upTrigger;
 
@@ -13,9 +14,10 @@ namespace PlayerSystem
         private float cooldownTimeLeft = 0f;
         private bool isActive = false;
 
-        public TrianglePowerModule(EventBus eventBus, Rigidbody2D rb2d, TriggerEventHandler upTrigger)
+        public TrianglePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler upTrigger)
         {
             this.eventBus = eventBus;
+            this.playerState = playerState;
             this.rb2d = rb2d;
             this.upTrigger = upTrigger;
 
@@ -28,6 +30,7 @@ namespace PlayerSystem
             if (cooldownTimeLeft > 0f) return;
 
             isActive = true;
+            playerState.activePower = Power.Triangle;
             rb2d.velocity = new Vector2(0, 10f);
             powerTimeLeft = powerDuration;
 
@@ -54,7 +57,7 @@ namespace PlayerSystem
         private void deactivate()
         {
             isActive = false;
-
+            playerState.activePower = Power.None;
             upTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
 
             cooldownTimeLeft = 1f;
@@ -76,6 +79,10 @@ namespace PlayerSystem
         private void onTriggerEnter(Collider2D other)
         {
             if (other.CompareTag("Breakable")) Object.Destroy(other.gameObject);
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                other.gameObject.GetComponent<Enemy>()?.PlayerPowerInteraction(playerState);
+            }
         }
     }
 }

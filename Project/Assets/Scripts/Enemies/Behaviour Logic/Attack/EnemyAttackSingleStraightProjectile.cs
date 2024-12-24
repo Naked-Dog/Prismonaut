@@ -13,6 +13,7 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
     private float _timer;
     private bool _isAttacking = false;
     private Color _startingColor;
+    private Task attack;
 
     public override void DoAnimationATriggerEventLogic(Enemy.AnimationTriggerType triggerType)
     {
@@ -39,7 +40,7 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
         {
             _isAttacking = true;
             _timer = 0f;
-            ShootProjectile();
+            attack = ShootProjectile();
         }
 
         if (!enemy.IsWithinStrikingDistance)
@@ -56,7 +57,7 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
         base.DoPhysicsLogic();
     }
 
-    private async void ShootProjectile()
+    private async Task ShootProjectile()
     {
         enemy.GetComponentInChildren<SpriteRenderer>().color = Color.yellow;
         await Task.Delay((int)(0.5f * 1000));
@@ -80,6 +81,13 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
     {
         base.Initialize(gameObject, enemy);
         _startingColor = enemy.GetComponentInChildren<SpriteRenderer>().color;
+    }
 
+    private void OnDestroy()
+    {
+        if (!attack.IsCompleted)
+        {
+            attack.Dispose();
+        }
     }
 }

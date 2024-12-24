@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PlayerSystem;
 using UnityEditor;
 using UnityEngine;
 
@@ -36,6 +37,12 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     public EnemyFollowSOBase EnemyFollowBaseInstance { get; set; }
     public EnemyAttackSOBase EnemyAttackBaseInstance { get; set; }
     public EnemyStunSOBase EnemyStunBaseInstance { get; set; }
+
+    #endregion
+
+    #region Attack Cooldown
+    [SerializeField] private float attackCooldown = 2f;
+    public bool isAttackInCooldown = false;
 
     #endregion
 
@@ -79,6 +86,10 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     }
 
     #region Health / Die Functions
+    public virtual void PlayerPowerInteraction(PlayerSystem.PlayerState playerState)
+    {
+    }
+
     public void Damage(float damageAmount)
     {
         CurrentHealth -= damageAmount;
@@ -91,7 +102,7 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
 
     public void Die()
     {
-        Destroy(gameObject);
+        GameObject.Destroy(gameObject);
     }
     #endregion
 
@@ -137,9 +148,22 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
         StateMachine.CurrentEnemyState.AnimationTriggerEvent(animationTriggerType);
     }
 
+
+
     public enum AnimationTriggerType
     {
         EnemyDamaged,
+    }
+    #endregion
+
+    #region Attack Cooldown Methds 
+    public IEnumerator StartAttackCooldown()
+    {
+        Debug.Log("starting cooldown");
+        isAttackInCooldown = true;
+        yield return new WaitForSeconds(attackCooldown);
+        Debug.Log("ending cooldown");
+        isAttackInCooldown = false;
     }
     #endregion
 }

@@ -29,7 +29,7 @@ public class EnemyFollowDirectToPlayer : EnemyFollowSOBase
         base.DoFrameUpdateLogic();
         Vector2 moveDirection = (playerTransform.position - enemy.transform.position).normalized;
         enemy.gameObject.GetComponent<IEnemyMoveable>()?.MoveEnemy(moveDirection * _movementSpeed);
-        if (enemy.IsWithinStrikingDistance)
+        if (enemy.IsWithinStrikingDistance && !enemy.isAttackInCooldown)
         {
             enemy.StateMachine.ChangeState(enemy.AttackState);
         }
