@@ -54,7 +54,6 @@ public class MovingPlatform : MonoBehaviour, IPlatform
     {
         playerRigidBody.transform.parent = transform;
         playerRigidBody.interpolation = RigidbodyInterpolation2D.None;
-        Debug.Log("In moving platform action");
     }
 
     public void PlatformExitAction(Rigidbody2D playerRigidBody)

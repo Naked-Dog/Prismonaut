@@ -43,7 +43,6 @@ public class FallingPlatform : MonoBehaviour, IPlatform
         if (isFalling) return;
         playerRigidBody.transform.parent = transform;
         playerRigidBody.interpolation = RigidbodyInterpolation2D.None;
-        Debug.Log("In falling platform action");
         StartCoroutine(Fall());
     }
 
