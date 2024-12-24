@@ -219,7 +219,7 @@ public class Player2DController : MonoBehaviour
                 rb2d.interpolation = RigidbodyInterpolation2D.None;
                 Debug.Log("PlatformAction");
                 IsGrounded();
-                other.gameObject.GetComponent<IPlatform>()?.PlatformAction(this);
+                //other.gameObject.GetComponent<IPlatform>()?.PlatformAction(this);
                 transform.parent = other.gameObject.transform;
             }
 

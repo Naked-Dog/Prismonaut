@@ -30,27 +30,6 @@ public class MovingPlatform : MonoBehaviour, IPlatform
         nextPosition = path.Points[currentPointIndex + 1].position;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        /* transform.position = Vector3.MoveTowards(transform.position, nextPosition, moveSpeed * Time.deltaTime);
-        if (transform.position == nextPosition)
-        {
-            if (path.isLoop && path.Points.Count != 2)
-            {
-                currentPointIndex = (currentPointIndex + 1 == path.Points.Count) ? 0 : currentPointIndex += 1;
-                nextPosition = path.Points[currentPointIndex].position;
-            }
-            else
-            {
-                if (currentPointIndex + 1 == path.Points.Count) direction *= -1;
-                else if (currentPointIndex <= 0) direction = 1;
-                currentPointIndex += 1 * direction;
-                nextPosition = path.Points[currentPointIndex].position;
-            }
-        } */
-    }
-
     private void LateUpdate()
     {
         transform.position = Vector3.MoveTowards(transform.position, nextPosition, moveSpeed * Time.deltaTime);
@@ -71,8 +50,16 @@ public class MovingPlatform : MonoBehaviour, IPlatform
         }
     }
 
-    public void PlatformAction(Player2DController player2DController)
+    public void PlatformEnterAction(PlayerSystem.PlayerState playerState, Rigidbody2D playerRigidBody)
     {
+        playerRigidBody.transform.parent = transform;
+        playerRigidBody.interpolation = RigidbodyInterpolation2D.None;
         Debug.Log("In moving platform action");
+    }
+
+    public void PlatformExitAction(Rigidbody2D playerRigidBody)
+    {
+        playerRigidBody.interpolation = RigidbodyInterpolation2D.Interpolate;
+        playerRigidBody.transform.parent = null;
     }
 }

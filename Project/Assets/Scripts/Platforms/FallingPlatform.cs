@@ -38,10 +38,18 @@ public class FallingPlatform : MonoBehaviour, IPlatform
         isFalling = false;
     }
 
-    public void PlatformAction(Player2DController player2DController)
+    public void PlatformEnterAction(PlayerSystem.PlayerState playerState, Rigidbody2D playerRigidBody)
     {
         if (isFalling) return;
+        playerRigidBody.transform.parent = transform;
+        playerRigidBody.interpolation = RigidbodyInterpolation2D.None;
         Debug.Log("In falling platform action");
         StartCoroutine(Fall());
+    }
+
+    public void PlatformExitAction(Rigidbody2D playerRigidBody)
+    {
+        playerRigidBody.interpolation = RigidbodyInterpolation2D.Interpolate;
+        playerRigidBody.transform.parent = null;
     }
 }

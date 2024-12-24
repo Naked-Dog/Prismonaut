@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PlayerSystem;
 using UnityEngine;
 
 public class CrumblingPlatform : MonoBehaviour, IPlatform
@@ -42,17 +43,22 @@ public class CrumblingPlatform : MonoBehaviour, IPlatform
         spriteRenderer.enabled = true;
     }
 
-    public void PlatformAction(Player2DController player2DController)
+    public void PlatformEnterAction(PlayerSystem.PlayerState playerState, Rigidbody2D playerRigidBody)
     {
-        if (isCrumbling) return;
-        Debug.Log("In crumbling platform action");
-        if (player2DController.form == FormState.Square && player2DController.isUsingPower)
+        Debug.Log(playerState.activePower);
+        if (playerState.activePower == Power.Square)
         {
             StartCoroutine(DestroyPlatform());
         }
+        if (isCrumbling) return;
         else
         {
             StartCoroutine(Crumble());
         }
+    }
+
+    public void PlatformExitAction(Rigidbody2D playerRigidBody)
+    {
+        Debug.Log("crumbling platform exit");
     }
 }
