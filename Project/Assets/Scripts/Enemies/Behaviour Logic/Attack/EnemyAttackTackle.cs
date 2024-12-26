@@ -8,7 +8,6 @@ using UnityEngine;
 public class EnemyAttackTackle : EnemyAttackSOBase
 {
     [SerializeField] private float _tackleForce = 2f;
-    [SerializeField] private float _attackCooldown = 2f;
     private float _timer = 0f;
     private float _timeTillExit = 2f;
     private bool _isAttacking = false;

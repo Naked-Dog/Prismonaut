@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2777863701647983178}
   - component: {fileID: 7540351384289664250}
   - component: {fileID: 8644864429688968927}
+  - component: {fileID: 9168070494297201319}
   m_Layer: 0
   m_Name: SpitterProjectilePrefab
   m_TagString: Untagged
@@ -148,3 +149,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1}
   m_Direction: 0
+--- !u!114 &9168070494297201319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5929561851029044623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b4c28e208e17e0438d22b7311257711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyCollider: {fileID: 0}
+  damageAmount: 1
+  isDestroyedByTerrain: 1

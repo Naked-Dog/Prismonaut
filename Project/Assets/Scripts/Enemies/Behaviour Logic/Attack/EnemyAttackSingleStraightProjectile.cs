@@ -63,12 +63,13 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
         await Task.Delay((int)(0.5f * 1000));
         enemy.GetComponentInChildren<SpriteRenderer>().color = Color.red;
         Vector2 direction = (playerTransform.position - enemy.transform.position).normalized;
-        Rigidbody2D bullet = GameObject.Instantiate(projectilePrefab, enemy.transform.position, Quaternion.identity);
+        Rigidbody2D bullet = Instantiate(projectilePrefab, enemy.transform.position, Quaternion.identity);
+        bullet.gameObject.GetComponent<Projectile>()?.Initialize(enemy.GetComponent<Collider2D>(), direction);
         bullet.velocity = direction * projectileSpeed;
         await Task.Delay((int)(0.2f * 1000));
         _isAttacking = false;
         enemy.GetComponentInChildren<SpriteRenderer>().color = _startingColor;
-        DestroyProjectile(bullet.gameObject);
+        //DestroyProjectile(bullet.gameObject);
     }
 
     private async void DestroyProjectile(GameObject projectile)

@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
 {
     [field: SerializeField] public float MaxHealth { get; set; }
     public float CurrentHealth { get; set; }
+    [SerializeField] public float DamageAmount { get; set; } = 1;
     public Rigidbody2D RigidBody { get; set; }
     public bool IsFacingRight { get; set; } = true;
 
@@ -90,7 +91,7 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     {
     }
 
-    public void Damage(float damageAmount)
+    public void Damage(float damageAmount, Vector2 hitDirection = default)
     {
         CurrentHealth -= damageAmount;
 
@@ -156,7 +157,7 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     }
     #endregion
 
-    #region Attack Cooldown Methds 
+    #region Attack Cooldown Methods 
     public IEnumerator StartAttackCooldown()
     {
         Debug.Log("starting cooldown");
@@ -164,6 +165,17 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
         yield return new WaitForSeconds(attackCooldown);
         Debug.Log("ending cooldown");
         isAttackInCooldown = false;
+    }
+    #endregion
+
+    #region Player Collision
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Vector2 direction = (collision.transform.position - transform.position).normalized;
+            collision.gameObject.GetComponent<PlayerBaseModule>()?.healthModule.Damage(DamageAmount, direction);
+        }
     }
     #endregion
 }
