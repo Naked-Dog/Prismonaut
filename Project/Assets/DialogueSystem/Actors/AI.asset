@@ -14,3 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portrait: {fileID: 1793661509, guid: 357a7a2275606ba4ca88611d60ab841a, type: 3}
   dialogueFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  fontColor: {r: 0, g: 0.7928381, b: 1, a: 1}
+  dialogueSFX: {fileID: 8300000, guid: 8c77c7294a131c9428b1e7211e8209c5, type: 3}
+  characterFrecuency: 3
+  minPitch: 0.07
+  maxPitch: 1.392

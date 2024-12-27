@@ -5734,10 +5734,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 737934811}
     m_Modifications:
-    - target: {fileID: 566508294638776787, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
-      propertyPath: writeSpeed
-      value: 0.04
-      objectReference: {fileID: 0}
     - target: {fileID: 6390910279512041194, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

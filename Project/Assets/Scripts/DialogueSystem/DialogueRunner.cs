@@ -1,13 +1,14 @@
+using PlayerSystem;
 using UnityEngine;
 
 public class DialogueRunner : MonoBehaviour
 {
     [SerializeField] private Narrative narrative;
-    [SerializeField] private Player2DController player;
+    [SerializeField] private PlayerBaseModule player;
     [SerializeField] private bool isDialoguePlayed;
 
     protected void Update(){
-        if(player && !isDialoguePlayed && !DialogueController.Instance.IsDialogueOpen())
+        if(player && !isDialoguePlayed && !DialogueController.Instance.isDialogueRunning)
         {
             DialogueController.Instance.RunDialogue(narrative);
             isDialoguePlayed = true;
@@ -15,11 +16,11 @@ public class DialogueRunner : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other){
-        player = other.GetComponent<Player2DController>();
+        player = other.GetComponent<PlayerBaseModule>();
     }
 
     private void OnTriggerExit2D(Collider2D other){
-        if(other.GetComponent<Player2DController>()){
+        if(other.GetComponent<PlayerBaseModule>()){
             player = null;
             isDialoguePlayed = false;
         } 
