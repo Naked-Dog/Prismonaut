@@ -94,6 +94,7 @@ MonoBehaviour:
   upTrigger: {fileID: 6438164688059498295}
   downTrigger: {fileID: 7838880276084729994}
   movementValues: {fileID: 11400000, guid: c65272a994cec7551933f096bf6b3a5f, type: 2}
+  playerInputAsset: {fileID: -944628639613478452, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
 --- !u!50 &285264918639432098
 Rigidbody2D:
   serializedVersion: 4

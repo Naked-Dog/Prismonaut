@@ -41,7 +41,6 @@ namespace PlayerSystem
 
             TriggerEventHandler triggerToActivate = playerState.facingDirection == Direction.Right ? rightTrigger : leftTrigger;
             triggerToActivate.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
-
             eventBus.Subscribe<UpdateEvent>(reduceTimeLeft);
             eventBus.Subscribe<UpdateEvent>(deactivateOnMomentumLoss);
             eventBus.Publish(new ToggleCirclePowerEvent(true));

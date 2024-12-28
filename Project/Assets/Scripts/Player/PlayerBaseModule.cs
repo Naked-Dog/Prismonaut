@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace PlayerSystem
 {
@@ -13,6 +14,7 @@ namespace PlayerSystem
         [SerializeField] private TriggerEventHandler upTrigger;
         [SerializeField] private TriggerEventHandler downTrigger;
         [SerializeField] private PlayerMovementScriptable movementValues;
+        [SerializeField] private InputActionAsset  playerInputAsset;
 
         private PlayerState state;
         private EventBus eventBus;
@@ -35,7 +37,7 @@ namespace PlayerSystem
                 {Direction.Right, rightTrigger}
             };
 
-            inputModule = new HardKeyboardInput(eventBus);
+            inputModule = new HardKeyboardInput(eventBus,playerInputAsset);
             movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger);
             visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator);
             powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers);
