@@ -35,6 +35,7 @@ namespace PlayerSystem
             if (cooldownTimeLeft > 0f) return;
 
             isActive = true;
+            playerState.activePower = Power.Circle;
             int facingDirectionInt = playerState.facingDirection == Direction.Right ? 1 : -1;
             rb2d.velocity = new Vector2(10f * facingDirectionInt, 0f);
             powerTimeLeft = powerDuration;
@@ -56,6 +57,7 @@ namespace PlayerSystem
         private void deactivate()
         {
             isActive = false;
+            playerState.activePower = Power.None;
 
             leftTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
             rightTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
@@ -90,7 +92,10 @@ namespace PlayerSystem
                 GameObject.Destroy(other.gameObject);
             }
 
-            // Todo: Place enemy collision logic here
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                other.gameObject.GetComponent<Enemy>()?.PlayerPowerInteraction(playerState);
+            }
         }
     }
 }

@@ -7,7 +7,6 @@ namespace PlayerSystem
     {
         private EventBus eventBus;
         private PlayerState playerState;
-
         private Rigidbody2D rb2d;
         private TriggerEventHandler groundTrigger;
 
@@ -23,6 +22,7 @@ namespace PlayerSystem
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.groundTrigger = groundTrigger;
+            this.playerState = playerState;
 
             eventBus.Subscribe<SquarePowerInputEvent>(togglePower);
         }
@@ -40,7 +40,7 @@ namespace PlayerSystem
             if (0f < cooldownTimeLeft) return;
 
             isActive = true;
-            this.playerState.activePower = Power.Square;
+            playerState.activePower = Power.Square;
             powerTimeSum = 0;
             rb2d.velocity = new Vector2(0, -10f);
             groundTrigger.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
@@ -57,17 +57,21 @@ namespace PlayerSystem
         private void onTriggerEnter(Collider2D other)
         {
             if (other.CompareTag("Breakable")) GameObject.Destroy(other.gameObject);
+
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                other.gameObject.GetComponent<Enemy>()?.PlayerPowerInteraction(playerState);
+            }
             if (other.gameObject.CompareTag("Platform"))
             {
                 other.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
             }
-            // Todo: Place enemy collision logic here
         }
 
         private void deactivate()
         {
             isActive = false;
-            this.playerState.activePower = Power.None;
+            playerState.activePower = Power.None;
             cooldownTimeLeft = cooldownDuration;
             groundTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
 
