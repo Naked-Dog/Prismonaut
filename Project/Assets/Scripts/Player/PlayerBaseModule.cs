@@ -13,6 +13,7 @@ namespace PlayerSystem
         [SerializeField] private TriggerEventHandler upTrigger;
         [SerializeField] private TriggerEventHandler downTrigger;
         [SerializeField] private PlayerMovementScriptable movementValues;
+        [SerializeField] private Knockback knockback;
 
         private PlayerState state;
         private EventBus eventBus;
@@ -22,6 +23,7 @@ namespace PlayerSystem
         private PlayerMovement movementModule;
         private PlayerVisuals visualsModule;
         private PlayerPowersModule powersModule;
+        public PlayerHealthModule healthModule;
 
         protected void Start()
         {
@@ -39,6 +41,9 @@ namespace PlayerSystem
             movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger);
             visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator);
             powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers);
+            healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, knockback);
+            healthModule.MaxHealth = 3f;
+            healthModule.CurrentHealth = healthModule.MaxHealth;
         }
 
         protected void Update()

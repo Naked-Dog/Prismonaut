@@ -6,7 +6,6 @@ namespace PlayerSystem
     {
         private EventBus eventBus;
         private PlayerState playerState;
-
         private Rigidbody2D rb2d;
         private TriggerEventHandler upTrigger;
 
@@ -31,6 +30,7 @@ namespace PlayerSystem
             if (cooldownTimeLeft > 0f) return;
 
             isActive = true;
+            playerState.activePower = Power.Triangle;
             rb2d.velocity = new Vector2(0, 10f);
             powerTimeLeft = powerDuration;
 
@@ -57,7 +57,7 @@ namespace PlayerSystem
         private void deactivate()
         {
             isActive = false;
-
+            playerState.activePower = Power.None;
             upTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
 
             cooldownTimeLeft = 1f;
@@ -79,6 +79,10 @@ namespace PlayerSystem
         private void onTriggerEnter(Collider2D other)
         {
             if (other.CompareTag("Breakable")) Object.Destroy(other.gameObject);
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                other.gameObject.GetComponent<Enemy>()?.PlayerPowerInteraction(playerState);
+            }
         }
     }
 }
