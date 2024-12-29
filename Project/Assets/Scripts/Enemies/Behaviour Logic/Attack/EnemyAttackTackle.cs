@@ -100,7 +100,7 @@ public class EnemyAttackTackle : EnemyAttackSOBase
     {
         if (!attack.IsCompleted)
         {
-            attack.Dispose();
+            attack?.Dispose();
         }
     }
 }

@@ -61,7 +61,7 @@ public class EnemyStun : EnemyStunSOBase
     {
         if (!stun.IsCompleted)
         {
-            stun.Dispose();
+            stun?.Dispose();
         }
     }
 }
