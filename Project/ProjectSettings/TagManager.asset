@@ -18,6 +18,7 @@ TagManager:
   - SkyboxCamera
   - Starship
   - FinishTrigger
+  - Platform
   - Enemy
   layers:
   - Default

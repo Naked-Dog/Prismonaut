@@ -19,6 +19,7 @@ namespace PlayerSystem
         public SquarePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler groundTrigger)
         {
             this.eventBus = eventBus;
+            this.playerState = playerState;
             this.rb2d = rb2d;
             this.groundTrigger = groundTrigger;
             this.playerState = playerState;
@@ -60,6 +61,10 @@ namespace PlayerSystem
             if (other.gameObject.CompareTag("Enemy"))
             {
                 other.gameObject.GetComponent<Enemy>()?.PlayerPowerInteraction(playerState);
+            }
+            if (other.gameObject.CompareTag("Platform"))
+            {
+                other.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
             }
         }
 
