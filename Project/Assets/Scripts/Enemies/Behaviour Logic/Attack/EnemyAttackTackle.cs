@@ -13,6 +13,8 @@ public class EnemyAttackTackle : EnemyAttackSOBase
     private bool _isAttacking = false;
     private Color _startingColor;
     private Task attack;
+    private Transform PointA;
+    private Transform PointB;
 
     public override void DoAnimationATriggerEventLogic(Enemy.AnimationTriggerType triggerType)
     {
@@ -22,21 +24,19 @@ public class EnemyAttackTackle : EnemyAttackSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+        PointA = (enemy as Grub).PointA;
+        PointB = (enemy as Grub).PointB;
     }
 
     public override void DoExitLogic()
     {
         base.DoExitLogic();
-        Debug.Log(enemy.StateMachine.CurrentEnemyState);
-        if (_isAttacking)
-        {
-            if (!attack.IsCompleted) attack?.Dispose();
-        }
     }
 
     public override void DoFrameUpdateLogic()
     {
         base.DoFrameUpdateLogic();
+        if (OutOfLimitsCheck()) enemy.MoveEnemy(Vector2.zero);
         if (_isAttacking) return;
         if (enemy.isAttackInCooldown)
         {
@@ -70,6 +70,11 @@ public class EnemyAttackTackle : EnemyAttackSOBase
         enemy.MoveEnemy(Vector2.zero);
         enemy.GetComponentInChildren<SpriteRenderer>().color = Color.yellow;
         await Task.Delay((int)(0.5f * 1000));
+        if (enemy.StateMachine.CurrentEnemyState == enemy.StunState)
+        {
+            ResetValues();
+            return;
+        }
         enemy.GetComponentInChildren<SpriteRenderer>().color = Color.red;
         float direction = enemy.IsFacingRight ? 1.0f : -1.0f;
         enemy.MoveEnemy(new Vector2(_tackleForce * direction, enemy.RigidBody.velocity.y));
@@ -92,15 +97,21 @@ public class EnemyAttackTackle : EnemyAttackSOBase
 
     public override void ResetValues()
     {
+        base.ResetValues();
         enemy.GetComponentInChildren<SpriteRenderer>().color = _startingColor;
         _isAttacking = false;
     }
 
-    private void OnDestroy()
+    private bool OutOfLimitsCheck()
     {
-        if (!attack.IsCompleted)
+        if (enemy.transform.position.x < PointA.position.x)
         {
-            attack?.Dispose();
+            return true;
         }
+        if (enemy.transform.position.x > PointB.position.x)
+        {
+            return true;
+        }
+        return false;
     }
 }

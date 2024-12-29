@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class EnemyFollowDirectToPlayer : EnemyFollowSOBase
 {
     [SerializeField] private float _movementSpeed = 1.1f;
     [SerializeField] private float _outOfSightCooldown = 0.5f;
+    private Transform PointA;
+    private Transform PointB;
     private float _outOfSightTimer = 0f;
 
     public override void DoAnimationATriggerEventLogic(Enemy.AnimationTriggerType triggerType)
@@ -17,6 +20,8 @@ public class EnemyFollowDirectToPlayer : EnemyFollowSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+        PointA = (enemy as Grub).PointA;
+        PointB = (enemy as Grub).PointB;
     }
 
     public override void DoExitLogic()
@@ -27,8 +32,15 @@ public class EnemyFollowDirectToPlayer : EnemyFollowSOBase
     public override void DoFrameUpdateLogic()
     {
         base.DoFrameUpdateLogic();
-        Vector2 moveDirection = (playerTransform.position - enemy.transform.position).normalized;
-        enemy.gameObject.GetComponent<IEnemyMoveable>()?.MoveEnemy(moveDirection * _movementSpeed);
+        if (OutOfLimitsCheck())
+        {
+            enemy.gameObject.GetComponent<IEnemyMoveable>()?.MoveEnemy(Vector2.zero);
+        }
+        else
+        {
+            Vector2 moveDirection = (playerTransform.position - enemy.transform.position).normalized;
+            enemy.gameObject.GetComponent<IEnemyMoveable>()?.MoveEnemy(moveDirection * _movementSpeed);
+        }
         if (enemy.IsWithinStrikingDistance && !enemy.isAttackInCooldown)
         {
             enemy.StateMachine.ChangeState(enemy.AttackState);
@@ -52,5 +64,18 @@ public class EnemyFollowDirectToPlayer : EnemyFollowSOBase
     public override void Initialize(GameObject gameObject, Enemy enemy)
     {
         base.Initialize(gameObject, enemy);
+    }
+
+    private bool OutOfLimitsCheck()
+    {
+        if (enemy.transform.position.x < PointA.position.x)
+        {
+            return true;
+        }
+        if (enemy.transform.position.x > PointB.position.x)
+        {
+            return true;
+        }
+        return false;
     }
 }

@@ -28,6 +28,7 @@ public class EnemyStun : EnemyStunSOBase
     public override void DoExitLogic()
     {
         base.DoExitLogic();
+        Debug.Log("Exiting stun state");
     }
 
     public override void DoFrameUpdateLogic()
@@ -56,12 +57,8 @@ public class EnemyStun : EnemyStunSOBase
         base.Initialize(gameObject, enemy);
         _startingColor = enemy.GetComponentInChildren<SpriteRenderer>().color;
     }
-
-    private void OnDestroy()
+    public override void ResetValues()
     {
-        if (!stun.IsCompleted)
-        {
-            stun?.Dispose();
-        }
+        base.ResetValues();
     }
 }

@@ -160,10 +160,8 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     #region Attack Cooldown Methods 
     public IEnumerator StartAttackCooldown()
     {
-        Debug.Log("starting cooldown");
         isAttackInCooldown = true;
         yield return new WaitForSeconds(attackCooldown);
-        Debug.Log("ending cooldown");
         isAttackInCooldown = false;
     }
     #endregion
