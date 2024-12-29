@@ -48,7 +48,6 @@ namespace PlayerSystem
 
         protected void Update()
         {
-            Debug.Log(healthModule.CurrentHealth);
             if (Input.GetKeyDown(KeyCode.P))
             {
                 if (!state.isPaused)

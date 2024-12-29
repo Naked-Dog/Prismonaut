@@ -12,5 +12,10 @@ public class Grub : Enemy, IEnemyMoveable
         {
             Damage(1);
         }
+        if (playerState.activePower == PlayerSystem.Power.Circle)
+        {
+            Debug.Log("Player Power Interaction stun");
+            StateMachine.ChangeState(StunState);
+        }
     }
 }

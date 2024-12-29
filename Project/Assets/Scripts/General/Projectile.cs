@@ -19,6 +19,7 @@ public class Projectile : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        coll = GetComponent<Collider2D>();
         IgnoreCollisionWithEnemyToggle();
     }
 

@@ -15,6 +15,11 @@ public class EnemyAggroCheck : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (_enemy.StateMachine.CurrentEnemyState == _enemy.StunState)
+        {
+            _enemy.SetAggroStatus(false);
+            return;
+        }
         if (collision.gameObject == PlayerTarget)
         {
             _enemy.SetAggroStatus(true);

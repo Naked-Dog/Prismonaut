@@ -8,6 +8,11 @@ using UnityEngine;
 public class EnemyStun : EnemyStunSOBase
 {
     [SerializeField] private float _stunDuration = 3.0f;
+    private Color _startingColor;
+    private float _damageAmount;
+    private Task stun;
+
+
     public override void DoAnimationTriggerEventLogic(Enemy.AnimationTriggerType triggerType)
     {
         base.DoAnimationTriggerEventLogic(triggerType);
@@ -16,7 +21,8 @@ public class EnemyStun : EnemyStunSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        Stun();
+        Debug.Log("Entering stun state");
+        stun = Stun();
     }
 
     public override void DoExitLogic()
@@ -34,14 +40,28 @@ public class EnemyStun : EnemyStunSOBase
         base.DoPhysicsLogic();
     }
 
-    private async void Stun()
+    private async Task Stun()
     {
+        enemy.SetAggroStatus(false);
+        enemy.SetStrikingDistanceBool(false);
+        enemy.MoveEnemy(Vector2.zero);
+        enemy.GetComponentInChildren<SpriteRenderer>().color = Color.blue;
         await Task.Delay((int)(_stunDuration * 1000));
+        enemy.GetComponentInChildren<SpriteRenderer>().color = _startingColor;
         enemy.StateMachine.ChangeState(enemy.IdleState);
     }
 
     public override void Initialize(GameObject gameObject, Enemy enemy)
     {
         base.Initialize(gameObject, enemy);
+        _startingColor = enemy.GetComponentInChildren<SpriteRenderer>().color;
+    }
+
+    private void OnDestroy()
+    {
+        if (!stun.IsCompleted)
+        {
+            stun.Dispose();
+        }
     }
 }

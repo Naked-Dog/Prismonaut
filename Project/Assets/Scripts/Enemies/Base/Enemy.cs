@@ -57,9 +57,9 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
         StateMachine = new EnemyStateMachine();
 
         IdleState = new EnemyIdleState(this, StateMachine);
-        FollowState = new EnemyFollowState(this, StateMachine);
+        if (EnemyFollowBase != null) FollowState = new EnemyFollowState(this, StateMachine);
         AttackState = new EnemyAttackState(this, StateMachine);
-        StunState = new EnemyStunState(this, StateMachine);
+        if (EnemyStunBase != null) StunState = new EnemyStunState(this, StateMachine);
     }
 
     private void Start()
@@ -174,7 +174,8 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
         if (collision.gameObject.CompareTag("Player"))
         {
             Vector2 direction = (collision.transform.position - transform.position).normalized;
-            collision.gameObject.GetComponent<PlayerBaseModule>()?.healthModule.Damage(DamageAmount, direction);
+            float damageAmount = StateMachine.CurrentEnemyState != StunState ? DamageAmount : 0;
+            collision.gameObject.GetComponent<PlayerBaseModule>()?.healthModule.Damage(damageAmount, direction);
         }
     }
     #endregion

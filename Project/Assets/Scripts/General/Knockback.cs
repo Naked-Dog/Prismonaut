@@ -9,15 +9,14 @@ public class Knockback : MonoBehaviour
     public float constForce = 5f;
     public float inputForce = 7.5f;
     public SpriteRenderer spriteRenderer;
-
     private Color startColor;
-
     private Coroutine knockbackCoroutine;
-    public IEnumerator KnockbackAction(Vector2 hitDirection, Vector2 constantForceDirection, float inputDirection, Rigidbody2D rb2d, PlayerSystem.PlayerState playerState)
+
+    public IEnumerator KnockbackAction(Vector2 hitDirection, Vector2 constantForceDirection, float inputDirection, Rigidbody2D rb2d, PlayerSystem.PlayerState playerState, float damage)
     {
         startColor = spriteRenderer.color;
-        spriteRenderer.color = Color.red;
-        playerState.healthState = PlayerSystem.HealthState.Stagger;
+        if (damage > 0f) spriteRenderer.color = Color.red;
+        if (damage > 0f) playerState.healthState = PlayerSystem.HealthState.Stagger;
         Vector2 _hitForce;
         Vector2 _constantForce;
         Vector2 _knockbackForce;
@@ -54,8 +53,9 @@ public class Knockback : MonoBehaviour
         spriteRenderer.color = startColor;
         playerState.healthState = PlayerSystem.HealthState.Undefined;
     }
-    public void CallKnockback(Vector2 hitDirection, Vector2 constantForceDirection, float inputDirection, Rigidbody2D rb2d, PlayerSystem.PlayerState playerState)
+
+    public void CallKnockback(Vector2 hitDirection, Vector2 constantForceDirection, float inputDirection, Rigidbody2D rb2d, PlayerSystem.PlayerState playerState, float damage)
     {
-        knockbackCoroutine = StartCoroutine(KnockbackAction(hitDirection, constantForceDirection, inputDirection, rb2d, playerState));
+        knockbackCoroutine = StartCoroutine(KnockbackAction(hitDirection, constantForceDirection, inputDirection, rb2d, playerState, damage));
     }
 }

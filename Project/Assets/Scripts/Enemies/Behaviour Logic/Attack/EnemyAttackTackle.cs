@@ -27,6 +27,11 @@ public class EnemyAttackTackle : EnemyAttackSOBase
     public override void DoExitLogic()
     {
         base.DoExitLogic();
+        Debug.Log(enemy.StateMachine.CurrentEnemyState);
+        if (_isAttacking)
+        {
+            if (!attack.IsCompleted) attack?.Dispose();
+        }
     }
 
     public override void DoFrameUpdateLogic()
@@ -83,6 +88,12 @@ public class EnemyAttackTackle : EnemyAttackSOBase
     {
         base.Initialize(gameObject, enemy);
         _startingColor = enemy.GetComponentInChildren<SpriteRenderer>().color;
+    }
+
+    public override void ResetValues()
+    {
+        enemy.GetComponentInChildren<SpriteRenderer>().color = _startingColor;
+        _isAttacking = false;
     }
 
     private void OnDestroy()
