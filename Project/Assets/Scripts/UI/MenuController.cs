@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using PlayerSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,6 +11,10 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject gameMenuPanel;
     [SerializeField] private GameObject losePanel;
     public static MenuController Instance {get; private set;}
+
+    private EventBus eventBus;
+    private PlayerInput input;
+    
 
     private void Awake(){
         if(Instance != null && Instance != this){
@@ -55,18 +60,14 @@ public class MenuController : MonoBehaviour
     }
 
     public void DisplayPanel(GameObject panel){
-        if(!panel.activeSelf){
-            panel.SetActive(true);
-        } else {
-            panel.SetActive(false);
-        }
+        panel.SetActive(!panel.activeSelf);
     }
 
     public void DisplayLosePanel(){
         DisplayPanel(losePanel);  
     }
 
-    public void DisplayGamePanel(){
+    public void DisplayGamePanel(PauseInputEvent e){
         DisplayPanel(gameMenuPanel);     
     }
 
@@ -83,5 +84,10 @@ public class MenuController : MonoBehaviour
                 losePanel.SetActive(false);
             break;
         }
+    }
+
+    public void setEvents(EventBus bus){
+        eventBus = bus;
+        eventBus.Subscribe<PauseInputEvent>(DisplayGamePanel);
     }
 }
