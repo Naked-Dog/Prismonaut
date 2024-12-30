@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace PlayerSystem
 {
@@ -13,6 +14,7 @@ namespace PlayerSystem
         [SerializeField] private TriggerEventHandler upTrigger;
         [SerializeField] private TriggerEventHandler downTrigger;
         [SerializeField] private PlayerMovementScriptable movementValues;
+        [SerializeField] private InputActionAsset  playerInputAsset;
         [SerializeField] private Knockback knockback;
 
         private PlayerState state;
@@ -37,30 +39,18 @@ namespace PlayerSystem
                 {Direction.Right, rightTrigger}
             };
 
-            inputModule = new HardKeyboardInput(eventBus);
+            inputModule = new PlayerInput(eventBus,playerInputAsset);
             movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger);
             visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator);
             powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, knockback);
             healthModule.MaxHealth = 3f;
             healthModule.CurrentHealth = healthModule.MaxHealth;
+            MenuController.Instance.setEvents(eventBus);
         }
 
         protected void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                if (!state.isPaused)
-                {
-                    state.velocity = avatarRigidbody2D.velocity;
-                    avatarRigidbody2D.velocity = Vector2.zero;
-                }
-                else
-                {
-                    avatarRigidbody2D.velocity = state.velocity;
-                }
-                state.isPaused = !state.isPaused;
-            }
             if (state.isPaused) return;
             eventBus.Publish(new UpdateEvent());
         }
