@@ -83,6 +83,10 @@ namespace PlayerSystem
             {
                 other.gameObject.GetComponent<Enemy>()?.PlayerPowerInteraction(playerState);
             }
+            if (other.gameObject.CompareTag("Switch"))
+            {
+                other.gameObject.GetComponent<Switch>()?.PlayerPowerInteraction(playerState);
+            }
         }
     }
 }
