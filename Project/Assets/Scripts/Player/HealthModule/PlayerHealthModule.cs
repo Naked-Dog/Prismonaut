@@ -37,6 +37,32 @@ namespace PlayerSystem
             }
         }
 
+        public void SpikeDamage()
+        {
+            if (!(playerState.activePower == Power.Square))
+            {
+                CurrentHealth -= 1f;
+                Debug.Log("Current Health: " + CurrentHealth);
+                if (CurrentHealth <= 0f)
+                {
+                    Die();
+                }
+                else
+                {
+                    WarpPlayerToSafeGround();
+                }
+            }
+            else
+            {
+                knockback.CallKnockback(Vector2.up, Vector2.up, Input.GetAxisRaw("Horizontal"), rb2d, playerState, 1);
+            }
+        }
+
+        public void WarpPlayerToSafeGround()
+        {
+            rb2d.position = playerState.lastSafeGroundLocation;
+        }
+
         public void Die()
         {
             GameObject.Destroy(rb2d.gameObject);
