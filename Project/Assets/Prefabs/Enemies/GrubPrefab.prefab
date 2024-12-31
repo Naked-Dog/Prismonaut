@@ -68,7 +68,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.2}
+  m_Offset: {x: 0.000000029802322, y: 0.06228769}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -79,7 +79,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.5}
+  m_Size: {x: 1.6262374, y: 1.0245755}
   m_EdgeRadius: 0
 --- !u!50 &1643143682513763576
 Rigidbody2D:
@@ -125,6 +125,8 @@ MonoBehaviour:
   EnemyFollowBase: {fileID: 11400000, guid: 0d2005e81a0cd07469defdf7120a7f09, type: 2}
   EnemyAttackBase: {fileID: 11400000, guid: 990c470ca1bcd774581a09fe2c9e455f, type: 2}
   EnemyStunBase: {fileID: 11400000, guid: aa2a52338e2de2c409b056441acead0b, type: 2}
+  attackCooldown: 2
+  isAttackInCooldown: 0
   PointA: {fileID: 8885150155005278872}
   PointB: {fileID: 5973913200492754649}
 --- !u!1 &2453238549623615020
@@ -299,8 +301,8 @@ Transform:
   m_GameObject: {fileID: 5132092444812714432}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.2, z: 0}
-  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_LocalPosition: {x: 0, y: -0.4484, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4024904486486230268}
@@ -346,8 +348,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.4970409, g: 0.5566038, b: 0.09714311, a: 1}
+  m_Sprite: {fileID: 954869198, guid: aa2ba94a0880f1546853ea2bb4e31d93, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
