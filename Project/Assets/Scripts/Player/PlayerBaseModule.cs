@@ -42,7 +42,7 @@ namespace PlayerSystem
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger);
             visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator);
-            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers);
+            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers, knockback);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, knockback)
             {
                 MaxHealth = 3f
