@@ -37,6 +37,25 @@ namespace PlayerSystem
             }
         }
 
+        public void SpikeDamage()
+        {
+            CurrentHealth -= 1f;
+            Debug.Log("Current Health: " + CurrentHealth);
+            if (CurrentHealth <= 0f)
+            {
+                Die();
+            }
+            else
+            {
+                WarpPlayerToSafeGround();
+            }
+        }
+
+        public void WarpPlayerToSafeGround()
+        {
+            rb2d.position = playerState.lastSafeGroundLocation;
+        }
+
         public void Die()
         {
             GameObject.Destroy(rb2d.gameObject);

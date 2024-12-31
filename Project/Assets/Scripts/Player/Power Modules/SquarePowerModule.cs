@@ -9,6 +9,7 @@ namespace PlayerSystem
         private PlayerState playerState;
         private Rigidbody2D rb2d;
         private TriggerEventHandler groundTrigger;
+        private Knockback knockback;
 
         private readonly float minPowerDuration = 0.2f;
         private float powerTimeSum = 0f;
@@ -16,13 +17,14 @@ namespace PlayerSystem
         private float cooldownTimeLeft = 0f;
         private bool isActive = false;
 
-        public SquarePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler groundTrigger)
+        public SquarePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, Knockback knockback)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.groundTrigger = groundTrigger;
             this.playerState = playerState;
+            this.knockback = knockback;
 
             eventBus.Subscribe<SquarePowerInputEvent>(togglePower);
         }
@@ -69,6 +71,11 @@ namespace PlayerSystem
             if (other.gameObject.CompareTag("Switch"))
             {
                 other.gameObject.GetComponent<Switch>()?.PlayerPowerInteraction(playerState);
+            }
+            if (other.gameObject.CompareTag("Spike"))
+            {
+                knockback.CallKnockback(new Vector2(0, 0), Vector2.up, Input.GetAxisRaw("Horizontal"), rb2d, playerState, 0);
+                deactivate();
             }
         }
 

@@ -65,6 +65,10 @@ namespace PlayerSystem
                     {
                         other.gameObject.GetComponent<IPlatform>()?.PlatformExitAction(rb2d);
                     }
+                    else
+                    {
+                        SaveSafeGround();
+                    }
                     playerState.groundState = GroundState.Airborne;
                     eventBus.Publish(new UngroundedMovementEvent());
                 }
@@ -92,7 +96,8 @@ namespace PlayerSystem
             isMovementDisabled = isJumpingDisabled = isGravityDisabled = e.toggle;
         }
 
-        private void OnPause(PauseInputEvent e){
+        private void OnPause(PauseInputEvent e)
+        {
             if (!playerState.isPaused)
             {
                 playerState.velocity = rb2d.velocity;
@@ -103,6 +108,12 @@ namespace PlayerSystem
                 rb2d.velocity = playerState.velocity;
             }
             playerState.isPaused = !playerState.isPaused;
+        }
+
+        private void SaveSafeGround()
+        {
+            float modificator = playerState.groundState == GroundState.Airborne ? 0f : 1f;
+            playerState.lastSafeGroundLocation = new Vector2(rb2d.position.x - modificator, rb2d.position.y);
         }
     }
 }

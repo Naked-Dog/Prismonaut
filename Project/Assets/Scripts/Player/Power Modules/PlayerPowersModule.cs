@@ -17,11 +17,11 @@ namespace PlayerSystem
         private bool isTrianglePowerAvailable = true;
         private bool isCirclePowerAvailable = true;
 
-        public PlayerPowersModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, Dictionary<Direction, TriggerEventHandler> triggers)
+        public PlayerPowersModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, Dictionary<Direction, TriggerEventHandler> triggers, Knockback knockback)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
-            if (isSquarePowerAvailable) squarePower = new SquarePowerModule(eventBus, playerState, rb2d, triggers[Direction.Down]);
+            if (isSquarePowerAvailable) squarePower = new SquarePowerModule(eventBus, playerState, rb2d, triggers[Direction.Down], knockback);
             if (isTrianglePowerAvailable) trianglePower = new TrianglePowerModule(eventBus, playerState, rb2d, triggers[Direction.Up]);
             if (isCirclePowerAvailable) circlePower = new CirclePowerModule(eventBus, playerState, rb2d, triggers[Direction.Left], triggers[Direction.Right]);
         }
