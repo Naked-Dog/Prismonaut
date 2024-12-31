@@ -25,15 +25,16 @@ namespace PlayerSystem
 
         public void Damage(float damageAmount, Vector2 hitDirection)
         {
-            CurrentHealth -= damageAmount;
-            Debug.Log("Current Health: " + CurrentHealth);
-            if (CurrentHealth <= 0f)
+            if (!(playerState.activePower == Power.Square))
             {
-                Die();
+                CurrentHealth -= damageAmount;
+                Debug.Log("Current Health: " + CurrentHealth);
+                if (CurrentHealth <= 0f)
+                {
+                    Die();
+                }
+                knockback.CallKnockback(hitDirection, Vector2.up, Input.GetAxisRaw("Horizontal"), rb2d, playerState, damageAmount);
             }
-
-            //knockback
-            knockback.CallKnockback(hitDirection, Vector2.up, Input.GetAxisRaw("Horizontal"), rb2d, playerState, damageAmount);
         }
 
         public void Die()

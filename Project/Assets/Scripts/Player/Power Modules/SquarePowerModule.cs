@@ -66,6 +66,10 @@ namespace PlayerSystem
             {
                 other.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
             }
+            if (other.gameObject.CompareTag("Switch"))
+            {
+                other.gameObject.GetComponent<Switch>()?.PlayerPowerInteraction(playerState);
+            }
         }
 
         private void deactivate()
