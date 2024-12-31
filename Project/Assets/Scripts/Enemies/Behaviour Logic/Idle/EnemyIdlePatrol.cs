@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyIdlePatrol : EnemyIdleSOBase
 {
     [SerializeField] private float PatrolMovementSpeed = 1f;
-    private Vector3 _direction;
+    private Vector2 moveDirection;
     private Transform PointA;
     private Transform PointB;
 
@@ -38,8 +38,9 @@ public class EnemyIdlePatrol : EnemyIdleSOBase
         {
             enemy.StateMachine.ChangeState(enemy.FollowState);
         }
-        _direction = (_currentTargetPoint.position - enemy.transform.position).normalized;
-        enemy.gameObject.GetComponent<IEnemyMoveable>()?.MoveEnemy(_direction * PatrolMovementSpeed);
+        moveDirection = (_currentTargetPoint.position - enemy.transform.position).normalized;
+        enemy.GetComponentInChildren<SpriteRenderer>().flipX = moveDirection.x < 0;
+        enemy.gameObject.GetComponent<IEnemyMoveable>()?.MoveEnemy(moveDirection * PatrolMovementSpeed);
         if ((enemy.transform.position - _currentTargetPoint.position).sqrMagnitude < 0.05f)
         {
             _currentTargetPoint = GetNextPosition();
