@@ -44,6 +44,7 @@ namespace PlayerSystem
             if (CurrentHealth <= 0f)
             {
                 Die();
+                return;
             }
             else
             {
@@ -58,7 +59,15 @@ namespace PlayerSystem
 
         public void Die()
         {
-            GameObject.Destroy(rb2d.gameObject);
+            //Die Animation
+            Respawn();
+        }
+
+        public void Respawn()
+        {
+            CurrentHealth = MaxHealth;
+            Vector3 savedPosition = GameDataManager.Instance.GetSavedPlayerPosition();
+            rb2d.position = savedPosition;
         }
     }
 }
