@@ -18,6 +18,10 @@ TagManager:
   - SkyboxCamera
   - Starship
   - FinishTrigger
+  - Platform
+  - Enemy
+  - Switch
+  - Door
   layers:
   - Default
   - TransparentFX

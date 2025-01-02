@@ -21,6 +21,7 @@ namespace PlayerSystem
             eventBus.Subscribe<ToggleSquarePowerEvent>(onSquarePowerToggle);
             eventBus.Subscribe<ToggleTrianglePowerEvent>(onTrianglePowerToggle);
             eventBus.Subscribe<ToggleCirclePowerEvent>(onCirclePowerToggle);
+            eventBus.Subscribe<PauseInputEvent>(OnPause);
         }
 
         public override void Jump(JumpInputEvent input)
@@ -45,8 +46,12 @@ namespace PlayerSystem
         {
             groundTrigger.OnTriggerEnter2DAction.AddListener((other) =>
             {
-                if (other.gameObject.tag == "Ground")
+                if (other.gameObject.tag == "Ground" || other.gameObject.CompareTag("Platform"))
                 {
+                    if (other.gameObject.CompareTag("Platform"))
+                    {
+                        other.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
+                    }
                     playerState.groundState = GroundState.Grounded;
                     eventBus.Publish(new GroundedMovementEvent());
                 }
@@ -54,8 +59,16 @@ namespace PlayerSystem
 
             groundTrigger.OnTriggerExit2DAction.AddListener((other) =>
             {
-                if (other.gameObject.tag == "Ground")
+                if (other.gameObject.tag == "Ground" || other.gameObject.CompareTag("Platform"))
                 {
+                    if (other.gameObject.CompareTag("Platform"))
+                    {
+                        other.gameObject.GetComponent<IPlatform>()?.PlatformExitAction(rb2d);
+                    }
+                    else
+                    {
+                        SaveSafeGround();
+                    }
                     playerState.groundState = GroundState.Airborne;
                     eventBus.Publish(new UngroundedMovementEvent());
                 }
@@ -81,6 +94,26 @@ namespace PlayerSystem
         private void onCirclePowerToggle(ToggleCirclePowerEvent e)
         {
             isMovementDisabled = isJumpingDisabled = isGravityDisabled = e.toggle;
+        }
+
+        private void OnPause(PauseInputEvent e)
+        {
+            if (!playerState.isPaused)
+            {
+                playerState.velocity = rb2d.velocity;
+                rb2d.velocity = Vector2.zero;
+            }
+            else
+            {
+                rb2d.velocity = playerState.velocity;
+            }
+            playerState.isPaused = !playerState.isPaused;
+        }
+
+        private void SaveSafeGround()
+        {
+            float modificator = playerState.groundState == GroundState.Airborne ? 0f : 1f;
+            playerState.lastSafeGroundLocation = new Vector2(rb2d.position.x - modificator, rb2d.position.y);
         }
     }
 }

@@ -265,7 +265,6 @@ public class Player2DController : MonoBehaviour
         if (circlePowerAction.WasPressedThisFrame()) formInput(FormState.Circle);
         if (trianglePowerAction.WasPressedThisFrame()) formInput(FormState.Triangle);
         if (squarePowerAction.WasPressedThisFrame()) formInput(FormState.Square);
-        if (pauseAction.WasPressedThisFrame()) MenuController.Instance.DisplayGamePanel();
 
         isMoving = Mathf.Abs(rb2d.velocity.x) > 0.1f;
         playerSpriteRender.flipX = rb2d.velocity.x < 0;
