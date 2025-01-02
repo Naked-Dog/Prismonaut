@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -7,12 +8,5 @@ public class DialogueActor : ScriptableObject
     public Sprite portrait;
     public TMP_FontAsset dialogueFont;
     public Color fontColor = Color.white;
-    public AudioClip dialogueSFX;
-    public int characterFrecuency;
-
-    [Range(0,1)]
-    public float minPitch = -0.3f;
-
-    [Range(1,1.5f)]
-    public float maxPitch = 0.3f;
+    public List<AudioClip> alphabetSounds;
 }

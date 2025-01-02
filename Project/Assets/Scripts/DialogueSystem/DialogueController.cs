@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public enum DialogueType
@@ -20,6 +22,8 @@ public class DialogueController : MonoBehaviour
     private int currentDialogueIndex = 0;
     private DialogueType currentType;
     private AudioSource audioSource;
+
+    private string[] ignoreChars = {" ",",","-","_","."};
 
     public static DialogueController Instance {get; private set;}
 
@@ -134,18 +138,32 @@ public class DialogueController : MonoBehaviour
     {
         foreach(var character in dialogueText)
         {
-            playDialogueSFX(viewController.dialogueTMPText.text);
+            playDialogueSFX(character.ToString());
             viewController.dialogueTMPText.text += character;
             yield return new WaitForSeconds(writeSpeed);
         }
     }
 
-    public void playDialogueSFX(string text)
+    public void playDialogueSFX(string letter)
     {
-        if(text.Length % currentActor.characterFrecuency == 0){
-            audioSource.Stop();
-            audioSource.pitch = Random.Range(currentActor.minPitch, currentActor.maxPitch);
-            audioSource.PlayOneShot(currentActor.dialogueSFX);
+        foreach(string character in ignoreChars) 
+        {
+            if(character == letter)
+            {
+                return;
+            }
+        }
+
+        var upper = letter.ToUpper();
+
+        foreach(AudioClip clip in currentActor.alphabetSounds)
+        {
+            var dialogueLetter = clip.name.Last();
+            if(dialogueLetter.ToString() == upper)
+            {
+                audioSource.PlayOneShot(clip);
+                return;
+            }
         }
     }
 
