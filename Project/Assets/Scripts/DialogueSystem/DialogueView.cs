@@ -15,6 +15,7 @@ public class DialogueView : MonoBehaviour
     public TextMeshProUGUI dialogueTMPText;
     [SerializeField] private GameObject dialoguePanelContainer;
     [SerializeField] private Image portraitImage;
+    [SerializeField] private Image portraitContainer;
     [SerializeField] private GameObject nextDialogueSing;
 
     [Header("Choises")]
@@ -30,7 +31,7 @@ public class DialogueView : MonoBehaviour
             case DialogueType.Text:
                 dialogueTMPText.gameObject.SetActive(true);
                 dialogueTMPText.text = "";
-                portraitImage.gameObject.SetActive(true);
+                portraitContainer.gameObject.SetActive(true);
                 choisesContainer.SetActive(false);
                 ShowNextSign(false);
                 foreach(Transform child in choisesContainer.transform)
@@ -43,7 +44,7 @@ public class DialogueView : MonoBehaviour
             case DialogueType.Choices:
                 choisesContainer.SetActive(true);
                 dialogueTMPText.gameObject.SetActive(false);
-                portraitImage.gameObject.SetActive(false);
+                portraitContainer.gameObject.SetActive(false);
                 ShowNextSign(false);
                 break;
 
