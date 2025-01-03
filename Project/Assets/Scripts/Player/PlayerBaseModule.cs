@@ -49,6 +49,7 @@ namespace PlayerSystem
             };
             healthModule.CurrentHealth = healthModule.MaxHealth;
             MenuController.Instance?.setEvents(eventBus);
+            DialogueController.Instance?.SetEventBus(eventBus);
         }
 
         protected void Update()
