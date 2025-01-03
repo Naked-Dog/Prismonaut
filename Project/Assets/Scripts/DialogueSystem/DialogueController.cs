@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using PlayerSystem;
+using UnityEditor;
 using UnityEngine;
 
 public enum DialogueType
@@ -18,12 +21,15 @@ public class DialogueController : MonoBehaviour
     private DialogueActor currentActor;
     private string currentDialogueText;
     private bool currentDialogueComplete;
-    private Narrative currentNarrative;
+    private Conversation currentConversation;
+    private List<Dialogue> currentDialogues;
+    private List<Choice> currentChoices;
     private int currentDialogueIndex = 0;
     private DialogueType currentType;
     private AudioSource audioSource;
-
     private string[] ignoreChars = {" ",",","-","_","."};
+
+    private EventBus eventBus;
 
     public static DialogueController Instance {get; private set;}
 
@@ -44,10 +50,6 @@ public class DialogueController : MonoBehaviour
     {
 
         if(isDialogueRunning){
-            if(Input.GetKeyDown(KeyCode.Backspace))
-            {
-                EndDialogue();            
-            }
 
             if(Input.GetKeyDown(KeyCode.Space) && currentType == DialogueType.Text)
             {
@@ -62,23 +64,33 @@ public class DialogueController : MonoBehaviour
         }
     }    
 
+    public void SetEventBus(EventBus bus){
+        eventBus = bus;
+    }
+
     public void RunDialogue(Narrative narrative) 
     {   
-        currentNarrative = narrative;
+        eventBus.Publish(new PauseEvent());
         currentDialogueIndex = 0;
         isDialogueRunning = true;
 
-        if(narrative.dialogues.Count != 0)
+        List<Conversation> conversations = narrative.conversations;
+        currentConversation = conversations[0];
+        currentDialogues = currentConversation.dialogues;
+        currentChoices = currentConversation.choices;
+        
+
+        if(currentDialogues.Count != 0)
         {
             currentDialogueComplete =  false;
             currentType = DialogueType.Text;
-            StartCoroutine(DialogueSequence(narrative.dialogues[currentDialogueIndex]));
+            StartCoroutine(DialogueSequence(currentDialogues[currentDialogueIndex]));
         }
-        else if(narrative.choiseNarrative)
+        else if(currentChoices.Count != 0)
         {
             currentType = DialogueType.Choices;
             viewController.SetDialoguePanel(currentType);
-            viewController.DisplayChoices(narrative.choiseNarrative);
+            viewController.DisplayChoices(currentChoices);
         }
         else
         {
@@ -92,19 +104,23 @@ public class DialogueController : MonoBehaviour
     {
         currentDialogueIndex++;
 
-        if(currentDialogueIndex < currentNarrative.dialogues.Count)
+        if(currentDialogueIndex < currentDialogues.Count)
         {
             currentDialogueComplete =  false;
             currentType = DialogueType.Text;
-            StartCoroutine(DialogueSequence(currentNarrative.dialogues[currentDialogueIndex]));
+            StartCoroutine(DialogueSequence(currentDialogues[currentDialogueIndex]));
         }
         else 
         {
-            if(currentNarrative.choiseNarrative)
+            if(currentConversation.choices.Count != 0)
             {
                 currentType = DialogueType.Choices;
                 viewController.SetDialoguePanel(currentType);
-                viewController.DisplayChoices(currentNarrative.choiseNarrative);
+                viewController.DisplayChoices(currentConversation.choices);
+            }
+            else
+            {
+                EndDialogue();
             }
         }
     }
@@ -112,7 +128,7 @@ public class DialogueController : MonoBehaviour
 
     private IEnumerator DialogueSequence(Dialogue dialogue)
     {    
-        currentActor = dialogue.actor;
+        currentActor = GetActor(dialogue.actor);
         viewController.SetActor(currentActor);
         viewController.SetDialoguePanel(currentType);
 
@@ -130,7 +146,7 @@ public class DialogueController : MonoBehaviour
 
     private IEnumerator WriteDialogue(Dialogue dialogue)
     {
-        currentDialogueText = dialogue.dialogueText;
+        currentDialogueText = dialogue.text;
         yield return StartCoroutine(WriteCharByChar(currentDialogueText, writeSpeed));
     }
 
@@ -179,7 +195,13 @@ public class DialogueController : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(viewController.CloseDialoguePanel());
         isDialogueRunning = false;
+        eventBus.Publish(new PauseEvent());
     }
 
-
+    private DialogueActor GetActor(string actorName)
+    {
+        var path = $"Assets/DialogueSystem/Actors/{actorName}.asset";
+        DialogueActor actor = AssetDatabase.LoadAssetAtPath<DialogueActor>(path);
+        return actor;
+    }
 }

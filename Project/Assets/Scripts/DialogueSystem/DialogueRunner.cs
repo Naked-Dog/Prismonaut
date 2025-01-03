@@ -3,9 +3,16 @@ using UnityEngine;
 
 public class DialogueRunner : MonoBehaviour
 {
-    [SerializeField] private Narrative narrative;
+    [SerializeField] private TextAsset narrativeText;
     [SerializeField] private PlayerBaseModule player;
     [SerializeField] private bool isDialoguePlayed;
+    
+    private Narrative narrative;
+
+    protected void Start()
+    {
+        ParseNarrative(narrativeText);
+    }
 
     protected void Update(){
         if(player && !isDialoguePlayed && !DialogueController.Instance.isDialogueRunning)
@@ -25,5 +32,10 @@ public class DialogueRunner : MonoBehaviour
             isDialoguePlayed = false;
         } 
             
+    }
+
+    private void ParseNarrative(TextAsset narrativeJSON)
+    {
+        narrative = JsonUtility.FromJson<Narrative>(narrativeJSON.ToString());
     }
 }

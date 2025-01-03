@@ -1,21 +1,35 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+
 
 [Serializable]
 public class Dialogue
 {
-    [TextArea] public string dialogueText;
-    public DialogueActor actor; 
+    public string text;
+    public string actor;
 }
 
-//temporal option to write the narrative.
-[CreateAssetMenu(fileName = "NewNarrative", menuName = "DialogueSystem/NewNarrative", order = 2)]
-public class Narrative : ScriptableObject
+[Serializable]
+public class Choice
 {
-    public List<Dialogue> dialogues = new();
-    public ChoiceNarrative choiseNarrative;
+    public string text;
+    public string nextNarrativeId; 
 }
+
+[Serializable]
+public class Conversation
+{
+    public string id;
+    public List<Dialogue> dialogues;
+    public List<Choice> choices; 
+}
+
+[Serializable]
+public class Narrative
+{
+    public List<Conversation> conversations;
+}
+
 
 
 

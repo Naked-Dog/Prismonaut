@@ -8,7 +8,8 @@ public class ChoiceUI : MonoBehaviour
     
     public void SetChoise(Choice choise)
     {
-        choiseText.text = choise.choiceText;
-        GetComponent<Button>().onClick.AddListener(()=> DialogueController.Instance.RunDialogue(choise.nextNarrative));
+        choiseText.text = choise.text;
+        //Method to add the option selection action. It will be used when implementing options.
+        //GetComponent<Button>().onClick.AddListener(()=> DialogueController.Instance.RunDialogue(choise.nextNarrative));
     }
 }

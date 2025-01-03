@@ -17,6 +17,7 @@ namespace PlayerSystem
 
             this.eventBus = eventBus;
             eventBus.Subscribe<UpdateEvent>(OnMove);
+            eventBus.Subscribe<PauseEvent>(OnPause);
         }
 
         private void InitializeActions()
@@ -29,9 +30,9 @@ namespace PlayerSystem
             playerGameMap.FindAction("CirclePower").started += _ => eventBus.Publish(new CirclePowerInputEvent()); 
             playerGameMap.FindAction("SquarePower").started += _ => eventBus.Publish(new SquarePowerInputEvent(true)); 
             playerGameMap.FindAction("SquarePower").canceled += _ => eventBus.Publish(new SquarePowerInputEvent(false));
-            playerGameMap.FindAction("Pause").started += _ => OnPause();
+            playerGameMap.FindAction("Pause").started += _ => OnPauseInput();
 
-            playerUIMap.FindAction("Pause").started += _ => OnPause(); 
+            playerUIMap.FindAction("Pause").started += _ => OnPauseInput(); 
         }
 
         private void OnMove(UpdateEvent e)
@@ -40,7 +41,7 @@ namespace PlayerSystem
             eventBus.Publish(new HorizontalInputEvent(horizontalAxis));
         }
 
-        private void OnPause()
+        private void OnPause(PauseEvent e)
         {
             if(playerGameMap.enabled)
             {
@@ -52,6 +53,11 @@ namespace PlayerSystem
                 playerGameMap.Enable();
                 playerUIMap.Disable();
             }
+        }
+
+        private void OnPauseInput()
+        {
+            OnPause(new PauseEvent());
             eventBus.Publish(new PauseInputEvent());
         }
 

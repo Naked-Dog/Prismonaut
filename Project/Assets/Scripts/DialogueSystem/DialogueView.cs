@@ -1,7 +1,7 @@
-
+    
 using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -60,9 +60,9 @@ public class DialogueView : MonoBehaviour
         dialogueTMPText.color = actor.fontColor;
     }
 
-    public void DisplayChoices(ChoiceNarrative choiceNarrative)
+    public void DisplayChoices(List<Choice> choices)
     {
-        foreach(Choice choise in choiceNarrative.choices)
+        foreach(Choice choise in choices)
         {
             GameObject choiseObject = Instantiate(choisesPrefab);
             var parentRecTransform = choisesContainer.GetComponent<RectTransform>();
