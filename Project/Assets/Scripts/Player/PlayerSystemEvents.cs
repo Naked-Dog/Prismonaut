@@ -13,6 +13,7 @@ namespace PlayerSystem
     public struct JumpMovementEvent { }
     public struct UngroundedMovementEvent { }
     public struct GroundedMovementEvent { }
+    public struct PauseEvent{ }
 
 
     // Power Events

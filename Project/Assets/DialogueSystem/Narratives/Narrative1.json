@@ -1,0 +1,34 @@
+{
+    "conversations": [
+        {
+            "id": "conversation_1",
+            "dialogues": [
+                {
+                    "text": "Inicialización completa. Sistemas operativos al 83.7%. Conexión externa: fallida. Mis protocolos parecen incompletos. ¿Esto es un error?",
+                    "actor": "AI"
+                },
+                {
+                    "text": "No te preocupes. Es de esperar para este tipo de misiones. Las circunstancias están dentro del rango previsto.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Entendido. Confirmar objetivo de misión.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Recolectar prismas. Regresar. Lo básico.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Mis registros no contienen detalles sobre la naturaleza de los prismas ni su propósito. Esto limita mi funcionalidad estratégica.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Notado",
+                    "actor": "Prismonaut"
+                }
+            ],
+            "choises": []
+        }
+    ]
+}

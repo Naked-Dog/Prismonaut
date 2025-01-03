@@ -21,7 +21,8 @@ namespace PlayerSystem
             eventBus.Subscribe<ToggleSquarePowerEvent>(onSquarePowerToggle);
             eventBus.Subscribe<ToggleTrianglePowerEvent>(onTrianglePowerToggle);
             eventBus.Subscribe<ToggleCirclePowerEvent>(onCirclePowerToggle);
-            eventBus.Subscribe<PauseInputEvent>(OnPause);
+            eventBus.Subscribe<PauseEvent>(OnPause);
+            eventBus.Subscribe<PauseInputEvent>(OnInputPause);
         }
 
         public override void Jump(JumpInputEvent input)
@@ -96,7 +97,7 @@ namespace PlayerSystem
             isMovementDisabled = isJumpingDisabled = isGravityDisabled = e.toggle;
         }
 
-        private void OnPause(PauseInputEvent e)
+        private void OnPause(PauseEvent e)
         {
             if (!playerState.isPaused)
             {
@@ -108,6 +109,11 @@ namespace PlayerSystem
                 rb2d.velocity = playerState.velocity;
             }
             playerState.isPaused = !playerState.isPaused;
+        }
+
+        private void OnInputPause(PauseInputEvent e)
+        {
+            OnPause(new PauseEvent());
         }
 
         private void SaveSafeGround()
