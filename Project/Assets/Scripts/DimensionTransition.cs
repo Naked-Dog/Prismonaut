@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using System.Net;
+using PlayerSystem;
 [ExecuteInEditMode]
 public class DimensionTransition : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class DimensionTransition : MonoBehaviour
     private BoxCollider2D[] box2DColliders => GetComponents<BoxCollider2D>();
     private CinemachineVirtualCamera virtualCamera => FindObjectOfType<CinemachineVirtualCamera>();
     private bool isTraveling;
-    private Player2DController playerController = null;
+    private PlayerBaseModule playerController = null;
     private InputAction trianglePowerAction;
     private InputAction squarePowerAction;
     private InputAction circlePowerAction;
@@ -97,7 +98,7 @@ public class DimensionTransition : MonoBehaviour
         }
     }
 
-    public IEnumerator TravelTransition(Player2DController player, Vector3 targetPosition, Vector3 startTangent, Vector3 endTangent, float totalTransitionTime)
+    public IEnumerator TravelTransition(PlayerBaseModule player, Vector3 targetPosition, Vector3 startTangent, Vector3 endTangent, float totalTransitionTime)
     {
         Debug.Log(targetPosition);
         isTraveling = true;
@@ -149,14 +150,14 @@ public class DimensionTransition : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider) 
     {
-        if(collider.GetComponent<Player2DController>()){
-            playerController = collider.GetComponent<Player2DController>();
+        if(collider.GetComponent<PlayerBaseModule>()){
+            playerController = collider.GetComponent<PlayerBaseModule>();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collider) 
     {
-        if(collider.GetComponent<Player2DController>()){
+        if(collider.GetComponent<PlayerBaseModule>()){
             playerController = null;
         }
     }

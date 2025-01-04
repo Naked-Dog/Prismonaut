@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8639993425687897541}
   m_Layer: 0
   m_Name: 1x4
-  m_TagString: BreakWithSquare
+  m_TagString: Breakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
