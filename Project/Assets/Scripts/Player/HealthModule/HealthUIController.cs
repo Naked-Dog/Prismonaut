@@ -21,7 +21,6 @@ public class HealthUIController : MonoBehaviour
         {
             live.SetActive(true);
         }
-
         mainContainer.SetActive(false);
     }
 
@@ -39,7 +38,10 @@ public class HealthUIController : MonoBehaviour
     public void ResetHealthUI()
     {
         currentHealth = maxHealth;
-        StartCoroutine(ShowHealthUI());
+        foreach (GameObject live in lives)
+        {
+            live.SetActive(true);
+        }
     }
 
     //Animacion de aparecer y desaparecer

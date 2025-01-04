@@ -70,6 +70,7 @@ namespace PlayerSystem
         public void Respawn()
         {
             CurrentHealth = MaxHealth;
+            healthUIController.ResetHealthUI();
             Vector3 savedPosition = GameDataManager.Instance.GetSavedPlayerPosition();
             rb2d.position = savedPosition;
         }
