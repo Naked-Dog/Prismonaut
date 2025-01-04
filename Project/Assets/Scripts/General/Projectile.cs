@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
 {
     public Collider2D EnemyCollider { get; private set; }
     public Vector2 Direction { get; private set; }
-    [SerializeField] public float damageAmount = 1f;
+    [SerializeField] public int damageAmount = 1;
     [SerializeField] private bool isDestroyedByTerrain = true;
 
     private Collider2D coll;

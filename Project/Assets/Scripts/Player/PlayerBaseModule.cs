@@ -16,6 +16,7 @@ namespace PlayerSystem
         [SerializeField] private PlayerMovementScriptable movementValues;
         [SerializeField] private InputActionAsset playerInputAsset;
         [SerializeField] private Knockback knockback;
+        [SerializeField] private HealthUIController healthUIController;
 
         private PlayerState state;
         private EventBus eventBus;
@@ -43,11 +44,12 @@ namespace PlayerSystem
             movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger);
             visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator);
             powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers, knockback);
-            healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, knockback)
+            healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, knockback, healthUIController)
             {
-                MaxHealth = 3f
+                MaxHealth = 3
             };
             healthModule.CurrentHealth = healthModule.MaxHealth;
+            healthUIController.InitUI(healthModule.CurrentHealth);
             MenuController.Instance?.setEvents(eventBus);
             DialogueController.Instance?.SetEventBus(eventBus);
         }
