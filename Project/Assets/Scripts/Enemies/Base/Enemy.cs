@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
 {
-    [field: SerializeField] public float MaxHealth { get; set; }
-    public float CurrentHealth { get; set; }
-    [SerializeField] public float DamageAmount { get; set; } = 1;
+    [field: SerializeField] public int MaxHealth { get; set; }
+    public int CurrentHealth { get; set; }
+    [SerializeField] public int DamageAmount { get; set; } = 1;
     public Rigidbody2D RigidBody { get; set; }
     public bool IsFacingRight { get; set; } = true;
 
@@ -91,11 +91,11 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     {
     }
 
-    public void Damage(float damageAmount, Vector2 hitDirection = default)
+    public void Damage(int damageAmount, Vector2 hitDirection = default)
     {
         CurrentHealth -= damageAmount;
 
-        if (CurrentHealth <= 0f)
+        if (CurrentHealth <= 0)
         {
             Die();
         }
@@ -172,7 +172,7 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
         if (collision.gameObject.CompareTag("Player"))
         {
             Vector2 direction = (collision.transform.position - transform.position).normalized;
-            float damageAmount = StateMachine.CurrentEnemyState != StunState ? DamageAmount : 0;
+            int damageAmount = StateMachine.CurrentEnemyState != StunState ? DamageAmount : 0;
             collision.gameObject.GetComponent<PlayerBaseModule>()?.healthModule.Damage(damageAmount, direction);
         }
     }
