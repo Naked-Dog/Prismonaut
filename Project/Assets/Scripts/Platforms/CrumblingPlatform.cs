@@ -45,7 +45,7 @@ public class CrumblingPlatform : MonoBehaviour, IPlatform
 
     public void PlatformEnterAction(PlayerSystem.PlayerState playerState, Rigidbody2D playerRigidBody)
     {
-        if (playerState.activePower == Power.Square)
+        if (playerState.activePower == PlayerSystem.Power.Square)
         {
             StartCoroutine(DestroyPlatform());
         }
