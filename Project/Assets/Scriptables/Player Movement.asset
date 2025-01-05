@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: Player Movement
   m_EditorClassIdentifier: 
   horizontalVelocity: 8.54
-  jumpVelocity: 10.74
-  gravity: 20
+  jumpVelocity: 10
+  jumpTime: 0.2
+  gravity: 5
+  groundCheckExtraHeight: 0.25
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64

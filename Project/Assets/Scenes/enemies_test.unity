@@ -6406,11 +6406,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1168027140868746936, guid: a36b9a3c1e2cdad4d86525573fced8ea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.49
+      value: 12.71
       objectReference: {fileID: 0}
     - target: {fileID: 1168027140868746936, guid: a36b9a3c1e2cdad4d86525573fced8ea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.37
+      value: 0.39
       objectReference: {fileID: 0}
     - target: {fileID: 1168027140868746936, guid: a36b9a3c1e2cdad4d86525573fced8ea, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6480,7 +6480,7 @@ GameObject:
   - component: {fileID: 1925570728}
   - component: {fileID: 1925570727}
   - component: {fileID: 1925570731}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -76179,6 +76179,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 285264918639432098, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 285264918639432098, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
+      propertyPath: m_GravityScale
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1236071349304804809, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
       propertyPath: m_Name
       value: Player

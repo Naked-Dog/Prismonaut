@@ -12,10 +12,11 @@ namespace PlayerSystem
         private TriggerEventHandler leftTrigger;
         private TriggerEventHandler rightTrigger;
 
-        private readonly float powerDuration = 0.5f;
+        private readonly float powerDuration = 0.4f;
         private readonly float cooldownDuration = 1f;
         private float powerTimeLeft = 0f;
         private float cooldownTimeLeft = 0f;
+        private float powerForce = 15f;
         private bool isActive = false;
 
         public CirclePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler leftTrigger, TriggerEventHandler rightTrigger)
@@ -33,11 +34,12 @@ namespace PlayerSystem
         {
             if (isActive) return;
             if (cooldownTimeLeft > 0f) return;
-
+            Debug.Log("Activating Circle");
             isActive = true;
             playerState.activePower = Power.Circle;
             int facingDirectionInt = playerState.facingDirection == Direction.Right ? 1 : -1;
-            rb2d.velocity = new Vector2(10f * facingDirectionInt, 0f);
+            rb2d.velocity = new Vector2(powerForce * facingDirectionInt, 0f);
+            Debug.Log(rb2d.velocity);
             powerTimeLeft = powerDuration;
 
             TriggerEventHandler triggerToActivate = playerState.facingDirection == Direction.Right ? rightTrigger : leftTrigger;
@@ -56,6 +58,7 @@ namespace PlayerSystem
 
         private void deactivate()
         {
+            Debug.Log("Deactivating Circle");
             isActive = false;
             playerState.activePower = Power.None;
 
