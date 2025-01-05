@@ -10,14 +10,13 @@ public class Prism : MonoBehaviour, ICollectable
     private void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-        Debug.Log(gameManager);
         collect.AddListener(gameManager.GetPrism);
     }
 
     public void Collect()
     {
-        gameObject.SetActive(false);
         collect.Invoke();
+        Destroy(gameObject);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

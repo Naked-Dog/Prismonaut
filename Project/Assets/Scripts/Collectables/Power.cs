@@ -14,7 +14,6 @@ public class Power : MonoBehaviour, ICollectable
     private void Start()
     {
         playerBaseModule = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBaseModule>();
-        Debug.Log(playerBaseModule);
         collect.AddListener(delegate { playerBaseModule.powersModule.SetPowerAvailable(power, true); });
     }
 

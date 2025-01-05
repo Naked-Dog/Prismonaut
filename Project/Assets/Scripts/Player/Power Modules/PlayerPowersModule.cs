@@ -30,21 +30,17 @@ namespace PlayerSystem
 
         public void SetPowerAvailable(Power power, bool isAvailable)
         {
-            Debug.Log("Setting " + power + " to " + isAvailable);
             switch (power)
             {
                 case Power.Square:
                     playerState.isSquarePowerAvailable = isAvailable;
-                    Debug.Log("is squarePower null" + (squarePower == null));
                     squarePower ??= new SquarePowerModule(eventBus, playerState, rb2d, triggers[Direction.Down], knockback);
                     break;
                 case Power.Triangle:
                     playerState.isTrianglePowerAvailable = isAvailable;
-                    Debug.Log("is trianglePower null" + (trianglePower == null));
                     trianglePower ??= new TrianglePowerModule(eventBus, playerState, rb2d, triggers[Direction.Up]);
                     break;
                 case Power.Circle:
-                    Debug.Log("is circlePower null" + (circlePower == null));
                     playerState.isCirclePowerAvailable = isAvailable;
                     circlePower ??= new CirclePowerModule(eventBus, playerState, rb2d, triggers[Direction.Left], triggers[Direction.Right]);
                     break;

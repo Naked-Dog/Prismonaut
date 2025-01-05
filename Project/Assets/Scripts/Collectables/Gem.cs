@@ -10,7 +10,6 @@ public class Gem : MonoBehaviour, ICollectable
     private void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-        Debug.Log(gameManager);
         collect.AddListener(gameManager.GetGem);
     }
 
