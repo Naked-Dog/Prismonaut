@@ -25,7 +25,7 @@ namespace PlayerSystem
         private PlayerInput inputModule;
         private PlayerMovement movementModule;
         private PlayerVisuals visualsModule;
-        private PlayerPowersModule powersModule;
+        public PlayerPowersModule powersModule;
         public PlayerHealthModule healthModule;
 
         protected void Start()

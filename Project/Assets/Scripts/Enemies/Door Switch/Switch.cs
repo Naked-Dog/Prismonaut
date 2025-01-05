@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class Switch : MonoBehaviour
 {
-    public Power powerInteraction;
+    public PlayerSystem.Power powerInteraction;
     public Transform switchTransform;
     public UnityEvent onSwitchActivation;
 
