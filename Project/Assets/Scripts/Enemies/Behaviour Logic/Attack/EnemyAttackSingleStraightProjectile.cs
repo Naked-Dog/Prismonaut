@@ -11,8 +11,8 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
     [SerializeField] private float projectileSpeed = 5f;
     [SerializeField] private float _timeBetweenShots = 1f;
 
-    private float minAngle = -30f;
-    private float maxAngle = 30f;
+    /* private float minAngle = -30f;
+    private float maxAngle = 30f; */
 
     private float _timer;
     private bool _isAttacking = false;

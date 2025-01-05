@@ -119,7 +119,9 @@ namespace PlayerSystem
         private void SaveSafeGround()
         {
             float modificator = playerState.groundState == GroundState.Airborne ? 0f : 1f;
-            playerState.lastSafeGroundLocation = new Vector2(rb2d.position.x - modificator, rb2d.position.y);
+            float direction = 1;
+            if (playerState.facingDirection == Direction.Left) direction = -1;
+            playerState.lastSafeGroundLocation = new Vector2(rb2d.position.x - (modificator * direction), rb2d.position.y);
         }
     }
 }
