@@ -22,6 +22,7 @@ TagManager:
   - Enemy
   - Switch
   - Door
+  - Chest
   layers:
   - Default
   - TransparentFX
