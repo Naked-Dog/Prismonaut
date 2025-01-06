@@ -12,6 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f8889d93ce4f76894033053fbb9579, type: 3}
   m_Name: Player Movement
   m_EditorClassIdentifier: 
-  horizontalVelocity: 6
-  jumpVelocity: 12
-  gravity: 20
+  horizontalVelocity: 8.54
+  jumpForce: 10
+  jumpTime: 0.2
+  gravity: 7
+  groundCheckExtraHeight: 0.25
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  circlePowerForce: 15
+  circlePowerDuration: 0.4
+  circlePowerCooldown: 1
+  squarePowerForce: -10
+  squarePowerCooldown: 1
+  trianglePowerForce: 10
+  trianglePowerDuration: 0.3
+  trianglePowerCooldown: 1

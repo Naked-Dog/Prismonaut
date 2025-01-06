@@ -11,20 +11,20 @@ namespace PlayerSystem
         private Rigidbody2D rb2d;
         private TriggerEventHandler leftTrigger;
         private TriggerEventHandler rightTrigger;
+        private PlayerMovementScriptable movementValues;
 
-        private readonly float powerDuration = 0.5f;
-        private readonly float cooldownDuration = 1f;
         private float powerTimeLeft = 0f;
         private float cooldownTimeLeft = 0f;
         private bool isActive = false;
 
-        public CirclePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler leftTrigger, TriggerEventHandler rightTrigger)
+        public CirclePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler leftTrigger, TriggerEventHandler rightTrigger, PlayerMovementScriptable movementValues)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.leftTrigger = leftTrigger;
             this.rightTrigger = rightTrigger;
+            this.movementValues = movementValues;
 
             eventBus.Subscribe<CirclePowerInputEvent>(activate);
         }
@@ -33,12 +33,11 @@ namespace PlayerSystem
         {
             if (isActive) return;
             if (cooldownTimeLeft > 0f) return;
-
             isActive = true;
             playerState.activePower = Power.Circle;
             int facingDirectionInt = playerState.facingDirection == Direction.Right ? 1 : -1;
-            rb2d.velocity = new Vector2(10f * facingDirectionInt, 0f);
-            powerTimeLeft = powerDuration;
+            rb2d.velocity = new Vector2(movementValues.circlePowerForce * facingDirectionInt, 0f);
+            powerTimeLeft = movementValues.circlePowerDuration;
 
             TriggerEventHandler triggerToActivate = playerState.facingDirection == Direction.Right ? rightTrigger : leftTrigger;
             triggerToActivate.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
@@ -62,7 +61,7 @@ namespace PlayerSystem
             leftTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
             rightTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
 
-            cooldownTimeLeft = cooldownDuration;
+            cooldownTimeLeft = movementValues.circlePowerCooldown;
             eventBus.Subscribe<UpdateEvent>(reduceCooldown);
 
             eventBus.Unsubscribe<UpdateEvent>(reduceTimeLeft);

@@ -26,7 +26,7 @@ namespace PlayerSystem
         private PlayerInput inputModule;
         private PlayerMovement movementModule;
         private PlayerVisuals visualsModule;
-        private PlayerPowersModule powersModule;
+        public PlayerPowersModule powersModule;
         public PlayerHealthModule healthModule;
 
         protected void Start()
@@ -44,7 +44,7 @@ namespace PlayerSystem
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger, this);
             visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator, helmetRenderer);
-            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers, knockback);
+            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers, knockback, movementValues);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, knockback, healthUIController)
             {
                 MaxHealth = 3
