@@ -39,8 +39,9 @@ namespace PlayerSystem
             if (playerState.healthState == HealthState.Stagger) return;
             if (isJumpingDisabled) return;
 
-            if (input.jumpInputAction.WasPressedThisFrame() && IsGrounded())
+            if (input.jumpInputAction.WasPressedThisFrame() && IsGrounded() && !isFalling)
             {
+                Debug.Log("jumping");
                 jumpTimer = movementValues.jumpTime;
                 rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpForce);
                 SaveSafeGround();
@@ -48,7 +49,7 @@ namespace PlayerSystem
                 eventBus.Publish(new JumpMovementEvent());
             }
 
-            if (input.jumpInputAction.IsPressed())
+            if (input.jumpInputAction.IsPressed() && !isFalling)
             {
                 if (playerState.groundState == GroundState.Airborne && jumpTimer > 0)
                 {
@@ -58,19 +59,13 @@ namespace PlayerSystem
                 else if (jumpTimer <= 0)
                 {
                     isFalling = true;
-                    playerState.groundState = GroundState.Grounded;
                     return;
-                }
-                else
-                {
-                    playerState.groundState = GroundState.Grounded;
                 }
             }
 
             if (input.jumpInputAction.WasReleasedThisFrame())
             {
                 isFalling = true;
-                playerState.groundState = GroundState.Grounded;
             }
 
             if (playerState.groundState == GroundState.Grounded && CheckForLand())
@@ -100,7 +95,8 @@ namespace PlayerSystem
                     {
                         other.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
                     }
-                    //playerState.groundState = GroundState.Grounded;
+                    playerState.groundState = GroundState.Grounded;
+                    Debug.Log("Setting groundState grounded");
                     //IsGrounded();
                     eventBus.Publish(new GroundedMovementEvent());
                 }
@@ -175,10 +171,9 @@ namespace PlayerSystem
 
         private bool IsGrounded()
         {
-            groundHit = Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, movementValues.groundCheckExtraHeight, movementValues.groundLayerMask);
+            groundHit = Physics2D.BoxCast(coll.bounds.center - new Vector3(0, coll.bounds.extents.y), new Vector2(coll.bounds.size.x, coll.bounds.size.y * 0.1f), 0f, Vector2.down, movementValues.groundCheckExtraHeight, movementValues.groundLayerMask);
             if (groundHit.collider != null)
             {
-                if (groundHit.collider.gameObject.name != "Ground") Debug.Log(groundHit.collider.gameObject.name);
                 return true;
             }
             else
@@ -228,8 +223,9 @@ namespace PlayerSystem
             {
                 rayColor = Color.red;
             }
-            Debug.DrawRay(coll.bounds.center + new Vector3(coll.bounds.extents.x, 0), Vector2.down * (coll.bounds.extents.y + movementValues.groundCheckExtraHeight), rayColor);
-            Debug.DrawRay(coll.bounds.center - new Vector3(coll.bounds.extents.x, 0), Vector2.down * (coll.bounds.extents.y + movementValues.groundCheckExtraHeight), rayColor);
+            Debug.DrawRay(coll.bounds.center/*  - new Vector3(coll.bounds.extents.x, coll.bounds.extents.y) */, Vector2.right * (coll.bounds.extents.x * 2), Color.blue);
+            Debug.DrawRay(coll.bounds.center + new Vector3(coll.bounds.extents.x, coll.bounds.extents.y), Vector2.down * (coll.bounds.extents.y + movementValues.groundCheckExtraHeight), Color.yellow);
+            Debug.DrawRay(coll.bounds.center - new Vector3(coll.bounds.extents.x, coll.bounds.extents.y), Vector2.down * (coll.bounds.extents.y + movementValues.groundCheckExtraHeight), rayColor);
             Debug.DrawRay(coll.bounds.center - new Vector3(coll.bounds.extents.x, coll.bounds.extents.y + movementValues.groundCheckExtraHeight), Vector2.right * (coll.bounds.extents.x * 2), rayColor);
         }
         #endregion
