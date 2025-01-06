@@ -23,7 +23,7 @@ namespace PlayerSystem
         {
             this.playerState = playerState;
             this.rb2d = rb2d;
-            gravity = this.rb2d.gravityScale;
+            gravity = movementValues.gravity;
             coll = rb2d.GetComponent<Collider2D>();
             SetGroundCallbacks(groundTrigger);
 
@@ -48,7 +48,7 @@ namespace PlayerSystem
             {
                 isJumping = true;
                 jumpTimer = movementValues.jumpTime;
-                rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpVelocity);
+                rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpForce);
                 playerState.groundState = GroundState.Airborne;
                 eventBus.Publish(new JumpMovementEvent());
             }
@@ -57,7 +57,7 @@ namespace PlayerSystem
             {
                 if (isJumping && jumpTimer > 0)
                 {
-                    rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpVelocity);
+                    rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpForce);
                     jumpTimer -= Time.deltaTime;
                 }
                 else if (jumpTimer <= 0)
@@ -143,8 +143,6 @@ namespace PlayerSystem
 
         private void onTrianglePowerToggle(ToggleTrianglePowerEvent e)
         {
-            Debug.Log("Triange toggle: " + e.toggle);
-            Debug.Log("Triange Active Power : " + playerState.activePower);
             if (e.toggle)
             {
                 rb2d.gravityScale = 0;
@@ -152,17 +150,12 @@ namespace PlayerSystem
             else
             {
                 if (!isCircleActive) rb2d.gravityScale = gravity;
-                Debug.Log("isCircleActive: " + isCircleActive);
-                Debug.Log(rb2d.gravityScale);
             }
-            //Debug.Log("Active Power : " + playerState.activePower);
             isMovementDisabled = isJumpingDisabled = isGravityDisabled = isTriangleActive = e.toggle;
         }
 
         private void onCirclePowerToggle(ToggleCirclePowerEvent e)
         {
-            Debug.Log("Circle toggle: " + e.toggle);
-            Debug.Log("Circle Active Power : " + playerState.activePower);
             if (e.toggle)
             {
                 rb2d.gravityScale = 0;
@@ -170,8 +163,6 @@ namespace PlayerSystem
             else
             {
                 if (!isTriangleActive) rb2d.gravityScale = gravity;
-                Debug.Log("isTriangleActive: " + isTriangleActive);
-                Debug.Log(rb2d.gravityScale);
             }
             isMovementDisabled = isJumpingDisabled = isGravityDisabled = isCircleActive = e.toggle;
         }
