@@ -8,19 +8,18 @@ namespace PlayerSystem
         private PlayerState playerState;
         private Rigidbody2D rb2d;
         private TriggerEventHandler upTrigger;
-
-        private readonly float powerDuration = 0.5f;
+        private PlayerMovementScriptable movementValues;
         private float powerTimeLeft = 0f;
         private float cooldownTimeLeft = 0f;
         private bool isActive = false;
 
-        public TrianglePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler upTrigger)
+        public TrianglePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler upTrigger, PlayerMovementScriptable movementValues)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.upTrigger = upTrigger;
-
+            this.movementValues = movementValues;
             eventBus.Subscribe<TrianglePowerInputEvent>(activate);
         }
 
@@ -28,11 +27,10 @@ namespace PlayerSystem
         {
             if (isActive) return;
             if (cooldownTimeLeft > 0f) return;
-
             isActive = true;
             playerState.activePower = Power.Triangle;
-            rb2d.velocity = new Vector2(0, 10f);
-            powerTimeLeft = powerDuration;
+            rb2d.velocity = new Vector2(0, 5f).normalized * movementValues.trianglePowerForce;
+            powerTimeLeft = movementValues.trianglePowerDuration;
 
             upTrigger.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
 
@@ -60,7 +58,7 @@ namespace PlayerSystem
             playerState.activePower = Power.None;
             upTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
 
-            cooldownTimeLeft = 1f;
+            cooldownTimeLeft = movementValues.trianglePowerCooldown;
             eventBus.Subscribe<UpdateEvent>(reducePowerCooldown);
 
             eventBus.Unsubscribe<UpdateEvent>(reduceTimeLeft);
