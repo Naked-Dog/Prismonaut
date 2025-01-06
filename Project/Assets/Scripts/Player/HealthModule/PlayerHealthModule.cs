@@ -37,6 +37,7 @@ namespace PlayerSystem
                     Die();
                 }
                 knockback.CallKnockback(hitDirection, Vector2.up, Input.GetAxisRaw("Horizontal"), rb2d, playerState, damageAmount);
+                eventBus.Publish(new ReceivedDamageEvent());
             }
         }
 

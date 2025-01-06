@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -9,10 +10,11 @@ namespace PlayerSystem
 
         private PlayerState playerState;
 
-        public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger) : base(eventBus, movementValues)
+        public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, MonoBehaviour mb) : base(eventBus, movementValues)
         {
             this.playerState = playerState;
             this.rb2d = rb2d;
+            this.mb = mb;
             SetGroundCallbacks(groundTrigger);
 
             eventBus.Subscribe<HorizontalInputEvent>(MoveHorizontally);
@@ -39,7 +41,9 @@ namespace PlayerSystem
         {
             if (playerState.healthState == HealthState.Stagger) return;
             if (isMovementDisabled) return;
-            rb2d.velocity = new Vector2(input.amount * movementValues.horizontalVelocity, rb2d.velocity.y);
+
+            float velocityX = playerState.groundState == GroundState.Airborne ? movementValues.horizontalVelocity * 0.6f : movementValues.horizontalVelocity;
+            rb2d.velocity = new Vector2(input.amount * velocityX, rb2d.velocity.y);
             eventBus.Publish(new HorizontalMovementEvent(input.amount));
         }
 
@@ -53,8 +57,11 @@ namespace PlayerSystem
                     {
                         other.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
                     }
+
                     playerState.groundState = GroundState.Grounded;
+                    mb.StartCoroutine(JumpEnd());
                     eventBus.Publish(new GroundedMovementEvent());
+
                 }
             });
 
@@ -120,6 +127,18 @@ namespace PlayerSystem
         {
             float modificator = playerState.groundState == GroundState.Airborne ? 0f : 1f;
             playerState.lastSafeGroundLocation = new Vector2(rb2d.position.x - modificator, rb2d.position.y);
+        }
+
+        private IEnumerator JumpEnd()
+        {
+            isMovementDisabled = true;
+            isJumpingDisabled = true;
+            rb2d.velocity = Vector2.zero;
+
+            yield return new WaitForSeconds(0.2f);
+
+            isMovementDisabled = false;
+            isJumpingDisabled = false;
         }
     }
 }
