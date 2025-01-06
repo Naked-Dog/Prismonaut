@@ -10,11 +10,9 @@ namespace PlayerSystem
         private PlayerState playerState;
         private Collider2D coll;
 
-        private bool isJumping = false;
         private bool isFalling = false;
         private float jumpTimer;
         private RaycastHit2D groundHit;
-        private float gravity;
         private bool isTriangleActive = false;
         private bool isCircleActive = false;
 
@@ -23,13 +21,11 @@ namespace PlayerSystem
         {
             this.playerState = playerState;
             this.rb2d = rb2d;
-            gravity = movementValues.gravity;
             coll = rb2d.GetComponent<Collider2D>();
             SetGroundCallbacks(groundTrigger);
 
             eventBus.Subscribe<HorizontalInputEvent>(MoveHorizontally);
             eventBus.Subscribe<JumpInputEvent>(Jump);
-            //eventBus.Subscribe<UpdateEvent>(UpdateGravity);
             eventBus.Subscribe<ToggleSquarePowerEvent>(onSquarePowerToggle);
             eventBus.Subscribe<ToggleTrianglePowerEvent>(onTrianglePowerToggle);
             eventBus.Subscribe<ToggleCirclePowerEvent>(onCirclePowerToggle);
@@ -39,23 +35,22 @@ namespace PlayerSystem
 
         public override void Jump(JumpInputEvent input)
         {
-            //if (playerState.groundState != GroundState.Grounded) return;
             if (playerState.activePower != Power.None) return;
             if (playerState.healthState == HealthState.Stagger) return;
             if (isJumpingDisabled) return;
 
             if (input.jumpInputAction.WasPressedThisFrame() && IsGrounded())
             {
-                isJumping = true;
                 jumpTimer = movementValues.jumpTime;
                 rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpForce);
+                SaveSafeGround();
                 playerState.groundState = GroundState.Airborne;
                 eventBus.Publish(new JumpMovementEvent());
             }
 
             if (input.jumpInputAction.IsPressed())
             {
-                if (isJumping && jumpTimer > 0)
+                if (playerState.groundState == GroundState.Airborne && jumpTimer > 0)
                 {
                     rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpForce);
                     jumpTimer -= Time.deltaTime;
@@ -63,28 +58,28 @@ namespace PlayerSystem
                 else if (jumpTimer <= 0)
                 {
                     isFalling = true;
-                    isJumping = false;
+                    playerState.groundState = GroundState.Grounded;
                     return;
                 }
                 else
                 {
-                    isJumping = false;
+                    playerState.groundState = GroundState.Grounded;
                 }
             }
 
             if (input.jumpInputAction.WasReleasedThisFrame())
             {
                 isFalling = true;
-                isJumping = false;
+                playerState.groundState = GroundState.Grounded;
             }
 
-            if (!isJumping && CheckForLand())
+            if (playerState.groundState == GroundState.Grounded && CheckForLand())
             {
                 //Landing animation
                 Debug.Log("Landing");
             }
 
-            DrawGroundCheck();
+            //DrawGroundCheck();
         }
 
         public override void MoveHorizontally(HorizontalInputEvent input)
@@ -106,7 +101,7 @@ namespace PlayerSystem
                         other.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
                     }
                     //playerState.groundState = GroundState.Grounded;
-                    IsGrounded();
+                    //IsGrounded();
                     eventBus.Publish(new GroundedMovementEvent());
                 }
             });
@@ -119,21 +114,13 @@ namespace PlayerSystem
                     {
                         other.gameObject.GetComponent<IPlatform>()?.PlatformExitAction(rb2d);
                     }
-                    else
+                    if (other.gameObject.CompareTag("Ground"))
                     {
-                        IsGrounded();
                         SaveSafeGround();
                     }
-                    //playerState.groundState = GroundState.Airborne;
                     eventBus.Publish(new UngroundedMovementEvent());
                 }
             });
-        }
-
-        public override void UpdateGravity(UpdateEvent e)
-        {
-            if (isGravityDisabled) return;
-            //rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y - movementValues.gravity * Time.deltaTime);
         }
 
         private void onSquarePowerToggle(ToggleSquarePowerEvent e)
@@ -149,7 +136,7 @@ namespace PlayerSystem
             }
             else
             {
-                if (!isCircleActive) rb2d.gravityScale = gravity;
+                if (!isCircleActive) rb2d.gravityScale = movementValues.gravity;
             }
             isMovementDisabled = isJumpingDisabled = isGravityDisabled = isTriangleActive = e.toggle;
         }
@@ -162,7 +149,7 @@ namespace PlayerSystem
             }
             else
             {
-                if (!isTriangleActive) rb2d.gravityScale = gravity;
+                if (!isTriangleActive) rb2d.gravityScale = movementValues.gravity;
             }
             isMovementDisabled = isJumpingDisabled = isGravityDisabled = isCircleActive = e.toggle;
         }
@@ -191,12 +178,11 @@ namespace PlayerSystem
             groundHit = Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, movementValues.groundCheckExtraHeight, movementValues.groundLayerMask);
             if (groundHit.collider != null)
             {
-                playerState.groundState = GroundState.Grounded;
+                if (groundHit.collider.gameObject.name != "Ground") Debug.Log(groundHit.collider.gameObject.name);
                 return true;
             }
             else
             {
-                playerState.groundState = GroundState.Airborne;
                 return false;
             }
         }
@@ -224,7 +210,7 @@ namespace PlayerSystem
 
         private void SaveSafeGround()
         {
-            float modificator = playerState.groundState == GroundState.Airborne ? 0f : 1f;
+            float modificator = playerState.groundState == GroundState.Airborne ? 0f : 2f;
             float direction = 1;
             if (playerState.facingDirection == Direction.Left) direction = -1;
             playerState.lastSafeGroundLocation = new Vector2(rb2d.position.x - (modificator * direction), rb2d.position.y);
@@ -246,7 +232,6 @@ namespace PlayerSystem
             Debug.DrawRay(coll.bounds.center - new Vector3(coll.bounds.extents.x, 0), Vector2.down * (coll.bounds.extents.y + movementValues.groundCheckExtraHeight), rayColor);
             Debug.DrawRay(coll.bounds.center - new Vector3(coll.bounds.extents.x, coll.bounds.extents.y + movementValues.groundCheckExtraHeight), Vector2.right * (coll.bounds.extents.x * 2), rayColor);
         }
-
         #endregion
     }
 }
