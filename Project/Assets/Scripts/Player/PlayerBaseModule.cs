@@ -57,13 +57,11 @@ namespace PlayerSystem
 
         protected void Update()
         {
-            if (state.isPaused) return;
             eventBus.Publish(new UpdateEvent());
         }
 
         protected void FixedUpdate()
         {
-            if (state.isPaused) return;
             eventBus.Publish(new FixedUpdateEvent());
         }
     }

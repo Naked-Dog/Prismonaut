@@ -35,6 +35,7 @@ namespace PlayerSystem
                 if (CurrentHealth <= 0f)
                 {
                     Die();
+                    return;
                 }
                 knockback.CallKnockback(hitDirection, Vector2.up, Input.GetAxisRaw("Horizontal"), rb2d, playerState, damageAmount);
                 eventBus.Publish(new ReceivedDamageEvent());
@@ -65,7 +66,10 @@ namespace PlayerSystem
         public void Die()
         {
             //Die Animation
-            Respawn();
+            playerState.healthState = HealthState.Death;
+            eventBus.Publish(new DeathEvent());
+            eventBus.Publish(new PauseEvent());
+            //Respawn();
         }
 
         public void Respawn()

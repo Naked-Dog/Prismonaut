@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -35,8 +36,8 @@ namespace PlayerSystem
             eventBus.Subscribe<ToggleSquarePowerEvent>(onSquarePowerToggle);
             eventBus.Subscribe<ToggleTrianglePowerEvent>(onTrianglePowerToggle);
             eventBus.Subscribe<ToggleCirclePowerEvent>(onCirclePowerToggle);
-            eventBus.Subscribe<PauseEvent>(OnPause);
-            eventBus.Subscribe<PauseInputEvent>(OnInputPause);
+            eventBus.Subscribe<PauseEvent>(StopPlayerMovement);
+            eventBus.Subscribe<UnpauseEvent>(EnablePlayerMovement);
         }
 
         public override void Jump(JumpInputEvent input)
@@ -83,7 +84,6 @@ namespace PlayerSystem
             if (!isJumping && CheckForLand())
             {
                 //Landing animation
-                Debug.Log("Landing");
             }
 
             DrawGroundCheck();
@@ -94,8 +94,7 @@ namespace PlayerSystem
             if (playerState.healthState == HealthState.Stagger) return;
             if (isMovementDisabled) return;
 
-            float velocityX = playerState.groundState == GroundState.Airborne ? movementValues.horizontalVelocity * 0.6f : movementValues.horizontalVelocity;
-            rb2d.velocity = new Vector2(input.amount * velocityX, rb2d.velocity.y);
+            rb2d.velocity = new Vector2(input.amount * movementValues.horizontalVelocity, rb2d.velocity.y);
             eventBus.Publish(new HorizontalMovementEvent(input.amount));
         }
 
@@ -111,7 +110,6 @@ namespace PlayerSystem
                     }
 
                     mb.StartCoroutine(JumpEnd());
-                    //playerState.groundState = GroundState.Grounded;
                     IsGrounded();
                     eventBus.Publish(new GroundedMovementEvent());
 
@@ -174,23 +172,19 @@ namespace PlayerSystem
             isMovementDisabled = isJumpingDisabled = isGravityDisabled = isCircleActive = e.toggle;
         }
 
-        private void OnPause(PauseEvent e)
+        private void StopPlayerMovement(PauseEvent e)
         {
-            if (!playerState.isPaused)
-            {
-                playerState.velocity = rb2d.velocity;
-                rb2d.velocity = Vector2.zero;
-            }
-            else
-            {
-                rb2d.velocity = playerState.velocity;
-            }
-            playerState.isPaused = !playerState.isPaused;
+            playerState.velocity = rb2d.velocity;
+            rb2d.velocity = Vector2.zero;
+            rb2d.gravityScale = 0;
+            playerState.isPaused = true;
         }
 
-        private void OnInputPause(PauseInputEvent e)
+        private void EnablePlayerMovement(UnpauseEvent e)
         {
-            OnPause(new PauseEvent());
+            rb2d.velocity = playerState.velocity;
+            rb2d.gravityScale = movementValues.gravity;
+            playerState.isPaused = false;
         }
 
         private bool IsGrounded()
@@ -243,12 +237,13 @@ namespace PlayerSystem
             isJumpingDisabled = true;
             rb2d.velocity = Vector2.zero;
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.14f);
 
             isMovementDisabled = false;
             isJumpingDisabled = false;
         }
-        #region Debug Functions
+
+    #region Debug Functions
         private void DrawGroundCheck()
         {
             Color rayColor;

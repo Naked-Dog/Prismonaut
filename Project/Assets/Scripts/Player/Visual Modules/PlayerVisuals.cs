@@ -27,7 +27,8 @@ namespace PlayerSystem
             eventBus.Subscribe<ToggleSquarePowerEvent>(toggleSquarePower);
             eventBus.Subscribe<ToggleTrianglePowerEvent>(toggleTrianglePower);
             eventBus.Subscribe<ToggleCirclePowerEvent>(toggleCirclePower);
-            eventBus.Subscribe<ReceivedDamageEvent>(updateDamageVisuals);
+            eventBus.Subscribe<ReceivedDamageEvent>(PlayDamageAnimation);
+            eventBus.Subscribe<DeathEvent>(PlayDeathAnimation);
 
             circleHelmet = Resources.Load<Sprite>("Helmets/Circle_Helmet");
             triangleHelmet = Resources.Load<Sprite>("Helmets/Triangle_Helmet");
@@ -39,35 +40,59 @@ namespace PlayerSystem
             bool isMoving = Mathf.Abs(rb2d.velocity.x) > 0.1f;
             bool isGrounded = playerState.groundState == GroundState.Grounded;
             bool isFalling = rb2d.velocity.y < -0.1f;
+            bool isDeath = playerState.healthState == HealthState.Death;
             int facingHorizontalScale = Math.Sign(rb2d.velocity.x);
+
             if (isMoving) animator.gameObject.transform.localScale = new Vector3(facingHorizontalScale, 1, 1);
             if (isMoving) playerState.facingDirection = facingHorizontalScale > 0 ? Direction.Right : Direction.Left;
+
             animator.SetBool("isMoving", isMoving);
             animator.SetBool("isGrounded", isGrounded);
             animator.SetBool("isFalling", isFalling);
+            animator.SetBool("isDeath", isDeath);
         }
 
         private void toggleSquarePower(ToggleSquarePowerEvent e)
         {
+            playerState.currentPower = Power.Square;
             helmetRender.sprite = squareHelmet;
-            animator.SetBool("isUsingSquarePower", e.toggle);
+            animator.Play("SquarePower");
         }
 
         private void toggleTrianglePower(ToggleTrianglePowerEvent e)
         {
+            playerState.currentPower = Power.Triangle;
             helmetRender.sprite = triangleHelmet;
-            animator.SetBool("isUsingTrianglePower", e.toggle);
+            animator.Play("TrianglePower");
         }
 
         private void toggleCirclePower(ToggleCirclePowerEvent e)
         {
             helmetRender.sprite = circleHelmet;
-            animator.SetBool("isUsingCirclePower", e.toggle);
+            animator.Play("CirclePower");
         }
 
-        private void updateDamageVisuals(ReceivedDamageEvent e)
+        private void PlayDamageAnimation(ReceivedDamageEvent e)
         {
-            
+            string animationName = "";
+            switch(playerState.currentPower){
+                case Power.Circle:
+                    animationName = "HurtCircle";
+                    break;
+                case Power.Square:
+                    animationName = "HurtSquare";
+                    break;
+                case Power.Triangle:
+                    animationName = "HurtTriangle";
+                    break;
+            }
+            animator.Play(animationName);
+        }
+
+        private void PlayDeathAnimation(DeathEvent e)
+        {
+            string animationName = playerState.groundState == GroundState.Grounded ? "Defeat" : "Explode";
+            animator.Play(animationName);
         }
     }
 }

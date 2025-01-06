@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,7 @@ namespace PlayerSystem
         private EventBus eventBus;
         private InputActionMap playerGameMap => playerActions.FindActionMap("Player");
         private InputActionMap playerUIMap => playerActions.FindActionMap("UI");
+        private bool isPlayerInputPause => playerGameMap.enabled;
 
         public PlayerInput(EventBus eventBus, InputActionAsset playerInputAsset)
         {
@@ -19,20 +21,38 @@ namespace PlayerSystem
             eventBus.Subscribe<UpdateEvent>(OnMove);
             eventBus.Subscribe<UpdateEvent>(OnJump);
             eventBus.Subscribe<PauseEvent>(OnPause);
+            eventBus.Subscribe<UnpauseEvent>(OnUnpause);
+        }
+
+        private void OnUnpause(UnpauseEvent @event)
+        {
+            EnablePlayerInputs();
+        }
+
+        private void OnPause(PauseEvent @event)
+        {
+            DisablePlayerInputs();
         }
 
         private void InitializeActions()
         {
             playerGameMap.Enable();
-            playerUIMap.Disable();
+            playerGameMap.Disable();
 
             playerGameMap.FindAction("TrianglePower").started += _ => eventBus.Publish(new TrianglePowerInputEvent());
             playerGameMap.FindAction("CirclePower").started += _ => eventBus.Publish(new CirclePowerInputEvent());
             playerGameMap.FindAction("SquarePower").started += _ => eventBus.Publish(new SquarePowerInputEvent(true));
             playerGameMap.FindAction("SquarePower").canceled += _ => eventBus.Publish(new SquarePowerInputEvent(false));
-            playerGameMap.FindAction("Pause").started += _ => OnPauseInput();
 
-            playerUIMap.FindAction("Pause").started += _ => OnPauseInput();
+            playerGameMap.FindAction("Pause").started += _ =>
+            {
+                eventBus.Publish(new PauseEvent());
+            };
+
+            playerUIMap.FindAction("Pause").started += _ => 
+            {
+                eventBus.Publish(new UnpauseEvent());
+            };
         }
 
         private void OnJump(UpdateEvent e)
@@ -46,26 +66,17 @@ namespace PlayerSystem
             eventBus.Publish(new HorizontalInputEvent(horizontalAxis));
         }
 
-        private void OnPause(PauseEvent e)
+        private void DisablePlayerInputs()
         {
-            if (playerGameMap.enabled)
-            {
-                playerGameMap.Disable();
-                playerUIMap.Enable();
-            }
-            else
-            {
-                playerGameMap.Enable();
-                playerUIMap.Disable();
-            }
+            playerGameMap.Disable();
+            playerUIMap.Enable();
         }
 
-        private void OnPauseInput()
+        private void EnablePlayerInputs()
         {
-            OnPause(new PauseEvent());
-            eventBus.Publish(new PauseInputEvent());
+            playerGameMap.Enable();
+            playerUIMap.Disable();
         }
-
     }
 }
 
