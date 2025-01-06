@@ -10,14 +10,14 @@ namespace PlayerSystem
         private Rigidbody2D rb2d;
         private TriggerEventHandler groundTrigger;
         private Knockback knockback;
+        private PlayerMovementScriptable movementValues;
 
         private readonly float minPowerDuration = 0.2f;
         private float powerTimeSum = 0f;
-        private readonly float cooldownDuration = 0.5f;
         private float cooldownTimeLeft = 0f;
         private bool isActive = false;
 
-        public SquarePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, Knockback knockback)
+        public SquarePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, Knockback knockback, PlayerMovementScriptable movementValues)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
@@ -25,6 +25,7 @@ namespace PlayerSystem
             this.groundTrigger = groundTrigger;
             this.playerState = playerState;
             this.knockback = knockback;
+            this.movementValues = movementValues;
 
             eventBus.Subscribe<SquarePowerInputEvent>(togglePower);
         }
@@ -44,7 +45,7 @@ namespace PlayerSystem
             isActive = true;
             playerState.activePower = Power.Square;
             powerTimeSum = 0;
-            rb2d.velocity = new Vector2(0, -10f);
+            rb2d.velocity = new Vector2(0, movementValues.squarePowerForce);
             groundTrigger.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
 
             eventBus.Subscribe<UpdateEvent>(addTimeSum);
@@ -83,7 +84,7 @@ namespace PlayerSystem
         {
             isActive = false;
             playerState.activePower = Power.None;
-            cooldownTimeLeft = cooldownDuration;
+            cooldownTimeLeft = movementValues.squarePowerCooldown;
             groundTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
 
             eventBus.Subscribe<UpdateEvent>(reduceCooldown);
