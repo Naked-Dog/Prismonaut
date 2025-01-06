@@ -16,7 +16,7 @@ MonoBehaviour:
   jumpForce: 10
   jumpTime: 0.2
   gravity: 7
-  groundCheckExtraHeight: 0.25
+  groundCheckExtraHeight: 0.2
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
