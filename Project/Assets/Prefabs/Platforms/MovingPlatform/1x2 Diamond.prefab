@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6668171871489469333}
   - component: {fileID: 6279409490434266024}
   - component: {fileID: 6943628406684228514}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7850163182724616288}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 1x2 Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5324411045235981751}
   - component: {fileID: 8159760666779010363}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 780716853404372473}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Path (4)
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
@@ -300,7 +300,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4123007421229267895}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Path (3)
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
@@ -344,7 +344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3818922299133095553, guid: 7cd93e9dae2797a43a051e4e523e1a52, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3932435620325131354, guid: 7cd93e9dae2797a43a051e4e523e1a52, type: 3}
       propertyPath: m_Name
@@ -352,7 +352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3932435620325131354, guid: 7cd93e9dae2797a43a051e4e523e1a52, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4712114036908989078, guid: 7cd93e9dae2797a43a051e4e523e1a52, type: 3}
       propertyPath: m_LocalPosition.x
@@ -408,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 7271752165773444093, guid: 7cd93e9dae2797a43a051e4e523e1a52, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
