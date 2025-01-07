@@ -6,12 +6,15 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
+    private bool isOpen;
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.GetComponent<PlayerBaseModule>())
         {
-            Vector3 playerPosition = other.transform.position;
-            GameDataManager.Instance.SavePlayerPosition(playerPosition);
+            GameDataManager.Instance.SavePlayerPosition(transform.position);
+            isOpen = true;
+            animator.SetBool("isOpen", isOpen);
         }
     }
 }

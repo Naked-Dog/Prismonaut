@@ -24,7 +24,6 @@ namespace PlayerSystem
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.mb = mb;
-            gravity = movementValues.gravity;
             coll = rb2d.GetComponent<Collider2D>();
             SetGroundCallbacks(groundTrigger);
 

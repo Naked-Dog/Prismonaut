@@ -15,8 +15,9 @@ namespace PlayerSystem
     public struct GroundedMovementEvent { }
     public struct PauseEvent{ }
     public struct UnpauseEvent{ }
-    public struct ReceivedDamageEvent{}
-    public struct DeathEvent{}
+    public struct ReceivedDamageEvent{ }
+    public struct DeathEvent{ }
+    public struct RespawnEvent{ }
 
     // Power Events
     public struct ToggleSquarePowerEvent

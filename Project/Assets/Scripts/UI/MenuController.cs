@@ -55,6 +55,21 @@ public class MenuController : MonoBehaviour
         solidBG.SetActive(false);
     }
 
+    public IEnumerator FadeInSolidPanel()
+    {
+        solidBG.SetActive(true);
+        Image backgroundImage = solidBG.GetComponent<Image>();
+        Tween fadeIn = backgroundImage.DOFade(1,0.5f);
+        yield return fadeIn.WaitForCompletion();
+    }
+
+    public IEnumerator FadeOutSolidPanel()
+    {
+        Image backgroundImage = solidBG.GetComponent<Image>();
+        Tween fadeOut = backgroundImage.DOFade(0,0.5f).OnComplete(()=> { solidBG.SetActive(false); });
+        yield return fadeOut.WaitForCompletion();
+    }
+
     public void ExitGame(){
         Application.Quit();
     }
