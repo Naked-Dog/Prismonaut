@@ -70,7 +70,7 @@ public class DialogueController : MonoBehaviour
 
     public void RunDialogue(Narrative narrative) 
     {   
-        eventBus.Publish(new PauseEvent());
+        eventBus.Publish(new StopPlayerInputsEvent());
         currentDialogueIndex = 0;
         isDialogueRunning = true;
 
@@ -195,7 +195,7 @@ public class DialogueController : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(viewController.CloseDialoguePanel());
         isDialogueRunning = false;
-        eventBus.Publish(new PauseEvent());
+        eventBus.Publish(new EnablePlayerInputsEvent());
     }
 
     private DialogueActor GetActor(string actorName)

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 28cd4f24b0de2114cb916b87e9156ad2
+guid: b840f54497af1c74aa22e78e6c1eb83c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,17 +93,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Anim_IDLE_0
+      name: Helmet_Anim_CIRCLE_HURT_0
       rect:
         serializedVersion: 2
-        x: 33
-        y: 15
-        width: 50
-        height: 49
+        x: 0
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a58c789a41ed24447aa6ef49daa10bc5
-      internalID: 1563080312
+      spriteID: 33617301462efe144a690d71fc7b428c
+      internalID: 1926088728
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Anim_IDLE_1
+      name: Helmet_Anim_CIRCLE_HURT_1
       rect:
         serializedVersion: 2
-        x: 153
-        y: 15
-        width: 50
-        height: 49
+        x: 110
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 777494150067d0342a559d555ee37838
-      internalID: 1362489388
+      spriteID: 8cf6a5f025b44e5498d0cc3166dc3032
+      internalID: 1687162521
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Anim_IDLE_2
+      name: Helmet_Anim_CIRCLE_HURT_2
       rect:
         serializedVersion: 2
-        x: 273
-        y: 15
-        width: 51
-        height: 48
+        x: 220
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f32ddaa0fe3463745a6b06740d8d3f9e
-      internalID: -1157343963
+      spriteID: ba595cd50d6b0ff488a0f64d10c8270b
+      internalID: -823369154
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Anim_IDLE_3
+      name: Helmet_Anim_CIRCLE_HURT_3
       rect:
         serializedVersion: 2
-        x: 393
-        y: 15
-        width: 51
-        height: 47
+        x: 330
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3a1d8cefe1bd374c8c7233c06028abe
-      internalID: 1603917248
+      spriteID: aa388de2be6967842afdcc0b4da7345c
+      internalID: 131166975
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Anim_IDLE_4
+      name: Helmet_Anim_CIRCLE_HURT_4
       rect:
         serializedVersion: 2
-        x: 513
-        y: 15
-        width: 51
-        height: 47
+        x: 440
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,50 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3bf43a162be641b449fea56be24eb5a1
-      internalID: -1815275553
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Anim_IDLE_5
-      rect:
-        serializedVersion: 2
-        x: 633
-        y: 15
-        width: 51
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: add2626c35afe694b867975449ffb8b0
-      internalID: -579463142
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Anim_IDLE_6
-      rect:
-        serializedVersion: 2
-        x: 753
-        y: 15
-        width: 51
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4e40ef71c2cfd5f43bd0fe1aaf6b3342
-      internalID: -622106219
+      spriteID: 37cb58676d2f9be479bd31bd0efd639d
+      internalID: -175587790
       vertices: []
       indices: 
       edges: []
@@ -246,7 +217,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 3a980b25c026e074782a9f9f45c11778
+    spriteID: b602d7735c3c2f24095433272b60a9ee
     internalID: 0
     vertices: []
     indices: 
@@ -254,13 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Anim_IDLE_0: 1563080312
-      Anim_IDLE_1: 1362489388
-      Anim_IDLE_2: -1157343963
-      Anim_IDLE_3: 1603917248
-      Anim_IDLE_4: -1815275553
-      Anim_IDLE_5: -579463142
-      Anim_IDLE_6: -622106219
+      Helmet_Anim_CIRCLE_HURT_0: 1926088728
+      Helmet_Anim_CIRCLE_HURT_1: 1687162521
+      Helmet_Anim_CIRCLE_HURT_2: -823369154
+      Helmet_Anim_CIRCLE_HURT_3: 131166975
+      Helmet_Anim_CIRCLE_HURT_4: -175587790
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

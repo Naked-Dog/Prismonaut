@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9fb30c8981e42d3438321e08e18ad491
+guid: d4ecc9df2a01b564aab3761d97564759
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,17 +93,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Anim_STATES_0
+      name: Helmet_Anim_ALL_IDLE_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 15
-        width: 90
-        height: 90
+        x: 0
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df7f3bb096577a24fad54166332d3c48
-      internalID: 545450208
+      spriteID: a538033d9614c474ba1261e510b7398f
+      internalID: 1202374021
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Anim_STATES_1
+      name: Helmet_Anim_ALL_IDLE_1
       rect:
         serializedVersion: 2
-        x: 135
-        y: 15
-        width: 90
-        height: 90
+        x: 110
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +145,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3038ef36a37a654bb165675396eb6fa
-      internalID: -979016618
+      spriteID: bca52af1da484214ab507ce6858e0b79
+      internalID: -1634484968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Helmet_Anim_ALL_IDLE_2
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 0
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61fcb2ba29fa4ab4d9fca30574888a9a
+      internalID: 538395722
       vertices: []
       indices: 
       edges: []
@@ -141,7 +175,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 7682fb06eff972646ae6499922754a1e
+    spriteID: 18698246a999505468e4886948f8e6ea
     internalID: 0
     vertices: []
     indices: 
@@ -149,8 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Anim_STATES_0: 545450208
-      Anim_STATES_1: -979016618
+      Helmet_Anim_ALL_IDLE_0: 1202374021
+      Helmet_Anim_ALL_IDLE_1: -1634484968
+      Helmet_Anim_ALL_IDLE_2: 538395722
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

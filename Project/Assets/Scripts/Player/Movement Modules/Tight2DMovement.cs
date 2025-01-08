@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -17,10 +19,11 @@ namespace PlayerSystem
         private bool isCircleActive = false;
 
 
-        public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger) : base(eventBus, movementValues)
+        public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, MonoBehaviour mb) : base(eventBus, movementValues)
         {
             this.playerState = playerState;
             this.rb2d = rb2d;
+            this.mb = mb;
             coll = rb2d.GetComponent<Collider2D>();
             SetGroundCallbacks(groundTrigger);
 
@@ -29,8 +32,8 @@ namespace PlayerSystem
             eventBus.Subscribe<ToggleSquarePowerEvent>(onSquarePowerToggle);
             eventBus.Subscribe<ToggleTrianglePowerEvent>(onTrianglePowerToggle);
             eventBus.Subscribe<ToggleCirclePowerEvent>(onCirclePowerToggle);
-            eventBus.Subscribe<PauseEvent>(OnPause);
-            eventBus.Subscribe<PauseInputEvent>(OnInputPause);
+            eventBus.Subscribe<PauseEvent>(StopPlayerMovement);
+            eventBus.Subscribe<UnpauseEvent>(EnablePlayerMovement);
         }
 
         public override void Jump(JumpInputEvent input)
@@ -71,7 +74,6 @@ namespace PlayerSystem
             if (playerState.groundState == GroundState.Grounded && CheckForLand())
             {
                 //Landing animation
-                Debug.Log("Landing");
             }
 
             //DrawGroundCheck();
@@ -81,6 +83,7 @@ namespace PlayerSystem
         {
             if (playerState.healthState == HealthState.Stagger) return;
             if (isMovementDisabled) return;
+
             rb2d.velocity = new Vector2(input.amount * movementValues.horizontalVelocity, rb2d.velocity.y);
             eventBus.Publish(new HorizontalMovementEvent(input.amount));
         }
@@ -95,10 +98,13 @@ namespace PlayerSystem
                     {
                         other.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
                     }
+
+                    mb.StartCoroutine(JumpEnd());
                     playerState.groundState = GroundState.Grounded;
                     Debug.Log("Setting groundState grounded");
                     //IsGrounded();
                     eventBus.Publish(new GroundedMovementEvent());
+
                 }
             });
 
@@ -150,23 +156,21 @@ namespace PlayerSystem
             isMovementDisabled = isJumpingDisabled = isGravityDisabled = isCircleActive = e.toggle;
         }
 
-        private void OnPause(PauseEvent e)
+        private void StopPlayerMovement(PauseEvent e)
         {
-            if (!playerState.isPaused)
-            {
-                playerState.velocity = rb2d.velocity;
-                rb2d.velocity = Vector2.zero;
-            }
-            else
-            {
-                rb2d.velocity = playerState.velocity;
-            }
-            playerState.isPaused = !playerState.isPaused;
+            playerState.velocity = rb2d.velocity;
+            rb2d.velocity = Vector2.zero;
+            rb2d.gravityScale = 0;
+            playerState.isPaused = true;
+            eventBus.Publish(new StopPlayerInputsEvent());
         }
 
-        private void OnInputPause(PauseInputEvent e)
+        private void EnablePlayerMovement(UnpauseEvent e)
         {
-            OnPause(new PauseEvent());
+            rb2d.velocity = playerState.velocity;
+            rb2d.gravityScale = movementValues.gravity;
+            playerState.isPaused = false;
+            eventBus.Publish(new EnablePlayerInputsEvent());
         }
 
         private bool IsGrounded()
@@ -211,7 +215,19 @@ namespace PlayerSystem
             playerState.lastSafeGroundLocation = new Vector2(rb2d.position.x - (modificator * direction), rb2d.position.y);
         }
 
-        #region Debug Functions
+        private IEnumerator JumpEnd()
+        {
+            isMovementDisabled = true;
+            isJumpingDisabled = true;
+            rb2d.velocity = Vector2.zero;
+
+            yield return new WaitForSeconds(0.14f);
+
+            isMovementDisabled = false;
+            isJumpingDisabled = false;
+        }
+
+    #region Debug Functions
         private void DrawGroundCheck()
         {
             Color rayColor;

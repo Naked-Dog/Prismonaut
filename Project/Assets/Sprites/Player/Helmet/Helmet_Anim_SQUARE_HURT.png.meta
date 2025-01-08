@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7cbcfb8ec7a3cfd4ca61268baedb76fa
+guid: 74c80d61f6760f940b055f550d561fc2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,17 +93,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Anim_RUN_0
+      name: Helmet_Anim_SQUARE_HURT_0
       rect:
         serializedVersion: 2
-        x: 33
-        y: 15
-        width: 52
-        height: 50
+        x: 0
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6410c5c9bcb38d84888ed3defd202a54
-      internalID: 58073002
+      spriteID: bdda77ad2159cc248a2d33cd3599ad20
+      internalID: 1195598814
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Anim_RUN_1
+      name: Helmet_Anim_SQUARE_HURT_1
       rect:
         serializedVersion: 2
-        x: 153
-        y: 16
-        width: 55
-        height: 48
+        x: 110
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa7a5aeaad2f7a74c9c0d694ca5e0ded
-      internalID: -100884712
+      spriteID: e30c88c43a7fa1d4097e7fed8e6fe07b
+      internalID: 153648373
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Anim_RUN_2
+      name: Helmet_Anim_SQUARE_HURT_2
       rect:
         serializedVersion: 2
-        x: 273
-        y: 15
-        width: 52
-        height: 49
+        x: 220
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 96b4718d580bca542ae77f9ed5db6767
-      internalID: -1642864041
+      spriteID: cb2cc39520e80024285b08894ee80d0b
+      internalID: -1034392640
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Anim_RUN_3
+      name: Helmet_Anim_SQUARE_HURT_3
       rect:
         serializedVersion: 2
-        x: 393
-        y: 15
-        width: 55
-        height: 49
+        x: 330
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8bbafcefb02b5e418b02d982eb9ecac
-      internalID: -1000767654
+      spriteID: a0cc7ddd77048a64184e579c73ab7293
+      internalID: 2024642951
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Anim_RUN_4
+      name: Helmet_Anim_SQUARE_HURT_4
       rect:
         serializedVersion: 2
-        x: 513
-        y: 18
-        width: 53
-        height: 47
+        x: 440
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,50 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78a330ba8799a204b9f3ba681554ee7e
-      internalID: 1756571005
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Anim_RUN_5
-      rect:
-        serializedVersion: 2
-        x: 633
-        y: 15
-        width: 55
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f9160e39998a4464cbaf9898da2b742d
-      internalID: -1376287093
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Anim_RUN_6
-      rect:
-        serializedVersion: 2
-        x: 753
-        y: 15
-        width: 51
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4b807e6d18aeee742b39a057ea75841c
-      internalID: 2051010585
+      spriteID: 68714ade840891f4786697b30d571215
+      internalID: -646981147
       vertices: []
       indices: 
       edges: []
@@ -246,7 +217,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 8a3d929c75c6a844e89785b7d31be4c8
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -254,13 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Anim_RUN_0: 58073002
-      Anim_RUN_1: -100884712
-      Anim_RUN_2: -1642864041
-      Anim_RUN_3: -1000767654
-      Anim_RUN_4: 1756571005
-      Anim_RUN_5: -1376287093
-      Anim_RUN_6: 2051010585
+      Helmet_Anim_SQUARE_HURT_0: 1195598814
+      Helmet_Anim_SQUARE_HURT_1: 153648373
+      Helmet_Anim_SQUARE_HURT_2: -1034392640
+      Helmet_Anim_SQUARE_HURT_3: 2024642951
+      Helmet_Anim_SQUARE_HURT_4: -646981147
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1fb70b917a512d941a974fc7d9423cd5
+guid: 2715f744b1730a242b274c7298b729c3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,17 +93,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Anim_JUMP_0
+      name: Helmet_Anim_TRIANGLE_HURT_0
       rect:
         serializedVersion: 2
-        x: 33
-        y: 1
-        width: 53
-        height: 63
+        x: 0
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d91e0ed073abb446a6f722bc90f63cd
-      internalID: 936429714
+      spriteID: e311d1ef9eed3a2449656e575d149e4d
+      internalID: -1818709506
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Anim_JUMP_1
+      name: Helmet_Anim_TRIANGLE_HURT_1
       rect:
         serializedVersion: 2
-        x: 153
-        y: 6
-        width: 53
-        height: 58
+        x: 110
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09c55399863dcc24aa8145325832fa9e
-      internalID: 542354767
+      spriteID: 7d328433576ed7a46ac8aa88ef52351a
+      internalID: -1750650786
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Anim_JUMP_2
+      name: Helmet_Anim_TRIANGLE_HURT_2
       rect:
         serializedVersion: 2
-        x: 273
-        y: 12
-        width: 53
-        height: 52
+        x: 220
+        y: 0
+        width: 110
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +166,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee401475d5c6bc245b0eeb9aa7976a41
-      internalID: 1082933704
+      spriteID: e5a6b136bc09cb24cb967984418bda66
+      internalID: -189101819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Helmet_Anim_TRIANGLE_HURT_3
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 0
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7291eeebd98b03040992f165328178b8
+      internalID: 1752455173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Helmet_Anim_TRIANGLE_HURT_4
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 0
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c2928d590e87594bb50bc60cbe79020
+      internalID: 876900769
       vertices: []
       indices: 
       edges: []
@@ -162,7 +217,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: f7dde22cb1c12cb498a0fa5851d91137
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -170,9 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Anim_JUMP_0: 936429714
-      Anim_JUMP_1: 542354767
-      Anim_JUMP_2: 1082933704
+      Helmet_Anim_TRIANGLE_HURT_0: -1818709506
+      Helmet_Anim_TRIANGLE_HURT_1: -1750650786
+      Helmet_Anim_TRIANGLE_HURT_2: -189101819
+      Helmet_Anim_TRIANGLE_HURT_3: 1752455173
+      Helmet_Anim_TRIANGLE_HURT_4: 876900769
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
