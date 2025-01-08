@@ -29,6 +29,7 @@ namespace PlayerSystem
             eventBus.Subscribe<ToggleCirclePowerEvent>(toggleCirclePower);
             eventBus.Subscribe<ReceivedDamageEvent>(PlayDamageAnimation);
             eventBus.Subscribe<DeathEvent>(PlayDeathAnimation);
+            eventBus.Subscribe<LateUpdateEvent>(DisplayCurrentHelmet);
 
             circleHelmet = Resources.Load<Sprite>("Helmets/Circle_Helmet");
             triangleHelmet = Resources.Load<Sprite>("Helmets/Triangle_Helmet");
@@ -50,6 +51,10 @@ namespace PlayerSystem
             animator.SetBool("isGrounded", isGrounded);
             animator.SetBool("isFalling", isFalling);
             animator.SetBool("isDeath", isDeath);
+            animator.SetBool("isUsingCirclePower", playerState.activePower == Power.Circle);
+            animator.SetBool("isUsingSquarePower", playerState.activePower == Power.Circle);
+            animator.SetBool("isUsingTrianglePower", playerState.activePower == Power.Circle);
+            animator.SetBool("isHurt", playerState.healthState == HealthState.Stagger);
         }
 
         private void toggleSquarePower(ToggleSquarePowerEvent e)
@@ -93,6 +98,28 @@ namespace PlayerSystem
         {
             string animationName = playerState.groundState == GroundState.Grounded ? "Defeat" : "Explode";
             animator.Play(animationName);
+        }
+
+        private void DisplayCurrentHelmet(LateUpdateEvent e)
+        {
+            if(playerState.activePower != Power.None || playerState.healthState == HealthState.Stagger) return;
+
+            Sprite currentHelmetSprite = circleHelmet;
+
+            switch(playerState.currentPower)
+            {
+                case Power.Circle:
+                    currentHelmetSprite = circleHelmet;
+                    break;
+                case Power.Square:
+                    currentHelmetSprite = squareHelmet;
+                    break;
+                case Power.Triangle:
+                    currentHelmetSprite = triangleHelmet;
+                    break;
+            }
+
+            helmetRender.sprite = currentHelmetSprite;
         }
     }
 }

@@ -162,6 +162,7 @@ namespace PlayerSystem
             rb2d.velocity = Vector2.zero;
             rb2d.gravityScale = 0;
             playerState.isPaused = true;
+            eventBus.Publish(new StopPlayerInputsEvent());
         }
 
         private void EnablePlayerMovement(UnpauseEvent e)
@@ -169,6 +170,7 @@ namespace PlayerSystem
             rb2d.velocity = playerState.velocity;
             rb2d.gravityScale = movementValues.gravity;
             playerState.isPaused = false;
+            eventBus.Publish(new EnablePlayerInputsEvent());
         }
 
         private bool IsGrounded()

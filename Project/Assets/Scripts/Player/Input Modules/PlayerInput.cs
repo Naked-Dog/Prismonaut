@@ -20,18 +20,18 @@ namespace PlayerSystem
             this.eventBus = eventBus;
             eventBus.Subscribe<UpdateEvent>(OnMove);
             eventBus.Subscribe<UpdateEvent>(OnJump);
-            eventBus.Subscribe<PauseEvent>(OnPause);
-            eventBus.Subscribe<UnpauseEvent>(OnUnpause);
+            eventBus.Subscribe<EnablePlayerInputsEvent>(EnablePlayerMapInput);
+            eventBus.Subscribe<StopPlayerInputsEvent>(StopPlayerMapInput);
         }
 
-        private void OnUnpause(UnpauseEvent @event)
-        {
-            EnablePlayerInputs();
-        }
-
-        private void OnPause(PauseEvent @event)
+        private void StopPlayerMapInput(StopPlayerInputsEvent e)
         {
             DisablePlayerInputs();
+        }
+
+        private void EnablePlayerMapInput(EnablePlayerInputsEvent e)
+        {
+            EnablePlayerInputs();
         }
 
         private void InitializeActions()

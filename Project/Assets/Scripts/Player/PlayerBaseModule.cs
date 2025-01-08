@@ -67,5 +67,10 @@ namespace PlayerSystem
         {
             eventBus.Publish(new FixedUpdateEvent());
         }
+
+        protected void LateUpdate()
+        {
+            eventBus.Publish(new LateUpdateEvent());
+        }
     }
 }
