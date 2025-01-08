@@ -105,4 +105,9 @@ public class MenuController : MonoBehaviour
         eventBus = bus;
         eventBus.Subscribe<PauseInputEvent>(DisplayGamePanel);
     }
+
+    public void ResetGame(){
+        eventBus.Publish(new RespawnEvent());  
+        eventBus.Publish(new PauseInputEvent());
+    }
 }

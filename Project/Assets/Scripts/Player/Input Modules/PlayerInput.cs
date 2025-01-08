@@ -10,7 +10,6 @@ namespace PlayerSystem
         private EventBus eventBus;
         private InputActionMap playerGameMap => playerActions.FindActionMap("Player");
         private InputActionMap playerUIMap => playerActions.FindActionMap("UI");
-        private bool isPlayerInputPause => playerGameMap.enabled;
 
         public PlayerInput(EventBus eventBus, InputActionAsset playerInputAsset)
         {
@@ -36,8 +35,7 @@ namespace PlayerSystem
 
         private void InitializeActions()
         {
-            playerGameMap.Enable();
-            playerGameMap.Disable();
+            playerUIMap.Disable();
 
             playerGameMap.FindAction("TrianglePower").started += _ => eventBus.Publish(new TrianglePowerInputEvent());
             playerGameMap.FindAction("CirclePower").started += _ => eventBus.Publish(new CirclePowerInputEvent());
@@ -46,11 +44,13 @@ namespace PlayerSystem
 
             playerGameMap.FindAction("Pause").started += _ =>
             {
+                eventBus.Publish(new PauseInputEvent());
                 eventBus.Publish(new PauseEvent());
             };
 
             playerUIMap.FindAction("Pause").started += _ => 
             {
+                eventBus.Publish(new PauseInputEvent());
                 eventBus.Publish(new UnpauseEvent());
             };
         }
