@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,763 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: moss_floor_1
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 1160
+        width: 360
+        height: 180
+      alignment: 9
+      pivot: {x: 0.125, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6a283742fe445c4190a4f4813af3645
+      internalID: -592765828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: foliage_1
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 1160
+        width: 180
+        height: 180
+      alignment: 9
+      pivot: {x: 0.75, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60cf0af0b9457a9488a80553ca801413
+      internalID: -1444478679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: foliage_2
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 1160
+        width: 90
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17fa2e3e9af46214cba4fbe97c70228b
+      internalID: 401513759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: foliage_3
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 1160
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 450cdd2771e45b0418b0c45cd0af2728
+      internalID: 734921907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: foliage_4
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 1160
+        width: 90
+        height: 172
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2616279}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dc25c3cd4f18a74bb68b049dbe99b07
+      internalID: -998296003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: foliage_5
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 1160
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4b102032a478c24488e960eb1d83a09
+      internalID: -1518500082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_1
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 980
+        width: 180
+        height: 90
+      alignment: 9
+      pivot: {x: 0.25, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c076c500b7c473646adaf3ec3cd61a29
+      internalID: 148526266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_corner_1
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 890
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67481905469ec7f41a44d56bead5d03f
+      internalID: 8655609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_corner_2
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 890
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbbb991cd0c744044a3e1515fa2964fa
+      internalID: -1904501318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_1
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 800
+        width: 180
+        height: 90
+      alignment: 9
+      pivot: {x: 0.25, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd293244594331c40ba4434c37a0eed4
+      internalID: 1753663993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_2
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 800
+        width: 270
+        height: 90
+      alignment: 9
+      pivot: {x: 0.16666667, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d73bdc60aac85a41bb4af403e55ea00
+      internalID: 1767732360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_border_1
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 800
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76ecacc067899e144ac16152cd500d02
+      internalID: -1704973131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_border_2
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 800
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7221f19f57705ca46a261196de821541
+      internalID: -1523281859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_corner_3
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 800
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf45c4636b30f71458121b3ed3ba2c81
+      internalID: -24701939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_corner_4
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 800
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 604050b0a9239af4f8e085af4e0719f4
+      internalID: 14534059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_2
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 800
+        width: 270
+        height: 90
+      alignment: 9
+      pivot: {x: 0.16666667, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5a71fd138901904abe1d282f3cf2a02
+      internalID: 29424132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: moss_wall_1
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 536
+        width: 90
+        height: 174
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7413793}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0444544d0c4543849ab20a3e49657627
+      internalID: 1364663041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_back_a_1
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 620
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 816763c8c5cc84748aa02f1dcd2ab8b0
+      internalID: -1212390064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_back_a_2
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 620
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 441f665fc87c3ac43b2e799d9d783d8c
+      internalID: 862421622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_back_a_3
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 620
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 930e058ab1f11f64cb877b039676c709
+      internalID: -682489989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: moss_floor_3
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 530
+        width: 540
+        height: 180
+      alignment: 9
+      pivot: {x: 0.083333336, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8887e4834130a64eab7bac1fd0785ab
+      internalID: 1920439433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: moss_wall_2
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 446
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 485a532c5fa11e34097cdded072d7fa6
+      internalID: -514684343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: moss_wall_4
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 443
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d187cd1ed79e34d4885e4c63761ab517
+      internalID: -1026741141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_back_b_1
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 440
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfa43246cdc82384db011b75a2843065
+      internalID: 241277784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_back_b_2
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 440
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59f6e316968a84e498d8153bc3cf3201
+      internalID: 1357412833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_back_b_3
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 440
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c25559d65c2d5224980b982fa0a36b28
+      internalID: -1530500682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: moss_floor_4
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 350
+        width: 450
+        height: 180
+      alignment: 9
+      pivot: {x: 0.1, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4772c59a874c83e4397aec571728990b
+      internalID: -589616510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: moss_wall_5
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 263
+        width: 90
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c61d523e77581594d96f44d3f182cbc6
+      internalID: -1058618763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_back_c_1
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 260
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f15310c25734724191ebfb9bc688478
+      internalID: 1607745532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_back_c_2
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 260
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6712457bd1a78d147bb516c03076559c
+      internalID: -1565552141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_back_c_3
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 260
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 757d87fe97678f744b66a7a389ca7b70
+      internalID: 1950145502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: moss_wall_3
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 170
+        width: 90
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0153cf31464ca19409e85487f83b8faa
+      internalID: -1077625173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_back_d_1
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 80
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 975ff12ab1205974892a0fb9295e4248
+      internalID: 1103545268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_back_d_2
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 80
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 566c9ed23d048a847935fa2ed7c2f9b1
+      internalID: -723455676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_back_d_3
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 80
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d93da9c8a1796644cafb3baf8f7283f6
+      internalID: 1289112663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: moss_floor_2
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 980
+        width: 540
+        height: 180
+      alignment: 9
+      pivot: {x: 0.083333336, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c66f9eaac6c89674e9bde7c1ec86f1b5
+      internalID: -573268424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +875,103 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bush_1: 148526266
+      bush_2: 29424132
+      bush_back_a_1: -1212390064
+      bush_back_a_2: 862421622
+      bush_back_a_3: -682489989
+      bush_back_b_1: 241277784
+      bush_back_b_2: 1357412833
+      bush_back_b_3: -1530500682
+      bush_back_c_1: 1607745532
+      bush_back_c_2: -1565552141
+      bush_back_c_3: 1950145502
+      bush_back_d_1: 1103545268
+      bush_back_d_2: -723455676
+      bush_back_d_3: 1289112663
+      foliage_1: -1444478679
+      foliage_2: 401513759
+      foliage_3: 734921907
+      foliage_4: -998296003
+      foliage_5: -1518500082
+      moss_floor_1: -592765828
+      moss_floor_2: -573268424
+      moss_floor_3: 1920439433
+      moss_floor_4: -589616510
+      moss_wall_1: 1364663041
+      moss_wall_2: -514684343
+      moss_wall_3: -1077625173
+      moss_wall_4: -1026741141
+      moss_wall_5: -1058618763
+      props_terrain_type_1_1: 67361510
+      props_terrain_type_1_10: 1113231746
+      props_terrain_type_1_11: 1878202292
+      props_terrain_type_1_12: -1026577160
+      props_terrain_type_1_18: 1487356548
+      props_terrain_type_1_19: 400443093
+      props_terrain_type_1_2: -1513479633
+      props_terrain_type_1_20: -1370873850
+      props_terrain_type_1_21: 1046112334
+      props_terrain_type_1_22: -185303222
+      props_terrain_type_1_23: 1381915700
+      props_terrain_type_1_24: 608623017
+      props_terrain_type_1_25: 524691068
+      props_terrain_type_1_26: 1534986810
+      props_terrain_type_1_27: -594109083
+      props_terrain_type_1_28: 1744739927
+      props_terrain_type_1_3: -1314201548
+      props_terrain_type_1_30: -1911653011
+      props_terrain_type_1_34: -934755232
+      props_terrain_type_1_36: 843265176
+      props_terrain_type_1_37: 2002328304
+      props_terrain_type_1_4: -382268367
+      props_terrain_type_1_43: 1816873899
+      props_terrain_type_1_44: -1091748053
+      props_terrain_type_1_46: -2034564331
+      props_terrain_type_1_47: 199411997
+      props_terrain_type_1_48: 235321674
+      props_terrain_type_1_49: 408321497
+      props_terrain_type_1_5: 1231715981
+      props_terrain_type_1_50: 824979257
+      props_terrain_type_1_51: 711659768
+      props_terrain_type_1_55: -383563621
+      props_terrain_type_1_57: 1902824211
+      props_terrain_type_1_58: 1706735817
+      props_terrain_type_1_59: 1679500296
+      props_terrain_type_1_6: 1977418630
+      props_terrain_type_1_60: -212865938
+      props_terrain_type_1_61: 979647876
+      props_terrain_type_1_62: -2083821101
+      props_terrain_type_1_63: -1573146982
+      props_terrain_type_1_64: 714723990
+      props_terrain_type_1_67: -1252981258
+      props_terrain_type_1_68: -557252633
+      props_terrain_type_1_69: -1252034353
+      props_terrain_type_1_7: 264987153
+      props_terrain_type_1_70: 236346580
+      props_terrain_type_1_71: -1160824594
+      props_terrain_type_1_75: -8549359
+      props_terrain_type_1_77: 276492544
+      props_terrain_type_1_78: 1767048699
+      props_terrain_type_1_79: 1113923876
+      props_terrain_type_1_80: -1638978938
+      props_terrain_type_1_81: -222188724
+      props_terrain_type_1_82: 1264678574
+      props_terrain_type_1_83: 1746683268
+      props_terrain_type_1_84: -1555685965
+      props_terrain_type_1_9: 1571623416
+      props_terrain_type_1_90: 1928342919
+      props_terrain_type_1_91: -190379769
+      props_terrain_type_1_92: 808818617
+      spike_1: 1753663993
+      spike_2: 1767732360
+      spike_border_1: -1704973131
+      spike_border_2: -1523281859
+      spike_corner_1: 8655609
+      spike_corner_2: -1904501318
+      spike_corner_3: -24701939
+      spike_corner_4: 14534059
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
