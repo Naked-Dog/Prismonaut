@@ -17,6 +17,7 @@ namespace PlayerSystem
         private RaycastHit2D groundHit;
         private bool isTriangleActive = false;
         private bool isCircleActive = false;
+        private bool isLanding = false;
 
 
         public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, MonoBehaviour mb) : base(eventBus, movementValues)
@@ -99,7 +100,7 @@ namespace PlayerSystem
                         other.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
                     }
 
-                    mb.StartCoroutine(JumpEnd());
+                    //mb.StartCoroutine(JumpEnd());
                     playerState.groundState = GroundState.Grounded;
                     Debug.Log("Setting groundState grounded");
                     //IsGrounded();
@@ -217,14 +218,13 @@ namespace PlayerSystem
 
         private IEnumerator JumpEnd()
         {
-            isMovementDisabled = true;
             isJumpingDisabled = true;
-            rb2d.velocity = Vector2.zero;
+            isLanding = true;
 
-            yield return new WaitForSeconds(0.14f);
+            yield return new WaitForSeconds(0.05f);
 
-            isMovementDisabled = false;
             isJumpingDisabled = false;
+            isLanding = false;
         }
 
     #region Debug Functions
