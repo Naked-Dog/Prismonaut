@@ -9,6 +9,8 @@ public class Switch : MonoBehaviour
     public PlayerSystem.Power powerInteraction;
     public Transform switchTransform;
     public UnityEvent onSwitchActivation;
+    [SerializeField] private SpriteRenderer buttonSR;
+    [SerializeField] private Sprite buttonSprite;
 
     public void PlayerPowerInteraction(PlayerSystem.PlayerState playerState)
     {
@@ -23,6 +25,7 @@ public class Switch : MonoBehaviour
     {
         switchTransform.position = new Vector3(switchTransform.position.x, switchTransform.position.y - 0.1f);
         this.tag = "Ground";
+        buttonSR.sprite = buttonSprite;
         this.GetComponent<Collider2D>().enabled = false;
         this.GetComponentInChildren<SpriteRenderer>().color = Color.red;
     }

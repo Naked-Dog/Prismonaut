@@ -38,7 +38,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Blur_Offset: 0.0015
-    - _Is_Effect_Enabled: 0
+    - _Is_Effect_Enabled: 1
     - _Line_Size: 180
     - _Lines_Amount: 300
     - _Scan_Lines_Speed: -0.003

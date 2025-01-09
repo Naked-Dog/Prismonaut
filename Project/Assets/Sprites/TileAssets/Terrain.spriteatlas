@@ -26,7 +26,7 @@ SpriteAtlas:
       padding: 4
       blockOffset: 1
       allowAlphaSplitting: 0
-      enableRotation: 1
+      enableRotation: 0
       enableTightPacking: 1
       enableAlphaDilation: 0
     secondaryTextureSettings: {}
@@ -38,6 +38,10 @@ SpriteAtlas:
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
     - 196c555182d974b499799bc30dd9d214: 1076509635
+    - 5853f9b18d295914bb73c3257c5de188: -2089536748
+    - 5853f9b18d295914bb73c3257c5de188: 545507756
+    - 683c822209f8ca742b1ecacfc4afdab8: -118621731
+    - 683c822209f8ca742b1ecacfc4afdab8: -1124588483
     - f67c6743680aa334db214652dc08c002: -1049030460
     - f67c6743680aa334db214652dc08c002: 970317134
     - ccaa0d73bfc5985428af1da264df4acb: -835173762
@@ -107,7 +111,14 @@ SpriteAtlas:
     - ccaa0d73bfc5985428af1da264df4acb: -829961188
     - 03d5a9c3e5110474ebc160607b908720: 21300000
     - 2b89d5f436d57e346b6bfc7a375a0ea3: 21300000
-    - 640f28857c5578f478e1ab4e9930585b: 21300000
+    - 640f28857c5578f478e1ab4e9930585b: -531908280
+    - 640f28857c5578f478e1ab4e9930585b: -2055650956
+    - 640f28857c5578f478e1ab4e9930585b: -1832945993
+    - 640f28857c5578f478e1ab4e9930585b: -823830573
+    - 640f28857c5578f478e1ab4e9930585b: 1730190743
+    - 640f28857c5578f478e1ab4e9930585b: 61723096
+    - 640f28857c5578f478e1ab4e9930585b: -811709591
+    - 640f28857c5578f478e1ab4e9930585b: 1307925688
     - ea2ce9666d305f6438656b4c00fb6270: 1186385580
     - 4582137638589764faeb0becd57cf86e: 21300000
     - 8318d8c73b924ba4a9dd323b5e307abc: -1074949867
@@ -160,6 +171,10 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 1076509635, guid: 196c555182d974b499799bc30dd9d214, type: 3}
+  - {fileID: -2089536748, guid: 5853f9b18d295914bb73c3257c5de188, type: 3}
+  - {fileID: 545507756, guid: 5853f9b18d295914bb73c3257c5de188, type: 3}
+  - {fileID: -118621731, guid: 683c822209f8ca742b1ecacfc4afdab8, type: 3}
+  - {fileID: -1124588483, guid: 683c822209f8ca742b1ecacfc4afdab8, type: 3}
   - {fileID: -1049030460, guid: f67c6743680aa334db214652dc08c002, type: 3}
   - {fileID: 970317134, guid: f67c6743680aa334db214652dc08c002, type: 3}
   - {fileID: -835173762, guid: ccaa0d73bfc5985428af1da264df4acb, type: 3}
@@ -229,7 +244,14 @@ SpriteAtlas:
   - {fileID: -829961188, guid: ccaa0d73bfc5985428af1da264df4acb, type: 3}
   - {fileID: 21300000, guid: 03d5a9c3e5110474ebc160607b908720, type: 3}
   - {fileID: 21300000, guid: 2b89d5f436d57e346b6bfc7a375a0ea3, type: 3}
-  - {fileID: 21300000, guid: 640f28857c5578f478e1ab4e9930585b, type: 3}
+  - {fileID: -531908280, guid: 640f28857c5578f478e1ab4e9930585b, type: 3}
+  - {fileID: -2055650956, guid: 640f28857c5578f478e1ab4e9930585b, type: 3}
+  - {fileID: -1832945993, guid: 640f28857c5578f478e1ab4e9930585b, type: 3}
+  - {fileID: -823830573, guid: 640f28857c5578f478e1ab4e9930585b, type: 3}
+  - {fileID: 1730190743, guid: 640f28857c5578f478e1ab4e9930585b, type: 3}
+  - {fileID: 61723096, guid: 640f28857c5578f478e1ab4e9930585b, type: 3}
+  - {fileID: -811709591, guid: 640f28857c5578f478e1ab4e9930585b, type: 3}
+  - {fileID: 1307925688, guid: 640f28857c5578f478e1ab4e9930585b, type: 3}
   - {fileID: 1186385580, guid: ea2ce9666d305f6438656b4c00fb6270, type: 3}
   - {fileID: 21300000, guid: 4582137638589764faeb0becd57cf86e, type: 3}
   - {fileID: -1074949867, guid: 8318d8c73b924ba4a9dd323b5e307abc, type: 3}
@@ -281,6 +303,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2a6a9fff001202646b1c8699ce3dbb0b, type: 3}
   m_PackedSpriteNamesToIndex:
   - plataform_type_1_3x_wall_0
+  - plataform_type_3_4x_0
+  - plataform_type_3_4x_1
+  - plataform_type_3_5x_1
+  - plataform_type_3_5x_0
   - plataform_type_2_1x_3
   - plataform_type_2_1x_0
   - wall_c_1
@@ -350,7 +376,14 @@ SpriteAtlas:
   - 1floor_a_1
   - plataform_type_1_3x_2walls 1
   - plataform_type_1_2x
-  - rocks_type1
+  - rock_1
+  - rock_3
+  - rock_2
+  - rock_5
+  - rock_4
+  - rock_7
+  - rock_6
+  - rock_8
   - plataform_type_2_x2_1
   - plataform_type_1_3x
   - plataform_type_1_1x_wall_0
