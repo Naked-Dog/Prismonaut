@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 5428680551810571586}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.727528, y: 1.8145308, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalPosition: {x: -3.0168152, y: 2.345707, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5441446292219667582}
@@ -135,9 +135,9 @@ MonoBehaviour:
   player3DModel: {fileID: 919132149155446097, guid: d529cbe309fc3e541a63a15694cf4ece, type: 3}
   transitionTime: 1.5
   endPortal: {fileID: 5428680551810571586}
-  startTangent: {x: 7.6258836, y: 6.5631433, z: -5.5351562}
-  endTangent: {x: 13.57549, y: 7.7636585, z: -5.705078}
-  endPoint: {x: 15.937528, y: 5.584531, z: 0}
+  startTangent: {x: 67.34268, y: 7.8337135, z: -5.5351562}
+  endTangent: {x: 64.337494, y: 13.918932, z: -5.7070312}
+  endPoint: {x: 69.663185, y: 12.5757065, z: 0}
 --- !u!61 &3486580879798222320
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -215,7 +215,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 8.727528, y: 1.8145308}
+  m_Offset: {x: -3.0168152, y: 2.345707}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -255,7 +255,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5441446292219667582}

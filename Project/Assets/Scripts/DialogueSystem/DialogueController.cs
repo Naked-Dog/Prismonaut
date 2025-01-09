@@ -200,8 +200,8 @@ public class DialogueController : MonoBehaviour
 
     private DialogueActor GetActor(string actorName)
     {
-        var path = $"Assets/DialogueSystem/Actors/{actorName}.asset";
-        DialogueActor actor = AssetDatabase.LoadAssetAtPath<DialogueActor>(path);
+        var path = $"Actors/{actorName}";
+        DialogueActor actor = Resources.Load<DialogueActor>(path);
         return actor;
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7622963166332579133}
   - component: {fileID: 188326568510766470}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,9 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2407546000832790044}
   - component: {fileID: 1989443953173933405}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 1x5
-  m_TagString: BreakWithSquare
+  m_TagString: Breakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
