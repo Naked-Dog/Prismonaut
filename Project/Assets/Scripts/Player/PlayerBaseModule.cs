@@ -28,8 +28,8 @@ namespace PlayerSystem
         private PlayerVisuals visualsModule;
         public PlayerPowersModule powersModule;
         public PlayerHealthModule healthModule;
-
-        public PlayerAudioModule audioModule;
+        private PlayerAudioModule audioModule;
+        
 
         protected void Start()
         {

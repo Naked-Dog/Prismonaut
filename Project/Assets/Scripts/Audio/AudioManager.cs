@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class AudioManager
 {
-    public AudioList sounds;
+    public AudioDictionary sounds;
     private GameObject audioContainer;
     private List<AudioSource> audioSources = new();
 
-    public AudioManager(GameObject parent, AudioList audioList)
+    public AudioManager(GameObject parent, AudioDictionary audioList)
     {
         sounds = audioList;
         audioContainer = new GameObject();
@@ -15,13 +15,14 @@ public class AudioManager
         CreateNewAudioSource();
     }
 
-    private void CreateNewAudioSource()
+    private AudioSource CreateNewAudioSource()
     {
         GameObject audioObject = new GameObject();
         audioObject.transform.parent = audioContainer.transform;
         AudioSource newAudioSource = audioObject.AddComponent<AudioSource>();
         newAudioSource.playOnAwake = false;
-        audioSources.Add(newAudioSource);        
+        audioSources.Add(newAudioSource);
+        return newAudioSource;        
     }
 
     private AudioSource GetFreeAudioSource()
@@ -34,18 +35,16 @@ public class AudioManager
             }
         }
 
-        return null;
+        return CreateNewAudioSource();
+        
     }
 
-    public void PlayAudioClip(AudioClip clip, bool isLoop = false)
+    public void PlayAudioClip(string clipName, bool isLoop = false)
     {
-        AudioSource freeAudioSource = GetFreeAudioSource();
+        AudioClip clip = sounds.GetAudioClip(clipName);
+        if(clip == null) return;
 
-        if(freeAudioSource == null) 
-        {
-            CreateNewAudioSource();
-            PlayAudioClip(clip);
-        }
+        AudioSource freeAudioSource = GetFreeAudioSource();
 
         freeAudioSource.clip = clip;
         freeAudioSource.loop = isLoop;

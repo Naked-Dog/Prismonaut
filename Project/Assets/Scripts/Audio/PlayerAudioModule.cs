@@ -7,7 +7,7 @@ public class PlayerAudioModule : AudioManager
 {
     private EventBus eventBus;
 
-    public PlayerAudioModule(EventBus eventBus, AudioList audioList, GameObject parent) : base(parent, audioList)
+    public PlayerAudioModule(EventBus eventBus, AudioDictionary audioList, GameObject parent) : base(parent, audioList)
     {
         this.eventBus = eventBus;
         sounds = audioList;
@@ -17,6 +17,6 @@ public class PlayerAudioModule : AudioManager
 
     private void ReproduceSoundEffect(PlayPlayerSounEffect e)
     {
-        PlayAudioClip(e.clip);
+        PlayAudioClip(e.clipName);
     }
 }

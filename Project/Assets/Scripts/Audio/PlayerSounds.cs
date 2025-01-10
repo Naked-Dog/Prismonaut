@@ -1,11 +1,15 @@
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
-public class AudioList: MonoBehaviour {}
-
-public class PlayerSounds : AudioList
+public class PlayerSounds : AudioDictionary
 {
-    public AudioClip Jump;
-    public AudioClip circlePower;
+    [SerializedDictionary("AudioName", "AudiClip")]
+    public SerializedDictionary<string, AudioClip> playerSounds;
+
+    protected void Awake()
+    {
+        AttachSounds(playerSounds);
+    }
 }
 
 

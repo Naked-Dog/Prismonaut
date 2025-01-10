@@ -41,7 +41,7 @@ namespace PlayerSystem
 
     public struct PlayPlayerSounEffect
     {
-        public AudioClip clip;
-        public PlayPlayerSounEffect (AudioClip clip ){ this.clip = clip; }
+        public string clipName;
+        public PlayPlayerSounEffect (string clipName ){ this.clipName = clipName; }
     }
 }
