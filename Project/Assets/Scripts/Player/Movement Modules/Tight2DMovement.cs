@@ -18,12 +18,15 @@ namespace PlayerSystem
         private bool isTriangleActive = false;
         private bool isCircleActive = false;
         private bool isLanding = false;
+        private PlayerAudioModule playerAudio;
+        private PlayerSounds playerSounds;
 
-
-        public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, MonoBehaviour mb) : base(eventBus, movementValues)
+        public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, PlayerAudioModule playerAudio,MonoBehaviour mb) : base(eventBus, movementValues)
         {
             this.playerState = playerState;
             this.rb2d = rb2d;
+            this.playerAudio = playerAudio;
+            playerSounds = this.playerAudio.sounds as PlayerSounds;
             this.mb = mb;
             coll = rb2d.GetComponent<Collider2D>();
             SetGroundCallbacks(groundTrigger);
@@ -51,6 +54,8 @@ namespace PlayerSystem
                 SaveSafeGround();
                 playerState.groundState = GroundState.Airborne;
                 eventBus.Publish(new JumpMovementEvent());
+                
+                eventBus.Publish(new PlayPlayerSounEffect(playerSounds.Jump));
             }
 
             if (input.jumpInputAction.IsPressed() && !isFalling)
