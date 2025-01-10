@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 6642275358410668762}
   - component: {fileID: 5500301668130077949}
   - component: {fileID: 9087612573211454472}
+  - component: {fileID: 146389845468497314}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -307,7 +308,40 @@ MonoBehaviour:
   hitDirectionForce: 10
   constForce: 5
   inputForce: 7.5
-  spriteRenderer: {fileID: 2420910708975536949}
+--- !u!114 &146389845468497314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236071349304804809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34f2176663d88c8459fa7307a7612ec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSounds:
+    _serializedList:
+    - Key: Jump
+      Value: {fileID: 8300000, guid: 2f287c6df970b6a47b2818c22e3011ea, type: 3}
+    - Key: Explode
+      Value: {fileID: 8300000, guid: d10b4d9361778ec4a9168d2934a23838, type: 3}
+    - Key: Defeat
+      Value: {fileID: 8300000, guid: 61ddb794a856667488319c14ae04d50d, type: 3}
+    - Key: Hurt
+      Value: {fileID: 8300000, guid: 8fb48ecac19fcaa459a59b90e69d89e2, type: 3}
+    - Key: TouchFloor
+      Value: {fileID: 8300000, guid: ff41c796c393922469e2f4c7ec2243d2, type: 3}
+    - Key: Walk
+      Value: {fileID: 8300000, guid: df870242261df614193e42efd966d332, type: 3}
+    - Key: Walk2
+      Value: {fileID: 8300000, guid: 6af02e603e2516e48be0a57f3bea33c9, type: 3}
+    - Key: CircleTransition
+      Value: {fileID: 8300000, guid: 70b9a486fe52c9b4cbc8792f1e9bedb3, type: 3}
+    - Key: SquareTransition
+      Value: {fileID: 8300000, guid: 86ff7ac6bace9dd4baa00ca161ca99ac, type: 3}
+    - Key: TriangleTransition
+      Value: {fileID: 8300000, guid: 3fab571a05a69a34fb90b1fe54bb9d0d, type: 3}
 --- !u!1 &2338365986527800756
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace PlayerSystem
 {
     // General Events
@@ -35,5 +37,11 @@ namespace PlayerSystem
     {
         public bool toggle;
         public ToggleCirclePowerEvent(bool toggle) { this.toggle = toggle; }
+    }
+
+    public struct PlayPlayerSounEffect
+    {
+        public string clipName;
+        public PlayPlayerSounEffect (string clipName ){ this.clipName = clipName; }
     }
 }

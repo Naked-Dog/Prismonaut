@@ -28,6 +28,8 @@ namespace PlayerSystem
         private PlayerVisuals visualsModule;
         public PlayerPowersModule powersModule;
         public PlayerHealthModule healthModule;
+        private PlayerAudioModule audioModule;
+        
 
         protected void Start()
         {
@@ -41,14 +43,16 @@ namespace PlayerSystem
                 {Direction.Right, rightTrigger}
             };
 
+            audioModule = new PlayerAudioModule(eventBus, GetComponent<PlayerSounds>(), gameObject);
             inputModule = new PlayerInput(eventBus, playerInputAsset);
-            movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger, this);
+            movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger,  audioModule, this);
             visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator, helmetRenderer);
             powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers, knockback, movementValues);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, knockback, healthUIController, this)
             {
                 MaxHealth = 3
             };
+
             healthModule.CurrentHealth = healthModule.MaxHealth;
             healthUIController.InitUI(healthModule.CurrentHealth);
             MenuController.Instance?.setEvents(eventBus);

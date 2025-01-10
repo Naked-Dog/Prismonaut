@@ -14,5 +14,10 @@ namespace PlayerSystem
         public void PublishRespawnEvent(){
             eventBus.Publish(new RespawnEvent());
         }
+
+        public void PlaySound(string clipName)
+        {
+            eventBus.Publish(new PlayPlayerSounEffect(clipName));
+        }
     }
 }
