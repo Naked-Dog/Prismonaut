@@ -42,6 +42,11 @@ namespace PlayerSystem
     public struct PlayPlayerSounEffect
     {
         public string clipName;
-        public PlayPlayerSounEffect (string clipName ){ this.clipName = clipName; }
+        public float volume;
+        public PlayPlayerSounEffect (string clipName, float volume = 1 )
+        { 
+            this.clipName = clipName;
+            this.volume = volume; 
+        }
     }
 }
