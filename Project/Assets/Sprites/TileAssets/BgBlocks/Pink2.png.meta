@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 52a4c4146ee69df49aefd57d2e2d10fe
+guid: 6a17a4ffe4d4ba04ba303729a026556a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -44,7 +44,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 0
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Block2_0
+      name: Pink2_0
       rect:
         serializedVersion: 2
-        x: 206
-        y: 650
-        width: 50
-        height: 54
+        x: 716
+        y: 363
+        width: 660
+        height: 544
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b970f4d63c12274e9f72f6fc3441266
-      internalID: -2075965529
+      spriteID: 9da7b58ae6b0970478065205d28abe00
+      internalID: -1819353883
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Block2_1
+      name: Pink2_1
       rect:
         serializedVersion: 2
-        x: 564
-        y: 100
-        width: 344
-        height: 616
+        x: 159
+        y: 516
+        width: 295
+        height: 266
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,83 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63f792250f0ef5f42a43db83200d7736
-      internalID: 5176390
+      spriteID: 61a8bb9d65467694eabab62371b1a9d4
+      internalID: 214836825
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Block2_2
+      name: Pink2_2
       rect:
         serializedVersion: 2
-        x: 232
-        y: 578
-        width: 26
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 66bd35219c636514392dae9afc109711
-      internalID: 1003093575
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Block2_3
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 496
-        width: 96
-        height: 104
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0d13c0a5fbdd0eb4690af4a95bc7b7fd
-      internalID: -343944252
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Block2_4
-      rect:
-        serializedVersion: 2
-        x: 970
-        y: 46
-        width: 310
-        height: 576
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f49865132163a934b891218847ff2dd2
-      internalID: -1990382038
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Block2_5
-      rect:
-        serializedVersion: 2
-        x: 10
+        x: 0
         y: 0
-        width: 488
-        height: 456
+        width: 822
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,8 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 02435029cc5d89c4cb71370982f96714
-      internalID: 756451048
+      spriteID: 25916df9383ae2e48986fbd4d8448ea8
+      internalID: 146615076
       vertices: []
       indices: 
       edges: []
@@ -225,7 +162,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 268a8928898a3684d8e0c7f04a7039ff
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -233,12 +170,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Block2_0: -2075965529
-      Block2_1: 5176390
-      Block2_2: 1003093575
-      Block2_3: -343944252
-      Block2_4: -1990382038
-      Block2_5: 756451048
+      Pink2_0: -1819353883
+      Pink2_1: 214836825
+      Pink2_2: 146615076
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
