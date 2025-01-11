@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6441386478704719358}
   - component: {fileID: 6206928216691204597}
   - component: {fileID: 5487852962452217497}
+  - component: {fileID: 116948197552772792}
   m_Layer: 0
   m_Name: CheckPoint
   m_TagString: Untagged
@@ -92,6 +93,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1388215380367071396}
+  animationEvent: {fileID: 3480613512919140539}
+--- !u!114 &116948197552772792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4447011812068706920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a6436caf0cdda4ea29bb0939f8462e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkPointSoundList:
+    _serializedList:
+    - Key: Deploy
+      Value: {fileID: 8300000, guid: 545168a4ccfa91c4cba508fa84b56b6b, type: 3}
+    - Key: Idle
+      Value: {fileID: 8300000, guid: e8e43457275e24a49a1aef0c32572ff3, type: 3}
+    - Key: Restore
+      Value: {fileID: 8300000, guid: 282e9f064e49798418f51c4e7036f25b, type: 3}
 --- !u!1 &7138171663232305559
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,6 +125,7 @@ GameObject:
   - component: {fileID: 1173685569555428336}
   - component: {fileID: 7300236212839356090}
   - component: {fileID: 1388215380367071396}
+  - component: {fileID: 3480613512919140539}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -198,3 +221,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3480613512919140539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7138171663232305559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff937f8a15ce769429a45a5fe9302a96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

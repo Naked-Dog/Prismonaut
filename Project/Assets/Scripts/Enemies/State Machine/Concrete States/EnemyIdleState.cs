@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class EnemyIdleState : EnemyState
 {
@@ -11,6 +12,7 @@ public class EnemyIdleState : EnemyState
     {
         base.EnterState();
         enemy.EnemyIdleBaseInstance.DoEnterLogic();
+
     }
     public override void ExitState()
     {

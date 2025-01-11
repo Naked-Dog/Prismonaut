@@ -10,6 +10,8 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject gameMenuPanel;
     [SerializeField] private GameObject losePanel;
+
+    private AudioManager musicManager;
     public static MenuController Instance {get; private set;}
 
     private EventBus eventBus;
@@ -23,6 +25,13 @@ public class MenuController : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this);
         }
+
+        musicManager = new AudioManager(gameObject, GetComponent<MusicList>(), null);
+    }
+
+    private void Start()
+    {
+        musicManager.PlayAudioClip(GetMusicClip(), true, 0.5f);
     }
 
     public void ChangeScene(string sceneName){
@@ -41,6 +50,7 @@ public class MenuController : MonoBehaviour
         yield return fadeIn.WaitForCompletion();
 
         mainMenuPanel.SetActive(false);
+        musicManager.StopAudioClip(GetMusicClip());
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         while (!asyncLoad.isDone)
@@ -48,7 +58,9 @@ public class MenuController : MonoBehaviour
             yield return null;
         }
         setMenuDisplay(sceneName);
-        yield return new WaitForSeconds(1);    
+        yield return new WaitForSeconds(1);
+
+        musicManager.PlayAudioClip(GetMusicClip(), true, 0.5f);
 
         Tween fadeOut = backgroundImage.DOFade(0,0.5f);
         yield return fadeOut.WaitForCompletion();
@@ -109,5 +121,18 @@ public class MenuController : MonoBehaviour
     public void ResetGame(){
         eventBus.Publish(new RespawnEvent());  
         eventBus.Publish(new PauseInputEvent());
+    }
+
+    private string GetMusicClip()
+    {
+        switch(SceneManager.GetActiveScene().name)
+        {
+            case "Menu":
+                return "MainTitle";
+            case "Level_1":
+                return "Level1";
+            default:
+                return null;
+        }
     }
 }
