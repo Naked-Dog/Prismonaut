@@ -47,6 +47,8 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
 
     #endregion
 
+    public AudioManager audioManager;
+
     private void Awake()
     {
         EnemyIdleBaseInstance = Instantiate(EnemyIdleBase);
@@ -67,11 +69,15 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
         CurrentHealth = MaxHealth;
 
         RigidBody = GetComponent<Rigidbody2D>();
+        audioManager = new AudioManager(this.gameObject, GetComponent<AudioDictionary>(), GetComponent<AudioSource>());
 
         EnemyIdleBaseInstance.Initialize(gameObject, this);
         if (EnemyFollowBase != null) EnemyFollowBaseInstance.Initialize(gameObject, this);
         EnemyAttackBaseInstance.Initialize(gameObject, this);
         if (EnemyStunBase != null) EnemyStunBaseInstance.Initialize(gameObject, this);
+
+        //Only for the range enemy. Remove later.
+        audioManager.PlayAudioClip("Idle", true, 0.5f);
 
         StateMachine.Initialize(IdleState);
     }
@@ -103,7 +109,10 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
 
     public void Die()
     {
-        GameObject.Destroy(gameObject);
+        audioManager.PlayAudioClip("Death");
+        audioManager.StopAudioClip("Idle");
+        RigidBody.isKinematic = true;
+        transform.GetChild(0).gameObject.SetActive(false);
     }
     #endregion
 
