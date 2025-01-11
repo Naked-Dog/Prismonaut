@@ -18,6 +18,6 @@ public class PlayerAudioModule : AudioManager
 
     private void ReproduceSoundEffect(PlayPlayerSounEffect e)
     {
-        PlayAudioClip(e.clipName);
+        PlayAudioClip(e.clipName, false, e.volume);
     }
 }

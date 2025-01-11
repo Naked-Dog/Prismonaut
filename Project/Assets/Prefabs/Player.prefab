@@ -242,6 +242,10 @@ MonoBehaviour:
       Value: {fileID: 8300000, guid: 6af02e603e2516e48be0a57f3bea33c9, type: 3}
     - Key: CircleTransition
       Value: {fileID: 8300000, guid: 70b9a486fe52c9b4cbc8792f1e9bedb3, type: 3}
+    - Key: SquareBlock
+      Value: {fileID: 8300000, guid: de7704bb2ebf06942a51c02228fbbda4, type: 3}
+    - Key: SquareBlockSpikes
+      Value: {fileID: 8300000, guid: 9cba4db0cafc4624397a1ea247fd95bc, type: 3}
     - Key: SquareTransition
       Value: {fileID: 8300000, guid: 86ff7ac6bace9dd4baa00ca161ca99ac, type: 3}
     - Key: TriangleTransition

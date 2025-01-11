@@ -37,8 +37,8 @@ public class DimensionTransition : MonoBehaviour
     {
         UpdateBoxColliders();
         InitializeInputActions();
-        startPointAudio.PlayAudioClip("Idle", true, 0.8f);
-        endPointAudio.PlayAudioClip("Idle", true, 0.8f);
+        startPointAudio.PlayAudioClip("Idle", true);
+        endPointAudio.PlayAudioClip("Idle", true);
     }
 
     private void Update() 
