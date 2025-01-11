@@ -12,10 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0cf8a1fd0ad1ea4ca2e736ce0d936f2, type: 3}
   m_Name: CameraValues
   m_EditorClassIdentifier: 
-  RegularPosition: {x: 0, y: 0.8}
-  FallingPosition: {x: 0, y: -0.5}
-  LookingDownPosition: {x: 0, y: -2}
-  DialoguePosition: {x: 0, y: 0}
-  RegularDistance: 4
-  FallingDistance: 5.5
-  DialogueDistance: 2.8
+  FallingTime: 0.4

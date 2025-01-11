@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using PlayerSystem;
+using CameraSystem;
 public class DimensionTransition : MonoBehaviour
 {
     [Header("Settings")]
@@ -16,7 +17,7 @@ public class DimensionTransition : MonoBehaviour
     [HideInInspector] public  Vector3 endPoint = new Vector3(5,5,0);
     private Vector3 startPoint => transform.position;
     private BoxCollider2D[] box2DColliders => GetComponents<BoxCollider2D>();
-    private CinemachineVirtualCamera virtualCamera => FindObjectOfType<CinemachineVirtualCamera>();
+    private CameraSystem.CameraState cameraManager => FindObjectOfType<CameraSystem.CameraState>();
     private bool isTraveling;
     private PlayerBaseModule playerController = null;
     private InputAction trianglePowerAction;
@@ -119,7 +120,7 @@ public class DimensionTransition : MonoBehaviour
 
         GameObject model3D = Instantiate(player3DModel, playerPositon, Quaternion.identity);
         model3D.transform.localScale = Vector3.one * 0.5f;
-        virtualCamera.Follow = model3D.transform;
+        cameraManager.setNewFollowTarget(model3D.transform);
 
         float elapseTime = 0;
         while (elapseTime < totalTransitionTime)
@@ -139,7 +140,7 @@ public class DimensionTransition : MonoBehaviour
         
         Destroy(model3D);
         player.transform.position = targetPosition;
-        virtualCamera.Follow = player.transform;
+        cameraManager.setNewFollowTarget(player.transform);
         player.transform.GetChild(1).gameObject.SetActive(true);
         isTraveling = false;
     }
