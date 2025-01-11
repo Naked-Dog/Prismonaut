@@ -14,7 +14,6 @@ public class CinematicController : MonoBehaviour
 
     private void OnVideoEnd(VideoPlayer vp)
     {
-        Debug.Log("Video End");
         MenuController.Instance.ChangeScene("Level_1");
     }
 }
