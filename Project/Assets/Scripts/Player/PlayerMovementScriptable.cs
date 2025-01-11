@@ -5,6 +5,8 @@ public class PlayerMovementScriptable : ScriptableObject
 {
     [Header("Movement")]
     public float horizontalVelocity = 8f;
+    public float maximumYSpeed = 25;
+    public float minimumYSpeed = -15;
 
     [Header("Jump")]
     public float jumpForce = 10f;
