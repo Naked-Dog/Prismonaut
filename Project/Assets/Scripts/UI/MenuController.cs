@@ -49,7 +49,7 @@ public class MenuController : MonoBehaviour
         Tween fadeIn = backgroundImage.DOFade(1,0.5f);
         yield return fadeIn.WaitForCompletion();
 
-        mainMenuPanel.SetActive(false);
+        if(mainMenuPanel != null) mainMenuPanel.SetActive(false);
         musicManager.StopAudioClip(GetMusicClip());
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
@@ -106,7 +106,7 @@ public class MenuController : MonoBehaviour
                 losePanel.SetActive(false);
             break;
             default:
-                mainMenuPanel.SetActive(false);
+                if(mainMenuPanel != null) mainMenuPanel.SetActive(false);
                 gameMenuPanel.SetActive(false);
                 losePanel.SetActive(false);
             break;
@@ -132,7 +132,7 @@ public class MenuController : MonoBehaviour
             case "Level_1":
                 return "Level1";
             default:
-                return null;
+                return "";
         }
     }
 }
