@@ -8,14 +8,12 @@ public class Knockback : MonoBehaviour
     public float hitDirectionForce = 10f;
     public float constForce = 5f;
     public float inputForce = 7.5f;
-    public SpriteRenderer spriteRenderer;
+
     private Color startColor;
     private Coroutine knockbackCoroutine;
 
     public IEnumerator KnockbackAction(Vector2 hitDirection, Vector2 constantForceDirection, float inputDirection, Rigidbody2D rb2d, PlayerSystem.PlayerState playerState, float damage)
     {
-        startColor = spriteRenderer.color;
-        if (damage > 0f) spriteRenderer.color = Color.red;
         if (damage > 0f) playerState.healthState = PlayerSystem.HealthState.Stagger;
         Vector2 _hitForce;
         Vector2 _constantForce;
@@ -50,7 +48,7 @@ public class Knockback : MonoBehaviour
 
             yield return new WaitForFixedUpdate();
         }
-        spriteRenderer.color = startColor;
+
         playerState.healthState = PlayerSystem.HealthState.Undefined;
     }
 

@@ -8,6 +8,7 @@ namespace PlayerSystem
     {
         [SerializeField] private Rigidbody2D avatarRigidbody2D;
         [SerializeField] private Animator spriteAnimator;
+        [SerializeField] private SpriteRenderer helmetRenderer;
         [SerializeField] private TriggerEventHandler groundTrigger;
         [SerializeField] private TriggerEventHandler leftTrigger;
         [SerializeField] private TriggerEventHandler rightTrigger;
@@ -25,8 +26,10 @@ namespace PlayerSystem
         private PlayerInput inputModule;
         private PlayerMovement movementModule;
         private PlayerVisuals visualsModule;
-        private PlayerPowersModule powersModule;
+        public PlayerPowersModule powersModule;
         public PlayerHealthModule healthModule;
+        private PlayerAudioModule audioModule;
+        
 
         protected void Start()
         {
@@ -40,30 +43,38 @@ namespace PlayerSystem
                 {Direction.Right, rightTrigger}
             };
 
+            audioModule = new PlayerAudioModule(eventBus, GetComponent<PlayerSounds>(), gameObject);
             inputModule = new PlayerInput(eventBus, playerInputAsset);
-            movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger);
-            visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator);
-            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers, knockback);
-            healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, knockback, healthUIController)
+            movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger,  audioModule, this);
+            visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator, helmetRenderer);
+            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers, knockback, movementValues);
+            healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, knockback, healthUIController, this)
             {
                 MaxHealth = 3
             };
+
             healthModule.CurrentHealth = healthModule.MaxHealth;
             healthUIController.InitUI(healthModule.CurrentHealth);
             MenuController.Instance?.setEvents(eventBus);
             DialogueController.Instance?.SetEventBus(eventBus);
+            spriteAnimator.GetComponent<PlayerAnimationEvents>()?.SetEventBus(eventBus);
+
+            GameDataManager.Instance.SavePlayerPosition(avatarRigidbody2D.position);
         }
 
         protected void Update()
         {
-            if (state.isPaused) return;
             eventBus.Publish(new UpdateEvent());
         }
 
         protected void FixedUpdate()
         {
-            if (state.isPaused) return;
             eventBus.Publish(new FixedUpdateEvent());
+        }
+
+        protected void LateUpdate()
+        {
+            eventBus.Publish(new LateUpdateEvent());
         }
     }
 }

@@ -1,8 +1,11 @@
+using UnityEngine;
+
 namespace PlayerSystem
 {
     // General Events
     public struct UpdateEvent { }
     public struct FixedUpdateEvent { }
+    public struct LateUpdateEvent { }
 
     // Movement Events
     public struct HorizontalMovementEvent
@@ -14,7 +17,10 @@ namespace PlayerSystem
     public struct UngroundedMovementEvent { }
     public struct GroundedMovementEvent { }
     public struct PauseEvent{ }
-
+    public struct UnpauseEvent{ }
+    public struct ReceivedDamageEvent{ }
+    public struct DeathEvent{ }
+    public struct RespawnEvent{ }
 
     // Power Events
     public struct ToggleSquarePowerEvent
@@ -31,5 +37,11 @@ namespace PlayerSystem
     {
         public bool toggle;
         public ToggleCirclePowerEvent(bool toggle) { this.toggle = toggle; }
+    }
+
+    public struct PlayPlayerSounEffect
+    {
+        public string clipName;
+        public PlayPlayerSounEffect (string clipName ){ this.clipName = clipName; }
     }
 }

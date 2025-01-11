@@ -4,6 +4,7 @@ namespace PlayerSystem
     {
         Undefined = 0,
         Stagger,
-        Invincible
+        Invincible,
+        Death
     }
 }

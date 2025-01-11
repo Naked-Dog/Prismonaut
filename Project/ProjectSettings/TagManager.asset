@@ -23,6 +23,7 @@ TagManager:
   - Switch
   - Door
   - Chest
+  - UIController
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Ground
   - 
   - 
   - 

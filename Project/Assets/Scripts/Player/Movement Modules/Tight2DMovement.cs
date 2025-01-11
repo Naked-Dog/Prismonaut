@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -8,37 +10,82 @@ namespace PlayerSystem
         public Rigidbody2D rb2d;
 
         private PlayerState playerState;
+        private Collider2D coll;
 
-        public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger) : base(eventBus, movementValues)
+        private bool isFalling = false;
+        private float jumpTimer;
+        private RaycastHit2D groundHit;
+        private bool isTriangleActive = false;
+        private bool isCircleActive = false;
+        private bool isLanding = false;
+        private PlayerAudioModule playerAudio;
+
+        public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, PlayerAudioModule playerAudio,MonoBehaviour mb) : base(eventBus, movementValues)
         {
             this.playerState = playerState;
             this.rb2d = rb2d;
+            this.playerAudio = playerAudio;
+            this.mb = mb;
+            coll = rb2d.GetComponent<Collider2D>();
             SetGroundCallbacks(groundTrigger);
 
             eventBus.Subscribe<HorizontalInputEvent>(MoveHorizontally);
             eventBus.Subscribe<JumpInputEvent>(Jump);
-            eventBus.Subscribe<UpdateEvent>(UpdateGravity);
             eventBus.Subscribe<ToggleSquarePowerEvent>(onSquarePowerToggle);
             eventBus.Subscribe<ToggleTrianglePowerEvent>(onTrianglePowerToggle);
             eventBus.Subscribe<ToggleCirclePowerEvent>(onCirclePowerToggle);
-            eventBus.Subscribe<PauseEvent>(OnPause);
-            eventBus.Subscribe<PauseInputEvent>(OnInputPause);
+            eventBus.Subscribe<PauseEvent>(StopPlayerMovement);
+            eventBus.Subscribe<UnpauseEvent>(EnablePlayerMovement);
         }
 
         public override void Jump(JumpInputEvent input)
         {
-            if (playerState.groundState != GroundState.Grounded) return;
+            if (playerState.activePower != Power.None) return;
             if (playerState.healthState == HealthState.Stagger) return;
             if (isJumpingDisabled) return;
-            rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpVelocity);
-            playerState.groundState = GroundState.Airborne;
-            eventBus.Publish(new JumpMovementEvent());
+
+            if (input.jumpInputAction.WasPressedThisFrame() && IsGrounded() && !isFalling)
+            {
+                Debug.Log("jumping");
+                jumpTimer = movementValues.jumpTime;
+                rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpForce);
+                SaveSafeGround();
+                playerState.groundState = GroundState.Airborne;
+                eventBus.Publish(new JumpMovementEvent());
+            }
+
+            if (input.jumpInputAction.IsPressed() && !isFalling)
+            {
+                if (playerState.groundState == GroundState.Airborne && jumpTimer > 0)
+                {
+                    rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpForce);
+                    jumpTimer -= Time.deltaTime;
+                }
+                else if (jumpTimer <= 0)
+                {
+                    isFalling = true;
+                    return;
+                }
+            }
+
+            if (input.jumpInputAction.WasReleasedThisFrame())
+            {
+                isFalling = true;
+            }
+
+            if (playerState.groundState == GroundState.Grounded && CheckForLand())
+            {
+                //Landing animation
+            }
+
+            //DrawGroundCheck();
         }
 
         public override void MoveHorizontally(HorizontalInputEvent input)
         {
             if (playerState.healthState == HealthState.Stagger) return;
             if (isMovementDisabled) return;
+
             rb2d.velocity = new Vector2(input.amount * movementValues.horizontalVelocity, rb2d.velocity.y);
             eventBus.Publish(new HorizontalMovementEvent(input.amount));
         }
@@ -53,8 +100,13 @@ namespace PlayerSystem
                     {
                         other.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
                     }
+
+                    //mb.StartCoroutine(JumpEnd());
                     playerState.groundState = GroundState.Grounded;
+                    Debug.Log("Setting groundState grounded");
+                    //IsGrounded();
                     eventBus.Publish(new GroundedMovementEvent());
+
                 }
             });
 
@@ -66,60 +118,133 @@ namespace PlayerSystem
                     {
                         other.gameObject.GetComponent<IPlatform>()?.PlatformExitAction(rb2d);
                     }
-                    else
+                    if (other.gameObject.CompareTag("Ground"))
                     {
                         SaveSafeGround();
                     }
-                    playerState.groundState = GroundState.Airborne;
                     eventBus.Publish(new UngroundedMovementEvent());
                 }
             });
         }
 
-        public override void UpdateGravity(UpdateEvent e)
-        {
-            if (isGravityDisabled) return;
-            rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y - movementValues.gravity * Time.deltaTime);
-        }
-
         private void onSquarePowerToggle(ToggleSquarePowerEvent e)
-        {
-            isMovementDisabled = isJumpingDisabled = isGravityDisabled = e.toggle;
-        }
-
-        private void onTrianglePowerToggle(ToggleTrianglePowerEvent e)
         {
             isMovementDisabled = isJumpingDisabled = e.toggle;
         }
 
-        private void onCirclePowerToggle(ToggleCirclePowerEvent e)
+        private void onTrianglePowerToggle(ToggleTrianglePowerEvent e)
         {
-            isMovementDisabled = isJumpingDisabled = isGravityDisabled = e.toggle;
-        }
-
-        private void OnPause(PauseEvent e)
-        {
-            if (!playerState.isPaused)
+            if (e.toggle)
             {
-                playerState.velocity = rb2d.velocity;
-                rb2d.velocity = Vector2.zero;
+                rb2d.gravityScale = 0;
             }
             else
             {
-                rb2d.velocity = playerState.velocity;
+                if (!isCircleActive) rb2d.gravityScale = movementValues.gravity;
             }
-            playerState.isPaused = !playerState.isPaused;
+            isMovementDisabled = isJumpingDisabled = isGravityDisabled = isTriangleActive = e.toggle;
         }
 
-        private void OnInputPause(PauseInputEvent e)
+        private void onCirclePowerToggle(ToggleCirclePowerEvent e)
         {
-            OnPause(new PauseEvent());
+            if (e.toggle)
+            {
+                rb2d.gravityScale = 0;
+            }
+            else
+            {
+                if (!isTriangleActive) rb2d.gravityScale = movementValues.gravity;
+            }
+            isMovementDisabled = isJumpingDisabled = isGravityDisabled = isCircleActive = e.toggle;
+        }
+
+        private void StopPlayerMovement(PauseEvent e)
+        {
+            playerState.velocity = rb2d.velocity;
+            rb2d.velocity = Vector2.zero;
+            rb2d.gravityScale = 0;
+            playerState.isPaused = true;
+            eventBus.Publish(new StopPlayerInputsEvent());
+        }
+
+        private void EnablePlayerMovement(UnpauseEvent e)
+        {
+            rb2d.velocity = playerState.velocity;
+            rb2d.gravityScale = movementValues.gravity;
+            playerState.isPaused = false;
+            eventBus.Publish(new EnablePlayerInputsEvent());
+        }
+
+        private bool IsGrounded()
+        {
+            groundHit = Physics2D.BoxCast(coll.bounds.center - new Vector3(0, coll.bounds.extents.y), new Vector2(coll.bounds.size.x, coll.bounds.size.y * 0.1f), 0f, Vector2.down, movementValues.groundCheckExtraHeight, movementValues.groundLayerMask);
+            if (groundHit.collider != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool CheckForLand()
+        {
+            if (isFalling)
+            {
+                if (IsGrounded())
+                {
+                    isFalling = false;
+                    return true;
+                }
+                else
+                {
+                    isFalling = true;
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void SaveSafeGround()
         {
-            float modificator = playerState.groundState == GroundState.Airborne ? 0f : 1f;
-            playerState.lastSafeGroundLocation = new Vector2(rb2d.position.x - modificator, rb2d.position.y);
+            float modificator = playerState.groundState == GroundState.Airborne ? 0f : 2f;
+            float direction = 1;
+            if (playerState.facingDirection == Direction.Left) direction = -1;
+            playerState.lastSafeGroundLocation = new Vector2(rb2d.position.x - (modificator * direction), rb2d.position.y);
         }
+
+        private IEnumerator JumpEnd()
+        {
+            isJumpingDisabled = true;
+            isLanding = true;
+
+            yield return new WaitForSeconds(0.05f);
+
+            isJumpingDisabled = false;
+            isLanding = false;
+        }
+
+    #region Debug Functions
+        private void DrawGroundCheck()
+        {
+            Color rayColor;
+            if (IsGrounded())
+            {
+                rayColor = Color.green;
+            }
+            else
+            {
+                rayColor = Color.red;
+            }
+            Debug.DrawRay(coll.bounds.center/*  - new Vector3(coll.bounds.extents.x, coll.bounds.extents.y) */, Vector2.right * (coll.bounds.extents.x * 2), Color.blue);
+            Debug.DrawRay(coll.bounds.center + new Vector3(coll.bounds.extents.x, coll.bounds.extents.y), Vector2.down * (coll.bounds.extents.y + movementValues.groundCheckExtraHeight), Color.yellow);
+            Debug.DrawRay(coll.bounds.center - new Vector3(coll.bounds.extents.x, coll.bounds.extents.y), Vector2.down * (coll.bounds.extents.y + movementValues.groundCheckExtraHeight), rayColor);
+            Debug.DrawRay(coll.bounds.center - new Vector3(coll.bounds.extents.x, coll.bounds.extents.y + movementValues.groundCheckExtraHeight), Vector2.right * (coll.bounds.extents.x * 2), rayColor);
+        }
+        #endregion
     }
 }

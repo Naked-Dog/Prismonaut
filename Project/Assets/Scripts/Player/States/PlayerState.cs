@@ -11,5 +11,9 @@ namespace PlayerSystem
         public GroundState groundState = GroundState.Undefined;
         public Power activePower = Power.None;
         public Vector2 lastSafeGroundLocation = Vector2.zero;
+        public bool isSquarePowerAvailable = false;
+        public bool isTrianglePowerAvailable = false;
+        public bool isCirclePowerAvailable = true;
+        public Power currentPower = Power.Circle;
     }
 }
