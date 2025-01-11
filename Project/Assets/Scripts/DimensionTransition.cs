@@ -2,9 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using Cinemachine;
-using System.Net;
 using PlayerSystem;
-[ExecuteInEditMode]
 public class DimensionTransition : MonoBehaviour
 {
     [Header("Settings")]
@@ -25,15 +23,22 @@ public class DimensionTransition : MonoBehaviour
     private InputAction squarePowerAction;
     private InputAction circlePowerAction;
 
+    private AudioManager startPointAudio;
+    private AudioManager endPointAudio;
+
     private void Awake()
     {
         EnsureRequiredBoxColliders();
+        startPointAudio = new AudioManager(gameObject, GetComponent<PortalSoundList>(), GetComponent<AudioSource>());
+        endPointAudio = new AudioManager(endPortal, GetComponent<PortalSoundList>(), GetComponent<AudioSource>());
     }
 
     private void Start()
     {
         UpdateBoxColliders();
         InitializeInputActions();
+        startPointAudio.PlayAudioClip("Idle", true);
+        endPointAudio.PlayAudioClip("Idle", true);
     }
 
     private void Update() 
@@ -57,6 +62,14 @@ public class DimensionTransition : MonoBehaviour
         {
             Vector3 playerPosition = playerController.transform.position;
             Vector3 finalPosition = GetTravelPoint(playerPosition);
+            if(finalPosition == endPoint)
+            {
+                startPointAudio.PlayAudioClip("Entry");
+            } 
+            else
+            {
+                endPointAudio.PlayAudioClip("Entry");
+            }
             Vector3 startTangentPos = finalPosition == endPoint ? startTangent : endTangent;
             Vector3 endTangentPos = finalPosition == endPoint ? endTangent : startTangent;
             StartCoroutine(TravelTransition(playerController, finalPosition, startTangentPos , endTangentPos, transitionTime));
@@ -100,10 +113,9 @@ public class DimensionTransition : MonoBehaviour
 
     public IEnumerator TravelTransition(PlayerBaseModule player, Vector3 targetPosition, Vector3 startTangent, Vector3 endTangent, float totalTransitionTime)
     {
-        Debug.Log(targetPosition);
         isTraveling = true;
         Vector3 playerPositon = player.transform.position;
-        player.gameObject.SetActive(false);
+        player.transform.GetChild(1).gameObject.SetActive(false);
 
         GameObject model3D = Instantiate(player3DModel, playerPositon, Quaternion.identity);
         model3D.transform.localScale = Vector3.one * 0.5f;
@@ -128,7 +140,7 @@ public class DimensionTransition : MonoBehaviour
         Destroy(model3D);
         player.transform.position = targetPosition;
         virtualCamera.Follow = player.transform;
-        player.gameObject.SetActive(true);
+        player.transform.GetChild(1).gameObject.SetActive(true);
         isTraveling = false;
     }
 

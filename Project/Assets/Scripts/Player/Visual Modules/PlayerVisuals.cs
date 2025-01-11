@@ -52,8 +52,8 @@ namespace PlayerSystem
             animator.SetBool("isFalling", isFalling);
             animator.SetBool("isDeath", isDeath);
             animator.SetBool("isUsingCirclePower", playerState.activePower == Power.Circle);
-            animator.SetBool("isUsingSquarePower", playerState.activePower == Power.Circle);
-            animator.SetBool("isUsingTrianglePower", playerState.activePower == Power.Circle);
+            animator.SetBool("isUsingSquarePower", playerState.activePower == Power.Square);
+            animator.SetBool("isUsingTrianglePower", playerState.activePower == Power.Triangle);
             animator.SetBool("isHurt", playerState.healthState == HealthState.Stagger);
         }
 

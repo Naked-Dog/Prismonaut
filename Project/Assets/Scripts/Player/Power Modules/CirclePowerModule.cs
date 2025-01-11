@@ -89,6 +89,7 @@ namespace PlayerSystem
             if (other.CompareTag("Breakable"))
             {
                 GameObject.Destroy(other.gameObject);
+                eventBus.Publish(new PlayPlayerSounEffect("CircleBreakWall", 0.5f));
             }
 
             if (other.gameObject.CompareTag("Enemy"))

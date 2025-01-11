@@ -47,6 +47,7 @@ public class EnemyStun : EnemyStunSOBase
         enemy.SetStrikingDistanceBool(false);
         enemy.MoveEnemy(Vector2.zero);
         enemy.GetComponentInChildren<SpriteRenderer>().color = Color.blue;
+        enemy.audioManager.PlayAudioClip("Stun");
         await Task.Delay((int)(_stunDuration * 1000));
         enemy.GetComponentInChildren<SpriteRenderer>().color = _startingColor;
         enemy.StateMachine.ChangeState(enemy.IdleState);

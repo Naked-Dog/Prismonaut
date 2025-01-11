@@ -46,7 +46,6 @@ namespace PlayerSystem
 
             if (input.jumpInputAction.WasPressedThisFrame() && IsGrounded() && !isFalling)
             {
-                Debug.Log("jumping");
                 jumpTimer = movementValues.jumpTime;
                 rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpForce);
                 SaveSafeGround();
@@ -103,7 +102,6 @@ namespace PlayerSystem
 
                     //mb.StartCoroutine(JumpEnd());
                     playerState.groundState = GroundState.Grounded;
-                    Debug.Log("Setting groundState grounded");
                     //IsGrounded();
                     eventBus.Publish(new GroundedMovementEvent());
 

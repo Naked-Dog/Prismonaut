@@ -1,3 +1,4 @@
+using System.Data.Common;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -59,7 +60,11 @@ namespace PlayerSystem
 
         private void onTriggerEnter(Collider2D other)
         {
-            if (other.CompareTag("Breakable")) GameObject.Destroy(other.gameObject);
+            if (other.CompareTag("Breakable"))
+            {
+                GameObject.Destroy(other.gameObject);
+                eventBus.Publish(new PlayPlayerSounEffect("SquareBreakWall", 0.5f));
+            } 
 
             if (other.gameObject.CompareTag("Enemy"))
             {
@@ -68,6 +73,7 @@ namespace PlayerSystem
             if (other.gameObject.CompareTag("Platform"))
             {
                 other.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
+                eventBus.Publish(new PlayPlayerSounEffect("SquareBlock"));
             }
             if (other.gameObject.CompareTag("Switch"))
             {
@@ -76,7 +82,12 @@ namespace PlayerSystem
             if (other.gameObject.CompareTag("Spike"))
             {
                 knockback.CallKnockback(new Vector2(0, 0), Vector2.up, Input.GetAxisRaw("Horizontal"), rb2d, playerState, 0);
+                eventBus.Publish(new PlayPlayerSounEffect("SquareBlockSpikes"));
                 deactivate();
+            }
+            if(other.gameObject.CompareTag("Ground"))
+            {
+                eventBus.Publish(new PlayPlayerSounEffect("SquareBlock"));
             }
         }
 
