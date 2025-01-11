@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using PlayerSystem;
-using UnityEditor;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
@@ -26,7 +24,6 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     #endregion
 
     #region Scriptable Object Variables
-
     [SerializeField] private EnemyIdleSOBase EnemyIdleBase;
 
     [SerializeField] private EnemyFollowSOBase EnemyFollowBase;
@@ -38,16 +35,17 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     public EnemyFollowSOBase EnemyFollowBaseInstance { get; set; }
     public EnemyAttackSOBase EnemyAttackBaseInstance { get; set; }
     public EnemyStunSOBase EnemyStunBaseInstance { get; set; }
-
     #endregion
 
     #region Attack Cooldown
     [SerializeField] private float attackCooldown = 2f;
     public bool isAttackInCooldown = false;
-
     #endregion
 
     public AudioManager audioManager;
+    [SerializeField] private LootDrop lootDrop;
+    [SerializeField] private Transform lootOrigin;
+
 
     private void Awake()
     {
@@ -111,8 +109,9 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     {
         audioManager.PlayAudioClip("Death");
         audioManager.StopAudioClip("Idle");
+        lootDrop?.DropLoot(lootOrigin);
         RigidBody.isKinematic = true;
-        transform.GetChild(0).gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
     #endregion
 
@@ -157,8 +156,6 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     {
         StateMachine.CurrentEnemyState.AnimationTriggerEvent(animationTriggerType);
     }
-
-
 
     public enum AnimationTriggerType
     {

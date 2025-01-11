@@ -21,6 +21,7 @@ public class PlayerMovementScriptable : ScriptableObject
     [Header("Square Power")]
     public float squarePowerForce = -10f;
     public float squarePowerCooldown = 1f;
+    public float spikeKnockbackForce = 1.5f;
 
     [Header("Triangle Power")]
     public float trianglePowerForce = 10f;

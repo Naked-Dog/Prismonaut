@@ -20,7 +20,7 @@ namespace PlayerSystem
         private bool isLanding = false;
         private PlayerAudioModule playerAudio;
 
-        public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, PlayerAudioModule playerAudio,MonoBehaviour mb) : base(eventBus, movementValues)
+        public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, PlayerAudioModule playerAudio, MonoBehaviour mb) : base(eventBus, movementValues)
         {
             this.playerState = playerState;
             this.rb2d = rb2d;
@@ -93,7 +93,7 @@ namespace PlayerSystem
         {
             groundTrigger.OnTriggerEnter2DAction.AddListener((other) =>
             {
-                if (other.gameObject.tag == "Ground" || other.gameObject.CompareTag("Platform"))
+                if (other.gameObject.CompareTag("Platform") || other.gameObject.layer == 6)
                 {
                     if (other.gameObject.CompareTag("Platform"))
                     {
@@ -110,7 +110,7 @@ namespace PlayerSystem
 
             groundTrigger.OnTriggerExit2DAction.AddListener((other) =>
             {
-                if (other.gameObject.tag == "Ground" || other.gameObject.CompareTag("Platform"))
+                if (other.gameObject.layer == 6 || other.gameObject.CompareTag("Platform"))
                 {
                     if (other.gameObject.CompareTag("Platform"))
                     {
@@ -226,7 +226,7 @@ namespace PlayerSystem
             isLanding = false;
         }
 
-    #region Debug Functions
+        #region Debug Functions
         private void DrawGroundCheck()
         {
             Color rayColor;

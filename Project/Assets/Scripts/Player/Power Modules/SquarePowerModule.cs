@@ -64,7 +64,7 @@ namespace PlayerSystem
             {
                 GameObject.Destroy(other.gameObject);
                 eventBus.Publish(new PlayPlayerSounEffect("SquareBreakWall", 0.5f));
-            } 
+            }
 
             if (other.gameObject.CompareTag("Enemy"))
             {
@@ -81,11 +81,11 @@ namespace PlayerSystem
             }
             if (other.gameObject.CompareTag("Spike"))
             {
-                knockback.CallKnockback(new Vector2(0, 0), Vector2.up, Input.GetAxisRaw("Horizontal"), rb2d, playerState, 0);
+                knockback.CallKnockback(new Vector2(0, 0), Vector2.up * movementValues.spikeKnockbackForce, Input.GetAxisRaw("Horizontal"), rb2d, playerState, 0);
                 eventBus.Publish(new PlayPlayerSounEffect("SquareBlockSpikes"));
                 deactivate();
             }
-            if(other.gameObject.CompareTag("Ground"))
+            if (other.gameObject.CompareTag("Ground"))
             {
                 eventBus.Publish(new PlayPlayerSounEffect("SquareBlock"));
             }

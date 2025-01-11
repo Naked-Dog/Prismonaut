@@ -11,19 +11,23 @@ namespace PlayerSystem
         private Rigidbody2D rb2d;
         private TriggerEventHandler leftTrigger;
         private TriggerEventHandler rightTrigger;
+        private Knockback knockback;
+
         private PlayerMovementScriptable movementValues;
 
         private float powerTimeLeft = 0f;
         private float cooldownTimeLeft = 0f;
         private bool isActive = false;
+        private int directionValue = 1;
 
-        public CirclePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler leftTrigger, TriggerEventHandler rightTrigger, PlayerMovementScriptable movementValues)
+        public CirclePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler leftTrigger, TriggerEventHandler rightTrigger, Knockback knockback, PlayerMovementScriptable movementValues)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.leftTrigger = leftTrigger;
             this.rightTrigger = rightTrigger;
+            this.knockback = knockback;
             this.movementValues = movementValues;
 
             eventBus.Subscribe<CirclePowerInputEvent>(activate);
@@ -35,8 +39,8 @@ namespace PlayerSystem
             if (cooldownTimeLeft > 0f) return;
             isActive = true;
             playerState.activePower = Power.Circle;
-            int facingDirectionInt = playerState.facingDirection == Direction.Right ? 1 : -1;
-            rb2d.velocity = new Vector2(movementValues.circlePowerForce * facingDirectionInt, 0f);
+            directionValue = playerState.facingDirection == Direction.Right ? 1 : -1;
+            rb2d.velocity = new Vector2(movementValues.circlePowerForce * directionValue, 0f);
             powerTimeLeft = movementValues.circlePowerDuration;
 
             TriggerEventHandler triggerToActivate = playerState.facingDirection == Direction.Right ? rightTrigger : leftTrigger;
@@ -105,6 +109,12 @@ namespace PlayerSystem
             if (other.gameObject.CompareTag("Chest"))
             {
                 other.gameObject.GetComponent<Chest>()?.ChestInteraction();
+            }
+
+            if (other.gameObject.layer == 6)
+            {
+                knockback.CallKnockback(Vector2.zero, new Vector2(1f * -directionValue, 0.5f), Input.GetAxisRaw("Horizontal"), rb2d, playerState, 0);
+                deactivate();
             }
         }
     }
