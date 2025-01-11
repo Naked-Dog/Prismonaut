@@ -132,7 +132,7 @@ public class MenuController : MonoBehaviour
             case "Level_1":
                 return "Level1";
             default:
-                return null;
+                return "";
         }
     }
 }
