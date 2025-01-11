@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f8889d93ce4f76894033053fbb9579, type: 3}
   m_Name: Player Movement
   m_EditorClassIdentifier: 
-  horizontalVelocity: 8.54
-  jumpForce: 12
+  horizontalVelocity: 6
+  maximumYSpeed: 25
+  minimumYSpeed: -15
+  jumpForce: 10
   jumpTime: 0.25
-  gravity: 4
+  gravity: 3
   groundCheckExtraHeight: 0.2
   groundLayerMask:
     serializedVersion: 2

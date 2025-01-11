@@ -1,5 +1,7 @@
 using System.Collections;
+using DG.Tweening;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -29,6 +31,7 @@ namespace PlayerSystem
             coll = rb2d.GetComponent<Collider2D>();
             SetGroundCallbacks(groundTrigger);
 
+            eventBus.Subscribe<UpdateEvent>(CheckForVelocity);
             eventBus.Subscribe<HorizontalInputEvent>(MoveHorizontally);
             eventBus.Subscribe<JumpInputEvent>(Jump);
             eventBus.Subscribe<ToggleSquarePowerEvent>(onSquarePowerToggle);
@@ -79,6 +82,13 @@ namespace PlayerSystem
             }
 
             //DrawGroundCheck();
+        }
+
+        private void CheckForVelocity(UpdateEvent e)
+        {
+            float vSpeed = rb2d.velocity.y > movementValues.maximumYSpeed ? movementValues.maximumYSpeed : 
+                rb2d.velocity.y < movementValues.minimumYSpeed ? movementValues.minimumYSpeed : rb2d.velocity.y;
+            rb2d.velocity = new Vector2(rb2d.velocity.x, vSpeed);
         }
 
         public override void MoveHorizontally(HorizontalInputEvent input)
