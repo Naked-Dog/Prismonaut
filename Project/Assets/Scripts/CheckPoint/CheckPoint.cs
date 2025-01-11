@@ -33,7 +33,7 @@ public class CheckPoint : MonoBehaviour
         switch(eventName)
         {
             case "Idle":
-                audioManager.PlayAudioClip("Idle", true, 0.5f);
+                audioManager.PlayAudioClip("Idle", true, 0.35f);
                 break;
             case "Deploy":
                 audioManager.PlayAudioClip("Deploy");
