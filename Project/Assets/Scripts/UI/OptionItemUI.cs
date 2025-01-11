@@ -1,5 +1,6 @@
 
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,6 +8,8 @@ using UnityEngine.UI;
 public class OptionItemUI : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     [SerializeField] private GameObject selectorObject;
+    [SerializeField] private TextMeshProUGUI label;
+    [SerializeField] private Color selectedColor;
     private void Awake(){
         InitOptionItem();
     }
@@ -30,6 +33,10 @@ public class OptionItemUI : MonoBehaviour, ISelectHandler, IDeselectHandler
     private void DisplaySelectorObject(bool active){
         if(!selectorObject) return;
         selectorObject.SetActive(active);
+        if(selectedColor != null){
+            if(active == true) label.color = selectedColor;
+            else label.color = Color.white;
+        } 
     }
 
     public void ResetOptionItem(){
