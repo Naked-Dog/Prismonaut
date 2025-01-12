@@ -7,7 +7,14 @@ public class OptionsPanelUI : PanelUI
 {
     [SerializeField] private Selectable initialSelectableObject;
     [SerializeField] private List<OptionItemUI> optionItems;
+
+    public AudioManager menuAudio;
     
+    private void Awake()
+    {
+        menuAudio = new AudioManager(gameObject, GetComponent<MenuSoundList>(), GetComponent<AudioSource>());
+    }
+
     private void OnEnable(){
         InitOptionItems();
         InitOptionsSelection();
