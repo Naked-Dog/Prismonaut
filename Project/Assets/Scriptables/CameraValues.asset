@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: CameraValues
   m_EditorClassIdentifier: 
   FallingTime: 0.6
+  LookDownTime: 0.8
