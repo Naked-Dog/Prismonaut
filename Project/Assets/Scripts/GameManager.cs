@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using PlayerSystem;
 using UnityEngine;
 
@@ -65,14 +66,14 @@ public class GameManager : MonoBehaviour
 
     public void GetGem()
     {
-        collectedGems++;
-        Debug.Log("Current Gems: " + collectedGems);
-        if (collectedGems == levelTargetGems)
-        {
-            //clear level
-            Debug.Log("Game Cleared");
+        // collectedGems++;
+        // Debug.Log("Current Gems: " + collectedGems);
+        // if (collectedGems == levelTargetGems)
+        // {
+        //     //clear level
+        //     Debug.Log("Game Cleared");
             StartCoroutine(EnableGameEndPortals());
-        }
+        //}
     }
 
     public void GetPrism()
@@ -83,11 +84,18 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EnableGameEndPortals()
     {
-        yield return new WaitForSeconds(2f);
+
         foreach (GameObject endGamePortal in endGamePortals)
         {
+            endGamePortal.transform.localScale = Vector2.zero;
+            endGamePortal.SetActive(true);
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(endGamePortal.transform.DOScale(new Vector3(0.4f,0.4f,0.4f), 0.5f).SetEase(Ease.OutBack));
+            sequence.Append(endGamePortal.transform.DOScale(Vector3.one, 1f).SetEase(Ease.InOutBounce));
             endGamePortal.SetActive(true);
         }
+
+        yield return new WaitForSeconds(2f);
     }
 
 }

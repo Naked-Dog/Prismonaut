@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using DG.Tweening;
 using PlayerSystem;
+using UnityEngine.Splines;
 
 
 public class EndGamePortal : MonoBehaviour
@@ -26,10 +27,12 @@ public class EndGamePortal : MonoBehaviour
     {
         isTeleporting = true;
         audioManager.PlayAudioClip("Entry", true);
-        GameObject model3D = Instantiate(player3DModel, playerPosition, Quaternion.identity);
-        model3D.transform.localScale = Vector3.one * 0.5f;
-        yield return model3D.transform.DOMove(gameObject.transform.position, 0.5f).WaitForCompletion();
-        yield return model3D.transform.DOScale(Vector3.zero, 1f).WaitForCompletion();
+        player3DModel.SetActive(true);
+        player3DModel.GetComponent<SplineAnimate>().Play();
+        yield return new WaitForSeconds(2);
+        player3DModel.GetComponent<SplineAnimate>().Pause();
+        player3DModel.GetComponent<SplineAnimate>().Restart(false);
+        player3DModel.SetActive(false);
         MenuController.Instance.ChangeScene("NewAdventuresScene");
     }
 
@@ -38,26 +41,8 @@ public class EndGamePortal : MonoBehaviour
         if (collider.GetComponent<PlayerBaseModule>())
         {
             PlayerBaseModule playerBaseModule = collider.GetComponent<PlayerBaseModule>();
-            if (playerBaseModule.state.activePower != PlayerSystem.Power.None)
-            {
-                playerBaseModule.transform.GetChild(1).gameObject.SetActive(false);
-
-                StartCoroutine(EnterEndGamePortal(playerBaseModule.transform.position));
-            }
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collider)
-    {
-        if (collider.GetComponent<PlayerBaseModule>() && !isTeleporting)
-        {
-            PlayerBaseModule playerBaseModule = collider.GetComponent<PlayerBaseModule>();
-            if (playerBaseModule.state.activePower != PlayerSystem.Power.None)
-            {
-                playerBaseModule.transform.GetChild(1).gameObject.SetActive(false);
-
-                StartCoroutine(EnterEndGamePortal(playerBaseModule.transform.position));
-            }
+            playerBaseModule.transform.GetChild(1).gameObject.SetActive(false);
+            StartCoroutine(EnterEndGamePortal(playerBaseModule.transform.position));
         }
     }
 }
