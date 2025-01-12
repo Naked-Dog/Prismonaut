@@ -16,6 +16,7 @@ public class DialogueController : MonoBehaviour
 {
     [SerializeField] private float writeSpeed = 0.1f;
     [SerializeField] private DialogueView viewController;
+    [SerializeField] private AudioClip skipSound;
     [HideInInspector] public bool isDialogueRunning;
 
     private DialogueActor currentActor;
@@ -52,7 +53,7 @@ public class DialogueController : MonoBehaviour
         if(isDialogueRunning){
 
             if(Input.GetKeyDown(KeyCode.Space) && currentType == DialogueType.Text)
-            {
+            {                
                 if(currentDialogueComplete)
                 {
                     RunNextDialogue();
@@ -140,6 +141,7 @@ public class DialogueController : MonoBehaviour
         yield return WriteDialogue(dialogue);
 
         viewController.ShowNextSign();
+        audioSource.PlayOneShot(skipSound);
         currentDialogueComplete =  true;
         
     }
@@ -188,6 +190,7 @@ public class DialogueController : MonoBehaviour
         StopAllCoroutines();
         viewController.DisplayFullText(currentDialogueText);
         viewController.ShowNextSign();
+        audioSource.PlayOneShot(skipSound);
         currentDialogueComplete = true;
     }
 
