@@ -40,8 +40,8 @@ Material:
     - _Blur_Offset: 0.0015
     - _Is_Effect_Enabled: 1
     - _Line_Size: 180
-    - _Lines_Amount: 300
-    - _Scan_Lines_Speed: -0.003
+    - _Lines_Amount: 400
+    - _Scan_Lines_Speed: -0.001
     - _Turned_On: 0
     m_Colors:
     - _Color: {r: 2.9960787, g: 2.9960787, b: 2.9960787, a: 0}

@@ -60,20 +60,18 @@ namespace PlayerSystem
         private void toggleSquarePower(ToggleSquarePowerEvent e)
         {
             playerState.currentPower = Power.Square;
-            helmetRender.sprite = squareHelmet;
             animator.Play("SquarePower");
         }
 
         private void toggleTrianglePower(ToggleTrianglePowerEvent e)
         {
             playerState.currentPower = Power.Triangle;
-            helmetRender.sprite = triangleHelmet;
             animator.Play("TrianglePower");
         }
 
         private void toggleCirclePower(ToggleCirclePowerEvent e)
         {
-            helmetRender.sprite = circleHelmet;
+            playerState.currentPower = Power.Circle;
             animator.Play("CirclePower");
         }
 
