@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loot:
   - collectablePrefab: {fileID: 657384868497515068, guid: d13a8331121672a48bd303bdbbbd6241, type: 3}
-    amount: 3
+    amount: 5
 --- !u!1 &3540746513309340097
 GameObject:
   m_ObjectHideFlags: 0

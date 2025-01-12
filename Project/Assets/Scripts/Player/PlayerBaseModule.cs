@@ -21,7 +21,7 @@ namespace PlayerSystem
         [SerializeField] private HealthUIController healthUIController;
         [SerializeField] private CameraState cameraState;
 
-        private PlayerState state;
+        public PlayerState state;
         private EventBus eventBus;
         private Dictionary<Direction, TriggerEventHandler> triggers;
 
@@ -36,7 +36,6 @@ namespace PlayerSystem
         protected void Start()
         {
             state = new PlayerState();
-            state.playerGameObject = gameObject;
             eventBus = new EventBus();
 
             triggers = new Dictionary<Direction, TriggerEventHandler>() {

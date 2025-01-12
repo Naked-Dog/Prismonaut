@@ -207,7 +207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db59e94fc4adea49b48673548a4f3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider2D: {fileID: 8500092548688768339}
   player3DModel: {fileID: 919132149155446097, guid: d529cbe309fc3e541a63a15694cf4ece, type: 3}
 --- !u!1 &7048519746501385430
 GameObject:
@@ -261,7 +260,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6072c55c1eaea324abe572a4ff841891, type: 2}
+  - {fileID: 2100000, guid: 8c952efeabb8a8f48bc3ac531b9d0a68, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
