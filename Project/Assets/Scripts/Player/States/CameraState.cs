@@ -42,6 +42,7 @@ namespace CameraSystem
                             break;
                         case CameraPositionState.LookingDown:
                             cameraIndex = 2;
+                            waitTime = cameraValues.LookDownTime;
                             break;
                         case CameraPositionState.Dialogue:
                             cameraIndex = 3;
