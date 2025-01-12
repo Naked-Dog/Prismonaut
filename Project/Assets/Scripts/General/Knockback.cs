@@ -33,8 +33,6 @@ public class Knockback : MonoBehaviour
         _constantForce = constantForceDirection * constForce;
 
         float _elapsedTime = 0f;
-        Debug.Log(rb2d.velocity);
-
 
         while (_elapsedTime < knockbackTime)
         {
@@ -57,7 +55,6 @@ public class Knockback : MonoBehaviour
 
             //apply knockback
             rb2d.velocity = _combinedForce;
-            Debug.Log(rb2d.velocity);
             yield return new WaitForFixedUpdate();
         }
 

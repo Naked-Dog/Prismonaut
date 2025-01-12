@@ -16,7 +16,6 @@ public class Grub : Enemy, IEnemyMoveable, IPlayerPowerInteractable
         }
         if (playerState.activePower == PlayerSystem.Power.Circle)
         {
-            Debug.Log("Player Power Interaction stun");
             StateMachine.ChangeState(StunState);
         }
     }

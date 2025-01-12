@@ -48,7 +48,6 @@ namespace PlayerSystem
         {
             CurrentHealth -= 1;
             healthUIController.UpdateHealthUI(CurrentHealth);
-            Debug.Log("Current Health: " + CurrentHealth);
             if (CurrentHealth <= 0f)
             {
                 Die();
