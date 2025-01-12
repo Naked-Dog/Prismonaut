@@ -4,6 +4,7 @@ using TMPro;
 using UnityEditor.Rendering;
 using UnityEngine;
 using CameraSystem;
+using Unity.VisualScripting;
 
 namespace PlayerSystem
 {
@@ -42,7 +43,6 @@ namespace PlayerSystem
             this.cameraState = cameraState;
             coll = rb2d.GetComponent<Collider2D>();
             SetGroundCallbacks(groundTrigger);
-
             eventBus.Subscribe<UpdateEvent>(CheckForVelocity);
             eventBus.Subscribe<HorizontalInputEvent>(MoveHorizontally);
             eventBus.Subscribe<JumpInputEvent>(Jump);

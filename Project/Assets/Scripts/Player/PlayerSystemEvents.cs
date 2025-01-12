@@ -6,7 +6,7 @@ namespace PlayerSystem
     public struct UpdateEvent { }
     public struct FixedUpdateEvent { }
     public struct LateUpdateEvent { }
-
+    
     // Movement Events
     public struct HorizontalMovementEvent
     {
