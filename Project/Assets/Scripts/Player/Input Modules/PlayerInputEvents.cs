@@ -20,7 +20,7 @@ namespace PlayerSystem
     public struct TrianglePowerInputEvent { }
     public struct CirclePowerInputEvent { }
     public struct PauseInputEvent { }
-
+    public struct InteractionInputEvent { }
     public struct EnablePlayerInputsEvent { }
     public struct StopPlayerInputsEvent { }
 }

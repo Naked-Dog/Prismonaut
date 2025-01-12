@@ -23,11 +23,14 @@ public class EnemyIdlePatrol : EnemyIdleSOBase
         PointA = (enemy as Grub).PointA;
         PointB = (enemy as Grub).PointB;
         _currentTargetPoint = GetNextPosition();
+        Debug.Log("Executing enter logic");
+        enemy.audioManager.PlayAudioClip("Move", true, 0.08f);
         base.DoEnterLogic();
     }
 
     public override void DoExitLogic()
     {
+        enemy.audioManager.StopAudioClip("Move");
         base.DoExitLogic();
     }
 

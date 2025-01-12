@@ -12,16 +12,20 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject losePanel;
 
     private AudioManager musicManager;
-    public static MenuController Instance {get; private set;}
+    public static MenuController Instance { get; private set; }
 
     private EventBus eventBus;
     private PlayerInput input;
-    
 
-    private void Awake(){
-        if(Instance != null && Instance != this){
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
             Destroy(gameObject);
-        } else {
+        }
+        else
+        {
             Instance = this;
             DontDestroyOnLoad(this);
         }
@@ -34,22 +38,25 @@ public class MenuController : MonoBehaviour
         musicManager.PlayAudioClip(GetMusicClip(), true, 0.5f);
     }
 
-    public void ChangeScene(string sceneName){
+    public void ChangeScene(string sceneName)
+    {
         StartCoroutine(FadeTransition(sceneName));
     }
 
-    public void ResetScene(){
+    public void ResetScene()
+    {
         StartCoroutine(FadeTransition(SceneManager.GetActiveScene().name));
     }
-    
-    public IEnumerator FadeTransition(string sceneName){
+
+    public IEnumerator FadeTransition(string sceneName)
+    {
         solidBG.SetActive(true);
         Image backgroundImage = solidBG.GetComponent<Image>();
 
-        Tween fadeIn = backgroundImage.DOFade(1,0.5f);
+        Tween fadeIn = backgroundImage.DOFade(1, 0.5f);
         yield return fadeIn.WaitForCompletion();
 
-        if(mainMenuPanel != null) mainMenuPanel.SetActive(false);
+        if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
         musicManager.StopAudioClip(GetMusicClip());
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
@@ -62,7 +69,7 @@ public class MenuController : MonoBehaviour
 
         musicManager.PlayAudioClip(GetMusicClip(), true, 0.5f);
 
-        Tween fadeOut = backgroundImage.DOFade(0,0.5f);
+        Tween fadeOut = backgroundImage.DOFade(0, 0.5f);
         yield return fadeOut.WaitForCompletion();
         solidBG.SetActive(false);
     }
@@ -71,61 +78,70 @@ public class MenuController : MonoBehaviour
     {
         solidBG.SetActive(true);
         Image backgroundImage = solidBG.GetComponent<Image>();
-        Tween fadeIn = backgroundImage.DOFade(1,0.5f);
+        Tween fadeIn = backgroundImage.DOFade(1, 0.5f);
         yield return fadeIn.WaitForCompletion();
     }
 
     public IEnumerator FadeOutSolidPanel()
     {
         Image backgroundImage = solidBG.GetComponent<Image>();
-        Tween fadeOut = backgroundImage.DOFade(0,0.5f).OnComplete(()=> { solidBG.SetActive(false); });
+        Tween fadeOut = backgroundImage.DOFade(0, 0.5f).OnComplete(() => { solidBG.SetActive(false); });
         yield return fadeOut.WaitForCompletion();
     }
 
-    public void ExitGame(){
+    public void ExitGame()
+    {
         Application.Quit();
     }
 
-    public void DisplayPanel(GameObject panel){
+    public void DisplayPanel(GameObject panel)
+    {
         panel.SetActive(!panel.activeSelf);
     }
 
-    public void DisplayLosePanel(){
-        DisplayPanel(losePanel);  
+    public void DisplayLosePanel()
+    {
+        DisplayPanel(losePanel);
     }
 
-    public void DisplayGamePanel(PauseInputEvent e){
-        DisplayPanel(gameMenuPanel);     
+    public void DisplayGamePanel(PauseInputEvent e)
+    {
+        DisplayPanel(gameMenuPanel);
     }
 
-    private void setMenuDisplay(string sceneName){
-        switch(sceneName){
+    private void setMenuDisplay(string sceneName)
+    {
+        switch (sceneName)
+        {
             case "Menu":
+                if (mainMenuPanel == null) mainMenuPanel = GameObject.Find("MainMenuPanel");
                 mainMenuPanel.SetActive(true);
                 gameMenuPanel.SetActive(false);
                 losePanel.SetActive(false);
-            break;
+                break;
             default:
-                if(mainMenuPanel != null) mainMenuPanel.SetActive(false);
+                if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
                 gameMenuPanel.SetActive(false);
                 losePanel.SetActive(false);
-            break;
+                break;
         }
     }
 
-    public void setEvents(EventBus bus){
+    public void setEvents(EventBus bus)
+    {
         eventBus = bus;
         eventBus.Subscribe<PauseInputEvent>(DisplayGamePanel);
     }
 
-    public void ResetGame(){
-        eventBus.Publish(new RespawnEvent());  
+    public void ResetGame()
+    {
+        eventBus.Publish(new RespawnEvent());
         eventBus.Publish(new PauseInputEvent());
     }
 
     private string GetMusicClip()
     {
-        switch(SceneManager.GetActiveScene().name)
+        switch (SceneManager.GetActiveScene().name)
         {
             case "Menu":
                 return "MainTitle";

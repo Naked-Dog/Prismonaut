@@ -1,41 +1,20 @@
 using PlayerSystem;
 using UnityEngine;
 
-public class DialogueRunner : MonoBehaviour
+public class DialogueRunner : MonoBehaviour, IInteractable
 {
     [SerializeField] private TextAsset narrativeText;
-    [SerializeField] private PlayerBaseModule player;
-    [SerializeField] private bool isDialoguePlayed;
-    
-    private Narrative narrative;
+    public bool IsInteractable => !DialogueController.Instance.isDialogueRunning;
 
-    protected void Start()
+
+    private Narrative ParseNarrative(TextAsset narrativeJSON)
     {
-        ParseNarrative(narrativeText);
+        Narrative parseNarrative = JsonUtility.FromJson<Narrative>(narrativeJSON.ToString());
+        return parseNarrative;
     }
 
-    protected void Update(){
-        if(player && !isDialoguePlayed && !DialogueController.Instance.isDialogueRunning)
-        {
-            DialogueController.Instance.RunDialogue(narrative);
-            isDialoguePlayed = true;
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D other){
-        player = other.GetComponent<PlayerBaseModule>();
-    }
-
-    private void OnTriggerExit2D(Collider2D other){
-        if(other.GetComponent<PlayerBaseModule>()){
-            player = null;
-            isDialoguePlayed = false;
-        } 
-            
-    }
-
-    private void ParseNarrative(TextAsset narrativeJSON)
+    public void Interact()
     {
-        narrative = JsonUtility.FromJson<Narrative>(narrativeJSON.ToString());
+        DialogueController.Instance.RunDialogue(ParseNarrative(narrativeText));
     }
 }

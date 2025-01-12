@@ -20,8 +20,9 @@ namespace PlayerSystem
         [SerializeField] private Knockback knockback;
         [SerializeField] private HealthUIController healthUIController;
         [SerializeField] private CameraState cameraState;
+        [SerializeField] private GameObject interactSign;
 
-        private PlayerState state;
+        public PlayerState state;
         private EventBus eventBus;
         private Dictionary<Direction, TriggerEventHandler> triggers;
 
@@ -31,7 +32,8 @@ namespace PlayerSystem
         public PlayerPowersModule powersModule;
         public PlayerHealthModule healthModule;
         private PlayerAudioModule audioModule;
-        
+        private PlayerInteractionModule interactionModule;
+
 
         protected void Start()
         {
@@ -54,6 +56,7 @@ namespace PlayerSystem
             {
                 MaxHealth = 3
             };
+            interactionModule = new PlayerInteractionModule(eventBus, GetComponent<TriggerEventHandler>(), interactSign);
 
             healthModule.CurrentHealth = healthModule.MaxHealth;
             healthUIController.InitUI(healthModule.CurrentHealth);
@@ -61,7 +64,7 @@ namespace PlayerSystem
             DialogueController.Instance?.SetEventBus(eventBus);
             spriteAnimator.GetComponent<PlayerAnimationEvents>()?.SetEventBus(eventBus);
 
-            GameDataManager.Instance.SavePlayerPosition(avatarRigidbody2D.position);
+            GameDataManager.Instance?.SavePlayerPosition(avatarRigidbody2D.position);
         }
 
         protected void Update()
