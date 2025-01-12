@@ -4,7 +4,7 @@ using UnityEngine;
 public class AudioManager
 {
     public AudioDictionary sounds;
-    public AudioSource  audioSourceTemplate;
+    public AudioSource audioSourceTemplate;
     private GameObject audioContainer;
     private List<AudioSource> audioSources = new();
 
@@ -26,7 +26,7 @@ public class AudioManager
         AudioSource newAudioSource = audioObject.AddComponent<AudioSource>();
         newAudioSource.playOnAwake = false;
 
-        if(audioSourceTemplate)
+        if (audioSourceTemplate)
         {
             newAudioSource.spatialBlend = audioSourceTemplate.spatialBlend;
             newAudioSource.spread = audioSourceTemplate.spread;
@@ -36,27 +36,27 @@ public class AudioManager
         }
 
         audioSources.Add(newAudioSource);
-        return newAudioSource;        
+        return newAudioSource;
     }
 
     private AudioSource GetFreeAudioSource()
     {
-        foreach(AudioSource audioSource in audioSources)
+        foreach (AudioSource audioSource in audioSources)
         {
-            if(!audioSource.isPlaying)
+            if (!audioSource.isPlaying)
             {
                 return audioSource;
             }
         }
 
         return CreateNewAudioSource();
-        
+
     }
 
     public void PlayAudioClip(string clipName, bool isLoop = false, float volume = 1)
     {
         AudioClip clip = sounds.GetAudioClip(clipName);
-        if(clip == null) return;
+        if (clip == null) return;
 
         AudioSource freeAudioSource = GetFreeAudioSource();
 
@@ -70,9 +70,9 @@ public class AudioManager
     {
         AudioClip clip = sounds.GetAudioClip(clipName);
 
-        foreach(AudioSource audioSource in audioSources)
+        foreach (AudioSource audioSource in audioSources)
         {
-            if(audioSource.clip == clip && audioSource.isPlaying)
+            if (audioSource.clip == clip && audioSource.isPlaying)
             {
                 audioSource.Stop();
                 audioSource.clip = null;
@@ -82,4 +82,17 @@ public class AudioManager
         }
     }
 
+    public void StopAllAudioClips()
+    {
+        foreach (AudioSource audioSource in audioSources)
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+                audioSource.clip = null;
+                audioSource.loop = false;
+                return;
+            }
+        }
+    }
 }

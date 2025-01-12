@@ -92,9 +92,6 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
 
     private void OnDestroy()
     {
-        if (!attack.IsCompleted)
-        {
-            attack.Dispose();
-        }
+        attack?.Dispose();
     }
 }

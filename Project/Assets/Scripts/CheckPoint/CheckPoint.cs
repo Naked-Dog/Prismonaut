@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using PlayerSystem;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class CheckPoint : MonoBehaviour
+public class CheckPoint : MonoBehaviour, IInteractable
 {
     [SerializeField] private Animator animator;
     [SerializeField] private AnimationEventEmitter animationEvent;
@@ -12,20 +9,12 @@ public class CheckPoint : MonoBehaviour
 
     private AudioManager audioManager;
 
+    public bool IsInteractable => !isOpen;
+
     private void Start()
     {
         audioManager = new AudioManager(gameObject, GetComponent<CheckPointSoundList>(), GetComponent<AudioSource>());
         animationEvent.OnAnimationEventTriggered += HandleAnimationEvent;
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.GetComponent<PlayerBaseModule>())
-        {
-            GameDataManager.Instance?.SavePlayerPosition(transform.position);
-            isOpen = true;
-            animator.SetBool("isOpen", isOpen);
-        }
     }
 
     private void HandleAnimationEvent(string eventName)
@@ -39,5 +28,12 @@ public class CheckPoint : MonoBehaviour
                 audioManager.PlayAudioClip("Deploy");
                 break;
         }
+    }
+
+    public void Interact()
+    {
+        GameDataManager.Instance?.SavePlayerPosition(transform.position);
+        isOpen = true;
+        animator.SetBool("isOpen", isOpen);
     }
 }

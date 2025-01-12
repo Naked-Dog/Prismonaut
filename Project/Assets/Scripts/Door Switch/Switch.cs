@@ -4,7 +4,7 @@ using PlayerSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Switch : MonoBehaviour
+public class Switch : MonoBehaviour, IPlayerPowerInteractable
 {
     public PlayerSystem.Power powerInteraction;
     public Transform switchTransform;
@@ -24,9 +24,9 @@ public class Switch : MonoBehaviour
     private void ActivateSwitch()
     {
         switchTransform.position = new Vector3(switchTransform.position.x, switchTransform.position.y - 0.1f);
-        this.tag = "Ground";
+        tag = "Ground";
         buttonSR.sprite = buttonSprite;
-        this.GetComponent<Collider2D>().enabled = false;
-        this.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+        GetComponent<Collider2D>().enabled = false;
+        GetComponentInChildren<SpriteRenderer>().color = Color.red;
     }
 }

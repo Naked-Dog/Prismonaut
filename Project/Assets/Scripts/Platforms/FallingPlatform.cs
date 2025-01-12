@@ -9,6 +9,7 @@ public class FallingPlatform : MonoBehaviour, IPlatform
     public float destroyWait = 1f;
     public float respawnWait = 1f;
     public SpriteRenderer spriteRenderer;
+    private Animator animator;
 
     private Rigidbody2D rigidBody;
     private bool isFalling = false;
@@ -22,10 +23,12 @@ public class FallingPlatform : MonoBehaviour, IPlatform
     {
         startingPosition = transform.position;
         rigidBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     private IEnumerator Fall()
     {
+        animator.Play("Tremble");
         isFalling = true;
         yield return new WaitForSeconds(fallWait);
         rigidBody.bodyType = RigidbodyType2D.Dynamic;
