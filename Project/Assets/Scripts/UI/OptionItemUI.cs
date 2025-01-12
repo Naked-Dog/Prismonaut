@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class OptionItemUI : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
+    [SerializeField] private OptionsPanelUI soundPlayer;
     [SerializeField] private GameObject selectorObject;
     [SerializeField] private TextMeshProUGUI label;
     [SerializeField] private Color selectedColor;
@@ -22,7 +23,7 @@ public class OptionItemUI : MonoBehaviour, ISelectHandler, IDeselectHandler
     public void OnDeselect(BaseEventData eventData)
     {
         DisplaySelectorObject(false);
-        GetComponentInParent<OptionsPanelUI>().menuAudio.PlayAudioClip("Scroll", false, 0.4f);
+        soundPlayer.menuAudio.PlayAudioClip("Scroll", false, 0.4f);
     }
 
     private void InitOptionItem(){
@@ -45,6 +46,6 @@ public class OptionItemUI : MonoBehaviour, ISelectHandler, IDeselectHandler
     }
 
     public void playSelectSound(){
-        GetComponentInParent<OptionsPanelUI>().menuAudio.PlayAudioClip("Select", false, 0.4f);
+        soundPlayer.menuAudio.PlayAudioClip("Select", false, 0.4f);
     }
 }
