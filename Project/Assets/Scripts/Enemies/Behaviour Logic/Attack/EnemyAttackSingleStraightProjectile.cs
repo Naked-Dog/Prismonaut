@@ -40,7 +40,7 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
         base.DoFrameUpdateLogic();
         if (_isAttacking) return;
         Vector2 direction = playerTransform.position - enemy.transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Clamp(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, -25f, 25f);
         (enemy as Spitter).mouthTransform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
         if (_timer >= _timeBetweenShots)
         {
@@ -68,7 +68,7 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
         enemy.GetComponentInChildren<SpriteRenderer>().color = Color.yellow;
         await Task.Delay((int)(0.3f * 1000));
         enemy.GetComponentInChildren<SpriteRenderer>().color = Color.red;
-        Rigidbody2D bullet = Instantiate(projectilePrefab, enemy.transform.position, Quaternion.identity);
+        Rigidbody2D bullet = Instantiate(projectilePrefab, (enemy as Spitter).projectileOrigin.position, Quaternion.identity);
         bullet.gameObject.GetComponent<Projectile>()?.Initialize(enemy.GetComponent<Collider2D>(), direction.normalized);
         bullet.transform.rotation = Quaternion.AngleAxis(angle - 180, Vector3.forward);
         bullet.velocity = direction.normalized * projectileSpeed;
