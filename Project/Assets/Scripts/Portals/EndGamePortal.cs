@@ -6,23 +6,22 @@ public class EndGamePortal : MonoBehaviour, IPlayerPowerInteractable
 {
     private AudioManager audioManager;
     [SerializeField] private Collider2D collider2D;
+    [SerializeField] private GameObject player3DModel;
+
 
     public void PlayerPowerInteraction(PlayerSystem.PlayerState playerState)
     {
         if (playerState.activePower == PlayerSystem.Power.Circle)
         {
             Debug.Log("EndGame");
+            EnterEndGamePortal(playerState.playerGameObject.transform.position);
             collider2D.isTrigger = true;
         }
     }
 
-    private void Awake()
+    private void EnterEndGamePortal(Vector3 playerPosition)
     {
-        //audioManager = new AudioManager(gameObject, GetComponent<PortalSoundList>(), GetComponent<AudioSource>());
-    }
-
-    private void Start()
-    {
-        //audioManager.PlayAudioClip("Idle", true);
+        GameObject model3D = Instantiate(player3DModel, playerPosition, Quaternion.identity);
+        model3D.transform.localScale = Vector3.one * 0.5f;
     }
 }

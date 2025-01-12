@@ -31,11 +31,12 @@ namespace PlayerSystem
         public PlayerPowersModule powersModule;
         public PlayerHealthModule healthModule;
         private PlayerAudioModule audioModule;
-        
+
 
         protected void Start()
         {
             state = new PlayerState();
+            state.playerGameObject = gameObject;
             eventBus = new EventBus();
 
             triggers = new Dictionary<Direction, TriggerEventHandler>() {

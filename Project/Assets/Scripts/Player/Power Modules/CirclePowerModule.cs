@@ -87,7 +87,6 @@ namespace PlayerSystem
             deactivate();
         }
 
-
         private void onTriggerEnter(Collider2D other)
         {
             if (other.CompareTag("Breakable"))
