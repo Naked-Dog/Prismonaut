@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public enum ChestStates
@@ -12,23 +13,28 @@ public class Chest : MonoBehaviour, IPlayerPowerInteractable
     [SerializeField] private Transform spawnPoint;
     [HideInInspector] public ChestStates state = ChestStates.Close;
     [SerializeField] private LootDrop lootDrop;
-    [SerializeField] private SpriteRenderer chestSprite;
+    [SerializeField] private Animator animator;
 
     public void PlayerPowerInteraction(PlayerSystem.PlayerState playerState)
     {
         if (state == ChestStates.Open) return;
-
         if (playerState.activePower == PlayerSystem.Power.Circle)
         {
             OpenChest();
+            StartCoroutine(DropLoot());
+            animator.SetBool("isOpen", true);
         }
     }
 
     private void OpenChest()
     {
         state = ChestStates.Open;
-        lootDrop.DropLoot(spawnPoint);
-        chestSprite.color = Color.red;
         GetComponent<Collider2D>().enabled = false;
+    }
+
+    private IEnumerator DropLoot()
+    {
+        yield return new WaitForSeconds(0.14f);
+        lootDrop.DropLoot(spawnPoint);
     }
 }
