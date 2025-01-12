@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CameraSystem;
 using PlayerSystem;
 using UnityEditor;
 using UnityEngine;
@@ -28,6 +29,7 @@ public class DialogueController : MonoBehaviour
     private int currentDialogueIndex = 0;
     private DialogueType currentType;
     private AudioSource audioSource;
+    private CameraState currentCameraState;
     private string[] ignoreChars = {" ",",","-","_","."};
 
     private EventBus eventBus;
@@ -44,6 +46,7 @@ public class DialogueController : MonoBehaviour
             Instance = this;
         }
 
+        currentCameraState = FindObjectOfType<CameraState>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -72,6 +75,7 @@ public class DialogueController : MonoBehaviour
     public void RunDialogue(Narrative narrative) 
     {   
         eventBus.Publish(new StopPlayerInputsEvent());
+        currentCameraState.CameraPosState = CameraPositionState.Dialogue;
         currentDialogueIndex = 0;
         isDialogueRunning = true;
 
@@ -198,6 +202,7 @@ public class DialogueController : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(viewController.CloseDialoguePanel());
         isDialogueRunning = false;
+        currentCameraState.CameraPosState = CameraPositionState.Regular;
         eventBus.Publish(new EnablePlayerInputsEvent());
     }
 

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 namespace PlayerSystem
 {
@@ -42,6 +43,9 @@ namespace PlayerSystem
             playerGameMap.FindAction("SquarePower").started += _ => eventBus.Publish(new SquarePowerInputEvent(true));
             playerGameMap.FindAction("SquarePower").canceled += _ => eventBus.Publish(new SquarePowerInputEvent(false));
             playerGameMap.FindAction("Interaction").started += _ => eventBus.Publish(new InteractionInputEvent());
+            playerGameMap.FindAction("LookDown").started += _ => eventBus.Publish(new LookDownInputEvent(true));
+            playerGameMap.FindAction("LookDown").canceled += _ => eventBus.Publish(new LookDownInputEvent(false));
+
 
             playerGameMap.FindAction("Pause").started += _ =>
             {
