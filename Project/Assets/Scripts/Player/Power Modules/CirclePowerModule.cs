@@ -46,7 +46,7 @@ namespace PlayerSystem
             TriggerEventHandler triggerToActivate = playerState.facingDirection == Direction.Right ? rightTrigger : leftTrigger;
             triggerToActivate.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
             eventBus.Subscribe<UpdateEvent>(reduceTimeLeft);
-            eventBus.Subscribe<UpdateEvent>(deactivateOnMomentumLoss);
+            //eventBus.Subscribe<UpdateEvent>(deactivateOnMomentumLoss);
             eventBus.Publish(new ToggleCirclePowerEvent(true));
         }
 
@@ -69,7 +69,7 @@ namespace PlayerSystem
             eventBus.Subscribe<UpdateEvent>(reduceCooldown);
 
             eventBus.Unsubscribe<UpdateEvent>(reduceTimeLeft);
-            eventBus.Unsubscribe<UpdateEvent>(deactivateOnMomentumLoss);
+            //eventBus.Unsubscribe<UpdateEvent>(deactivateOnMomentumLoss);
             eventBus.Publish(new ToggleCirclePowerEvent(false));
         }
 
@@ -98,9 +98,8 @@ namespace PlayerSystem
 
             if (other.gameObject.layer == 6)
             {
-                knockback.CallKnockback(Vector2.zero, new Vector2(1f * -directionValue, 0.5f), Input.GetAxisRaw("Horizontal"), rb2d, playerState, 0);
-                Debug.Log(rb2d.velocity);
                 deactivate();
+                knockback.CallKnockback(Vector2.zero, new Vector2(5f * -directionValue, 1f), 0f);
             }
         }
     }

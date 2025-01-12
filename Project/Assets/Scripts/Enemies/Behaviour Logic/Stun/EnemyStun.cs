@@ -21,12 +21,14 @@ public class EnemyStun : EnemyStunSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+        enemy.RigidBody.bodyType = RigidbodyType2D.Kinematic;
         stun = Stun();
         enemy.audioManager.StopAudioClip("Move");
     }
 
     public override void DoExitLogic()
     {
+        enemy.RigidBody.bodyType = RigidbodyType2D.Dynamic;
         base.DoExitLogic();
     }
 

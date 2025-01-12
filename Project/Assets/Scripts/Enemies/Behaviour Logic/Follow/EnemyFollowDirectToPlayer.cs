@@ -41,7 +41,7 @@ public class EnemyFollowDirectToPlayer : EnemyFollowSOBase
         else
         {
             Vector2 moveDirection = (playerTransform.position - enemy.transform.position).normalized;
-            enemy.GetComponentInChildren<SpriteRenderer>().flipX = moveDirection.x < 0;
+            (enemy as Grub).ChangeDirection(moveDirection.x < 0);
             enemy.gameObject.GetComponent<IEnemyMoveable>()?.MoveEnemy(moveDirection * _movementSpeed);
         }
         if (enemy.IsWithinStrikingDistance && !enemy.isAttackInCooldown)
