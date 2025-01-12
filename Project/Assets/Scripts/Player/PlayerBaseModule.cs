@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CameraSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,8 +19,10 @@ namespace PlayerSystem
         [SerializeField] private InputActionAsset playerInputAsset;
         [SerializeField] private Knockback knockback;
         [SerializeField] private HealthUIController healthUIController;
+        [SerializeField] private CameraState cameraState;
+        [SerializeField] private GameObject interactSign;
 
-        private PlayerState state;
+        public PlayerState state;
         private EventBus eventBus;
         private Dictionary<Direction, TriggerEventHandler> triggers;
 
@@ -29,7 +32,8 @@ namespace PlayerSystem
         public PlayerPowersModule powersModule;
         public PlayerHealthModule healthModule;
         private PlayerAudioModule audioModule;
-        
+        private PlayerInteractionModule interactionModule;
+
 
         protected void Start()
         {
@@ -43,15 +47,16 @@ namespace PlayerSystem
                 {Direction.Right, rightTrigger}
             };
 
-            audioModule = new PlayerAudioModule(eventBus, GetComponent<PlayerSounds>(), gameObject);
+            audioModule = new PlayerAudioModule(eventBus, GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
             inputModule = new PlayerInput(eventBus, playerInputAsset);
-            movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger,  audioModule, this);
+            movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger, cameraState, audioModule, this);
             visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator, helmetRenderer);
             powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers, knockback, movementValues);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, knockback, healthUIController, this)
             {
                 MaxHealth = 3
             };
+            interactionModule = new PlayerInteractionModule(eventBus, GetComponent<TriggerEventHandler>(), interactSign);
 
             healthModule.CurrentHealth = healthModule.MaxHealth;
             healthUIController.InitUI(healthModule.CurrentHealth);
@@ -59,7 +64,7 @@ namespace PlayerSystem
             DialogueController.Instance?.SetEventBus(eventBus);
             spriteAnimator.GetComponent<PlayerAnimationEvents>()?.SetEventBus(eventBus);
 
-            GameDataManager.Instance.SavePlayerPosition(avatarRigidbody2D.position);
+            GameDataManager.Instance?.SavePlayerPosition(avatarRigidbody2D.position);
         }
 
         protected void Update()

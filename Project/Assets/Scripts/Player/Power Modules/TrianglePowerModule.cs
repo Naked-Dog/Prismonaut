@@ -76,15 +76,11 @@ namespace PlayerSystem
 
         private void onTriggerEnter(Collider2D other)
         {
-            if (other.CompareTag("Breakable")) Object.Destroy(other.gameObject);
-            if (other.gameObject.CompareTag("Enemy"))
+            if (other.CompareTag("Breakable"))
             {
-                other.gameObject.GetComponent<Enemy>()?.PlayerPowerInteraction(playerState);
+                eventBus.Publish(new PlayPlayerSounEffect("TriangleBreakWall", 0.5f));
             }
-            if (other.gameObject.CompareTag("Switch"))
-            {
-                other.gameObject.GetComponent<Switch>()?.PlayerPowerInteraction(playerState);
-            }
+            other.gameObject.GetComponent<IPlayerPowerInteractable>()?.PlayerPowerInteraction(playerState);
         }
     }
 }

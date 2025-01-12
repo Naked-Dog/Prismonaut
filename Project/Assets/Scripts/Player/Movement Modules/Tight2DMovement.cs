@@ -1,6 +1,10 @@
 using System.Collections;
+using DG.Tweening;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
+using CameraSystem;
+using Unity.VisualScripting;
 
 namespace PlayerSystem
 {
@@ -12,23 +16,34 @@ namespace PlayerSystem
         private PlayerState playerState;
         private Collider2D coll;
 
-        private bool isFalling = false;
+        private bool _isFalling = false;
+        public bool IsFalling
+        {
+            get => _isFalling;
+            set
+            {
+                _isFalling = value;
+                cameraState.CameraPosState = _isFalling ? CameraPositionState.Falling : CameraPositionState.Regular;
+            }
+        }
         private float jumpTimer;
         private RaycastHit2D groundHit;
         private bool isTriangleActive = false;
         private bool isCircleActive = false;
         private bool isLanding = false;
+        private CameraState cameraState;
         private PlayerAudioModule playerAudio;
 
-        public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, PlayerAudioModule playerAudio,MonoBehaviour mb) : base(eventBus, movementValues)
+        public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, CameraState cameraState, PlayerAudioModule playerAudio, MonoBehaviour mb) : base(eventBus, movementValues)
         {
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.playerAudio = playerAudio;
             this.mb = mb;
+            this.cameraState = cameraState;
             coll = rb2d.GetComponent<Collider2D>();
             SetGroundCallbacks(groundTrigger);
-
+            eventBus.Subscribe<UpdateEvent>(CheckForVelocity);
             eventBus.Subscribe<HorizontalInputEvent>(MoveHorizontally);
             eventBus.Subscribe<JumpInputEvent>(Jump);
             eventBus.Subscribe<ToggleSquarePowerEvent>(onSquarePowerToggle);
@@ -44,9 +59,8 @@ namespace PlayerSystem
             if (playerState.healthState == HealthState.Stagger) return;
             if (isJumpingDisabled) return;
 
-            if (input.jumpInputAction.WasPressedThisFrame() && IsGrounded() && !isFalling)
+            if (input.jumpInputAction.WasPressedThisFrame() && IsGrounded() && !IsFalling)
             {
-                Debug.Log("jumping");
                 jumpTimer = movementValues.jumpTime;
                 rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpForce);
                 SaveSafeGround();
@@ -54,7 +68,7 @@ namespace PlayerSystem
                 eventBus.Publish(new JumpMovementEvent());
             }
 
-            if (input.jumpInputAction.IsPressed() && !isFalling)
+            if (input.jumpInputAction.IsPressed() && !IsFalling)
             {
                 if (playerState.groundState == GroundState.Airborne && jumpTimer > 0)
                 {
@@ -63,14 +77,14 @@ namespace PlayerSystem
                 }
                 else if (jumpTimer <= 0)
                 {
-                    isFalling = true;
+                    IsFalling = true;
                     return;
                 }
             }
 
             if (input.jumpInputAction.WasReleasedThisFrame())
             {
-                isFalling = true;
+                IsFalling = true;
             }
 
             if (playerState.groundState == GroundState.Grounded && CheckForLand())
@@ -79,6 +93,13 @@ namespace PlayerSystem
             }
 
             //DrawGroundCheck();
+        }
+
+        private void CheckForVelocity(UpdateEvent e)
+        {
+            float vSpeed = rb2d.velocity.y > movementValues.maximumYSpeed ? movementValues.maximumYSpeed :
+                rb2d.velocity.y < movementValues.minimumYSpeed ? movementValues.minimumYSpeed : rb2d.velocity.y;
+            rb2d.velocity = new Vector2(rb2d.velocity.x, vSpeed);
         }
 
         public override void MoveHorizontally(HorizontalInputEvent input)
@@ -94,7 +115,7 @@ namespace PlayerSystem
         {
             groundTrigger.OnTriggerEnter2DAction.AddListener((other) =>
             {
-                if (other.gameObject.tag == "Ground" || other.gameObject.CompareTag("Platform"))
+                if (other.gameObject.CompareTag("Platform") || other.gameObject.layer == 6)
                 {
                     if (other.gameObject.CompareTag("Platform"))
                     {
@@ -103,7 +124,6 @@ namespace PlayerSystem
 
                     //mb.StartCoroutine(JumpEnd());
                     playerState.groundState = GroundState.Grounded;
-                    Debug.Log("Setting groundState grounded");
                     //IsGrounded();
                     eventBus.Publish(new GroundedMovementEvent());
 
@@ -112,7 +132,7 @@ namespace PlayerSystem
 
             groundTrigger.OnTriggerExit2DAction.AddListener((other) =>
             {
-                if (other.gameObject.tag == "Ground" || other.gameObject.CompareTag("Platform"))
+                if (other.gameObject.layer == 6 || other.gameObject.CompareTag("Platform"))
                 {
                     if (other.gameObject.CompareTag("Platform"))
                     {
@@ -134,6 +154,7 @@ namespace PlayerSystem
 
         private void onTrianglePowerToggle(ToggleTrianglePowerEvent e)
         {
+            cameraState.CameraPosState = CameraPositionState.Regular;
             if (e.toggle)
             {
                 rb2d.gravityScale = 0;
@@ -147,6 +168,7 @@ namespace PlayerSystem
 
         private void onCirclePowerToggle(ToggleCirclePowerEvent e)
         {
+            cameraState.CameraPosState = CameraPositionState.Regular;
             if (e.toggle)
             {
                 rb2d.gravityScale = 0;
@@ -190,16 +212,16 @@ namespace PlayerSystem
 
         private bool CheckForLand()
         {
-            if (isFalling)
+            if (IsFalling)
             {
                 if (IsGrounded())
                 {
-                    isFalling = false;
+                    IsFalling = false;
                     return true;
                 }
                 else
                 {
-                    isFalling = true;
+                    IsFalling = true;
                     return false;
                 }
             }
@@ -228,7 +250,7 @@ namespace PlayerSystem
             isLanding = false;
         }
 
-    #region Debug Functions
+        #region Debug Functions
         private void DrawGroundCheck()
         {
             Color rayColor;

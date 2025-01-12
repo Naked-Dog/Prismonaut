@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using PlayerSystem;
-using UnityEditor;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
@@ -26,7 +24,6 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     #endregion
 
     #region Scriptable Object Variables
-
     [SerializeField] private EnemyIdleSOBase EnemyIdleBase;
 
     [SerializeField] private EnemyFollowSOBase EnemyFollowBase;
@@ -38,14 +35,17 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     public EnemyFollowSOBase EnemyFollowBaseInstance { get; set; }
     public EnemyAttackSOBase EnemyAttackBaseInstance { get; set; }
     public EnemyStunSOBase EnemyStunBaseInstance { get; set; }
-
     #endregion
 
     #region Attack Cooldown
     [SerializeField] private float attackCooldown = 2f;
     public bool isAttackInCooldown = false;
-
     #endregion
+
+    public AudioManager audioManager;
+    [SerializeField] private LootDrop lootDrop;
+    [SerializeField] private Transform lootOrigin;
+
 
     private void Awake()
     {
@@ -67,6 +67,7 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
         CurrentHealth = MaxHealth;
 
         RigidBody = GetComponent<Rigidbody2D>();
+        audioManager = new AudioManager(gameObject, GetComponent<AudioDictionary>(), GetComponent<AudioSource>());
 
         EnemyIdleBaseInstance.Initialize(gameObject, this);
         if (EnemyFollowBase != null) EnemyFollowBaseInstance.Initialize(gameObject, this);
@@ -87,9 +88,6 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     }
 
     #region Health / Die Functions
-    public virtual void PlayerPowerInteraction(PlayerSystem.PlayerState playerState)
-    {
-    }
 
     public void Damage(int damageAmount, Vector2 hitDirection = default)
     {
@@ -103,7 +101,11 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
 
     public void Die()
     {
-        GameObject.Destroy(gameObject);
+        audioManager.StopAllAudioClips();
+        audioManager.PlayAudioClip("Death");
+        lootDrop?.DropLoot(lootOrigin);
+        RigidBody.isKinematic = true;
+        gameObject.SetActive(false);
     }
     #endregion
 
@@ -148,8 +150,6 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     {
         StateMachine.CurrentEnemyState.AnimationTriggerEvent(animationTriggerType);
     }
-
-
 
     public enum AnimationTriggerType
     {

@@ -72,6 +72,7 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
         bullet.gameObject.GetComponent<Projectile>()?.Initialize(enemy.GetComponent<Collider2D>(), direction.normalized);
         bullet.transform.rotation = Quaternion.AngleAxis(angle - 180, Vector3.forward);
         bullet.velocity = direction.normalized * projectileSpeed;
+        enemy.audioManager.PlayAudioClip("Shoot");
         await Task.Delay((int)(0.2f * 1000));
         _isAttacking = false;
         enemy.GetComponentInChildren<SpriteRenderer>().color = _startingColor;
@@ -91,9 +92,6 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
 
     private void OnDestroy()
     {
-        if (!attack.IsCompleted)
-        {
-            attack.Dispose();
-        }
+        attack?.Dispose();
     }
 }

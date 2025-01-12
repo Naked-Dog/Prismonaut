@@ -5,6 +5,8 @@ public class PlayerMovementScriptable : ScriptableObject
 {
     [Header("Movement")]
     public float horizontalVelocity = 8f;
+    public float maximumYSpeed = 25;
+    public float minimumYSpeed = -15;
 
     [Header("Jump")]
     public float jumpForce = 10f;
@@ -21,6 +23,7 @@ public class PlayerMovementScriptable : ScriptableObject
     [Header("Square Power")]
     public float squarePowerForce = -10f;
     public float squarePowerCooldown = 1f;
+    public float spikeKnockbackForce = 1.5f;
 
     [Header("Triangle Power")]
     public float trianglePowerForce = 10f;

@@ -21,14 +21,13 @@ public class EnemyStun : EnemyStunSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        Debug.Log("Entering stun state");
         stun = Stun();
+        enemy.audioManager.StopAudioClip("Move");
     }
 
     public override void DoExitLogic()
     {
         base.DoExitLogic();
-        Debug.Log("Exiting stun state");
     }
 
     public override void DoFrameUpdateLogic()
@@ -47,6 +46,7 @@ public class EnemyStun : EnemyStunSOBase
         enemy.SetStrikingDistanceBool(false);
         enemy.MoveEnemy(Vector2.zero);
         enemy.GetComponentInChildren<SpriteRenderer>().color = Color.blue;
+        enemy.audioManager.PlayAudioClip("Stun");
         await Task.Delay((int)(_stunDuration * 1000));
         enemy.GetComponentInChildren<SpriteRenderer>().color = _startingColor;
         enemy.StateMachine.ChangeState(enemy.IdleState);

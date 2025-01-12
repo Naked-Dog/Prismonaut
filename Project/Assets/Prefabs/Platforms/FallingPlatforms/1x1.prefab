@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 2573666277063095159}
   - component: {fileID: 5062930082531369313}
   - component: {fileID: 8879536112137376727}
+  - component: {fileID: 2505845142791835954}
   m_Layer: 6
   m_Name: 1x1
   m_TagString: Platform
@@ -227,3 +228,24 @@ MonoBehaviour:
   destroyWait: 1
   respawnWait: 1
   spriteRenderer: {fileID: 2735879163276364659}
+--- !u!95 &2505845142791835954
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8707671058561455609}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 63a7f9792fff2fc4f97997670544d25c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

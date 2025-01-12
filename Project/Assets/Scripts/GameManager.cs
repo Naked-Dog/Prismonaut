@@ -1,3 +1,4 @@
+using System.Collections;
 using PlayerSystem;
 using UnityEngine;
 
@@ -48,6 +49,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int collectedGems = 0;
     [SerializeField] private int collectedPrisms = 0;
 
+    [Header("GameWin")]
+    [SerializeField] private GameObject[] endGamePortals;
+
+
     #region Old Code
     public static int maxLifes = 3;
     public static FormState startingForm = FormState.Square;
@@ -66,6 +71,7 @@ public class GameManager : MonoBehaviour
         {
             //clear level
             Debug.Log("Game Cleared");
+            StartCoroutine(EnableGameEndPortals());
         }
     }
 
@@ -74,6 +80,16 @@ public class GameManager : MonoBehaviour
         collectedPrisms++;
         Debug.Log("Current Prisms: " + collectedPrisms);
     }
+
+    private IEnumerator EnableGameEndPortals()
+    {
+        yield return new WaitForSeconds(2f);
+        foreach (GameObject endGamePortal in endGamePortals)
+        {
+            endGamePortal.SetActive(true);
+        }
+    }
+
 }
 
 

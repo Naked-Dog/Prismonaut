@@ -52,28 +52,26 @@ namespace PlayerSystem
             animator.SetBool("isFalling", isFalling);
             animator.SetBool("isDeath", isDeath);
             animator.SetBool("isUsingCirclePower", playerState.activePower == Power.Circle);
-            animator.SetBool("isUsingSquarePower", playerState.activePower == Power.Circle);
-            animator.SetBool("isUsingTrianglePower", playerState.activePower == Power.Circle);
+            animator.SetBool("isUsingSquarePower", playerState.activePower == Power.Square);
+            animator.SetBool("isUsingTrianglePower", playerState.activePower == Power.Triangle);
             animator.SetBool("isHurt", playerState.healthState == HealthState.Stagger);
         }
 
         private void toggleSquarePower(ToggleSquarePowerEvent e)
         {
             playerState.currentPower = Power.Square;
-            helmetRender.sprite = squareHelmet;
             animator.Play("SquarePower");
         }
 
         private void toggleTrianglePower(ToggleTrianglePowerEvent e)
         {
             playerState.currentPower = Power.Triangle;
-            helmetRender.sprite = triangleHelmet;
             animator.Play("TrianglePower");
         }
 
         private void toggleCirclePower(ToggleCirclePowerEvent e)
         {
-            helmetRender.sprite = circleHelmet;
+            playerState.currentPower = Power.Circle;
             animator.Play("CirclePower");
         }
 
