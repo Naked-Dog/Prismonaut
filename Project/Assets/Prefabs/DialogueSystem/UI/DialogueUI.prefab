@@ -547,6 +547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   writeSpeed: 0.04
   viewController: {fileID: 14029353259607423}
+  skipSound: {fileID: 8300000, guid: 3026f31c6eae96346879d2e97ec62a22, type: 3}
   isDialogueRunning: 0
 --- !u!114 &14029353259607423
 MonoBehaviour:

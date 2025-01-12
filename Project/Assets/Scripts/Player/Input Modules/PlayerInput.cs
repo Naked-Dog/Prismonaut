@@ -41,6 +41,7 @@ namespace PlayerSystem
             playerGameMap.FindAction("CirclePower").started += _ => eventBus.Publish(new CirclePowerInputEvent());
             playerGameMap.FindAction("SquarePower").started += _ => eventBus.Publish(new SquarePowerInputEvent(true));
             playerGameMap.FindAction("SquarePower").canceled += _ => eventBus.Publish(new SquarePowerInputEvent(false));
+            playerGameMap.FindAction("Interaction").started += _ => eventBus.Publish(new InteractionInputEvent());
 
             playerGameMap.FindAction("Pause").started += _ =>
             {
