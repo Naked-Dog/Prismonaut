@@ -22,7 +22,7 @@ namespace PlayerSystem
         [SerializeField] private CameraState cameraState;
         [SerializeField] private GameObject interactSign;
 
-        private PlayerState state;
+        public PlayerState state;
         private EventBus eventBus;
         private Dictionary<Direction, TriggerEventHandler> triggers;
 
@@ -33,7 +33,7 @@ namespace PlayerSystem
         public PlayerHealthModule healthModule;
         private PlayerAudioModule audioModule;
         private PlayerInteractionModule interactionModule;
-        
+
 
         protected void Start()
         {
@@ -56,7 +56,7 @@ namespace PlayerSystem
             {
                 MaxHealth = 3
             };
-            interactionModule = new PlayerInteractionModule(eventBus, GetComponent<TriggerEventHandler>() ,interactSign);
+            interactionModule = new PlayerInteractionModule(eventBus, GetComponent<TriggerEventHandler>(), interactSign);
 
             healthModule.CurrentHealth = healthModule.MaxHealth;
             healthUIController.InitUI(healthModule.CurrentHealth);

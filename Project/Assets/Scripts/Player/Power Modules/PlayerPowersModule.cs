@@ -27,7 +27,7 @@ namespace PlayerSystem
             this.movementValues = movementValues;
             if (this.playerState.isSquarePowerAvailable) squarePower = new SquarePowerModule(eventBus, playerState, rb2d, triggers[Direction.Down], knockback, movementValues);
             if (this.playerState.isTrianglePowerAvailable) trianglePower = new TrianglePowerModule(eventBus, playerState, rb2d, triggers[Direction.Up], movementValues);
-            if (this.playerState.isCirclePowerAvailable) circlePower = new CirclePowerModule(eventBus, playerState, rb2d, triggers[Direction.Left], triggers[Direction.Right], movementValues);
+            if (this.playerState.isCirclePowerAvailable) circlePower = new CirclePowerModule(eventBus, playerState, rb2d, triggers[Direction.Left], triggers[Direction.Right], knockback, movementValues);
         }
 
         public void SetPowerAvailable(Power power, bool isAvailable)
@@ -44,7 +44,7 @@ namespace PlayerSystem
                     break;
                 case Power.Circle:
                     playerState.isCirclePowerAvailable = isAvailable;
-                    circlePower ??= new CirclePowerModule(eventBus, playerState, rb2d, triggers[Direction.Left], triggers[Direction.Right], movementValues);
+                    circlePower ??= new CirclePowerModule(eventBus, playerState, rb2d, triggers[Direction.Left], triggers[Direction.Right], knockback, movementValues);
                     break;
             }
         }

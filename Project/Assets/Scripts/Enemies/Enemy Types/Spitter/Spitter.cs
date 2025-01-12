@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spitter : Enemy
+public class Spitter : Enemy, IPlayerPowerInteractable
 {
     [SerializeField] PlayerSystem.Power weakness;
     public Transform mouthTransform;
-    public override void PlayerPowerInteraction(PlayerSystem.PlayerState playerState)
+    public void PlayerPowerInteraction(PlayerSystem.PlayerState playerState)
     {
         if (playerState.activePower == weakness)
         {
