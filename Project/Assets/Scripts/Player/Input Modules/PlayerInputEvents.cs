@@ -12,6 +12,11 @@ namespace PlayerSystem
         public InputAction jumpInputAction;
         public JumpInputEvent(InputAction jumpInputAction) { this.jumpInputAction = jumpInputAction; }
     }
+    public struct LookDownInputEvent
+    {
+        public bool toggle;
+        public LookDownInputEvent(bool toggle) { this.toggle = toggle; }
+    }
     public struct SquarePowerInputEvent
     {
         public bool toggle;
