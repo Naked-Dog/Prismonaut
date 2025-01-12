@@ -81,4 +81,18 @@ public class AudioManager
             }
         }
     }
+
+    public void StopAllAudioClips()
+    {
+        foreach (AudioSource audioSource in audioSources)
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+                audioSource.clip = null;
+                audioSource.loop = false;
+                return;
+            }
+        }
+    }
 }
