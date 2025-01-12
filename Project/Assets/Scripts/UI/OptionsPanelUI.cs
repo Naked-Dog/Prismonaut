@@ -7,30 +7,83 @@ public class OptionsPanelUI : PanelUI
 {
     [SerializeField] private Selectable initialSelectableObject;
     [SerializeField] private List<OptionItemUI> optionItems;
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button creditsButton;
+    [SerializeField] private Button exitButton;
+    [SerializeField] private GameObject creditsPanel;
 
     public AudioManager menuAudio;
-    
+    private GameDataManager gameDataManager;
+    private MenuController menuController;
+    private EventSystem eventSystem;
+
     private void Awake()
     {
         menuAudio = new AudioManager(gameObject, GetComponent<MenuSoundList>(), GetComponent<AudioSource>());
     }
 
-    private void OnEnable(){
+    private void Start()
+    {
+        gameDataManager = GameObject.Find("GameDataManager").GetComponent<GameDataManager>();
+        eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        menuController = GameObject.FindWithTag("Menu").GetComponent<MenuController>();
+        Init();
+    }
+
+    private void Init()
+    {
         InitOptionItems();
         InitOptionsSelection();
+        SetPlayButton();
+        SetCreditsButton();
+        SetExitButton();
     }
 
     private void InitOptionItems()
     {
-       if(optionItems.Count == 0) return;
-       foreach(OptionItemUI option in optionItems){
+        if (optionItems.Count == 0) return;
+        foreach (OptionItemUI option in optionItems)
+        {
             option.ResetOptionItem();
-       }
+        }
     }
 
-    private void InitOptionsSelection(){
-        if(!initialSelectableObject) return;
-        if(!EventSystem.current) return;
+    private void InitOptionsSelection()
+    {
+        if (!initialSelectableObject) return;
+        if (!EventSystem.current) return;
         EventSystem.current.SetSelectedGameObject(initialSelectableObject.gameObject);
+    }
+
+    private void SetPlayButton()
+    {
+        playButton.onClick.AddListener(gameDataManager.NewGame);
+        playButton.onClick.AddListener(StartCinematic);
+    }
+
+    private void StartCinematic()
+    {
+        menuController.ChangeScene("StartCinematic");
+    }
+
+    private void SetCreditsButton()
+    {
+        creditsButton.onClick.AddListener(ShowCredits);
+        creditsButton.onClick.AddListener(SetSelectGameObjectInEventSystem);
+    }
+
+    private void ShowCredits()
+    {
+        menuController.DisplayPanel(creditsPanel);
+    }
+
+    private void SetSelectGameObjectInEventSystem()
+    {
+        eventSystem.SetSelectedGameObject(creditsPanel);
+    }
+
+    private void SetExitButton()
+    {
+        exitButton.onClick.AddListener(menuController.ExitGame);
     }
 }
