@@ -22,6 +22,7 @@ public class OptionItemUI : MonoBehaviour, ISelectHandler, IDeselectHandler
     public void OnDeselect(BaseEventData eventData)
     {
         DisplaySelectorObject(false);
+        GetComponentInParent<OptionsPanelUI>().menuAudio.PlayAudioClip("Scroll", false, 0.4f);
     }
 
     private void InitOptionItem(){
@@ -41,5 +42,9 @@ public class OptionItemUI : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     public void ResetOptionItem(){
         gameObject.GetComponent<Selectable>().interactable = true;
+    }
+
+    public void playSelectSound(){
+        GetComponentInParent<OptionsPanelUI>().menuAudio.PlayAudioClip("Select", false, 0.4f);
     }
 }
