@@ -93,6 +93,37 @@ PolygonCollider2D:
       - {x: 1.4, y: 4}
       - {x: -1.4, y: 4}
   m_UseDelaunayMesh: 0
+--- !u!1 &1391534798321504308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 591140622340866350}
+  m_Layer: 0
+  m_Name: LootOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &591140622340866350
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391534798321504308}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.083, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5339611772485340996}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1813855036002254829
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,6 +371,7 @@ GameObject:
   - component: {fileID: 2553119693882862322}
   - component: {fileID: 7138197068023563323}
   - component: {fileID: 3985735322548326758}
+  - component: {fileID: 1240004961828807732}
   m_Layer: 0
   m_Name: SpitterPrefab
   m_TagString: Enemy
@@ -362,6 +394,7 @@ Transform:
   m_Children:
   - {fileID: 5857194985564273071}
   - {fileID: 2163539481264537319}
+  - {fileID: 591140622340866350}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2479853728651891822
@@ -383,6 +416,8 @@ MonoBehaviour:
   EnemyStunBase: {fileID: 0}
   attackCooldown: 2
   isAttackInCooldown: 0
+  lootDrop: {fileID: 1240004961828807732}
+  lootOrigin: {fileID: 591140622340866350}
   weakness: 0
   mouthTransform: {fileID: 5292804890700912041}
 --- !u!50 &6151151694804280224
@@ -573,3 +608,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1240004961828807732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8210435350966014907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504f1b27bd1b00e40b8cf5a013f1ff6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loot:
+  - collectablePrefab: {fileID: 657384868497515068, guid: d13a8331121672a48bd303bdbbbd6241, type: 3}
+    amount: 4
