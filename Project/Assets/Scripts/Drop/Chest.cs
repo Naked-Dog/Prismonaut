@@ -7,18 +7,21 @@ public enum ChestStates
     Open
 }
 
-public class Chest : MonoBehaviour
+public class Chest : MonoBehaviour, IPlayerPowerInteractable
 {
     [SerializeField] private Transform spawnPoint;
     [HideInInspector] public ChestStates state = ChestStates.Close;
     [SerializeField] private LootDrop lootDrop;
     [SerializeField] private SpriteRenderer chestSprite;
 
-    public void ChestInteraction()
+    public void PlayerPowerInteraction(PlayerSystem.PlayerState playerState)
     {
         if (state == ChestStates.Open) return;
 
-        OpenChest();
+        if (playerState.activePower == PlayerSystem.Power.Circle)
+        {
+            OpenChest();
+        }
     }
 
     private void OpenChest()

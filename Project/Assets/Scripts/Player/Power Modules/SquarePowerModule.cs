@@ -62,23 +62,14 @@ namespace PlayerSystem
         {
             if (other.CompareTag("Breakable"))
             {
-                GameObject.Destroy(other.gameObject);
                 eventBus.Publish(new PlayPlayerSounEffect("SquareBreakWall", 0.5f));
-            }
-
-            if (other.gameObject.CompareTag("Enemy"))
-            {
-                other.gameObject.GetComponent<Enemy>()?.PlayerPowerInteraction(playerState);
             }
             if (other.gameObject.CompareTag("Platform"))
             {
                 other.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
                 eventBus.Publish(new PlayPlayerSounEffect("SquareBlock"));
             }
-            if (other.gameObject.CompareTag("Switch"))
-            {
-                other.gameObject.GetComponent<Switch>()?.PlayerPowerInteraction(playerState);
-            }
+            other.gameObject.GetComponent<IPlayerPowerInteractable>()?.PlayerPowerInteraction(playerState);
             if (other.gameObject.CompareTag("Spike"))
             {
                 knockback.CallKnockback(new Vector2(0, 0), Vector2.up * movementValues.spikeKnockbackForce, Input.GetAxisRaw("Horizontal"), rb2d, playerState, 0);

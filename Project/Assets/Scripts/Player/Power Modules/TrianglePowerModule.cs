@@ -78,18 +78,9 @@ namespace PlayerSystem
         {
             if (other.CompareTag("Breakable"))
             {
-                Object.Destroy(other.gameObject);
-                eventBus.Publish(new PlayPlayerSounEffect("TriangleBreakWall",0.5f));
-            } 
-
-            if (other.gameObject.CompareTag("Enemy"))
-            {
-                other.gameObject.GetComponent<Enemy>()?.PlayerPowerInteraction(playerState);
+                eventBus.Publish(new PlayPlayerSounEffect("TriangleBreakWall", 0.5f));
             }
-            if (other.gameObject.CompareTag("Switch"))
-            {
-                other.gameObject.GetComponent<Switch>()?.PlayerPowerInteraction(playerState);
-            }
+            other.gameObject.GetComponent<IPlayerPowerInteractable>()?.PlayerPowerInteraction(playerState);
         }
     }
 }

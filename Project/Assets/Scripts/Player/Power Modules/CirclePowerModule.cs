@@ -92,28 +92,15 @@ namespace PlayerSystem
         {
             if (other.CompareTag("Breakable"))
             {
-                GameObject.Destroy(other.gameObject);
                 eventBus.Publish(new PlayPlayerSounEffect("CircleBreakWall", 0.5f));
             }
 
-            if (other.gameObject.CompareTag("Enemy"))
-            {
-                other.gameObject.GetComponent<Enemy>()?.PlayerPowerInteraction(playerState);
-            }
-
-            if (other.gameObject.CompareTag("Switch"))
-            {
-                other.gameObject.GetComponent<Switch>()?.PlayerPowerInteraction(playerState);
-            }
-
-            if (other.gameObject.CompareTag("Chest"))
-            {
-                other.gameObject.GetComponent<Chest>()?.ChestInteraction();
-            }
+            other.gameObject.GetComponent<IPlayerPowerInteractable>()?.PlayerPowerInteraction(playerState);
 
             if (other.gameObject.layer == 6)
             {
                 knockback.CallKnockback(Vector2.zero, new Vector2(1f * -directionValue, 0.5f), Input.GetAxisRaw("Horizontal"), rb2d, playerState, 0);
+                Debug.Log(rb2d.velocity);
                 deactivate();
             }
         }

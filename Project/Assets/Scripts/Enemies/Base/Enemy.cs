@@ -91,9 +91,6 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     }
 
     #region Health / Die Functions
-    public virtual void PlayerPowerInteraction(PlayerSystem.PlayerState playerState)
-    {
-    }
 
     public void Damage(int damageAmount, Vector2 hitDirection = default)
     {
