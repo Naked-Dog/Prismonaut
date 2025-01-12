@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class EndSceneController : MonoBehaviour
@@ -30,6 +31,6 @@ public class EndSceneController : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         StartCoroutine(FadeInImage(message));
         yield return new WaitForSeconds(6f);
-        MenuController.Instance.ChangeScene("Menu");
+        SceneManager.LoadScene("Menu");
     }
 }
