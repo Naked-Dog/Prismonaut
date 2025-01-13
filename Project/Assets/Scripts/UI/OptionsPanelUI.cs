@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using PlayerSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class OptionsPanelUI : PanelUI
     [SerializeField] private Button creditsButton;
     [SerializeField] private Button exitButton;
     [SerializeField] private GameObject creditsPanel;
+    [SerializeField] private Button resumeButton;
 
     public AudioManager menuAudio;
     private GameDataManager gameDataManager;
@@ -24,9 +26,9 @@ public class OptionsPanelUI : PanelUI
 
     private void Start()
     {
-        gameDataManager = GameObject.Find("GameDataManager").GetComponent<GameDataManager>();
+        gameDataManager = GameDataManager.Instance;
+        menuController = MenuController.Instance;
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
-        menuController = GameObject.FindWithTag("Menu").GetComponent<MenuController>();
         Init();
     }
 
@@ -34,9 +36,10 @@ public class OptionsPanelUI : PanelUI
     {
         InitOptionItems();
         InitOptionsSelection();
-        SetPlayButton();
-        SetCreditsButton();
-        SetExitButton();
+        if(playButton) SetPlayButton();
+        if(creditsButton) SetCreditsButton();
+        if(exitButton) SetExitButton();
+        if(resumeButton) SetResumeButton();
     }
 
     private void InitOptionItems()
@@ -85,5 +88,10 @@ public class OptionsPanelUI : PanelUI
     private void SetExitButton()
     {
         exitButton.onClick.AddListener(menuController.ExitGame);
+    }
+
+    private void SetResumeButton()
+    {
+        resumeButton.onClick.AddListener(menuController.ResumeGame);
     }
 }

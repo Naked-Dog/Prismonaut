@@ -14,7 +14,7 @@ public class MenuController : MonoBehaviour
     private AudioManager musicManager;
     public static MenuController Instance { get; private set; }
 
-    private EventBus eventBus;
+    public EventBus eventBus;
     private PlayerInput input;
 
 
@@ -136,6 +136,13 @@ public class MenuController : MonoBehaviour
     public void ResetGame()
     {
         eventBus.Publish(new RespawnEvent());
+        eventBus.Publish(new PauseInputEvent());
+    }
+
+    public void ResumeGame()
+    {
+        Debug.Log("Resuming game");
+        eventBus.Publish(new  UnpauseEvent());
         eventBus.Publish(new PauseInputEvent());
     }
 

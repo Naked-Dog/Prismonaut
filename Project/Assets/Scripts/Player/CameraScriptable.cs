@@ -5,4 +5,5 @@ public class CameraScriptable : ScriptableObject
 {
     [Header("Timers")]
     public float FallingTime = 1.0f;
+    public float LookDownTime = 1.0f;
 }

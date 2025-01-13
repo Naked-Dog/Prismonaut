@@ -1,0 +1,38 @@
+{
+    "conversations": [
+        {
+            "id": "conversation_3",
+            "dialogues": [
+                {
+                    "text": "Structure detected: Floor appears brittle but intact. Breaking it is currently beyond your capabilities.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "I noticed. Mark it. We’ll come back later.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Acknowledged. Nearby anomaly detected: A portal-like phenomenom with unknown functionality.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "It’s a portal. Step in, come out somewhere else. Basic enough.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Clarification: Are you certain this will not result in catastrophic disintegration?",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Pretty sure. Used these before. Still here, aren’t I? It's just a matter of pressing the J key at the right time.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Logical. Proceeding to update records: Portal confirmed as functional and... survivable.",
+                    "actor": "AI"
+                }
+            ],
+            "choices": []
+        }
+    ]
+}

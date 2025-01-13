@@ -10,7 +10,6 @@ public class EnemyAttackTackle : EnemyAttackSOBase
     [SerializeField] private float _tackleForce = 2f;
     private float _timer = 0f;
     private float _timeTillExit = 2f;
-    private bool _isAttacking = false;
     private Color _startingColor;
     private Task attack;
     private Transform PointA;
@@ -37,7 +36,7 @@ public class EnemyAttackTackle : EnemyAttackSOBase
     {
         base.DoFrameUpdateLogic();
         if (OutOfLimitsCheck()) enemy.MoveEnemy(Vector2.zero);
-        if (_isAttacking) return;
+        if (enemy.isAttacking) return;
         if (enemy.isAttackInCooldown)
         {
             enemy.StateMachine.ChangeState(enemy.FollowState);
@@ -46,7 +45,7 @@ public class EnemyAttackTackle : EnemyAttackSOBase
         if (enemy.IsWithinStrikingDistance && enemy.IsAggroed)
         {
             _timer = 0f;
-            _isAttacking = true;
+            enemy.isAttacking = true;
             attack = Tackle();
         }
 
@@ -83,7 +82,7 @@ public class EnemyAttackTackle : EnemyAttackSOBase
         enemy.StartCoroutine(enemy.StartAttackCooldown());
         enemy.audioManager.StopAudioClip("Move");
         enemy.audioManager.PlayAudioClip("Dash");
-        _isAttacking = false;
+        enemy.isAttacking = false;
     }
 
     public override void DoPhysicsLogic()
@@ -101,7 +100,7 @@ public class EnemyAttackTackle : EnemyAttackSOBase
     {
         base.ResetValues();
         enemy.GetComponentInChildren<SpriteRenderer>().color = _startingColor;
-        _isAttacking = false;
+        enemy.isAttacking = false;
     }
 
     private bool OutOfLimitsCheck()

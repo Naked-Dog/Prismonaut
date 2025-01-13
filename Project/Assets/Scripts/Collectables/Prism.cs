@@ -50,7 +50,6 @@ public class Prism : MonoBehaviour, ICollectable, IDropable
     {
         StartCoroutine(StartDisappear());
         transform.position = spawnPoint.position;
-        transform.SetParent(spawnPoint.parent.parent, true);
         var force = new Vector2(Random.Range(-3.0f, 3.0f), 8.0f);
         rb2d.AddForce(force, ForceMode2D.Impulse);
     }

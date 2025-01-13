@@ -18,7 +18,7 @@ public class Chest : MonoBehaviour, IPlayerPowerInteractable
     public void PlayerPowerInteraction(PlayerSystem.PlayerState playerState)
     {
         if (state == ChestStates.Open) return;
-        if (playerState.activePower == PlayerSystem.Power.Circle)
+        if (playerState.activePower == PlayerSystem.Power.Circle || playerState.activePower == PlayerSystem.Power.Square)
         {
             OpenChest();
             StartCoroutine(DropLoot());
@@ -34,7 +34,7 @@ public class Chest : MonoBehaviour, IPlayerPowerInteractable
 
     private IEnumerator DropLoot()
     {
-        yield return new WaitForSeconds(0.14f);
+        yield return new WaitForSeconds(0.28f);
         lootDrop.DropLoot(spawnPoint);
     }
 }

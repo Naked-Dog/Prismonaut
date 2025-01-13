@@ -61,4 +61,22 @@ public class MovingPlatform : MonoBehaviour, IPlatform
         playerRigidBody.interpolation = RigidbodyInterpolation2D.Interpolate;
         playerRigidBody.transform.parent = null;
     }
+
+    /* private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.transform.parent = transform;
+            collision.rigidbody.interpolation = RigidbodyInterpolation2D.None;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.transform.transform.parent = null;
+            collision.rigidbody.interpolation = RigidbodyInterpolation2D.None;
+        }
+    } */
 }
