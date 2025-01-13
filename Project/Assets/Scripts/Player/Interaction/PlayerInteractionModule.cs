@@ -5,13 +5,15 @@ namespace PlayerSystem
     public class PlayerInteractionModule
     {
         private EventBus eventBus;
-        private IInteractable currentInteractable;
+        public IInteractable currentInteractable;
         private GameObject signObject;
+        private PlayerState playerState;
 
-        public PlayerInteractionModule(EventBus eventBus, TriggerEventHandler triggerEvent, GameObject interactSign)
+        public PlayerInteractionModule(EventBus eventBus, TriggerEventHandler triggerEvent, GameObject interactSign, PlayerState state)
         {
             this.eventBus = eventBus;
             signObject = interactSign;
+            playerState = state;
             signObject.SetActive(false);
             triggerEvent.OnTriggerEnter2DAction.AddListener(OnCollionEnter);
             triggerEvent.OnTriggerExit2DAction.AddListener(OnCollionExit);
@@ -27,6 +29,7 @@ namespace PlayerSystem
             {
                 eventBus.Publish(new PlayPlayerSounEffect("Interaction"));
                 currentInteractable.Interact();
+                playerState.isOnInteractable = false;
                 signObject.SetActive(false);
             }
         }
@@ -37,6 +40,7 @@ namespace PlayerSystem
 
             if (interactable != null)
             {
+                playerState.isOnInteractable = true;
                 currentInteractable = interactable;
                 if (currentInteractable.InteractOnEnter)
                 {
@@ -52,6 +56,7 @@ namespace PlayerSystem
 
             if (currentInteractable == interactable)
             {
+                playerState.isOnInteractable = false;
                 currentInteractable = null;
                 signObject.SetActive(false);
             }
@@ -63,8 +68,6 @@ namespace PlayerSystem
             if (currentInteractable == null) return;
             signObject.SetActive(currentInteractable.IsInteractable);
         }
-
-
     }
 
 }
