@@ -38,7 +38,12 @@ namespace PlayerSystem
             if (interactable != null)
             {
                 currentInteractable = interactable;
-                signObject.SetActive(true);
+                if (currentInteractable.InteractOnEnter)
+                {
+                    OnInteraction(new InteractionInputEvent());
+                    return;
+                }
+                signObject.SetActive(currentInteractable.IsInteractable);
             }
         }
         private void OnCollionExit(Collider2D other)
@@ -56,7 +61,6 @@ namespace PlayerSystem
         private void OnTriggerStay(Collider2D other)
         {
             if (currentInteractable == null) return;
-            //Debug.Log("gaaa");
             signObject.SetActive(currentInteractable.IsInteractable);
         }
 

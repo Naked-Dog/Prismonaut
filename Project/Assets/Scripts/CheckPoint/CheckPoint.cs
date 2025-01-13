@@ -5,11 +5,15 @@ public class CheckPoint : MonoBehaviour, IInteractable
 {
     [SerializeField] private Animator animator;
     [SerializeField] private AnimationEventEmitter animationEvent;
+    [SerializeField] private bool interactOnEnter;
+    [SerializeField] private bool destroyOnInteract;
     private bool isOpen;
 
     private AudioManager audioManager;
 
     public bool IsInteractable => !isOpen;
+    public bool InteractOnEnter => interactOnEnter;
+    public bool DestroyOnInteract => destroyOnInteract;
 
     private void Start()
     {
@@ -19,7 +23,7 @@ public class CheckPoint : MonoBehaviour, IInteractable
 
     private void HandleAnimationEvent(string eventName)
     {
-        switch(eventName)
+        switch (eventName)
         {
             case "Idle":
                 audioManager.PlayAudioClip("Idle", true, 0.35f);

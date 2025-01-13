@@ -912,6 +912,10 @@ PrefabInstance:
       propertyPath: narrativeText
       value: 
       objectReference: {fileID: 4900000, guid: 29582b4fb55e8a44290fc39784902791, type: 3}
+    - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
+      propertyPath: destroyOnInteract
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7991604121644436692, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: m_Name
       value: DialogueRunner 2
@@ -2158,6 +2162,10 @@ PrefabInstance:
       propertyPath: narrativeText
       value: 
       objectReference: {fileID: 4900000, guid: 4427d6a7d1b7493a4a5a28138d21e610, type: 3}
+    - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
+      propertyPath: destroyOnInteract
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7991604121644436692, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: m_Name
       value: DialogueRunner 4
@@ -2815,6 +2823,10 @@ PrefabInstance:
       propertyPath: narrativeText
       value: 
       objectReference: {fileID: 4900000, guid: d9f1cf9d225144976b16a83868ad4379, type: 3}
+    - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
+      propertyPath: destroyOnInteract
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7991604121644436692, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: m_Name
       value: DialogueRunner 3
@@ -8588,7 +8600,7 @@ Transform:
   m_GameObject: {fileID: 1019906794}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6, y: 1.4000001, z: -10}
+  m_LocalPosition: {x: -1.6, y: 5.58, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9592,7 +9604,7 @@ Transform:
   m_GameObject: {fileID: 1129460515}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 4.1800003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10275,7 +10287,7 @@ Transform:
   m_GameObject: {fileID: 1216804985}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.2, z: 0}
+  m_LocalPosition: {x: 0, y: 8.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10975,7 +10987,7 @@ Transform:
   m_GameObject: {fileID: 1289002857}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.4999998, z: 0}
+  m_LocalPosition: {x: 0, y: 1.6800001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16399,7 +16411,7 @@ Transform:
   m_GameObject: {fileID: 1950552944}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.6000001, z: 0}
+  m_LocalPosition: {x: 0, y: 7.7799997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16835,6 +16847,14 @@ PrefabInstance:
       propertyPath: narrativeText
       value: 
       objectReference: {fileID: 4900000, guid: 0bd39f723e42afc488768c81d8e5640e, type: 3}
+    - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
+      propertyPath: interactOnEnter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
+      propertyPath: destroyOnInteract
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7991604121644436692, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: m_Name
       value: DialogueRunner 1
@@ -18764,7 +18784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1767910178151767957, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.8
+      value: 4.98
       objectReference: {fileID: 0}
     - target: {fileID: 1767910178151767957, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
       propertyPath: m_LocalPosition.z
