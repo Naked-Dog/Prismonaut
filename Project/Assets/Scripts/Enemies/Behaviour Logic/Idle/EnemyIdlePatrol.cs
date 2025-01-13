@@ -43,7 +43,7 @@ public class EnemyIdlePatrol : EnemyIdleSOBase
         moveDirection = (_currentTargetPoint.position - enemy.transform.position).normalized;
         (enemy as Grub).ChangeDirection(moveDirection.x < 0);
         enemy.gameObject.GetComponent<IEnemyMoveable>()?.MoveEnemy(moveDirection * PatrolMovementSpeed);
-        if ((enemy.transform.position - _currentTargetPoint.position).sqrMagnitude < 0.05f)
+        if ((enemy.transform.position - _currentTargetPoint.position).sqrMagnitude < 0.5f)
         {
             _currentTargetPoint = GetNextPosition();
         }
