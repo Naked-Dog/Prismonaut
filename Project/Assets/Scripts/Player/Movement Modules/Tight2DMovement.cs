@@ -43,7 +43,6 @@ namespace PlayerSystem
             this.mb = mb;
             this.cameraState = cameraState;
             coll = rb2d.GetComponent<Collider2D>();
-            SetGroundCallbacks(groundTrigger);
             eventBus.Subscribe<UpdateEvent>(CheckForVelocity);
             eventBus.Subscribe<HorizontalInputEvent>(MoveHorizontally);
             eventBus.Subscribe<JumpInputEvent>(Jump);
@@ -53,6 +52,8 @@ namespace PlayerSystem
             eventBus.Subscribe<PauseEvent>(StopPlayerMovement);
             eventBus.Subscribe<UnpauseEvent>(EnablePlayerMovement);
             eventBus.Subscribe<LookDownInputEvent>(ToggleLookingDown);
+            eventBus.Subscribe<CollisionEnterEvent>(SetCollisionEnterCallbacks);
+            eventBus.Subscribe<CollisionExitEvent>(SetCollisionExitCallbacks);
         }
 
         public override void Jump(JumpInputEvent input)
@@ -65,7 +66,7 @@ namespace PlayerSystem
             {
                 jumpTimer = movementValues.jumpTime;
                 rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpForce);
-                SaveSafeGround();
+                if (!IsPlatform()) SaveSafeGround();
                 playerState.groundState = GroundState.Airborne;
                 eventBus.Publish(new JumpMovementEvent());
             }
@@ -93,8 +94,6 @@ namespace PlayerSystem
             {
                 //Landing animation
             }
-
-            //DrawGroundCheck();
         }
 
         private void CheckForVelocity(UpdateEvent e)
@@ -113,40 +112,24 @@ namespace PlayerSystem
             eventBus.Publish(new HorizontalMovementEvent(input.amount));
         }
 
-        private void SetGroundCallbacks(TriggerEventHandler groundTrigger)
+        private void SetCollisionEnterCallbacks(CollisionEnterEvent collisionEnterEvent)
         {
-            groundTrigger.OnTriggerEnter2DAction.AddListener((other) =>
+            collisionEnterEvent.collision.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
+            if (collisionEnterEvent.collision.gameObject.layer == 6)
             {
-                if (other.gameObject.CompareTag("Platform") || other.gameObject.layer == 6)
-                {
-                    if (other.gameObject.CompareTag("Platform"))
-                    {
-                        other.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
-                    }
+                IsGrounded();
+                eventBus.Publish(new GroundedMovementEvent());
+            }
+        }
 
-                    //mb.StartCoroutine(JumpEnd());
-                    playerState.groundState = GroundState.Grounded;
-                    //IsGrounded();
-                    eventBus.Publish(new GroundedMovementEvent());
-
-                }
-            });
-
-            groundTrigger.OnTriggerExit2DAction.AddListener((other) =>
+        private void SetCollisionExitCallbacks(CollisionExitEvent collisionExitEvent)
+        {
+            collisionExitEvent.collision.gameObject.GetComponent<IPlatform>()?.PlatformExitAction(rb2d);
+            if (collisionExitEvent.collision.gameObject.layer == 6)
             {
-                if (other.gameObject.layer == 6 || other.gameObject.CompareTag("Platform"))
-                {
-                    if (other.gameObject.CompareTag("Platform"))
-                    {
-                        other.gameObject.GetComponent<IPlatform>()?.PlatformExitAction(rb2d);
-                    }
-                    if (other.gameObject.CompareTag("Ground"))
-                    {
-                        SaveSafeGround();
-                    }
-                    eventBus.Publish(new UngroundedMovementEvent());
-                }
-            });
+                if (collisionExitEvent.collision.gameObject.CompareTag("Ground")) SaveSafeGround();
+                eventBus.Publish(new UngroundedMovementEvent());
+            }
         }
 
         private void onSquarePowerToggle(ToggleSquarePowerEvent e)
@@ -212,7 +195,21 @@ namespace PlayerSystem
             groundHit = Physics2D.BoxCast(coll.bounds.center - new Vector3(0, coll.bounds.extents.y), new Vector2(coll.bounds.size.x, coll.bounds.size.y * 0.1f), 0f, Vector2.down, movementValues.groundCheckExtraHeight, movementValues.groundLayerMask);
             if (groundHit.collider != null)
             {
+                playerState.groundState = GroundState.Grounded;
                 return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool IsPlatform()
+        {
+            groundHit = Physics2D.BoxCast(coll.bounds.center - new Vector3(0, coll.bounds.extents.y), new Vector2(coll.bounds.size.x, coll.bounds.size.y * 0.1f), 0f, Vector2.down, movementValues.groundCheckExtraHeight, movementValues.groundLayerMask);
+            if (groundHit.collider != null)
+            {
+                return groundHit.collider.gameObject.CompareTag("Platform");
             }
             else
             {
@@ -243,7 +240,7 @@ namespace PlayerSystem
 
         private void SaveSafeGround()
         {
-            float modificator = playerState.groundState == GroundState.Airborne ? 0f : 2f;
+            float modificator = playerState.groundState == GroundState.Airborne ? 0f : 1.5f;
             float direction = 1;
             if (playerState.facingDirection == Direction.Left) direction = -1;
             playerState.lastSafeGroundLocation = new Vector2(rb2d.position.x - (modificator * direction), rb2d.position.y);

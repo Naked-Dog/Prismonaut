@@ -1,5 +1,4 @@
 using System.Collections;
-using PlayerSystem;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
@@ -40,6 +39,7 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     #region Attack Cooldown
     [SerializeField] private float attackCooldown = 2f;
     public bool isAttackInCooldown = false;
+    public bool isAttacking = false;
     #endregion
 
     public AudioManager audioManager;
@@ -89,14 +89,16 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
 
     #region Health / Die Functions
 
-    public void Damage(int damageAmount, Vector2 hitDirection = default)
+    public bool Damage(int damageAmount)
     {
         CurrentHealth -= damageAmount;
 
         if (CurrentHealth <= 0)
         {
             Die();
+            return true;
         }
+        return false;
     }
 
     public void Die()
@@ -163,18 +165,6 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
         isAttackInCooldown = true;
         yield return new WaitForSeconds(attackCooldown);
         isAttackInCooldown = false;
-    }
-    #endregion
-
-    #region Player Collision
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Vector2 direction = (collision.transform.position - transform.position).normalized;
-            int damageAmount = StateMachine.CurrentEnemyState != StunState ? DamageAmount : 0;
-            collision.gameObject.GetComponent<PlayerBaseModule>()?.healthModule.Damage(damageAmount, direction);
-        }
     }
     #endregion
 }
