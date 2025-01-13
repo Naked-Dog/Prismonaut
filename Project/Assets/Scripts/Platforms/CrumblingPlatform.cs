@@ -59,4 +59,20 @@ public class CrumblingPlatform : MonoBehaviour, IPlatform
     public void PlatformExitAction(Rigidbody2D playerRigidBody)
     {
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (collision.gameObject.GetComponent<PlayerBaseModule>().state.activePower == PlayerSystem.Power.Square)
+            {
+                StartCoroutine(DestroyPlatform());
+            }
+            if (isCrumbling) return;
+            else
+            {
+                StartCoroutine(Crumble());
+            }
+        }
+    }
 }

@@ -6,7 +6,17 @@ namespace PlayerSystem
     public struct UpdateEvent { }
     public struct FixedUpdateEvent { }
     public struct LateUpdateEvent { }
-    
+    public struct CollisionEnterEvent
+    {
+        public Collision2D collision;
+        public CollisionEnterEvent(Collision2D collision) { this.collision = collision; }
+    }
+    public struct CollisionExitEvent
+    {
+        public Collision2D collision;
+        public CollisionExitEvent(Collision2D collision) { this.collision = collision; }
+    }
+
     // Movement Events
     public struct HorizontalMovementEvent
     {
@@ -16,11 +26,11 @@ namespace PlayerSystem
     public struct JumpMovementEvent { }
     public struct UngroundedMovementEvent { }
     public struct GroundedMovementEvent { }
-    public struct PauseEvent{ }
-    public struct UnpauseEvent{ }
-    public struct ReceivedDamageEvent{ }
-    public struct DeathEvent{ }
-    public struct RespawnEvent{ }
+    public struct PauseEvent { }
+    public struct UnpauseEvent { }
+    public struct ReceivedDamageEvent { }
+    public struct DeathEvent { }
+    public struct RespawnEvent { }
 
     // Power Events
     public struct ToggleSquarePowerEvent
@@ -43,10 +53,10 @@ namespace PlayerSystem
     {
         public string clipName;
         public float volume;
-        public PlayPlayerSounEffect (string clipName, float volume = 1 )
-        { 
+        public PlayPlayerSounEffect(string clipName, float volume = 1)
+        {
             this.clipName = clipName;
-            this.volume = volume; 
+            this.volume = volume;
         }
     }
 }
