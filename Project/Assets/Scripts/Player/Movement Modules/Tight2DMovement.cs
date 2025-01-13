@@ -114,11 +114,9 @@ namespace PlayerSystem
 
         private void SetCollisionEnterCallbacks(CollisionEnterEvent collisionEnterEvent)
         {
-
+            collisionEnterEvent.collision.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
             if (collisionEnterEvent.collision.gameObject.layer == 6)
             {
-                //mb.StartCoroutine(JumpEnd());
-                //IsGrounded();
                 IsGrounded();
                 eventBus.Publish(new GroundedMovementEvent());
             }
@@ -126,6 +124,7 @@ namespace PlayerSystem
 
         private void SetCollisionExitCallbacks(CollisionExitEvent collisionExitEvent)
         {
+            collisionExitEvent.collision.gameObject.GetComponent<IPlatform>()?.PlatformExitAction(rb2d);
             if (collisionExitEvent.collision.gameObject.layer == 6)
             {
                 if (collisionExitEvent.collision.gameObject.CompareTag("Ground")) SaveSafeGround();

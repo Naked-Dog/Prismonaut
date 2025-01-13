@@ -62,7 +62,7 @@ public class MovingPlatform : MonoBehaviour, IPlatform
         playerRigidBody.transform.parent = null;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /* private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -78,5 +78,5 @@ public class MovingPlatform : MonoBehaviour, IPlatform
             collision.transform.transform.parent = null;
             collision.rigidbody.interpolation = RigidbodyInterpolation2D.None;
         }
-    }
+    } */
 }

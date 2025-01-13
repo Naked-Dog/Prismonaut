@@ -60,7 +60,7 @@ public class CrumblingPlatform : MonoBehaviour, IPlatform
     {
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /* private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -74,5 +74,5 @@ public class CrumblingPlatform : MonoBehaviour, IPlatform
                 StartCoroutine(Crumble());
             }
         }
-    }
+    } */
 }
