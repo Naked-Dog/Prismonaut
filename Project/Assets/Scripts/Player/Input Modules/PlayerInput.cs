@@ -11,6 +11,7 @@ namespace PlayerSystem
         private EventBus eventBus;
         private InputActionMap playerGameMap => playerActions.FindActionMap("Player");
         private InputActionMap playerUIMap => playerActions.FindActionMap("UI");
+        private InputActionMap DialogueMap => playerActions.FindActionMap("Dialogue");
 
         public PlayerInput(EventBus eventBus, InputActionAsset playerInputAsset)
         {
@@ -22,7 +23,11 @@ namespace PlayerSystem
             eventBus.Subscribe<UpdateEvent>(OnJump);
             eventBus.Subscribe<EnablePlayerInputsEvent>(EnablePlayerMapInput);
             eventBus.Subscribe<StopPlayerInputsEvent>(StopPlayerMapInput);
+            eventBus.Subscribe<EnableDialogueInputsEvent>(EnableDialogueInputs);
+            eventBus.Subscribe<DisableDilagueInputsEvent>(DiableDialogueInputs);
         }
+
+
 
         private void StopPlayerMapInput(StopPlayerInputsEvent e)
         {
@@ -33,10 +38,21 @@ namespace PlayerSystem
         {
             EnablePlayerInputs();
         }
+        private void EnableDialogueInputs(EnableDialogueInputsEvent @event)
+        {
+            DialogueMap.Enable();
+            playerGameMap.Disable();
+        }
+        private void DiableDialogueInputs(DisableDilagueInputsEvent @event)
+        {
+            DialogueMap.Disable();
+            playerGameMap.Enable();
+        }
 
         private void InitializeActions()
         {
             playerUIMap.Disable();
+            DialogueMap.Disable();
 
             playerGameMap.FindAction("TrianglePower").started += _ => eventBus.Publish(new TrianglePowerInputEvent());
             playerGameMap.FindAction("CirclePower").started += _ => eventBus.Publish(new CirclePowerInputEvent());
@@ -57,6 +73,11 @@ namespace PlayerSystem
             {
                 eventBus.Publish(new PauseInputEvent());
                 eventBus.Publish(new UnpauseEvent());
+            };
+
+            DialogueMap.FindAction("SkipDialogue").started += _ => 
+            {
+                DialogueController.Instance.SkipDialogue();
             };
         }
 

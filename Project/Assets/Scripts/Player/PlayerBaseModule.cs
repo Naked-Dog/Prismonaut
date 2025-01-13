@@ -32,7 +32,7 @@ namespace PlayerSystem
         public PlayerPowersModule powersModule;
         public PlayerHealthModule healthModule;
         private PlayerAudioModule audioModule;
-        private PlayerInteractionModule interactionModule;
+        public PlayerInteractionModule interactionModule;
 
 
         protected void Start()
@@ -56,7 +56,7 @@ namespace PlayerSystem
             {
                 MaxHealth = 3
             };
-            interactionModule = new PlayerInteractionModule(eventBus, GetComponent<TriggerEventHandler>(), interactSign);
+            interactionModule = new PlayerInteractionModule(eventBus, GetComponent<TriggerEventHandler>(), interactSign, state);
 
             healthModule.CurrentHealth = healthModule.MaxHealth;
             healthUIController.InitUI(healthModule.CurrentHealth);
