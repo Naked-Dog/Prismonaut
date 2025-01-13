@@ -33,6 +33,7 @@ namespace PlayerSystem
         private bool isLanding = false;
         private CameraState cameraState;
         private PlayerAudioModule playerAudio;
+        private bool isLookingDown = false;
 
         public Tight2DMovement(EventBus eventBus, PlayerState playerState, PlayerMovementScriptable movementValues, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, CameraState cameraState, PlayerAudioModule playerAudio, MonoBehaviour mb) : base(eventBus, movementValues)
         {
@@ -51,6 +52,7 @@ namespace PlayerSystem
             eventBus.Subscribe<ToggleCirclePowerEvent>(onCirclePowerToggle);
             eventBus.Subscribe<PauseEvent>(StopPlayerMovement);
             eventBus.Subscribe<UnpauseEvent>(EnablePlayerMovement);
+            eventBus.Subscribe<LookDownInputEvent>(ToggleLookingDown);
         }
 
         public override void Jump(JumpInputEvent input)
@@ -178,6 +180,14 @@ namespace PlayerSystem
                 if (!isTriangleActive) rb2d.gravityScale = movementValues.gravity;
             }
             isMovementDisabled = isJumpingDisabled = isGravityDisabled = isCircleActive = e.toggle;
+        }
+
+        private void ToggleLookingDown(LookDownInputEvent e)
+        {
+            if (e.toggle == isLookingDown) return;
+            isLookingDown = e.toggle;
+            if (isLookingDown && !_isFalling) cameraState.CameraPosState = CameraPositionState.LookingDown;
+            else cameraState.CameraPosState = CameraPositionState.Regular;
         }
 
         private void StopPlayerMovement(PauseEvent e)

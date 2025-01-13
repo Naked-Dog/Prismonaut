@@ -9,7 +9,6 @@ namespace PlayerSystem
     {
         private EventBus eventBus;
         private PlayerState playerState;
-        private Knockback knockback;
         private HealthUIController healthUIController;
         private Rigidbody2D rb2d;
         private MonoBehaviour mb;
@@ -17,11 +16,10 @@ namespace PlayerSystem
         public int MaxHealth { get; set; }
         public int CurrentHealth { get; set; }
 
-        public PlayerHealthModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, Knockback knockback, HealthUIController healthUIController, MonoBehaviour mb)
+        public PlayerHealthModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, HealthUIController healthUIController, MonoBehaviour mb)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
-            this.knockback = knockback;
             this.rb2d = rb2d;
             this.healthUIController = healthUIController;
             this.mb = mb;
@@ -29,28 +27,27 @@ namespace PlayerSystem
             eventBus.Subscribe<RespawnEvent>(Respawn);
         }
 
-        public void Damage(int damageAmount, Vector2 hitDirection)
+        public bool Damage(int damageAmount)
         {
-            if (!(playerState.activePower == Power.Square))
+            if (playerState.healthState == HealthState.Stagger) return false;
+            if (playerState.activePower != Power.Square)
             {
                 CurrentHealth -= damageAmount;
                 healthUIController.UpdateHealthUI(CurrentHealth);
-                Debug.Log("Current Health: " + CurrentHealth);
                 if (CurrentHealth <= 0f)
                 {
                     Die();
-                    return;
+                    return true;
                 }
-                knockback.CallKnockback(hitDirection, Vector2.up, Input.GetAxisRaw("Horizontal"), rb2d, playerState, damageAmount);
                 eventBus.Publish(new ReceivedDamageEvent());
             }
+            return false;
         }
 
         public void SpikeDamage()
         {
             CurrentHealth -= 1;
             healthUIController.UpdateHealthUI(CurrentHealth);
-            Debug.Log("Current Health: " + CurrentHealth);
             if (CurrentHealth <= 0f)
             {
                 Die();
@@ -86,7 +83,8 @@ namespace PlayerSystem
             healthUIController.ResetHealthUI();
         }
 
-        private void SetRespawnPosition(){
+        private void SetRespawnPosition()
+        {
             Vector3 savedPosition = GameDataManager.Instance.GetSavedPlayerPosition();
             rb2d.position = savedPosition;
         }

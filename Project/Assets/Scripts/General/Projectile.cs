@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
 {
     public Collider2D EnemyCollider { get; private set; }
     public Vector2 Direction { get; private set; }
-    [SerializeField] public int damageAmount = 1;
+    [SerializeField] public int DamageAmount = 1;
     [SerializeField] private bool isDestroyedByTerrain = true;
 
     private Collider2D coll;
@@ -28,11 +28,13 @@ public class Projectile : MonoBehaviour
         iDamageable = collision.gameObject.GetComponent<IDamageable>();
         if (iDamageable != null && !collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<IDamageable>()?.Damage(damageAmount, transform.up);
+            collision.gameObject.GetComponent<IDamageable>()?.Damage(DamageAmount);
         }
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && collision.gameObject.GetComponent<PlayerBaseModule>().state.activePower != PlayerSystem.Power.Square)
         {
-            collision.gameObject.GetComponent<PlayerBaseModule>()?.healthModule.Damage(damageAmount, Direction);
+            Vector2 direction = (collision.transform.position - transform.position).normalized;
+            bool playerDied = collision.gameObject.GetComponent<PlayerBaseModule>().healthModule.Damage(DamageAmount);
+            if (!playerDied) collision.gameObject.GetComponent<PlayerBaseModule>().knockback.CallKnockback(direction, Vector2.up, Input.GetAxisRaw("Horizontal"), true);
             GameObject.Destroy(this.gameObject);
         }
         if (collision.gameObject.CompareTag("Ground"))

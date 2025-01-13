@@ -45,6 +45,7 @@ namespace PlayerSystem
 
             isActive = true;
             playerState.activePower = Power.Square;
+            if (playerState.groundState == GroundState.Grounded) rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
             powerTimeSum = 0;
             rb2d.velocity = new Vector2(0, movementValues.squarePowerForce);
             groundTrigger.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
@@ -72,12 +73,13 @@ namespace PlayerSystem
             other.gameObject.GetComponent<IPlayerPowerInteractable>()?.PlayerPowerInteraction(playerState);
             if (other.gameObject.CompareTag("Spike"))
             {
-                knockback.CallKnockback(new Vector2(0, 0), Vector2.up * movementValues.spikeKnockbackForce, Input.GetAxisRaw("Horizontal"), rb2d, playerState, 0);
+                knockback.CallKnockback(Vector2.zero, Vector2.up * movementValues.spikeKnockbackForce, Input.GetAxisRaw("Horizontal"));
                 eventBus.Publish(new PlayPlayerSounEffect("SquareBlockSpikes"));
                 deactivate();
             }
             if (other.gameObject.CompareTag("Ground"))
             {
+                rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
                 eventBus.Publish(new PlayPlayerSounEffect("SquareBlock"));
             }
         }
@@ -86,6 +88,7 @@ namespace PlayerSystem
         {
             isActive = false;
             playerState.activePower = Power.None;
+            rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
             cooldownTimeLeft = movementValues.squarePowerCooldown;
             groundTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
 

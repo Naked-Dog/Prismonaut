@@ -23,7 +23,6 @@ public class EnemyIdlePatrol : EnemyIdleSOBase
         PointA = (enemy as Grub).PointA;
         PointB = (enemy as Grub).PointB;
         _currentTargetPoint = GetNextPosition();
-        Debug.Log("Executing enter logic");
         enemy.audioManager.PlayAudioClip("Move", true, 0.08f);
         base.DoEnterLogic();
     }
@@ -42,7 +41,7 @@ public class EnemyIdlePatrol : EnemyIdleSOBase
             enemy.StateMachine.ChangeState(enemy.FollowState);
         }
         moveDirection = (_currentTargetPoint.position - enemy.transform.position).normalized;
-        enemy.GetComponentInChildren<SpriteRenderer>().flipX = moveDirection.x < 0;
+        (enemy as Grub).ChangeDirection(moveDirection.x < 0);
         enemy.gameObject.GetComponent<IEnemyMoveable>()?.MoveEnemy(moveDirection * PatrolMovementSpeed);
         if ((enemy.transform.position - _currentTargetPoint.position).sqrMagnitude < 0.05f)
         {

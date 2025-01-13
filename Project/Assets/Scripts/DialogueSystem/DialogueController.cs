@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CameraSystem;
 using PlayerSystem;
 using UnityEditor;
 using UnityEngine;
@@ -28,33 +29,37 @@ public class DialogueController : MonoBehaviour
     private int currentDialogueIndex = 0;
     private DialogueType currentType;
     private AudioSource audioSource;
-    private string[] ignoreChars = {" ",",","-","_","."};
+    private CameraState currentCameraState;
+    private string[] ignoreChars = { " ", ",", "-", "_", "." };
 
     private EventBus eventBus;
 
-    public static DialogueController Instance {get; private set;}
+    public static DialogueController Instance { get; private set; }
 
-    private void Awake(){
-        if(Instance != null)
+    private void Awake()
+    {
+        if (Instance != null)
         {
             Destroy(gameObject);
-        } 
-        else 
+        }
+        else
         {
             Instance = this;
         }
 
+        currentCameraState = FindObjectOfType<CameraState>();
         audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
 
-        if(isDialogueRunning){
+        if (isDialogueRunning)
+        {
 
-            if(Input.GetKeyDown(KeyCode.Space) && currentType == DialogueType.Text)
-            {                
-                if(currentDialogueComplete)
+            if (Input.GetKeyDown(KeyCode.Space) && currentType == DialogueType.Text)
+            {
+                if (currentDialogueComplete)
                 {
                     RunNextDialogue();
                     return;
@@ -63,15 +68,18 @@ public class DialogueController : MonoBehaviour
                 CompleteDialogue();
             }
         }
-    }    
+    }
 
-    public void SetEventBus(EventBus bus){
+    public void SetEventBus(EventBus bus)
+    {
         eventBus = bus;
     }
 
-    public void RunDialogue(Narrative narrative) 
-    {   
+    public void RunDialogue(Narrative narrative)
+    {
         eventBus.Publish(new StopPlayerInputsEvent());
+        currentCameraState = FindObjectOfType<CameraState>();
+        currentCameraState.CameraPosState = CameraPositionState.Dialogue;
         currentDialogueIndex = 0;
         isDialogueRunning = true;
 
@@ -79,15 +87,15 @@ public class DialogueController : MonoBehaviour
         currentConversation = conversations[0];
         currentDialogues = currentConversation.dialogues;
         currentChoices = currentConversation.choices;
-        
 
-        if(currentDialogues.Count != 0)
+
+        if (currentDialogues.Count != 0)
         {
-            currentDialogueComplete =  false;
+            currentDialogueComplete = false;
             currentType = DialogueType.Text;
             StartCoroutine(DialogueSequence(currentDialogues[currentDialogueIndex]));
         }
-        else if(currentChoices.Count != 0)
+        else if (currentChoices.Count != 0)
         {
             currentType = DialogueType.Choices;
             viewController.SetDialoguePanel(currentType);
@@ -105,15 +113,15 @@ public class DialogueController : MonoBehaviour
     {
         currentDialogueIndex++;
 
-        if(currentDialogueIndex < currentDialogues.Count)
+        if (currentDialogueIndex < currentDialogues.Count)
         {
-            currentDialogueComplete =  false;
+            currentDialogueComplete = false;
             currentType = DialogueType.Text;
             StartCoroutine(DialogueSequence(currentDialogues[currentDialogueIndex]));
         }
-        else 
+        else
         {
-            if(currentConversation.choices.Count != 0)
+            if (currentConversation.choices.Count != 0)
             {
                 currentType = DialogueType.Choices;
                 viewController.SetDialoguePanel(currentType);
@@ -128,12 +136,12 @@ public class DialogueController : MonoBehaviour
 
 
     private IEnumerator DialogueSequence(Dialogue dialogue)
-    {    
+    {
         currentActor = GetActor(dialogue.actor);
         viewController.SetActor(currentActor);
         viewController.SetDialoguePanel(currentType);
 
-        if(currentDialogueIndex == 0)
+        if (currentDialogueIndex == 0)
         {
             yield return viewController.OpenDialoguePanel();
         }
@@ -142,8 +150,8 @@ public class DialogueController : MonoBehaviour
 
         viewController.ShowNextSign();
         audioSource.PlayOneShot(skipSound);
-        currentDialogueComplete =  true;
-        
+        currentDialogueComplete = true;
+
     }
 
     private IEnumerator WriteDialogue(Dialogue dialogue)
@@ -152,9 +160,9 @@ public class DialogueController : MonoBehaviour
         yield return StartCoroutine(WriteCharByChar(currentDialogueText, writeSpeed));
     }
 
-    public IEnumerator WriteCharByChar( string dialogueText, float writeSpeed = 0.1f)
+    public IEnumerator WriteCharByChar(string dialogueText, float writeSpeed = 0.1f)
     {
-        foreach(var character in dialogueText)
+        foreach (var character in dialogueText)
         {
             playDialogueSFX(character.ToString());
             viewController.dialogueTMPText.text += character;
@@ -164,9 +172,9 @@ public class DialogueController : MonoBehaviour
 
     public void playDialogueSFX(string letter)
     {
-        foreach(string character in ignoreChars) 
+        foreach (string character in ignoreChars)
         {
-            if(character == letter)
+            if (character == letter)
             {
                 return;
             }
@@ -174,10 +182,10 @@ public class DialogueController : MonoBehaviour
 
         var upper = letter.ToUpper();
 
-        foreach(AudioClip clip in currentActor.alphabetSounds)
+        foreach (AudioClip clip in currentActor.alphabetSounds)
         {
             var dialogueLetter = clip.name.Last();
-            if(dialogueLetter.ToString() == upper)
+            if (dialogueLetter.ToString() == upper)
             {
                 audioSource.PlayOneShot(clip);
                 return;
@@ -194,10 +202,12 @@ public class DialogueController : MonoBehaviour
         currentDialogueComplete = true;
     }
 
-    public void EndDialogue(){
+    public void EndDialogue()
+    {
         StopAllCoroutines();
         StartCoroutine(viewController.CloseDialoguePanel());
         isDialogueRunning = false;
+        currentCameraState.CameraPosState = CameraPositionState.Regular;
         eventBus.Publish(new EnablePlayerInputsEvent());
     }
 
