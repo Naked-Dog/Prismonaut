@@ -29,7 +29,7 @@ namespace PlayerSystem
 
         public bool Damage(int damageAmount)
         {
-            if (playerState.healthState == HealthState.Stagger) return false;
+            if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return false;
             if (playerState.activePower != Power.Square)
             {
                 CurrentHealth -= damageAmount;
@@ -46,6 +46,7 @@ namespace PlayerSystem
 
         public void SpikeDamage()
         {
+            if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return;
             CurrentHealth -= 1;
             healthUIController.UpdateHealthUI(CurrentHealth);
             if (CurrentHealth <= 0f)

@@ -67,8 +67,7 @@ namespace PlayerSystem
             }
             if (other.gameObject.CompareTag("Platform"))
             {
-                other.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
-                eventBus.Publish(new PlayPlayerSounEffect("SquareBlock"));
+                if (other.gameObject.GetComponent<IPlatform>().PlatformType == PlatformType.CrumblingPlatform) eventBus.Publish(new PlayPlayerSounEffect("SquareBlock"));
             }
             other.gameObject.GetComponent<IPlayerPowerInteractable>()?.PlayerPowerInteraction(playerState);
             if (other.gameObject.CompareTag("Spike"))

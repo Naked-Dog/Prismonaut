@@ -81,5 +81,15 @@ namespace PlayerSystem
         {
             eventBus.Publish(new LateUpdateEvent());
         }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            eventBus.Publish(new CollisionEnterEvent(other));
+        }
+
+        private void OnCollisionExit2D(Collision2D other)
+        {
+            eventBus.Publish(new CollisionExitEvent(other));
+        }
     }
 }
