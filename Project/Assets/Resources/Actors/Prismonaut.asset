@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222477000ee1b134e8e41716f94944e8, type: 3}
   m_Name: Prismonaut
   m_EditorClassIdentifier: 
-  portrait: {fileID: -1548308838, guid: 357a7a2275606ba4ca88611d60ab841a, type: 3}
+  portrait: {fileID: 21300000, guid: 676d7dfc4c1c8651383f468e1526133e, type: 3}
   dialogueFont: {fileID: 11400000, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
   fontColor: {r: 1, g: 1, b: 1, a: 1}
   alphabetSounds:
