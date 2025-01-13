@@ -37,11 +37,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Blur_Offset: 0.0015
+    - _Blur_Offset: 0.00125
     - _Is_Effect_Enabled: 1
     - _Line_Size: 180
-    - _Lines_Amount: 400
-    - _Scan_Lines_Speed: -0.001
+    - _Lines_Amount: 450
+    - _Scan_Lines_Speed: -0.00125
     - _Turned_On: 0
     m_Colors:
     - _Color: {r: 2.9960787, g: 2.9960787, b: 2.9960787, a: 0}
