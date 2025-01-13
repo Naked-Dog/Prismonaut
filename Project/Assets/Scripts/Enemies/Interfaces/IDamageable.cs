@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    void Damage(int damageAmount, Vector2 hitDirection = default);
+    bool Damage(int damageAmount);
 
     void Die();
 

@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using PlayerSystem;
 using UnityEngine;
 
 public class Knockback : MonoBehaviour
@@ -11,10 +11,19 @@ public class Knockback : MonoBehaviour
 
     private Color startColor;
     private Coroutine knockbackCoroutine;
+    private Rigidbody2D rb2d;
+    private PlayerBaseModule playerBaseModule;
 
-    public IEnumerator KnockbackAction(Vector2 hitDirection, Vector2 constantForceDirection, float inputDirection, Rigidbody2D rb2d, PlayerSystem.PlayerState playerState, float damage)
+
+    private void Start()
     {
-        if (damage > 0f) playerState.healthState = PlayerSystem.HealthState.Stagger;
+        rb2d = GetComponent<Rigidbody2D>();
+        playerBaseModule = GetComponent<PlayerBaseModule>();
+    }
+
+    public IEnumerator KnockbackAction(Vector2 hitDirection, Vector2 constantForceDirection, float inputDirection, bool isStagger = false)
+    {
+        if (isStagger) playerBaseModule.state.healthState = HealthState.Stagger;
         Vector2 _hitForce;
         Vector2 _constantForce;
         Vector2 _knockbackForce;
@@ -24,6 +33,7 @@ public class Knockback : MonoBehaviour
         _constantForce = constantForceDirection * constForce;
 
         float _elapsedTime = 0f;
+
         while (_elapsedTime < knockbackTime)
         {
             // iterate timer
@@ -45,15 +55,14 @@ public class Knockback : MonoBehaviour
 
             //apply knockback
             rb2d.velocity = _combinedForce;
-
             yield return new WaitForFixedUpdate();
         }
 
-        playerState.healthState = PlayerSystem.HealthState.Undefined;
+        playerBaseModule.state.healthState = HealthState.Undefined;
     }
 
-    public void CallKnockback(Vector2 hitDirection, Vector2 constantForceDirection, float inputDirection, Rigidbody2D rb2d, PlayerSystem.PlayerState playerState, float damage)
+    public void CallKnockback(Vector2 hitDirection, Vector2 constantForceDirection, float inputDirection, bool isStagger = false)
     {
-        knockbackCoroutine = StartCoroutine(KnockbackAction(hitDirection, constantForceDirection, inputDirection, rb2d, playerState, damage));
+        knockbackCoroutine = StartCoroutine(KnockbackAction(hitDirection, constantForceDirection, inputDirection, isStagger));
     }
 }

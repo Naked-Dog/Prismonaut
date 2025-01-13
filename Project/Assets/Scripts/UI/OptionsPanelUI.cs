@@ -26,9 +26,9 @@ public class OptionsPanelUI : PanelUI
 
     private void Start()
     {
-        gameDataManager = GameObject.Find("GameDataManager").GetComponent<GameDataManager>();
+        gameDataManager = GameDataManager.Instance;
+        menuController = MenuController.Instance;
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
-        menuController = GameObject.FindWithTag("Menu").GetComponent<MenuController>();
         Init();
     }
 
