@@ -11855,7 +11855,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1019428179843469530, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -144.38171
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2675952098713344115, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2675952098713344115, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2675952098713344115, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2675952098713344115, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2675952098713344115, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2675952098713344115, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4412016021432829571, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
       propertyPath: m_AnchorMax.y
@@ -11899,11 +11923,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4476718004225490664, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -144.38171
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4941797906375858053, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 1.5119629
+      objectReference: {fileID: 0}
+    - target: {fileID: 5079080400985255211, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5302700505013874743, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6390910279512041194, guid: 5e5d64810821b204c906d85ccfc56afe, type: 3}
       propertyPath: m_Pivot.x
