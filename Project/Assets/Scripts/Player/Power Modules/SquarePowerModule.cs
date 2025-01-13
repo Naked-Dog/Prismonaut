@@ -45,7 +45,7 @@ namespace PlayerSystem
 
             isActive = true;
             playerState.activePower = Power.Square;
-            if (playerState.groundState == GroundState.Grounded) rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+            if (playerState.groundState == GroundState.Grounded) rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
             powerTimeSum = 0;
             rb2d.velocity = new Vector2(0, movementValues.squarePowerForce);
             groundTrigger.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
@@ -79,7 +79,7 @@ namespace PlayerSystem
             }
             if (other.gameObject.CompareTag("Ground"))
             {
-                rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+                rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
                 eventBus.Publish(new PlayPlayerSounEffect("SquareBlock"));
             }
         }
