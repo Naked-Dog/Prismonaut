@@ -297,7 +297,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.141, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2606573467513542103}
@@ -414,6 +414,7 @@ MonoBehaviour:
   EnemyStunBase: {fileID: 0}
   attackCooldown: 2
   isAttackInCooldown: 0
+  isAttacking: 0
   lootDrop: {fileID: 1240004961828807732}
   lootOrigin: {fileID: 591140622340866350}
   weakness: 2

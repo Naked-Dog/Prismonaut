@@ -21,9 +21,9 @@ namespace PlayerSystem
 
         private void OnInteraction(InteractionInputEvent e)
         {
-            if(currentInteractable == null) return;
+            if (currentInteractable == null) return;
 
-            if(currentInteractable.IsInteractable)
+            if (currentInteractable.IsInteractable)
             {
                 eventBus.Publish(new PlayPlayerSounEffect("Interaction"));
                 currentInteractable.Interact();
@@ -35,7 +35,7 @@ namespace PlayerSystem
         {
             var interactable = other.gameObject.GetComponent<IInteractable>();
 
-            if(interactable != null)
+            if (interactable != null)
             {
                 currentInteractable = interactable;
                 signObject.SetActive(true);
@@ -45,7 +45,7 @@ namespace PlayerSystem
         {
             var interactable = other.gameObject.GetComponent<IInteractable>();
 
-            if(currentInteractable == interactable)
+            if (currentInteractable == interactable)
             {
                 currentInteractable = null;
                 signObject.SetActive(false);
@@ -55,12 +55,12 @@ namespace PlayerSystem
 
         private void OnTriggerStay(Collider2D other)
         {
-            if(currentInteractable == null) return;
-            Debug.Log("gaaa");
+            if (currentInteractable == null) return;
+            //Debug.Log("gaaa");
             signObject.SetActive(currentInteractable.IsInteractable);
         }
 
-    
+
     }
 
 }

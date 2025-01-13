@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Spitter : Enemy, IPlayerPowerInteractable
 {
-    [SerializeField] PlayerSystem.Power weakness;
+    public PlayerSystem.Power weakness;
     public Transform mouthTransform;
     public Transform projectileOrigin;
 

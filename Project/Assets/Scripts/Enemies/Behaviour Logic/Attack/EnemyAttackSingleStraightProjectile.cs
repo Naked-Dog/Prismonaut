@@ -40,8 +40,61 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
         base.DoFrameUpdateLogic();
         if (_isAttacking) return;
         Vector2 direction = playerTransform.position - enemy.transform.position;
-        float angle = Mathf.Clamp(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, -25f, 25f);
-        (enemy as Spitter).mouthTransform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        /* float maxValue;
+        float minValue;
+        if ((enemy as Spitter).weakness == PlayerSystem.Power.Triangle)
+        {
+            maxValue = 10f;
+            minValue = 320f;
+        }
+        else
+        {
+            if (direction.x > 0f)
+            {
+                maxValue = 10f;
+                minValue = 320f;
+            }
+            else
+            {
+                maxValue = 80f;
+                minValue = 30f;
+            }
+        }
+        Quaternion localRotation = LookAt(playerTransform, minValue, maxValue); */
+        /* Vector2 direction = playerTransform.position - enemy.transform.position;
+        float angleModifier;
+        Vector3 rotationDirection;
+        float maxValue;
+        float minValue;
+        if ((enemy as Spitter).weakness == PlayerSystem.Power.Triangle)
+        {
+            angleModifier = -180f;
+            rotationDirection = Vector3.back;
+            maxValue = 25f;
+            minValue = -25f;
+        }
+        else
+        {
+            angleModifier = direction.x > 0f ? -90f : 90f;
+            rotationDirection = direction.x > 0f ? Vector3.forward : Vector3.back;
+            if (direction.x > 0f)
+            {
+                maxValue = 25f;
+                minValue = -25f;
+            }
+            else
+            {
+                maxValue = 205f;
+                minValue = 155f;
+            }
+        }
+        //Debug.Log("angle" + (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
+        float angle = Mathf.Clamp(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, minValue, maxValue);
+        //Debug.Log("angle after clamp: " + angle);
+        //Debug.Log("angle - modifier: " + (angle - angleModifier));
+        (enemy as Spitter).mouthTransform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        // Debug.Log("mouth rotation: " + (enemy as Spitter).mouthTransform.rotation); */
         if (_timer >= _timeBetweenShots)
         {
             _isAttacking = true;
@@ -56,6 +109,62 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
         }
 
         _timer += Time.deltaTime;
+    }
+    private Quaternion LookAt(Transform target, float minAngle, float maxAngle)
+    {
+        if ((enemy as Spitter).mouthTransform.rotation.eulerAngles.z < 20f || (enemy as Spitter).mouthTransform.rotation.eulerAngles.z > 70f)
+            return (enemy as Spitter).mouthTransform.localRotation;
+        Debug.Log("euler rotation: " + (enemy as Spitter).mouthTransform.rotation.eulerAngles.z);
+        // Calculate direction to the target
+        //Vector3 direction = target.position - (enemy as Spitter).mouthTransform.position;
+        Vector2 direction = target.position - enemy.transform.position;
+        // Calculate the desired rotation (without clamping or parent compensation)
+        Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, direction);
+
+        // Compensate for parent rotation
+        Quaternion parentRotationInverse = Quaternion.Inverse(enemy.transform.rotation);
+        Quaternion localTargetRotation = parentRotationInverse * targetRotation;
+
+        // Get the desired local rotation as Euler angles
+        Vector3 localEulerAngles = localTargetRotation.eulerAngles;
+
+        // Clamp the local rotation around the Y-axis (for 2D)
+        /* localEulerAngles.z = Mathf.Clamp(localEulerAngles.z, minAngle, maxAngle);
+        localEulerAngles.x = 0;
+        localEulerAngles.y = 0; */
+        //localEulerAngles.z = ClampAngle(localEulerAngles.z, minAngle, maxAngle);
+        // Create the clamped local rotation as a Quaternion
+        localTargetRotation = Quaternion.Euler(0, 0, localEulerAngles.z);
+
+        // Apply the clamped local rotation
+        (enemy as Spitter).mouthTransform.localRotation = localTargetRotation;
+        Debug.Log("final z: " + (enemy as Spitter).mouthTransform.localRotation.eulerAngles.z);
+        return localTargetRotation;
+    }
+
+    float ClampAngle(float angle, float min, float max)
+    {
+        if (min > max)
+        {
+            // Handle the case where min is greater than max (e.g., 355, 5)
+            if (angle < min && angle > max)
+            {
+                return angle; // Angle is within the valid range
+            }
+            else if (angle <= max)
+            {
+                return max;
+            }
+            else
+            {
+                return min;
+            }
+        }
+        else
+        {
+            // Standard clamping for min <= max
+            return Mathf.Clamp(angle, min, max);
+        }
     }
 
     public override void DoPhysicsLogic()
