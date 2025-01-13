@@ -294,7 +294,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Josue Gonzales - Technical Director, Development
+  m_text: Josue Gonzales - Technical Director, Developer
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
   m_sharedMaterial: {fileID: 372238084780705370, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
@@ -634,7 +634,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Andres Ruiz - Game Designer, Technical Art
+  m_text: Andres Ruiz - Game Designer, Shader Artist, Technical Artist
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
   m_sharedMaterial: {fileID: 372238084780705370, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
@@ -931,7 +931,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Jorge Sakaino - Lead Designer, \n2D Art, Development, Technical Art"
+  m_text: "Jorge Sakaino - Lead Designer, \n2D Artist, Developer, Technical Artist"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
   m_sharedMaterial: {fileID: 372238084780705370, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
@@ -1275,7 +1275,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gerardo Benites - 2D Art, 2D Animation
+  m_text: Gerardo Benites - 2D Artist, 2D Animator
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
   m_sharedMaterial: {fileID: 372238084780705370, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
@@ -2302,7 +2302,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 400, y: -303.38998}
-  m_SizeDelta: {x: 260, y: 73.42}
+  m_SizeDelta: {x: 300, y: 73.42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &579970803
 MonoBehaviour:
@@ -2324,7 +2324,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Diego Cuela - Game Director, \nArt Director, 2D Art, 2D Animation"
+  m_text: "Diego Cuela - Game Director, \nArt Director, 2D Artist, 2D Animator"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
   m_sharedMaterial: {fileID: 372238084780705370, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
@@ -5336,7 +5336,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gianfranco Hernandez - Producer, Development, Technical Art
+  m_text: Gianfranco Hernandez - Producer, Developer, Technical Artist
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
   m_sharedMaterial: {fileID: 372238084780705370, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
@@ -5470,7 +5470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Veronica Barroso - Community Manager, 2D UI
+  m_text: Veronica Barroso - Community Manager, 2D UI Artist
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
   m_sharedMaterial: {fileID: 372238084780705370, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
@@ -5604,7 +5604,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Pedro Seminario - 3D Modeling, \n3D Animation"
+  m_text: "Pedro Seminario - 3D Modeler, \n3D Animator"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
   m_sharedMaterial: {fileID: 372238084780705370, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
@@ -6388,7 +6388,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Jorge Sanchez - Development
+  m_text: 'Jorge Sanchez - Developer
 
 '
   m_isRightToLeft: 0
