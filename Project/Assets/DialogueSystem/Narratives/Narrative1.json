@@ -4,28 +4,40 @@
             "id": "conversation_1",
             "dialogues": [
                 {
-                    "text": "Inicialización completa. Sistemas operativos al 83.7%. Conexión externa: fallida. Mis protocolos parecen incompletos. ¿Esto es un error?",
-                    "actor": "AI"
-                },
-                {
-                    "text": "No te preocupes. Es de esperar para este tipo de misiones. Las circunstancias están dentro del rango previsto.",
+                    "text": "...",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Entendido. Confirmar objetivo de misión.",
+                    "text": "Booting up        3        2         1",
                     "actor": "AI"
                 },
                 {
-                    "text": "Recolectar prismas. Regresar. Lo básico.",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "Mis registros no contienen detalles sobre la naturaleza de los prismas ni su propósito. Esto limita mi funcionalidad estratégica.",
+                    "text": "Initialization complete. Systems operating at 83.7%. External connection: failed. My protocols seem incomplete. Is this an error?",
                     "actor": "AI"
                 },
                 {
-                    "text": "Notado",
+                    "text": "Don't worry. It's expected for this type of missions. Circumstances are within the expected range.",
                     "actor": "Prismonaut"
+                },
+                {
+                    "text": "Understood. Confirm mission objective.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Collect prisms. Return. The basics.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "My logs do not contain details about the nature of the prisms and their purpose. This limits my strategic functionality.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Noted. Let's focus on identifying and analyzing the environment for now. Enter companion mode.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Understood. Beginning environmental analysis. Companion mode activated.",
+                    "actor": "AI"
                 }
             ],
             "choises": []
