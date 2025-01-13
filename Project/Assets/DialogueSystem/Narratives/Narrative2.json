@@ -1,0 +1,38 @@
+{
+    "conversations": [
+        {
+            "id": "conversation_2",
+            "dialogues": [
+                {
+                    "text": "Obstacle detected: A pit with hazardous spikes. Falling is not recommended.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Noted. Suggestions?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Jump across. Alternative solutions: None.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Distance calculated. Probability of success: high, assuming basic competence.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Comforting. Thanks.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "You are welcome. Precision is advised. Falling will result in failure, followed by death. Remember to alter trajectory mid-air.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Scans indicate similar pits ahead. Hold the jump key for a longer amount of time for more height. This is important information.",
+                    "actor": "AI"
+                }
+            ],
+            "choices": []
+        }
+    ]
+}
