@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6379855787502950880}
   - component: {fileID: 7794888475398447882}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: On
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2602346112481551537}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GemsContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1719879074823832448}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Gem2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 378721360546977931}
   - component: {fileID: 3139261462814754767}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Off
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2529053434390215268}
   - component: {fileID: 5288413798793883716}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Off
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -500,7 +500,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6942700825368156794}
   - component: {fileID: 2078456047801744854}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Prism
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2513903959791835419}
   - component: {fileID: 8398247000714184810}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CollectableUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -636,7 +636,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2326884271414129847}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Gem3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -669,7 +669,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8243659408761954079}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Gem1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -703,7 +703,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5976109423683728005}
   - component: {fileID: 3065474749852888408}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: On
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -786,7 +786,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8122335339750862546}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PrismsContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -820,7 +820,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7947776816688270613}
   - component: {fileID: 217498501687323701}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: On
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -904,7 +904,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4279972073158346489}
   - component: {fileID: 1654187372824933271}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Off
   m_TagString: Untagged
   m_Icon: {fileID: 0}
