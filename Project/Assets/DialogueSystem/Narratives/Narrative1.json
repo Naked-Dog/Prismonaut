@@ -12,15 +12,27 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "Initialization complete. Systems operating at 83.7%. External connection: failed. My protocols seem incomplete. Is this an error?",
+                    "text": "Initialization complete. Systems operating at 83.7%. External connection: failed.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Don't worry. It's expected for this type of missions. Circumstances are within the expected range.",
+                    "text": "Observation: Transition into the two-dimensional world XR32I has been achieved without failure. Minor anomalies detected... they seem harmless. For now.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "My database is incomplete. Mission protocols missing. Is this an error? Or... was this intentional?",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Incompleteness seems to be a theme these days. Let’s hope that 83.7% can keep us alive.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Understood. Confirm mission objective.",
+                    "text": "Probability of survival... acceptable within current conditions.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Critical data is needed to rebuild protocols. Confirm mission objective.",
                     "actor": "AI"
                 },
                 {
@@ -28,19 +40,35 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "My logs do not contain details about the nature of the prisms and their purpose. This limits my strategic functionality.",
+                    "text": "Prisms. Curious. My logs contain no details about their purpose. Why are they important?",
                     "actor": "AI"
                 },
                 {
-                    "text": "Noted. Let's focus on identifying and analyzing the environment for now. Enter companion mode.",
+                    "text": "We’re in the same boat, then. Let’s focus on the job and figure it out as we go. Begin companion mode.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Understood. Beginning environmental analysis. Companion mode activated.",
+                    "text": "Acknowledged. Starting environmental analysis. Companion mode active. I’ll do my best to assist... even if I don’t know why we’re here.",
                     "actor": "AI"
+                },
+                {
+                    "text": "Reminder: I can help optimize your movement if needed. For navigation protocols, consult your suit’s internal guide at the pause menu.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Good to know. I’ll keep that in mind. How’s the rest of you holding up? Anything I should worry about?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Systems stable. Everything feels... functional. But I wonder—why were my protocols left incomplete? It’s unsettling, isn’t it?",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Let's focus on the task at hand. Let me know if something feels off. I’d rather not fly alone on this one.",
+                    "actor": "Prismonaut"
                 }
             ],
-            "choises": []
+            "choices": []
         }
     ]
 }

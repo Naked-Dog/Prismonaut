@@ -4,32 +4,48 @@
             "id": "conversation_2",
             "dialogues": [
                 {
-                    "text": "Obstacle detected: A pit with hazardous spikes. Falling is not recommended.",
+                    "text": "Obstacle detected: A pit with hazardous spikes. Falling is strongly discouraged.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Noted. Suggestions?",
+                    "text": "I noticed. What’s your plan, genius?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Jump across. Alternative solutions: None.",
+                    "text": "Solution: Jump across. Alternative strategies:       ... none.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Distance calculated. Probability of success: high, assuming basic competence.",
+                    "text": "Distance calculated. Probability of success: 92%, assuming adequate execution. Remaining 8% is... less ideal.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Comforting. Thanks.",
+                    "text": "92%. Practically a guarantee. What could possibly go wrong?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "You are welcome. Precision is advised. Falling will result in failure, followed by death. Remember to alter trajectory mid-air.",
+                    "text": "Statistically speaking: poor judgment, miscalculation, or gravity. All fatal.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Scans indicate similar pits ahead. Hold the jump key for a longer amount of time for more height. This is important information.",
+                    "text": "Important: Altering trajectory mid-air can mitigate risk.",
                     "actor": "AI"
+                },
+                {
+                    "text": "Duly noted. Any other words of encouragement?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Scans indicate similar hazards ahead. Adjust jump duration for increased height.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "The longer you hold, the higher you go. Consider it... applied physics.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Great. Physics is my favorite subject when my life depends on it.",
+                    "actor": "Prismonaut"
                 }
             ],
             "choices": []
