@@ -67,14 +67,14 @@ public class GameManager : MonoBehaviour
 
     public void GetGem()
     {
-        // collectedGems++;
-        // Debug.Log("Current Gems: " + collectedGems);
-        // if (collectedGems == levelTargetGems)
-        // {
-        //     //clear level
-        //     Debug.Log("Game Cleared");
+         collectedGems++;
+         Debug.Log("Current Gems: " + collectedGems);
+         if (collectedGems == levelTargetGems)
+        {
+             //clear level
+             Debug.Log("Game Cleared");
             StartCoroutine(EnableGameEndPortals());
-        //}
+        }
     }
 
     public void GetPrism()

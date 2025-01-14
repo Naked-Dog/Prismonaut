@@ -37,6 +37,7 @@ public class EndGamePortal : MonoBehaviour
         player3DModel.GetComponent<SplineAnimate>().Pause();
         player3DModel.GetComponent<SplineAnimate>().Restart(false);
         MenuController.Instance.ChangeScene("NewAdventuresScene");
+        yield return new WaitForSeconds(0.5f);
         InputActionMap playerInput = InputSystem.actions.FindActionMap("Player");
         playerInput.Enable();
         player3DModel.SetActive(false);
