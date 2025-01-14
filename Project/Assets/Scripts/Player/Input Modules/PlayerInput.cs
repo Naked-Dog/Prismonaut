@@ -1,7 +1,6 @@
 using System;
-using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 namespace PlayerSystem
 {
@@ -12,6 +11,9 @@ namespace PlayerSystem
         private InputActionMap playerGameMap => playerActions.FindActionMap("Player");
         private InputActionMap playerUIMap => playerActions.FindActionMap("UI");
         private InputActionMap DialogueMap => playerActions.FindActionMap("Dialogue");
+
+        private List<(InputAction action, Action<InputAction.CallbackContext> callback)> registeredCallbacks =
+            new List<(InputAction, Action<InputAction.CallbackContext>)>();
 
         public PlayerInput(EventBus eventBus, InputActionAsset playerInputAsset)
         {
@@ -27,8 +29,6 @@ namespace PlayerSystem
             eventBus.Subscribe<DisableDilagueInputsEvent>(DiableDialogueInputs);
         }
 
-
-
         private void StopPlayerMapInput(StopPlayerInputsEvent e)
         {
             DisablePlayerInputs();
@@ -38,11 +38,13 @@ namespace PlayerSystem
         {
             EnablePlayerInputs();
         }
+
         private void EnableDialogueInputs(EnableDialogueInputsEvent @event)
         {
             DialogueMap.Enable();
             playerGameMap.Disable();
         }
+
         private void DiableDialogueInputs(DisableDilagueInputsEvent @event)
         {
             DialogueMap.Disable();
@@ -54,31 +56,38 @@ namespace PlayerSystem
             playerUIMap.Disable();
             DialogueMap.Disable();
 
-            playerGameMap.FindAction("TrianglePower").started += _ => eventBus.Publish(new TrianglePowerInputEvent());
-            playerGameMap.FindAction("CirclePower").started += _ => eventBus.Publish(new CirclePowerInputEvent());
-            playerGameMap.FindAction("SquarePower").started += _ => eventBus.Publish(new SquarePowerInputEvent(true));
-            playerGameMap.FindAction("SquarePower").canceled += _ => eventBus.Publish(new SquarePowerInputEvent(false));
-            playerGameMap.FindAction("Interaction").started += _ => eventBus.Publish(new InteractionInputEvent());
-            playerGameMap.FindAction("LookDown").started += _ => eventBus.Publish(new LookDownInputEvent(true));
-            playerGameMap.FindAction("LookDown").canceled += _ => eventBus.Publish(new LookDownInputEvent(false));
+            RegisterCallback(playerGameMap.FindAction("TrianglePower"), ctx => eventBus.Publish(new TrianglePowerInputEvent()));
+            RegisterCallback(playerGameMap.FindAction("CirclePower"), ctx => eventBus.Publish(new CirclePowerInputEvent()));
+            playerGameMap.FindAction("SquarePower").started += SquarePowerInput;
+            playerGameMap.FindAction("SquarePower").canceled += SquarePowerInput;
+
+            RegisterCallback(playerGameMap.FindAction("Interaction"), ctx => eventBus.Publish(new InteractionInputEvent()));
+
+            playerGameMap.FindAction("LookDown").started += LookDownInput;
+            playerGameMap.FindAction("LookDown").canceled += LookDownInput;
 
 
-            playerGameMap.FindAction("Pause").started += _ =>
+            RegisterCallback(playerGameMap.FindAction("Pause"), ctx =>
             {
                 eventBus.Publish(new PauseInputEvent());
                 eventBus.Publish(new PauseEvent());
-            };
+            });
 
-            playerUIMap.FindAction("Pause").started += _ => 
+            RegisterCallback(playerUIMap.FindAction("Pause"), ctx =>
             {
                 eventBus.Publish(new PauseInputEvent());
                 eventBus.Publish(new UnpauseEvent());
-            };
+            });
 
-            DialogueMap.FindAction("SkipDialogue").started += _ => 
-            {
-                DialogueController.Instance.SkipDialogue();
-            };
+            RegisterCallback(DialogueMap.FindAction("SkipDialogue"), ctx => DialogueController.Instance.SkipDialogue());
+        }
+
+        private void RegisterCallback(InputAction action, Action<InputAction.CallbackContext> callback, bool started = true, bool canceled = false)
+        {
+            if (started) action.started += callback;
+            if (canceled) action.canceled += callback;
+
+            registeredCallbacks.Add((action, callback));
         }
 
         private void OnJump(UpdateEvent e)
@@ -102,6 +111,56 @@ namespace PlayerSystem
         {
             playerGameMap.Enable();
             playerUIMap.Disable();
+        }
+
+        private void SquarePowerInput(InputAction.CallbackContext ctx)
+        {
+            if(ctx.started)
+            {
+                eventBus.Publish(new SquarePowerInputEvent(true));
+            } 
+            else if (ctx.canceled)
+            {
+                eventBus.Publish(new SquarePowerInputEvent(false));
+            }
+        }
+
+        private void LookDownInput(InputAction.CallbackContext ctx)
+        {
+            if(ctx.started)
+            {
+                eventBus.Publish(new LookDownInputEvent(true));
+            } 
+            else if (ctx.canceled)
+            {
+                eventBus.Publish(new LookDownInputEvent(false));
+            }
+        }
+
+        public void Dispose()
+        {
+            eventBus.Unsubscribe<UpdateEvent>(OnMove);
+            eventBus.Unsubscribe<UpdateEvent>(OnJump);
+            eventBus.Unsubscribe<EnablePlayerInputsEvent>(EnablePlayerMapInput);
+            eventBus.Unsubscribe<StopPlayerInputsEvent>(StopPlayerMapInput);
+            eventBus.Unsubscribe<EnableDialogueInputsEvent>(EnableDialogueInputs);
+            eventBus.Unsubscribe<DisableDilagueInputsEvent>(DiableDialogueInputs);
+
+            playerGameMap.FindAction("SquarePower").started -= SquarePowerInput;
+            playerGameMap.FindAction("SquarePower").canceled -= SquarePowerInput;
+            playerGameMap.FindAction("LookDown").started -= LookDownInput;
+            playerGameMap.FindAction("LookDown").canceled -= LookDownInput;
+
+            foreach (var (action, callback) in registeredCallbacks)
+            {
+                action.started -= callback;
+                action.canceled -= callback;
+            }
+
+            registeredCallbacks.Clear();
+
+            playerActions = null;
+            eventBus = null;
         }
     }
 }
