@@ -119,7 +119,6 @@ public class DimensionTransition : MonoBehaviour
         player.transform.GetChild(1).gameObject.SetActive(false);
 
         GameObject model3D = Instantiate(player3DModel, playerPositon, Quaternion.identity);
-        model3D.transform.localScale = Vector3.one * 0.5f;
         cameraManager.setNewFollowTarget(model3D.transform);
 
         float elapseTime = 0;

@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed063e02a0ebf14f921358614d74fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player3DModel: {fileID: 919132149155446097, guid: d529cbe309fc3e541a63a15694cf4ece, type: 3}
+  player3DModel: {fileID: 8400387919445370826, guid: a5e752c2e6598cb4c98cc723e7e73a6d, type: 3}
   transitionTime: 1.5
   endPortal: {fileID: 5428680551810571586}
   startTangent: {x: 67.34268, y: 7.8337135, z: -5.5351562}

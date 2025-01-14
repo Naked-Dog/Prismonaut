@@ -1,6 +1,8 @@
 using System.Collections;
+using DG.Tweening;
 using PlayerSystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum FormState
 {
@@ -65,12 +67,12 @@ public class GameManager : MonoBehaviour
 
     public void GetGem()
     {
-        collectedGems++;
-        Debug.Log("Current Gems: " + collectedGems);
-        if (collectedGems == levelTargetGems)
+         collectedGems++;
+         Debug.Log("Current Gems: " + collectedGems);
+         if (collectedGems == levelTargetGems)
         {
-            //clear level
-            Debug.Log("Game Cleared");
+             //clear level
+             Debug.Log("Game Cleared");
             StartCoroutine(EnableGameEndPortals());
         }
     }
@@ -83,11 +85,16 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EnableGameEndPortals()
     {
-        yield return new WaitForSeconds(2f);
+
         foreach (GameObject endGamePortal in endGamePortals)
         {
+            endGamePortal.transform.localScale = Vector2.zero;
             endGamePortal.SetActive(true);
+            InputActionMap playerInput = InputSystem.actions.FindActionMap("Player");
+            playerInput.Disable();
         }
+
+        yield return new WaitForSeconds(2f);
     }
 
 }

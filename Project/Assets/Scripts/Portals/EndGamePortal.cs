@@ -4,6 +4,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using DG.Tweening;
 using PlayerSystem;
+using UnityEngine.Splines;
+using UnityEngine.InputSystem;
 
 
 public class EndGamePortal : MonoBehaviour
@@ -22,15 +24,24 @@ public class EndGamePortal : MonoBehaviour
         audioManager.PlayAudioClip("Idle", true);
     }
 
-    private IEnumerator EnterEndGamePortal(Vector3 playerPosition)
+    private IEnumerator EnterEndGamePortal(PlayerBaseModule playerBaseModule)
     {
         isTeleporting = true;
+        yield return new WaitForSeconds(1);
+        playerBaseModule.transform.GetChild(1).gameObject.SetActive(false);
         audioManager.PlayAudioClip("Entry", true);
-        GameObject model3D = Instantiate(player3DModel, playerPosition, Quaternion.identity);
-        model3D.transform.localScale = Vector3.one * 0.5f;
-        yield return model3D.transform.DOMove(gameObject.transform.position, 0.5f).WaitForCompletion();
-        yield return model3D.transform.DOScale(Vector3.zero, 1f).WaitForCompletion();
+        player3DModel.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        player3DModel.GetComponent<SplineAnimate>().Play();
+        yield return new WaitForSeconds(5);
+        player3DModel.GetComponent<SplineAnimate>().Pause();
+        player3DModel.GetComponent<SplineAnimate>().Restart(false);
         MenuController.Instance.ChangeScene("NewAdventuresScene");
+        yield return new WaitForSeconds(0.5f);
+        InputActionMap playerInput = InputSystem.actions.FindActionMap("Player");
+        playerInput.Enable();
+        player3DModel.SetActive(false);
+        playerBaseModule.transform.GetChild(1).gameObject.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -38,26 +49,7 @@ public class EndGamePortal : MonoBehaviour
         if (collider.GetComponent<PlayerBaseModule>())
         {
             PlayerBaseModule playerBaseModule = collider.GetComponent<PlayerBaseModule>();
-            if (playerBaseModule.state.activePower != PlayerSystem.Power.None)
-            {
-                playerBaseModule.transform.GetChild(1).gameObject.SetActive(false);
-
-                StartCoroutine(EnterEndGamePortal(playerBaseModule.transform.position));
-            }
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collider)
-    {
-        if (collider.GetComponent<PlayerBaseModule>() && !isTeleporting)
-        {
-            PlayerBaseModule playerBaseModule = collider.GetComponent<PlayerBaseModule>();
-            if (playerBaseModule.state.activePower != PlayerSystem.Power.None)
-            {
-                playerBaseModule.transform.GetChild(1).gameObject.SetActive(false);
-
-                StartCoroutine(EnterEndGamePortal(playerBaseModule.transform.position));
-            }
+            StartCoroutine(EnterEndGamePortal(playerBaseModule));
         }
     }
 }

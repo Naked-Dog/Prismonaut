@@ -68,7 +68,6 @@ namespace CameraSystem
         private IEnumerator CameraChangeCheck(float waitingAmount, int priorityIndex)
         {
             yield return new WaitForSeconds(waitingAmount);
-            Debug.LogWarning(cameras[priorityIndex].name);
             foreach (var cam in cameras) { cam.Priority = 0; }
             cameras[priorityIndex].Priority = 1;
         }
