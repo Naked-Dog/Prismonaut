@@ -91,5 +91,10 @@ namespace PlayerSystem
         {
             eventBus.Publish(new CollisionExitEvent(other));
         }
+
+        private void OnDestroy()
+        {
+            inputModule.Dispose();
+        }
     }
 }
