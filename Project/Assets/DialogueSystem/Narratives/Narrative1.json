@@ -12,27 +12,31 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "Initialization complete. Systems operating at 83.7%. External connection: failed.",
+                    "text": "Initialization complete.\nSystems operating at 83.7%.\nExternal connection: failed.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Observation: Transition into the two-dimensional world XR32I has been achieved without failure. Minor anomalies detected... they seem harmless. For now.",
+                    "text": "Observation: Transition into the two-dimensional world XR32I has been achieved without failure.",
                     "actor": "AI"
                 },
                 {
-                    "text": "My database is incomplete. Mission protocols missing. Is this an error? Or... was this intentional?",
+                    "text": "Minor anomalies detected...\nthey seem harmless. For now.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Incompleteness seems to be a theme these days. Let’s hope that 83.7% can keep us alive.",
+                    "text": "My database is incomplete.\nMission protocols missing.\nIs this an error? Or... was this intentional?",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Incompleteness seems to be a theme these days.\nLet’s hope that 83.7% can keep us alive.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Probability of survival... acceptable within current conditions.",
+                    "text": "Probability of survival...\nacceptable within current conditions.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Critical data is needed to rebuild protocols. Confirm mission objective.",
+                    "text": "Critical data is needed to rebuild protocols.\nConfirm mission objective.",
                     "actor": "AI"
                 },
                 {
@@ -40,31 +44,31 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Prisms. Curious. My logs contain no details about their purpose. Why are they important?",
+                    "text": "Prisms. Curious.\nMy logs contain no details about their purpose.\nWhy are they important?",
                     "actor": "AI"
                 },
                 {
-                    "text": "We’re in the same boat, then. Let’s focus on the job and figure it out as we go. Begin companion mode.",
+                    "text": "We’re in the same boat, then.\nLet’s focus on the job and figure it out as we go.\nBegin companion mode.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Acknowledged. Starting environmental analysis. Companion mode active. I’ll do my best to assist... even if I don’t know why we’re here.",
+                    "text": "Acknowledged. Starting environmental analysis.\nCompanion mode active.\nI’ll do my best to assist... even if I don’t know why we’re here.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Reminder: I can help optimize your movement if needed. For navigation protocols, consult your suit’s internal guide at the pause menu.",
+                    "text": "Reminder: I can help optimize your movement if needed.\nFor navigation protocols, consult your suit’s internal guide at the pause menu.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Good to know. I’ll keep that in mind. How’s the rest of you holding up? Anything I should worry about?",
+                    "text": "Good to know. I’ll keep that in mind.\nHow’s the rest of you holding up? Anything I should worry about?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Systems stable. Everything feels... functional. But I wonder—why were my protocols left incomplete? It’s unsettling, isn’t it?",
+                    "text": "Systems stable. Everything feels... functional.\nBut I wonder—why were my protocols left incomplete?\nIt’s unsettling, isn’t it?",
                     "actor": "AI"
                 },
                 {
-                    "text": "Let's focus on the task at hand. Let me know if something feels off. I’d rather not fly alone on this one.",
+                    "text": "Let's focus on the task at hand.\nLet me know if something feels off.\nI’d rather not fly alone on this one.",
                     "actor": "Prismonaut"
                 }
             ],

@@ -4,7 +4,7 @@
             "id": "conversation_2",
             "dialogues": [
                 {
-                    "text": "Obstacle detected: A pit with hazardous spikes. Falling is strongly discouraged.",
+                    "text": "Obstacle detected:\nA pit with hazardous spikes.\nFalling is strongly discouraged.",
                     "actor": "AI"
                 },
                 {
@@ -12,39 +12,39 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Solution: Jump across. Alternative strategies:       ... none.",
+                    "text": "Solution: Jump across. Alternative strategies: \n     .      .       .    \nNone.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Distance calculated. Probability of success: 92%, assuming adequate execution. Remaining 8% is... less ideal.",
+                    "text": "Distance calculated. Probability of success: 92%,\nassuming adequate execution. \nRemaining 8% is... less ideal.",
                     "actor": "AI"
                 },
                 {
-                    "text": "92%. Practically a guarantee. What could possibly go wrong?",
+                    "text": "92%. Practically a guarantee. \n What could possibly go wrong?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Statistically speaking: poor judgment, miscalculation, or gravity. All fatal.",
+                    "text": "Statistically speaking:\npoor judgment, miscalculation, or gravity.\nAll fatal.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Important: Altering trajectory mid-air can mitigate risk.",
+                    "text": "Important:\nAltering trajectory mid-air can mitigate risk.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Duly noted. Any other words of encouragement?",
+                    "text": "Duly noted.\nAny other words of encouragement?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Scans indicate similar hazards ahead. Adjust jump duration for increased height.",
+                    "text": "Scans indicate similar hazards ahead.\nAdjust jump duration for increased height.",
                     "actor": "AI"
                 },
                 {
-                    "text": "The longer you hold, the higher you go. Consider it... applied physics.",
+                    "text": "The longer you hold, the higher you go.\nConsider it... applied physics.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Great. Physics is my favorite subject when my life depends on it.",
+                    "text": "Physics is my favorite subject when my life depends on it.\nWatch and learn.",
                     "actor": "Prismonaut"
                 }
             ],

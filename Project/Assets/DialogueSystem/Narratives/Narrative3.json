@@ -4,32 +4,60 @@
             "id": "conversation_3",
             "dialogues": [
                 {
-                    "text": "Structure detected: Floor appears brittle but intact. Breaking it is currently beyond your capabilities.",
+                    "text": "Structure detected:\nFloor appears brittle but intact.\nBreaking it is currently beyond your capabilities.",
                     "actor": "AI"
                 },
                 {
-                    "text": "I noticed. Mark it. We’ll come back later.",
+                    "text": "Are you so sure of that?\nMark it. We’ll come back later.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Acknowledged. Nearby anomaly detected: A portal-like phenomenom with unknown functionality.",
+                    "text": "Marking location.\nNearby anomaly detected:\nA portal-like phenomenon.\nFunctionality: unknown.",
                     "actor": "AI"
                 },
                 {
-                    "text": "It’s a portal. Step in, come out somewhere else. Basic enough.",
+                    "text": "That’s a tear in space.\nStep in, and it’ll take you somewhere else.\nBasic enough.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Clarification: Are you certain this will not result in catastrophic disintegration?",
+                    "text": "Clarification:\nAre you certain this will not result in catastrophic disintegration?",
                     "actor": "AI"
                 },
                 {
-                    "text": "Pretty sure. Used these before. Still here, aren’t I? It's just a matter of pressing the J key at the right time.",
+                    "text": "Pretty sure. Used these before.\nStill here, aren’t I?\nIt's just a matter of dashing into it with the circle power.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Logical. Proceeding to update records: Portal confirmed as functional and... survivable.",
+                    "text": "Circle power?... \nPlease elaborate. My memory is incomplete.",
                     "actor": "AI"
+                },
+                {
+                    "text": "It’s one of the suit’s tricks.\nA quick burst to the side.\nUseful for closing gaps or dodging threats.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Interesting. Does it have offensive potential?",
+                    "actor": "AI"
+                },
+                {
+                    "text": "It does.\nTime it right, and you can slam into enemies.\nHits hard enough to handle most threats.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "So... mobility and offense in one system?\nThat’s efficient design.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Exactly. Only...\nI forgot how to trigger it.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Cross-referencing circle power has given a match in the suit's internal guide.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Right, I think I'll have one more look at that guide before continuing.",
+                    "actor": "Prismonaut"
                 }
             ],
             "choices": []
