@@ -6235,7 +6235,7 @@ PrefabInstance:
       objectReference: {fileID: 4900000, guid: 47122f0705711eb0587a564cad0eb32e, type: 3}
     - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: interactOnEnter
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: destroyOnInteract
