@@ -58,7 +58,7 @@ namespace PlayerSystem
 
         public override void Jump(JumpInputEvent input)
         {
-            if (playerState.activePower != Power.None) return;
+            if (playerState.activePower != Power.None || playerState.isOnInteractable) return;
             if (playerState.healthState == HealthState.Stagger) return;
             if (isJumpingDisabled) return;
 

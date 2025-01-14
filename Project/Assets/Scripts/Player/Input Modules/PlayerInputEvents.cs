@@ -28,5 +28,7 @@ namespace PlayerSystem
     public struct InteractionInputEvent { }
     public struct EnablePlayerInputsEvent { }
     public struct StopPlayerInputsEvent { }
+    public struct EnableDialogueInputsEvent { }
+    public struct DisableDilagueInputsEvent { }
 }
 

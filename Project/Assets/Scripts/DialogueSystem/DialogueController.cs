@@ -51,25 +51,6 @@ public class DialogueController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void Update()
-    {
-
-        if (isDialogueRunning)
-        {
-
-            if (Input.GetKeyDown(KeyCode.Space) && currentType == DialogueType.Text)
-            {
-                if (currentDialogueComplete)
-                {
-                    RunNextDialogue();
-                    return;
-                }
-
-                CompleteDialogue();
-            }
-        }
-    }
-
     public void SetEventBus(EventBus bus)
     {
         eventBus = bus;
@@ -77,7 +58,7 @@ public class DialogueController : MonoBehaviour
 
     public void RunDialogue(Narrative narrative)
     {
-        eventBus.Publish(new StopPlayerInputsEvent());
+        eventBus.Publish(new EnableDialogueInputsEvent());
         currentCameraState = FindObjectOfType<CameraState>();
         currentCameraState.CameraPosState = CameraPositionState.Dialogue;
         currentDialogueIndex = 0;
@@ -208,7 +189,7 @@ public class DialogueController : MonoBehaviour
         StartCoroutine(viewController.CloseDialoguePanel());
         isDialogueRunning = false;
         currentCameraState.CameraPosState = CameraPositionState.Regular;
-        eventBus.Publish(new EnablePlayerInputsEvent());
+        eventBus.Publish(new DisableDilagueInputsEvent());
     }
 
     private DialogueActor GetActor(string actorName)
@@ -216,5 +197,23 @@ public class DialogueController : MonoBehaviour
         var path = $"Actors/{actorName}";
         DialogueActor actor = Resources.Load<DialogueActor>(path);
         return actor;
+    }
+
+    public void SkipDialogue()
+    {
+        if (isDialogueRunning)
+        {
+
+            if (currentType == DialogueType.Text)
+            {
+                if (currentDialogueComplete)
+                {
+                    RunNextDialogue();
+                    return;
+                }
+
+                CompleteDialogue();
+            }
+        }
     }
 }

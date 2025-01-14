@@ -101,10 +101,10 @@ MonoBehaviour:
   downTrigger: {fileID: 7838880276084729994}
   movementValues: {fileID: 11400000, guid: c65272a994cec7551933f096bf6b3a5f, type: 2}
   playerInputAsset: {fileID: -944628639613478452, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
-  knockback: {fileID: 9087612573211454472}
   healthUIController: {fileID: 2392222460885011908}
   cameraState: {fileID: 0}
   interactSign: {fileID: 2274050569513530640}
+  knockback: {fileID: 9087612573211454472}
 --- !u!50 &285264918639432098
 Rigidbody2D:
   serializedVersion: 4
@@ -349,7 +349,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 641a77c48be14ee47a29fbc8fa8b32da, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 10645cc743bc5ff4ea0f1bb2683b690b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
