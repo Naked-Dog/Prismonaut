@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3155565042092613652}
   - component: {fileID: 7946193097844902083}
   - component: {fileID: 1901684160747136314}
+  - component: {fileID: 6014044171473325236}
   m_Layer: 0
   m_Name: GameEndPortal
   m_TagString: Untagged
@@ -199,7 +200,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.7
+  m_Radius: 6.29
 --- !u!114 &1901684160747136314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,6 +581,27 @@ MonoBehaviour:
       m_Data: []
   m_Knots:
     m_KnotsLink: []
+--- !u!95 &6014044171473325236
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5722761963585701675}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d0514a9009fc5ba4194076c8a9018e81, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7048519746501385430
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,11 +776,11 @@ PrefabInstance:
       objectReference: {fileID: 1901684160747136314}
     - target: {fileID: 8141155016033492414, guid: 8c952fb40fa4b7a4a88708bf3164ee0c, type: 3}
       propertyPath: m_Duration
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8141155016033492414, guid: 8c952fb40fa4b7a4a88708bf3164ee0c, type: 3}
       propertyPath: m_MaxSpeed
-      value: 8.742118
+      value: 3.4968472
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

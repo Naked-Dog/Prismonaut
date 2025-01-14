@@ -2,6 +2,7 @@ using System.Collections;
 using DG.Tweening;
 using PlayerSystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum FormState
 {
@@ -89,10 +90,8 @@ public class GameManager : MonoBehaviour
         {
             endGamePortal.transform.localScale = Vector2.zero;
             endGamePortal.SetActive(true);
-            Sequence sequence = DOTween.Sequence();
-            sequence.Append(endGamePortal.transform.DOScale(new Vector3(0.4f,0.4f,0.4f), 0.5f).SetEase(Ease.OutBack));
-            sequence.Append(endGamePortal.transform.DOScale(Vector3.one, 1f).SetEase(Ease.InOutBounce));
-            endGamePortal.SetActive(true);
+            InputActionMap playerInput = InputSystem.actions.FindActionMap("Player");
+            playerInput.Disable();
         }
 
         yield return new WaitForSeconds(2f);

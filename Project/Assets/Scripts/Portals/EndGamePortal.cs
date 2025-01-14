@@ -5,6 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using PlayerSystem;
 using UnityEngine.Splines;
+using UnityEngine.InputSystem;
 
 
 public class EndGamePortal : MonoBehaviour
@@ -23,17 +24,23 @@ public class EndGamePortal : MonoBehaviour
         audioManager.PlayAudioClip("Idle", true);
     }
 
-    private IEnumerator EnterEndGamePortal(Vector3 playerPosition)
+    private IEnumerator EnterEndGamePortal(PlayerBaseModule playerBaseModule)
     {
         isTeleporting = true;
+        yield return new WaitForSeconds(1);
+        playerBaseModule.transform.GetChild(1).gameObject.SetActive(false);
         audioManager.PlayAudioClip("Entry", true);
         player3DModel.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
         player3DModel.GetComponent<SplineAnimate>().Play();
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
         player3DModel.GetComponent<SplineAnimate>().Pause();
         player3DModel.GetComponent<SplineAnimate>().Restart(false);
-        player3DModel.SetActive(false);
         MenuController.Instance.ChangeScene("NewAdventuresScene");
+        InputActionMap playerInput = InputSystem.actions.FindActionMap("Player");
+        playerInput.Enable();
+        player3DModel.SetActive(false);
+        playerBaseModule.transform.GetChild(1).gameObject.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -41,8 +48,7 @@ public class EndGamePortal : MonoBehaviour
         if (collider.GetComponent<PlayerBaseModule>())
         {
             PlayerBaseModule playerBaseModule = collider.GetComponent<PlayerBaseModule>();
-            playerBaseModule.transform.GetChild(1).gameObject.SetActive(false);
-            StartCoroutine(EnterEndGamePortal(playerBaseModule.transform.position));
+            StartCoroutine(EnterEndGamePortal(playerBaseModule));
         }
     }
 }
