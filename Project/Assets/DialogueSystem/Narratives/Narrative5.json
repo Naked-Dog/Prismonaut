@@ -1,0 +1,18 @@
+{
+    "conversations": [
+        {
+            "id": "conversation_5",
+            "dialogues": [
+                {
+                    "text": "(This seems to be some sort of checkpoint)",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "(I'd best interact with it before continuing)",
+                    "actor": "Prismonaut"
+                }
+            ],
+            "choices": []
+        }
+    ]
+}
