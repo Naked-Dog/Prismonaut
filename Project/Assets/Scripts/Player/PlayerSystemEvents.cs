@@ -11,6 +11,11 @@ namespace PlayerSystem
         public Collision2D collision;
         public CollisionEnterEvent(Collision2D collision) { this.collision = collision; }
     }
+    public struct CollisionStayEvent
+    {
+        public Collision2D collision;
+        public CollisionStayEvent(Collision2D collision) { this.collision = collision; }
+    }
     public struct CollisionExitEvent
     {
         public Collision2D collision;

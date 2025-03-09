@@ -45,7 +45,7 @@ namespace PlayerSystem
             coll = rb2d.GetComponent<Collider2D>();
             eventBus.Subscribe<UpdateEvent>(CheckForVelocity);
             eventBus.Subscribe<HorizontalInputEvent>(MoveHorizontally);
-            eventBus.Subscribe<JumpInputEvent>(Jump);
+            eventBus.Subscribe<JumpInputEvent>(OnJumpInput);
             eventBus.Subscribe<ToggleSquarePowerEvent>(onSquarePowerToggle);
             eventBus.Subscribe<ToggleTrianglePowerEvent>(onTrianglePowerToggle);
             eventBus.Subscribe<ToggleCirclePowerEvent>(onCirclePowerToggle);
@@ -56,9 +56,9 @@ namespace PlayerSystem
             eventBus.Subscribe<CollisionExitEvent>(SetCollisionExitCallbacks);
         }
 
-        public override void Jump(JumpInputEvent input)
+        protected override void OnJumpInput(JumpInputEvent input)
         {
-            if (playerState.activePower != Power.None || playerState.isOnInteractable) return;
+            if (playerState.activePower != Power.None) return;
             if (playerState.healthState == HealthState.Stagger) return;
             if (isJumpingDisabled) return;
 
@@ -103,7 +103,7 @@ namespace PlayerSystem
             rb2d.velocity = new Vector2(rb2d.velocity.x, vSpeed);
         }
 
-        public override void MoveHorizontally(HorizontalInputEvent input)
+        protected override void MoveHorizontally(HorizontalInputEvent input)
         {
             if (playerState.healthState == HealthState.Stagger) return;
             if (isMovementDisabled) return;

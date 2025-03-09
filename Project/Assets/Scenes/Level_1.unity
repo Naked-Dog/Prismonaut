@@ -962,7 +962,7 @@ PrefabInstance:
       objectReference: {fileID: 4900000, guid: 29582b4fb55e8a44290fc39784902791, type: 3}
     - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: interactOnEnter
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: destroyOnInteract
@@ -2236,7 +2236,7 @@ PrefabInstance:
       objectReference: {fileID: 4900000, guid: 4427d6a7d1b7493a4a5a28138d21e610, type: 3}
     - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: interactOnEnter
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: destroyOnInteract
@@ -2932,7 +2932,7 @@ PrefabInstance:
       objectReference: {fileID: 4900000, guid: d9f1cf9d225144976b16a83868ad4379, type: 3}
     - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: interactOnEnter
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: destroyOnInteract
@@ -6235,7 +6235,7 @@ PrefabInstance:
       objectReference: {fileID: 4900000, guid: 47122f0705711eb0587a564cad0eb32e, type: 3}
     - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: interactOnEnter
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: destroyOnInteract
@@ -18486,7 +18486,7 @@ PrefabInstance:
       objectReference: {fileID: 4900000, guid: 0bd39f723e42afc488768c81d8e5640e, type: 3}
     - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: interactOnEnter
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: destroyOnInteract
@@ -18495,6 +18495,10 @@ PrefabInstance:
     - target: {fileID: 7991604121644436692, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: m_Name
       value: DialogueRunner 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7991604121644436692, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8489369742517510671, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: m_Size.x
@@ -21359,6 +21363,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6584397776147917535, guid: 56f8845a77b93d04593699ba8f93fc0b, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: c454553def854474193a2d83bd550ac0, type: 2}
+    - target: {fileID: 7887822366156644022, guid: 56f8845a77b93d04593699ba8f93fc0b, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: c454553def854474193a2d83bd550ac0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

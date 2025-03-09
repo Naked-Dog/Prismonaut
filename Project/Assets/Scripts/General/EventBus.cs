@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 // The EventBus is a messaging system that allows classes to subscribe to and publish events.
-// These allows classes to remain strictly decoupled from eachother while still being able to communicate.
+// This allows classes to remain decoupled from eachother while still being able to communicate.
 
 // Example: 
 // ClassA subbscribes one of its methods to eventX

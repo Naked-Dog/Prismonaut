@@ -49,7 +49,7 @@ namespace PlayerSystem
 
             audioModule = new PlayerAudioModule(eventBus, GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
             inputModule = new PlayerInput(eventBus, playerInputAsset);
-            movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger, cameraState, audioModule, this);
+            movementModule = new Physics2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger, cameraState, audioModule, this);
             visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator, helmetRenderer);
             powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers, knockback, movementValues);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
@@ -85,6 +85,11 @@ namespace PlayerSystem
         private void OnCollisionEnter2D(Collision2D other)
         {
             eventBus.Publish(new CollisionEnterEvent(other));
+        }
+
+        private void OnCollisionStay2D(Collision2D collision)
+        {
+            eventBus.Publish(new CollisionStayEvent(collision));
         }
 
         private void OnCollisionExit2D(Collision2D other)

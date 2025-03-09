@@ -21,8 +21,7 @@ namespace PlayerSystem
             InitializeActions();
 
             this.eventBus = eventBus;
-            eventBus.Subscribe<UpdateEvent>(OnMove);
-            eventBus.Subscribe<UpdateEvent>(OnJump);
+            eventBus.Subscribe<UpdateEvent>(OnUpdate);
             eventBus.Subscribe<EnablePlayerInputsEvent>(EnablePlayerMapInput);
             eventBus.Subscribe<StopPlayerInputsEvent>(StopPlayerMapInput);
             eventBus.Subscribe<EnableDialogueInputsEvent>(EnableDialogueInputs);
@@ -90,15 +89,21 @@ namespace PlayerSystem
             registeredCallbacks.Add((action, callback));
         }
 
-        private void OnJump(UpdateEvent e)
+        private void OnUpdate(UpdateEvent e)
         {
-            eventBus.Publish(new JumpInputEvent(playerGameMap.FindAction("Jump")));
-        }
+            bool playerIsPressingJump = playerGameMap.FindAction("Jump").IsPressed();
+            bool playerIsPressingMove = playerGameMap.FindAction("Move").IsPressed();
 
-        private void OnMove(UpdateEvent e)
-        {
-            float horizontalAxis = playerGameMap.FindAction("Move").ReadValue<float>();
-            eventBus.Publish(new HorizontalInputEvent(horizontalAxis));
+            if (playerIsPressingJump)
+            {
+                eventBus.Publish(new JumpInputEvent(playerGameMap.FindAction("Jump")));
+            }
+
+            if (playerIsPressingMove)
+            {
+                float horizontalAxis = playerGameMap.FindAction("Move").ReadValue<float>();
+                eventBus.Publish(new HorizontalInputEvent(horizontalAxis));
+            }
         }
 
         private void DisablePlayerInputs()
@@ -115,10 +120,10 @@ namespace PlayerSystem
 
         private void SquarePowerInput(InputAction.CallbackContext ctx)
         {
-            if(ctx.started)
+            if (ctx.started)
             {
                 eventBus.Publish(new SquarePowerInputEvent(true));
-            } 
+            }
             else if (ctx.canceled)
             {
                 eventBus.Publish(new SquarePowerInputEvent(false));
@@ -127,10 +132,10 @@ namespace PlayerSystem
 
         private void LookDownInput(InputAction.CallbackContext ctx)
         {
-            if(ctx.started)
+            if (ctx.started)
             {
                 eventBus.Publish(new LookDownInputEvent(true));
-            } 
+            }
             else if (ctx.canceled)
             {
                 eventBus.Publish(new LookDownInputEvent(false));
@@ -139,8 +144,7 @@ namespace PlayerSystem
 
         public void Dispose()
         {
-            eventBus.Unsubscribe<UpdateEvent>(OnMove);
-            eventBus.Unsubscribe<UpdateEvent>(OnJump);
+            eventBus.Unsubscribe<UpdateEvent>(OnUpdate);
             eventBus.Unsubscribe<EnablePlayerInputsEvent>(EnablePlayerMapInput);
             eventBus.Unsubscribe<StopPlayerInputsEvent>(StopPlayerMapInput);
             eventBus.Unsubscribe<EnableDialogueInputsEvent>(EnableDialogueInputs);
