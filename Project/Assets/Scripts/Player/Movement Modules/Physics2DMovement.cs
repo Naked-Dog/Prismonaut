@@ -1,6 +1,7 @@
 using UnityEngine;
 using CameraSystem;
 using System.Collections.Generic;
+using System;
 
 namespace PlayerSystem
 {
@@ -27,6 +28,7 @@ namespace PlayerSystem
         private PlayerAudioModule playerAudio;
         private bool isGrounded = false;
         private bool jumpRequested = false;
+        private float requestedMovement = 0f;
 
         readonly float jumpCooldown = 0.2f;
 
@@ -47,7 +49,7 @@ namespace PlayerSystem
             this.cameraState = cameraState;
             coll = rb2d.GetComponent<Collider2D>();
 
-            eventBus.Subscribe<HorizontalInputEvent>(MoveHorizontally);
+            eventBus.Subscribe<HorizontalInputEvent>(OnMovementInput);
             eventBus.Subscribe<JumpInputEvent>(OnJumpInput);
             eventBus.Subscribe<CollisionEnterEvent>(OnCollisionEnter);
             eventBus.Subscribe<CollisionStayEvent>(OnCollisionStay);
@@ -69,6 +71,7 @@ namespace PlayerSystem
 
         private void OnCollisionStay(CollisionStayEvent e)
         {
+            if (!collisions.Contains(e.collision)) Debug.Log("Collision not found");
             DoGroundCheck();
         }
 
@@ -96,13 +99,11 @@ namespace PlayerSystem
             setIsGrounded(hasGroundedContact);
         }
 
-        protected override void MoveHorizontally(HorizontalInputEvent input)
+        protected override void OnMovementInput(HorizontalInputEvent input)
         {
             if (isMovementDisabled) return;
-
-            Vector2 forceVector = new Vector2(input.amount * 5f, 0);
-            rb2d.AddForce(forceVector);
-            eventBus.Publish(new HorizontalMovementEvent(input.amount));
+            if (requestedMovement != 0f) return;
+            requestedMovement = input.amount * 5f;
         }
 
         protected override void OnJumpInput(JumpInputEvent e)
@@ -114,16 +115,30 @@ namespace PlayerSystem
         private void OnFixedUpdate(FixedUpdateEvent e)
         {
             if (jumpRequested) performJump();
+            if (requestedMovement != 0f) performMovement();
+            else performBreak();
         }
 
         private void performJump()
         {
-            Debug.Log("@performJump");
-            Vector2 impulseVector = new Vector2(0, 5f);
+            Vector2 impulseVector = new Vector2(0, 10f);
             float clampedYVelocity = Mathf.Max(rb2d.velocity.y, 0);
             rb2d.velocity = new Vector2(rb2d.velocity.x, clampedYVelocity);
             rb2d.AddForce(impulseVector, ForceMode2D.Impulse);
             jumpRequested = false;
+        }
+
+        private void performMovement()
+        {
+            rb2d.AddForce(requestedMovement * Vector2.right);
+            eventBus.Publish(new HorizontalMovementEvent(requestedMovement));
+            requestedMovement = 0f;
+        }
+
+        private void performBreak()
+        {
+            float modificator = playerState.groundState == GroundState.Airborne ? 0f : 1.5f;
+            rb2d.velocity = Vector2.Lerp(rb2d.velocity, new Vector2(0, rb2d.velocity.y), 0.1f);
         }
     }
 }
