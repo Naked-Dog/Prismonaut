@@ -7,6 +7,11 @@ namespace PlayerSystem
         public float amount;
         public HorizontalInputEvent(float amount) { this.amount = amount; }
     }
+    public struct VerticalInputEvent
+    {
+        public float amount;
+        public VerticalInputEvent(float amount) { this.amount = amount; }
+    }
     public struct JumpInputEvent
     {
         public InputAction jumpInputAction;

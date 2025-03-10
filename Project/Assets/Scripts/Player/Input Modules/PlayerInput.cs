@@ -93,17 +93,18 @@ namespace PlayerSystem
         {
             bool playerIsPressingJump = playerGameMap.FindAction("Jump").IsPressed();
             bool playerIsPressingMove = playerGameMap.FindAction("Move").IsPressed();
+            bool playerIsPressingVertical = playerGameMap.FindAction("Vertical").IsPressed();
 
             if (playerIsPressingJump)
             {
                 eventBus.Publish(new JumpInputEvent(playerGameMap.FindAction("Jump")));
             }
 
-            if (playerIsPressingMove)
-            {
-                float horizontalAxis = playerGameMap.FindAction("Move").ReadValue<float>();
-                eventBus.Publish(new HorizontalInputEvent(horizontalAxis));
-            }
+            float horizontalAxis = playerGameMap.FindAction("Move").ReadValue<float>();
+            eventBus.Publish(new HorizontalInputEvent(horizontalAxis));
+
+            float verticalAxis = playerGameMap.FindAction("Vertical").ReadValue<float>();
+            eventBus.Publish(new VerticalInputEvent(verticalAxis));
         }
 
         private void DisablePlayerInputs()

@@ -1,7 +1,6 @@
 using UnityEngine;
 using CameraSystem;
 using System.Collections.Generic;
-using System;
 
 namespace PlayerSystem
 {
@@ -30,9 +29,11 @@ namespace PlayerSystem
         private float requestedMovement = 0f;
         private bool landingRequested = false;
         private float jumpCooldown = 0f;
+        private float landingMoveCooldown = 0f;
 
         readonly float maxHorizonalVelocity = 8f;
         readonly float maxJumpCooldown = 0.2f;
+        readonly float maxLandingBreakCooldown = 0.1f;
 
         public Physics2DMovement(
             EventBus eventBus,
@@ -92,14 +93,17 @@ namespace PlayerSystem
                 }
                 if (hasGroundedContact) break;
             }
+            if (!hasGroundedContact) playerState.groundState = GroundState.Airborne;
             if (!playerState.groundState.Equals(GroundState.Grounded) && hasGroundedContact) landingRequested = true;
         }
 
-        protected override void OnMovementInput(HorizontalInputEvent input)
+        protected override void OnMovementInput(HorizontalInputEvent e)
         {
+            if (e.amount == 0f) return;
             if (isMovementDisabled) return;
             if (requestedMovement != 0f) return;
-            requestedMovement = input.amount * 5f;
+            if (0 < landingMoveCooldown) return;
+            requestedMovement = e.amount * 5f;
         }
 
         protected override void OnJumpInput(JumpInputEvent e)
@@ -122,7 +126,6 @@ namespace PlayerSystem
 
         private void performJump()
         {
-            Debug.Log("JUMP");
             Vector2 impulseVector = new Vector2(0, 12f - rb2d.velocity.y);
             rb2d.AddForce(impulseVector, ForceMode2D.Impulse);
             playerState.groundState = GroundState.Airborne;
@@ -160,17 +163,24 @@ namespace PlayerSystem
 
         private void PerformLanding()
         {
-            Debug.Log("Perform landing");
             playerState.groundState = GroundState.Grounded;
             landingRequested = false;
             if (0 < requestedMovement * rb2d.velocity.x) return;
-            rb2d.AddForce(Vector2.right * -rb2d.velocity.x, ForceMode2D.Impulse);
+            rb2d.AddForce(Vector2.right * -rb2d.velocity.x * 0.75f, ForceMode2D.Impulse);
+            landingMoveCooldown = maxLandingBreakCooldown;
+            eventBus.Subscribe<UpdateEvent>(reduceLandigMoveCooldown);
         }
 
         private void ReduceJumpCooldown(UpdateEvent e)
         {
             jumpCooldown -= Time.deltaTime;
             if (jumpCooldown <= 0f) eventBus.Unsubscribe<UpdateEvent>(ReduceJumpCooldown);
+        }
+
+        private void reduceLandigMoveCooldown(UpdateEvent e)
+        {
+            landingMoveCooldown -= Time.deltaTime;
+            if (landingMoveCooldown <= 0f) eventBus.Unsubscribe<UpdateEvent>(reduceLandigMoveCooldown);
         }
     }
 }
