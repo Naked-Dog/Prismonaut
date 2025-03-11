@@ -64,4 +64,6 @@ namespace PlayerSystem
             this.volume = volume;
         }
     }
+
+    public struct OnBeginDodge { }
 }

@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -30,6 +31,7 @@ namespace PlayerSystem
             eventBus.Subscribe<ReceivedDamageEvent>(PlayDamageAnimation);
             eventBus.Subscribe<DeathEvent>(PlayDeathAnimation);
             eventBus.Subscribe<LateUpdateEvent>(DisplayCurrentHelmet);
+            eventBus.Subscribe<OnBeginDodge>(OnBeginDodge);
 
             circleHelmet = Resources.Load<Sprite>("Helmets/Circle_Helmet");
             triangleHelmet = Resources.Load<Sprite>("Helmets/Triangle_Helmet");
@@ -57,6 +59,11 @@ namespace PlayerSystem
             animator.SetBool("isHurt", playerState.healthState == HealthState.Stagger);
         }
 
+        private void OnBeginDodge(OnBeginDodge e)
+        {
+            animator.Play("DodgeBegin");
+        }
+
         private void toggleSquarePower(ToggleSquarePowerEvent e)
         {
             playerState.currentPower = Power.Square;
@@ -78,7 +85,8 @@ namespace PlayerSystem
         private void PlayDamageAnimation(ReceivedDamageEvent e)
         {
             string animationName = "";
-            switch(playerState.currentPower){
+            switch (playerState.currentPower)
+            {
                 case Power.Circle:
                     animationName = "HurtCircle";
                     break;
@@ -100,11 +108,11 @@ namespace PlayerSystem
 
         private void DisplayCurrentHelmet(LateUpdateEvent e)
         {
-            if(playerState.activePower != Power.None || playerState.healthState == HealthState.Stagger) return;
+            if (playerState.activePower != Power.None || playerState.healthState == HealthState.Stagger) return;
 
             Sprite currentHelmetSprite = circleHelmet;
 
-            switch(playerState.currentPower)
+            switch (playerState.currentPower)
             {
                 case Power.Circle:
                     currentHelmetSprite = circleHelmet;

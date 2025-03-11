@@ -12,7 +12,6 @@ namespace PlayerSystem
 
         private float powerTimeLeft = 0f;
         private float cooldownTimeLeft = 0f;
-        private bool isActive = false;
 
         private Vector2 inputDirection = Vector2.zero;
 
@@ -44,9 +43,8 @@ namespace PlayerSystem
 
         private void activate(CirclePowerInputEvent e)
         {
-            if (isActive) return;
+            if (playerState.activePower == Power.Circle) return;
             if (cooldownTimeLeft > 0f) return;
-            isActive = true;
             playerState.activePower = Power.Circle;
 
             Vector2 dodgeImpulse = -rb2d.velocity;
@@ -55,12 +53,9 @@ namespace PlayerSystem
             Debug.Log("dodgeImpulse = " + (-rb2d.velocity) + " + " + inputDirection.normalized + " * 8f = " + dodgeImpulse);
             rb2d.AddForce(dodgeImpulse, ForceMode2D.Impulse);
 
-            // directionValue = playerState.facingDirection == Direction.Right ? 1 : -1;
-            // rb2d.velocity = new Vector2(movementValues.circlePowerForce * directionValue, 0f);
-            // powerTimeLeft = movementValues.circlePowerDuration;
-
+            rb2d.transform.localScale = new Vector3(0.2f, 0.2f, 1f);
             eventBus.Subscribe<UpdateEvent>(reduceTimeLeft);
-            // eventBus.Publish(new ToggleCirclePowerEvent(true));
+            eventBus.Publish(new OnBeginDodge());
         }
 
         private void reduceTimeLeft(UpdateEvent e)
@@ -72,14 +67,13 @@ namespace PlayerSystem
 
         private void deactivate()
         {
-            isActive = false;
             playerState.activePower = Power.None;
             eventBus.Unsubscribe<UpdateEvent>(reduceTimeLeft);
 
             cooldownTimeLeft = movementValues.circlePowerCooldown;
             eventBus.Subscribe<UpdateEvent>(reduceCooldown);
 
-            // eventBus.Publish(new ToggleCirclePowerEvent(false));
+            rb2d.transform.localScale = Vector3.one;
         }
 
         private void reduceCooldown(UpdateEvent e)
