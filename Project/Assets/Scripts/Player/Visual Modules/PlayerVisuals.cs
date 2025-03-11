@@ -31,7 +31,7 @@ namespace PlayerSystem
             eventBus.Subscribe<OnDamageReceived>(PlayDamageAnimation);
             eventBus.Subscribe<OnDeath>(PlayDeathAnimation);
             eventBus.Subscribe<OnLateUpdate>(DisplayCurrentHelmet);
-            eventBus.Subscribe<OnBeginDodge>(OnBeginDodge);
+            eventBus.Subscribe<OnDodge>(OnBeginDodge);
 
             circleHelmet = Resources.Load<Sprite>("Helmets/Circle_Helmet");
             triangleHelmet = Resources.Load<Sprite>("Helmets/Triangle_Helmet");
@@ -59,7 +59,7 @@ namespace PlayerSystem
             animator.SetBool("isHurt", playerState.healthState == HealthState.Stagger);
         }
 
-        private void OnBeginDodge(OnBeginDodge e)
+        private void OnBeginDodge(OnDodge e)
         {
             animator.Play("DodgeBegin");
         }

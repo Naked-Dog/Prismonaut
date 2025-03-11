@@ -25,9 +25,12 @@ namespace PlayerSystem
             this.triggers = triggers;
             this.knockback = knockback;
             this.movementValues = movementValues;
+
             if (this.playerState.isSquarePowerAvailable) squarePower = new SquarePowerModule(eventBus, playerState, rb2d, triggers[Direction.Down], knockback, movementValues);
             if (this.playerState.isTrianglePowerAvailable) trianglePower = new TrianglePowerModule(eventBus, playerState, rb2d, triggers[Direction.Up], movementValues);
             if (this.playerState.isCirclePowerAvailable) circlePower = new DodgePowerModule(eventBus, playerState, rb2d, movementValues);
+
+            eventBus.Subscribe<OnPowerActivation>(OnPowerActivation);
         }
 
         public void SetPowerAvailable(Power power, bool isAvailable)
@@ -47,6 +50,11 @@ namespace PlayerSystem
                     circlePower ??= new DodgePowerModule(eventBus, playerState, rb2d, movementValues);
                     break;
             }
+        }
+
+        private void OnPowerActivation(OnPowerActivation e)
+        {
+
         }
     }
 }

@@ -29,4 +29,8 @@ public class PlayerMovementScriptable : ScriptableObject
     public float trianglePowerForce = 10f;
     public float trianglePowerDuration = 0.3f;
     public float trianglePowerCooldown = 1f;
+
+    [Header("Dodge Power")]
+    public float dodgePowerForce = 12f;
+    public float dodgePowerDuration = 0.7f;
 }

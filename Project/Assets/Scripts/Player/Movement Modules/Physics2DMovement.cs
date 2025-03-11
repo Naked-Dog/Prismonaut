@@ -58,11 +58,10 @@ namespace PlayerSystem
             eventBus.Subscribe<OnCollisionStay2D>(OnCollisionStay);
             eventBus.Subscribe<CollisionExit2D>(OnCollisionExit);
             eventBus.Subscribe<OnFixedUpdate>(OnFixedUpdate);
-            eventBus.Subscribe<OnBeginPower>(OnPower);
-            eventBus.Subscribe<OnBeginDodge>(OnPower);
+            eventBus.Subscribe<OnPowerActivation>(OnPower);
         }
 
-        private void OnPower(OnBeginPower e)
+        private void OnPower(OnPowerActivation e)
         {
             Debug.Log("OnPower");
         }

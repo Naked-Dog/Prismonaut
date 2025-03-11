@@ -16,6 +16,6 @@ namespace PlayerSystem
         public ToggleCirclePowerEvent(bool toggle) { this.toggle = toggle; }
     }
 
-    public class OnBeginPower { }
-    public class OnBeginDodge : OnBeginPower { }
+    public class OnPowerActivation { }
+    public class OnDodge : OnPowerActivation { }
 }

@@ -26,6 +26,12 @@ namespace PlayerSystem
         {
             if (playerState.activePower != Power.None)
             {
+                switch (playerState.activePower)
+                {
+                    case Power.Dodge:
+                        SetState(AnimationState.Dodge);
+                        break;
+                }
                 return;
             }
 
@@ -62,6 +68,9 @@ namespace PlayerSystem
                     break;
                 case AnimationState.Fall:
                     animator.Play("JumpFall");
+                    break;
+                case AnimationState.Dodge:
+                    animator.Play("DodgeBegin");
                     break;
             }
 

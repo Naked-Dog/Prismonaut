@@ -5,6 +5,7 @@ namespace PlayerSystem
         None = 0,
         Square,
         Circle,
-        Triangle
+        Triangle,
+        Dodge,
     }
 }

@@ -22,13 +22,18 @@ public class EventBus
     public void Publish<T>(T eventData)
     {
         if (isPaused) return;
-        if (_events.TryGetValue(typeof(T), out var handlers))
+
+        Type eventType = typeof(T);
+        while (eventType != null)
         {
-            // Iterate over a copy of the handlers to avoid modification during iteration
-            foreach (var handler in handlers.ToList())
+            if (_events.TryGetValue(eventType, out var handlers))
             {
-                handler.DynamicInvoke(eventData);
+                foreach (var handler in handlers.ToList())
+                {
+                    handler.DynamicInvoke(eventData);
+                }
             }
+            eventType = eventType.BaseType;
         }
     }
 
