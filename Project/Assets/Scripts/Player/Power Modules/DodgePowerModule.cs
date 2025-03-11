@@ -26,22 +26,22 @@ namespace PlayerSystem
             this.rb2d = rb2d;
             this.movementValues = movementValues;
 
-            eventBus.Subscribe<CirclePowerInputEvent>(activate);
-            eventBus.Subscribe<HorizontalInputEvent>(OnHorizontaInput);
-            eventBus.Subscribe<VerticalInputEvent>(OnVerticalInput);
+            eventBus.Subscribe<OnCirclePowerInput>(activate);
+            eventBus.Subscribe<OnHorizontalInput>(OnHorizontaInput);
+            eventBus.Subscribe<OnVerticalInput>(OnVerticalInput);
         }
 
-        private void OnHorizontaInput(HorizontalInputEvent e)
+        private void OnHorizontaInput(OnHorizontalInput e)
         {
             inputDirection.x = e.amount;
         }
 
-        private void OnVerticalInput(VerticalInputEvent e)
+        private void OnVerticalInput(OnVerticalInput e)
         {
             inputDirection.y = e.amount;
         }
 
-        private void activate(CirclePowerInputEvent e)
+        private void activate(OnCirclePowerInput e)
         {
             if (playerState.activePower == Power.Circle) return;
             if (cooldownTimeLeft > 0f) return;
@@ -54,11 +54,11 @@ namespace PlayerSystem
             rb2d.AddForce(dodgeImpulse, ForceMode2D.Impulse);
 
             rb2d.transform.localScale = new Vector3(0.2f, 0.2f, 1f);
-            eventBus.Subscribe<UpdateEvent>(reduceTimeLeft);
+            eventBus.Subscribe<OnUpdate>(reduceTimeLeft);
             eventBus.Publish(new OnBeginDodge());
         }
 
-        private void reduceTimeLeft(UpdateEvent e)
+        private void reduceTimeLeft(OnUpdate e)
         {
             powerTimeLeft -= Time.deltaTime;
             if (0 < powerTimeLeft) return;
@@ -68,20 +68,20 @@ namespace PlayerSystem
         private void deactivate()
         {
             playerState.activePower = Power.None;
-            eventBus.Unsubscribe<UpdateEvent>(reduceTimeLeft);
+            eventBus.Unsubscribe<OnUpdate>(reduceTimeLeft);
 
             cooldownTimeLeft = movementValues.circlePowerCooldown;
-            eventBus.Subscribe<UpdateEvent>(reduceCooldown);
+            eventBus.Subscribe<OnUpdate>(reduceCooldown);
 
             rb2d.transform.localScale = Vector3.one;
         }
 
-        private void reduceCooldown(UpdateEvent e)
+        private void reduceCooldown(OnUpdate e)
         {
             cooldownTimeLeft -= Time.deltaTime;
             if (cooldownTimeLeft > 0f) return;
 
-            eventBus.Unsubscribe<UpdateEvent>(reduceCooldown);
+            eventBus.Unsubscribe<OnUpdate>(reduceCooldown);
         }
     }
 }

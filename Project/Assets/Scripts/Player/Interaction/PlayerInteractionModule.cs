@@ -18,10 +18,10 @@ namespace PlayerSystem
             triggerEvent.OnTriggerEnter2DAction.AddListener(OnCollionEnter);
             triggerEvent.OnTriggerExit2DAction.AddListener(OnCollionExit);
             triggerEvent.OnTriggerStay2DAction.AddListener(OnTriggerStay);
-            eventBus.Subscribe<InteractionInputEvent>(OnInteraction);
+            eventBus.Subscribe<OnInteractionInput>(OnInteraction);
         }
 
-        private void OnInteraction(InteractionInputEvent e)
+        private void OnInteraction(OnInteractionInput e)
         {
             if (currentInteractable == null) return;
 
@@ -44,7 +44,7 @@ namespace PlayerSystem
                 currentInteractable = interactable;
                 if (currentInteractable.InteractOnEnter)
                 {
-                    OnInteraction(new InteractionInputEvent());
+                    OnInteraction(new OnInteractionInput());
                     return;
                 }
                 signObject.SetActive(currentInteractable.IsInteractable);

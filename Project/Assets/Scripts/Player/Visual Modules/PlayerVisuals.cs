@@ -24,13 +24,13 @@ namespace PlayerSystem
             this.animator = animator;
             this.helmetRender = helmetRender;
 
-            eventBus.Subscribe<UpdateEvent>(updateVisuals);
+            eventBus.Subscribe<OnUpdate>(updateVisuals);
             eventBus.Subscribe<ToggleSquarePowerEvent>(toggleSquarePower);
             eventBus.Subscribe<ToggleTrianglePowerEvent>(toggleTrianglePower);
             eventBus.Subscribe<ToggleCirclePowerEvent>(toggleCirclePower);
-            eventBus.Subscribe<ReceivedDamageEvent>(PlayDamageAnimation);
-            eventBus.Subscribe<DeathEvent>(PlayDeathAnimation);
-            eventBus.Subscribe<LateUpdateEvent>(DisplayCurrentHelmet);
+            eventBus.Subscribe<OnDamageReceived>(PlayDamageAnimation);
+            eventBus.Subscribe<OnDeath>(PlayDeathAnimation);
+            eventBus.Subscribe<OnLateUpdate>(DisplayCurrentHelmet);
             eventBus.Subscribe<OnBeginDodge>(OnBeginDodge);
 
             circleHelmet = Resources.Load<Sprite>("Helmets/Circle_Helmet");
@@ -38,7 +38,7 @@ namespace PlayerSystem
             squareHelmet = Resources.Load<Sprite>("Helmets/Square_Helmet");
         }
 
-        private void updateVisuals(UpdateEvent e)
+        private void updateVisuals(OnUpdate e)
         {
             bool isMoving = Mathf.Abs(rb2d.velocity.x) > 0.1f;
             bool isGrounded = playerState.groundState == GroundState.Grounded;
@@ -82,7 +82,7 @@ namespace PlayerSystem
             animator.Play("CirclePower");
         }
 
-        private void PlayDamageAnimation(ReceivedDamageEvent e)
+        private void PlayDamageAnimation(OnDamageReceived e)
         {
             string animationName = "";
             switch (playerState.currentPower)
@@ -100,13 +100,13 @@ namespace PlayerSystem
             animator.Play(animationName);
         }
 
-        private void PlayDeathAnimation(DeathEvent e)
+        private void PlayDeathAnimation(OnDeath e)
         {
             string animationName = playerState.groundState == GroundState.Grounded ? "Defeat" : "Explode";
             animator.Play(animationName);
         }
 
-        private void DisplayCurrentHelmet(LateUpdateEvent e)
+        private void DisplayCurrentHelmet(OnLateUpdate e)
         {
             if (playerState.activePower != Power.None || playerState.healthState == HealthState.Stagger) return;
 

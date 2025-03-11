@@ -58,7 +58,7 @@ public class DialogueController : MonoBehaviour
 
     public void RunDialogue(Narrative narrative)
     {
-        eventBus.Publish(new EnableDialogueInputsEvent());
+        eventBus.Publish(new RequestEnableDialogueInputs());
         currentCameraState = FindObjectOfType<CameraState>();
         currentCameraState.CameraPosState = CameraPositionState.Dialogue;
         currentDialogueIndex = 0;
@@ -189,7 +189,7 @@ public class DialogueController : MonoBehaviour
         StartCoroutine(viewController.CloseDialoguePanel());
         isDialogueRunning = false;
         currentCameraState.CameraPosState = CameraPositionState.Regular;
-        eventBus.Publish(new DisableDilagueInputsEvent());
+        eventBus.Publish(new RequestDisableDialogueInputs());
     }
 
     private DialogueActor GetActor(string actorName)

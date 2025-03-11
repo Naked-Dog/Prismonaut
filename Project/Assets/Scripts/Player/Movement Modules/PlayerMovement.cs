@@ -14,7 +14,7 @@ namespace PlayerSystem
             this.movementValues = movementValues;
         }
 
-        protected abstract void OnMovementInput(HorizontalInputEvent e);
-        protected abstract void OnJumpInput(JumpInputEvent e);
+        protected abstract void OnMovementInput(OnHorizontalInput e);
+        protected abstract void OnJumpInput(OnJumpInput e);
     }
 }

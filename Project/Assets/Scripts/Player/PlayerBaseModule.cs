@@ -8,7 +8,7 @@ namespace PlayerSystem
     public class PlayerBaseModule : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D avatarRigidbody2D;
-        [SerializeField] private Animator spriteAnimator;
+        [SerializeField] private Animator animator;
         [SerializeField] private SpriteRenderer helmetRenderer;
         [SerializeField] private TriggerEventHandler groundTrigger;
         [SerializeField] private TriggerEventHandler leftTrigger;
@@ -28,7 +28,7 @@ namespace PlayerSystem
 
         private PlayerInput inputModule;
         private PlayerMovement movementModule;
-        private PlayerVisuals visualsModule;
+        private PlayerAnimations animationsModule;
         public PlayerPowersModule powersModule;
         public PlayerHealthModule healthModule;
         private PlayerAudioModule audioModule;
@@ -50,7 +50,7 @@ namespace PlayerSystem
             audioModule = new PlayerAudioModule(eventBus, GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Physics2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger, cameraState, audioModule, this);
-            visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator, helmetRenderer);
+            animationsModule = new PlayerAnimations(eventBus, state, avatarRigidbody2D, animator);
             powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers, knockback, movementValues);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
             {
@@ -62,39 +62,39 @@ namespace PlayerSystem
             healthUIController.InitUI(healthModule.CurrentHealth);
             MenuController.Instance?.setEvents(eventBus);
             DialogueController.Instance?.SetEventBus(eventBus);
-            spriteAnimator.GetComponent<PlayerAnimationEvents>()?.SetEventBus(eventBus);
+            animator.GetComponent<PlayerAnimationEvents>()?.SetEventBus(eventBus);
 
             GameDataManager.Instance?.SavePlayerPosition(avatarRigidbody2D.position);
         }
 
         protected void Update()
         {
-            eventBus.Publish(new UpdateEvent());
+            eventBus.Publish(new OnUpdate());
         }
 
         protected void FixedUpdate()
         {
-            eventBus.Publish(new FixedUpdateEvent());
+            eventBus.Publish(new OnFixedUpdate());
         }
 
         protected void LateUpdate()
         {
-            eventBus.Publish(new LateUpdateEvent());
+            eventBus.Publish(new OnLateUpdate());
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            eventBus.Publish(new CollisionEnterEvent(other));
+            eventBus.Publish(new OnCollisionEnter2D(other));
         }
 
         private void OnCollisionStay2D(Collision2D collision)
         {
-            eventBus.Publish(new CollisionStayEvent(collision));
+            eventBus.Publish(new OnCollisionStay2D(collision));
         }
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            eventBus.Publish(new CollisionExitEvent(other));
+            eventBus.Publish(new CollisionExit2D(other));
         }
 
         private void OnDestroy()

@@ -43,20 +43,20 @@ namespace PlayerSystem
             this.mb = mb;
             this.cameraState = cameraState;
             coll = rb2d.GetComponent<Collider2D>();
-            eventBus.Subscribe<UpdateEvent>(CheckForVelocity);
-            eventBus.Subscribe<HorizontalInputEvent>(OnMovementInput);
-            eventBus.Subscribe<JumpInputEvent>(OnJumpInput);
+            eventBus.Subscribe<OnUpdate>(CheckForVelocity);
+            eventBus.Subscribe<OnHorizontalInput>(OnMovementInput);
+            eventBus.Subscribe<OnJumpInput>(OnJumpInput);
             eventBus.Subscribe<ToggleSquarePowerEvent>(onSquarePowerToggle);
             eventBus.Subscribe<ToggleTrianglePowerEvent>(onTrianglePowerToggle);
             eventBus.Subscribe<ToggleCirclePowerEvent>(onCirclePowerToggle);
-            eventBus.Subscribe<PauseEvent>(StopPlayerMovement);
-            eventBus.Subscribe<UnpauseEvent>(EnablePlayerMovement);
-            eventBus.Subscribe<LookDownInputEvent>(ToggleLookingDown);
-            eventBus.Subscribe<CollisionEnterEvent>(SetCollisionEnterCallbacks);
-            eventBus.Subscribe<CollisionExitEvent>(SetCollisionExitCallbacks);
+            eventBus.Subscribe<RequestPause>(StopPlayerMovement);
+            eventBus.Subscribe<RequestUnpause>(EnablePlayerMovement);
+            eventBus.Subscribe<OnLookDownInput>(ToggleLookingDown);
+            eventBus.Subscribe<OnCollisionEnter2D>(SetCollisionEnterCallbacks);
+            eventBus.Subscribe<CollisionExit2D>(SetCollisionExitCallbacks);
         }
 
-        protected override void OnJumpInput(JumpInputEvent input)
+        protected override void OnJumpInput(OnJumpInput input)
         {
             if (playerState.activePower != Power.None) return;
             if (playerState.healthState == HealthState.Stagger) return;
@@ -68,7 +68,7 @@ namespace PlayerSystem
                 rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpForce);
                 if (!IsPlatform()) SaveSafeGround();
                 playerState.groundState = GroundState.Airborne;
-                eventBus.Publish(new JumpMovementEvent());
+                eventBus.Publish(new OnJumpMovement());
             }
 
             if (input.jumpInputAction.IsPressed() && !IsFalling)
@@ -96,14 +96,14 @@ namespace PlayerSystem
             }
         }
 
-        private void CheckForVelocity(UpdateEvent e)
+        private void CheckForVelocity(OnUpdate e)
         {
             float vSpeed = rb2d.velocity.y > movementValues.maximumYSpeed ? movementValues.maximumYSpeed :
                 rb2d.velocity.y < movementValues.minimumYSpeed ? movementValues.minimumYSpeed : rb2d.velocity.y;
             rb2d.velocity = new Vector2(rb2d.velocity.x, vSpeed);
         }
 
-        protected override void OnMovementInput(HorizontalInputEvent input)
+        protected override void OnMovementInput(OnHorizontalInput input)
         {
             if (playerState.healthState == HealthState.Stagger) return;
             if (isMovementDisabled) return;
@@ -112,23 +112,23 @@ namespace PlayerSystem
             eventBus.Publish(new HorizontalMovementEvent(input.amount));
         }
 
-        private void SetCollisionEnterCallbacks(CollisionEnterEvent collisionEnterEvent)
+        private void SetCollisionEnterCallbacks(OnCollisionEnter2D collisionEnterEvent)
         {
             collisionEnterEvent.collision.gameObject.GetComponent<IPlatform>()?.PlatformEnterAction(playerState, rb2d);
             if (collisionEnterEvent.collision.gameObject.layer == 6)
             {
                 IsGrounded();
-                eventBus.Publish(new GroundedMovementEvent());
+                eventBus.Publish(new OnGroundedMovement());
             }
         }
 
-        private void SetCollisionExitCallbacks(CollisionExitEvent collisionExitEvent)
+        private void SetCollisionExitCallbacks(CollisionExit2D collisionExitEvent)
         {
             collisionExitEvent.collision.gameObject.GetComponent<IPlatform>()?.PlatformExitAction(rb2d);
             if (collisionExitEvent.collision.gameObject.layer == 6)
             {
                 if (collisionExitEvent.collision.gameObject.CompareTag("Ground")) SaveSafeGround();
-                eventBus.Publish(new UngroundedMovementEvent());
+                eventBus.Publish(new OnUngroundedMovement());
             }
         }
 
@@ -165,7 +165,7 @@ namespace PlayerSystem
             isMovementDisabled = isJumpingDisabled = isGravityDisabled = isCircleActive = e.toggle;
         }
 
-        private void ToggleLookingDown(LookDownInputEvent e)
+        private void ToggleLookingDown(OnLookDownInput e)
         {
             if (e.toggle == isLookingDown) return;
             isLookingDown = e.toggle;
@@ -173,21 +173,21 @@ namespace PlayerSystem
             else cameraState.CameraPosState = CameraPositionState.Regular;
         }
 
-        private void StopPlayerMovement(PauseEvent e)
+        private void StopPlayerMovement(RequestPause e)
         {
             playerState.velocity = rb2d.velocity;
             rb2d.velocity = Vector2.zero;
             rb2d.gravityScale = 0;
             playerState.isPaused = true;
-            eventBus.Publish(new StopPlayerInputsEvent());
+            eventBus.Publish(new RequestStopPlayerInputs());
         }
 
-        private void EnablePlayerMovement(UnpauseEvent e)
+        private void EnablePlayerMovement(RequestUnpause e)
         {
             rb2d.velocity = playerState.velocity;
             rb2d.gravityScale = movementValues.gravity;
             playerState.isPaused = false;
-            eventBus.Publish(new EnablePlayerInputsEvent());
+            eventBus.Publish(new RequestPlayerInputs());
         }
 
         private bool IsGrounded()

@@ -21,30 +21,30 @@ namespace PlayerSystem
             InitializeActions();
 
             this.eventBus = eventBus;
-            eventBus.Subscribe<UpdateEvent>(OnUpdate);
-            eventBus.Subscribe<EnablePlayerInputsEvent>(EnablePlayerMapInput);
-            eventBus.Subscribe<StopPlayerInputsEvent>(StopPlayerMapInput);
-            eventBus.Subscribe<EnableDialogueInputsEvent>(EnableDialogueInputs);
-            eventBus.Subscribe<DisableDilagueInputsEvent>(DiableDialogueInputs);
+            eventBus.Subscribe<OnUpdate>(OnUpdate);
+            eventBus.Subscribe<RequestPlayerInputs>(EnablePlayerMapInput);
+            eventBus.Subscribe<RequestStopPlayerInputs>(StopPlayerMapInput);
+            eventBus.Subscribe<RequestEnableDialogueInputs>(EnableDialogueInputs);
+            eventBus.Subscribe<RequestDisableDialogueInputs>(DiableDialogueInputs);
         }
 
-        private void StopPlayerMapInput(StopPlayerInputsEvent e)
+        private void StopPlayerMapInput(RequestStopPlayerInputs e)
         {
             DisablePlayerInputs();
         }
 
-        private void EnablePlayerMapInput(EnablePlayerInputsEvent e)
+        private void EnablePlayerMapInput(RequestPlayerInputs e)
         {
             EnablePlayerInputs();
         }
 
-        private void EnableDialogueInputs(EnableDialogueInputsEvent @event)
+        private void EnableDialogueInputs(RequestEnableDialogueInputs @event)
         {
             DialogueMap.Enable();
             playerGameMap.Disable();
         }
 
-        private void DiableDialogueInputs(DisableDilagueInputsEvent @event)
+        private void DiableDialogueInputs(RequestDisableDialogueInputs @event)
         {
             DialogueMap.Disable();
             playerGameMap.Enable();
@@ -55,12 +55,12 @@ namespace PlayerSystem
             playerUIMap.Disable();
             DialogueMap.Disable();
 
-            RegisterCallback(playerGameMap.FindAction("TrianglePower"), ctx => eventBus.Publish(new TrianglePowerInputEvent()));
-            RegisterCallback(playerGameMap.FindAction("CirclePower"), ctx => eventBus.Publish(new CirclePowerInputEvent()));
+            RegisterCallback(playerGameMap.FindAction("TrianglePower"), ctx => eventBus.Publish(new OnTrianglePowerInput()));
+            RegisterCallback(playerGameMap.FindAction("CirclePower"), ctx => eventBus.Publish(new OnCirclePowerInput()));
             playerGameMap.FindAction("SquarePower").started += SquarePowerInput;
             playerGameMap.FindAction("SquarePower").canceled += SquarePowerInput;
 
-            RegisterCallback(playerGameMap.FindAction("Interaction"), ctx => eventBus.Publish(new InteractionInputEvent()));
+            RegisterCallback(playerGameMap.FindAction("Interaction"), ctx => eventBus.Publish(new OnInteractionInput()));
 
             playerGameMap.FindAction("LookDown").started += LookDownInput;
             playerGameMap.FindAction("LookDown").canceled += LookDownInput;
@@ -68,14 +68,14 @@ namespace PlayerSystem
 
             RegisterCallback(playerGameMap.FindAction("Pause"), ctx =>
             {
-                eventBus.Publish(new PauseInputEvent());
-                eventBus.Publish(new PauseEvent());
+                eventBus.Publish(new OnPauseInput());
+                eventBus.Publish(new RequestPause());
             });
 
             RegisterCallback(playerUIMap.FindAction("Pause"), ctx =>
             {
-                eventBus.Publish(new PauseInputEvent());
-                eventBus.Publish(new UnpauseEvent());
+                eventBus.Publish(new OnPauseInput());
+                eventBus.Publish(new RequestUnpause());
             });
 
             RegisterCallback(DialogueMap.FindAction("SkipDialogue"), ctx => DialogueController.Instance.SkipDialogue());
@@ -89,7 +89,7 @@ namespace PlayerSystem
             registeredCallbacks.Add((action, callback));
         }
 
-        private void OnUpdate(UpdateEvent e)
+        private void OnUpdate(OnUpdate e)
         {
             bool playerIsPressingJump = playerGameMap.FindAction("Jump").IsPressed();
             bool playerIsPressingMove = playerGameMap.FindAction("Move").IsPressed();
@@ -97,14 +97,14 @@ namespace PlayerSystem
 
             if (playerIsPressingJump)
             {
-                eventBus.Publish(new JumpInputEvent(playerGameMap.FindAction("Jump")));
+                eventBus.Publish(new OnJumpInput(playerGameMap.FindAction("Jump")));
             }
 
             float horizontalAxis = playerGameMap.FindAction("Move").ReadValue<float>();
-            eventBus.Publish(new HorizontalInputEvent(horizontalAxis));
+            eventBus.Publish(new OnHorizontalInput(horizontalAxis));
 
             float verticalAxis = playerGameMap.FindAction("Vertical").ReadValue<float>();
-            eventBus.Publish(new VerticalInputEvent(verticalAxis));
+            eventBus.Publish(new OnVerticalInput(verticalAxis));
         }
 
         private void DisablePlayerInputs()
@@ -123,11 +123,11 @@ namespace PlayerSystem
         {
             if (ctx.started)
             {
-                eventBus.Publish(new SquarePowerInputEvent(true));
+                eventBus.Publish(new OnSquarePowerInput(true));
             }
             else if (ctx.canceled)
             {
-                eventBus.Publish(new SquarePowerInputEvent(false));
+                eventBus.Publish(new OnSquarePowerInput(false));
             }
         }
 
@@ -135,21 +135,21 @@ namespace PlayerSystem
         {
             if (ctx.started)
             {
-                eventBus.Publish(new LookDownInputEvent(true));
+                eventBus.Publish(new OnLookDownInput(true));
             }
             else if (ctx.canceled)
             {
-                eventBus.Publish(new LookDownInputEvent(false));
+                eventBus.Publish(new OnLookDownInput(false));
             }
         }
 
         public void Dispose()
         {
-            eventBus.Unsubscribe<UpdateEvent>(OnUpdate);
-            eventBus.Unsubscribe<EnablePlayerInputsEvent>(EnablePlayerMapInput);
-            eventBus.Unsubscribe<StopPlayerInputsEvent>(StopPlayerMapInput);
-            eventBus.Unsubscribe<EnableDialogueInputsEvent>(EnableDialogueInputs);
-            eventBus.Unsubscribe<DisableDilagueInputsEvent>(DiableDialogueInputs);
+            eventBus.Unsubscribe<OnUpdate>(OnUpdate);
+            eventBus.Unsubscribe<RequestPlayerInputs>(EnablePlayerMapInput);
+            eventBus.Unsubscribe<RequestStopPlayerInputs>(StopPlayerMapInput);
+            eventBus.Unsubscribe<RequestEnableDialogueInputs>(EnableDialogueInputs);
+            eventBus.Unsubscribe<RequestDisableDialogueInputs>(DiableDialogueInputs);
 
             playerGameMap.FindAction("SquarePower").started -= SquarePowerInput;
             playerGameMap.FindAction("SquarePower").canceled -= SquarePowerInput;

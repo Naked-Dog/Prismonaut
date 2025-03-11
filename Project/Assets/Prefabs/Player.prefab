@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatarRigidbody2D: {fileID: 285264918639432098}
-  spriteAnimator: {fileID: 3014582218926206383}
+  animator: {fileID: 2167560117015818270}
   helmetRenderer: {fileID: 4533460467198538667}
   groundTrigger: {fileID: 6330523030317470590}
   leftTrigger: {fileID: 2264470363599488113}
@@ -551,7 +551,7 @@ GameObject:
   - component: {fileID: 3435264702214863053}
   - component: {fileID: 2420910708975536949}
   - component: {fileID: 1384197283454205433}
-  - component: {fileID: 3014582218926206383}
+  - component: {fileID: 2167560117015818270}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -616,12 +616,12 @@ SpriteRenderer:
   m_SortingLayerID: 1993005769
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 16804177, guid: ba5937442d0672443bc02c2ba1938a18, type: 3}
+  m_Sprite: {fileID: -236145526, guid: c4959fd2c81865a42af6ecaaeffacc5f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.1, y: 1.1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -639,7 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae312d66ba544d40ac86011a49f4f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &3014582218926206383
+--- !u!95 &2167560117015818270
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -1054,6 +1054,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1767910178151767957}
     m_Modifications:
+    - target: {fileID: 596855564188290822, guid: 7622e7a8fcc2dcb4c8b8571e7a099181, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063447058176968678, guid: 7622e7a8fcc2dcb4c8b8571e7a099181, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1524395692247541778, guid: 7622e7a8fcc2dcb4c8b8571e7a099181, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664467595942647106, guid: 7622e7a8fcc2dcb4c8b8571e7a099181, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734751868086077418, guid: 7622e7a8fcc2dcb4c8b8571e7a099181, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3594165763627424690, guid: 7622e7a8fcc2dcb4c8b8571e7a099181, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4071744931448009451, guid: 7622e7a8fcc2dcb4c8b8571e7a099181, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.8864517
@@ -1097,6 +1121,26 @@ PrefabInstance:
     - target: {fileID: 4862850438852412453, guid: 7622e7a8fcc2dcb4c8b8571e7a099181, type: 3}
       propertyPath: m_Name
       value: HealthUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4862850438852412453, guid: 7622e7a8fcc2dcb4c8b8571e7a099181, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536488312261332174, guid: 7622e7a8fcc2dcb4c8b8571e7a099181, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391723062727306521, guid: 7622e7a8fcc2dcb4c8b8571e7a099181, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477204287533206279, guid: 7622e7a8fcc2dcb4c8b8571e7a099181, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9091336906403453635, guid: 7622e7a8fcc2dcb4c8b8571e7a099181, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
