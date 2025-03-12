@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -25,7 +24,7 @@ namespace PlayerSystem
 
             eventBus.Subscribe<OnHorizontalInput>(OnHorizontaInput);
             eventBus.Subscribe<OnVerticalInput>(OnVerticalInput);
-            eventBus.Subscribe<OnCirclePowerInput>(activate);
+            eventBus.Subscribe<OnCirclePowerInput>(OnCirclePowerInput);
         }
 
         private void OnHorizontaInput(OnHorizontalInput e)
@@ -38,7 +37,7 @@ namespace PlayerSystem
             inputDirection.y = e.amount;
         }
 
-        private void activate(OnCirclePowerInput e)
+        private void OnCirclePowerInput(OnCirclePowerInput e)
         {
             if (playerState.activePower != Power.None) return;
             if (inputDirection.magnitude < 0.1f) return;
@@ -53,20 +52,20 @@ namespace PlayerSystem
             playerState.activePower = Power.Dodge;
 
             playerState.powerTimeLeft = movementValues.dodgePowerDuration;
-            eventBus.Subscribe<OnUpdate>(reduceTimeLeft);
+            eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
         }
 
-        private void reduceTimeLeft(OnUpdate e)
+        private void ReduceTimeLeft(OnUpdate e)
         {
             playerState.powerTimeLeft -= Time.deltaTime;
             if (0 < playerState.powerTimeLeft) return;
-            deactivate();
+            Deactivate();
         }
 
-        private void deactivate()
+        private void Deactivate()
         {
             playerState.activePower = Power.None;
-            eventBus.Unsubscribe<OnUpdate>(reduceTimeLeft);
+            eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
 
             rb2d.transform.localScale = Vector3.one;
         }

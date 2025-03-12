@@ -9,7 +9,7 @@ namespace PlayerSystem
     {
         private EventBus eventBus;
         private PlayerState playerState;
-        private SquarePowerModule squarePower;
+        private ShieldPowerModule squarePower;
         private TrianglePowerModule trianglePower;
         private DodgePowerModule circlePower;
         private Rigidbody2D rb2d;
@@ -26,9 +26,9 @@ namespace PlayerSystem
             this.knockback = knockback;
             this.movementValues = movementValues;
 
-            if (this.playerState.isSquarePowerAvailable) squarePower = new SquarePowerModule(eventBus, playerState, rb2d, triggers[Direction.Down], knockback, movementValues);
-            if (this.playerState.isTrianglePowerAvailable) trianglePower = new TrianglePowerModule(eventBus, playerState, rb2d, triggers[Direction.Up], movementValues);
-            if (this.playerState.isCirclePowerAvailable) circlePower = new DodgePowerModule(eventBus, playerState, rb2d, movementValues);
+            squarePower = new ShieldPowerModule(eventBus, playerState, rb2d, movementValues);
+            trianglePower = new TrianglePowerModule(eventBus, playerState, rb2d, triggers[Direction.Up], movementValues);
+            circlePower = new DodgePowerModule(eventBus, playerState, rb2d, movementValues);
         }
 
         public void SetPowerAvailable(Power power, bool isAvailable)
@@ -37,7 +37,7 @@ namespace PlayerSystem
             {
                 case Power.Square:
                     playerState.isSquarePowerAvailable = isAvailable;
-                    squarePower ??= new SquarePowerModule(eventBus, playerState, rb2d, triggers[Direction.Down], knockback, movementValues);
+                    squarePower ??= new ShieldPowerModule(eventBus, playerState, rb2d, movementValues);
                     break;
                 case Power.Triangle:
                     playerState.isTrianglePowerAvailable = isAvailable;

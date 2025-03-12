@@ -33,4 +33,7 @@ public class PlayerMovementScriptable : ScriptableObject
     [Header("Dodge Power")]
     public float dodgePowerForce = 12f;
     public float dodgePowerDuration = 0.7f;
+
+    [Header("Shield Power")]
+    public float shieldPowerDuration = 0.5f;
 }

@@ -8,4 +8,6 @@ namespace PlayerSystem
     public struct OnJumpMovement { }
     public struct OnUngroundedMovement { }
     public struct OnGroundedMovement { }
+    public struct RequestMovementPause { }
+    public struct RequestMovementResume { }
 }

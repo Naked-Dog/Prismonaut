@@ -18,7 +18,9 @@ namespace PlayerSystem
 
     public class OnPowerActivation { }
     public class OnDodgeActivation : OnPowerActivation { }
+    public class OnShieldActivation : OnPowerActivation { }
 
     public class OnPowerDeactivation { }
     public class OnDodgeDeactivation : OnPowerDeactivation { }
+    public class OnShieldDeactivation : OnPowerDeactivation { }
 }

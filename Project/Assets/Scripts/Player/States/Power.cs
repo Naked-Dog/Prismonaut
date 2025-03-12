@@ -7,5 +7,6 @@ namespace PlayerSystem
         Circle,
         Triangle,
         Dodge,
+        Shield,
     }
 }

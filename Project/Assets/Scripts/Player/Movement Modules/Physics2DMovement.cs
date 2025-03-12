@@ -28,19 +28,27 @@ namespace PlayerSystem
             this.playerState = playerState;
             this.rb2d = rb2d;
 
-            eventBus.Subscribe<OnHorizontalInput>(OnMovementInput);
+            eventBus.Subscribe<OnHorizontalInput>(OnHorizontalInput);
             eventBus.Subscribe<OnJumpInput>(OnJumpInput);
             eventBus.Subscribe<OnCollisionEnter2D>(OnCollisionEnter);
             eventBus.Subscribe<OnCollisionStay2D>(OnCollisionStay);
             eventBus.Subscribe<CollisionExit2D>(OnCollisionExit);
             eventBus.Subscribe<OnUpdate>(OnUpdate);
             eventBus.Subscribe<OnFixedUpdate>(OnFixedUpdate);
-            eventBus.Subscribe<OnPowerActivation>(OnPower);
+            eventBus.Subscribe<RequestMovementPause>(RequestMovementPause);
+            eventBus.Subscribe<RequestMovementResume>(RequestMovementResume);
         }
 
-        private void OnPower(OnPowerActivation e)
+        private void RequestMovementPause(RequestMovementPause e)
         {
-            Debug.Log("OnPower");
+            eventBus.Unsubscribe<OnHorizontalInput>(OnHorizontalInput);
+            eventBus.Unsubscribe<OnJumpInput>(OnJumpInput);
+        }
+
+        private void RequestMovementResume(RequestMovementResume e)
+        {
+            eventBus.Subscribe<OnHorizontalInput>(OnHorizontalInput);
+            eventBus.Subscribe<OnJumpInput>(OnJumpInput);
         }
 
         private void OnCollisionEnter(OnCollisionEnter2D e)
@@ -80,7 +88,7 @@ namespace PlayerSystem
             if (!playerState.groundState.Equals(GroundState.Grounded) && hasGroundedContact) landingRequested = true;
         }
 
-        protected override void OnMovementInput(OnHorizontalInput e)
+        protected override void OnHorizontalInput(OnHorizontalInput e)
         {
             if (e.amount == 0f) return;
             if (isMovementDisabled) return;
@@ -106,13 +114,13 @@ namespace PlayerSystem
 
         private void OnFixedUpdate(OnFixedUpdate e)
         {
-            if (jumpRequested) performJump();
+            if (jumpRequested) PerformJump();
             if (landingRequested) PerformLanding();
-            if (requestedMovement != 0f) performMovement();
-            else performBreak();
+            if (requestedMovement != 0f) PerformMovement();
+            else PerformBreak();
         }
 
-        private void performJump()
+        private void PerformJump()
         {
             Vector2 impulseVector = new Vector2(0, 12f - rb2d.velocity.y);
             rb2d.AddForce(impulseVector, ForceMode2D.Impulse);
@@ -122,7 +130,7 @@ namespace PlayerSystem
             jumpRequested = false;
         }
 
-        private void performMovement()
+        private void PerformMovement()
         {
             requestedMovement *= 3f;
             float forceToApply;
@@ -137,12 +145,12 @@ namespace PlayerSystem
                 forceToApply = requestedMovement;
             }
             rb2d.AddForce(forceToApply * Vector2.right);
-            if (Mathf.Sign(requestedMovement * rb2d.velocity.x) < 0) performBreak();
+            if (Mathf.Sign(requestedMovement * rb2d.velocity.x) < 0) PerformBreak();
             eventBus.Publish(new OnHorizontalMovement(requestedMovement));
             requestedMovement = 0f;
         }
 
-        private void performBreak()
+        private void PerformBreak()
         {
             float breakModifier = playerState.groundState == GroundState.Airborne ? 1f : 3f;
             float breakForce = -rb2d.velocity.x * breakModifier;
@@ -156,7 +164,7 @@ namespace PlayerSystem
             if (0 < requestedMovement * rb2d.velocity.x) return;
             rb2d.AddForce(Vector2.right * -rb2d.velocity.x * 0.75f, ForceMode2D.Impulse);
             landingMoveCooldown = maxLandingBreakCooldown;
-            eventBus.Subscribe<OnUpdate>(reduceLandigMoveCooldown);
+            eventBus.Subscribe<OnUpdate>(ReduceLandigMoveCooldown);
         }
 
         private void ReduceJumpCooldown(OnUpdate e)
@@ -165,10 +173,10 @@ namespace PlayerSystem
             if (jumpCooldown <= 0f) eventBus.Unsubscribe<OnUpdate>(ReduceJumpCooldown);
         }
 
-        private void reduceLandigMoveCooldown(OnUpdate e)
+        private void ReduceLandigMoveCooldown(OnUpdate e)
         {
             landingMoveCooldown -= Time.deltaTime;
-            if (landingMoveCooldown <= 0f) eventBus.Unsubscribe<OnUpdate>(reduceLandigMoveCooldown);
+            if (landingMoveCooldown <= 0f) eventBus.Unsubscribe<OnUpdate>(ReduceLandigMoveCooldown);
         }
     }
 }

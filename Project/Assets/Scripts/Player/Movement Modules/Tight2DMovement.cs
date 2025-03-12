@@ -44,7 +44,7 @@ namespace PlayerSystem
             this.cameraState = cameraState;
             coll = rb2d.GetComponent<Collider2D>();
             eventBus.Subscribe<OnUpdate>(CheckForVelocity);
-            eventBus.Subscribe<OnHorizontalInput>(OnMovementInput);
+            eventBus.Subscribe<OnHorizontalInput>(OnHorizontalInput);
             eventBus.Subscribe<OnJumpInput>(OnJumpInput);
             eventBus.Subscribe<ToggleSquarePowerEvent>(onSquarePowerToggle);
             eventBus.Subscribe<ToggleTrianglePowerEvent>(onTrianglePowerToggle);
@@ -103,7 +103,7 @@ namespace PlayerSystem
             rb2d.velocity = new Vector2(rb2d.velocity.x, vSpeed);
         }
 
-        protected override void OnMovementInput(OnHorizontalInput input)
+        protected override void OnHorizontalInput(OnHorizontalInput input)
         {
             if (playerState.healthState == HealthState.Stagger) return;
             if (isMovementDisabled) return;
