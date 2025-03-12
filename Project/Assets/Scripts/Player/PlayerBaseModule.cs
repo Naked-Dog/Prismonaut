@@ -49,8 +49,8 @@ namespace PlayerSystem
 
             audioModule = new PlayerAudioModule(eventBus, GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
             inputModule = new PlayerInput(eventBus, playerInputAsset);
-            movementModule = new Physics2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger, cameraState, audioModule, this);
-            animationsModule = new PlayerAnimations(eventBus, state, avatarRigidbody2D, animator);
+            movementModule = new Physics2DMovement(eventBus, state, movementValues, avatarRigidbody2D);
+            animationsModule = new PlayerAnimations(eventBus, state, animator, movementValues);
             powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers, knockback, movementValues);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
             {

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -10,7 +11,6 @@ namespace PlayerSystem
         private PlayerMovementScriptable movementValues;
 
         private Vector2 inputDirection = Vector2.zero;
-        private float powerTimeLeft = 0f;
 
         public DodgePowerModule(
             EventBus eventBus,
@@ -44,21 +44,22 @@ namespace PlayerSystem
             if (inputDirection.magnitude < 0.1f) return;
 
             Vector2 dodgeImpulse = -rb2d.velocity;
-            dodgeImpulse += inputDirection.normalized * movementValues.dodgePowerForce;
-            dodgeImpulse += Vector2.up * 2f;
+            Vector2 normalInputDirection = inputDirection.normalized;
+            dodgeImpulse += normalInputDirection * movementValues.dodgePowerForce;
+            dodgeImpulse += Vector2.up * Mathf.Abs(normalInputDirection.x) * 5f;
             rb2d.AddForce(dodgeImpulse, ForceMode2D.Impulse);
 
-            eventBus.Publish(new OnDodge());
+            eventBus.Publish(new OnDodgeActivation());
             playerState.activePower = Power.Dodge;
 
-            powerTimeLeft = movementValues.dodgePowerDuration;
+            playerState.powerTimeLeft = movementValues.dodgePowerDuration;
             eventBus.Subscribe<OnUpdate>(reduceTimeLeft);
         }
 
         private void reduceTimeLeft(OnUpdate e)
         {
-            powerTimeLeft -= Time.deltaTime;
-            if (0 < powerTimeLeft) return;
+            playerState.powerTimeLeft -= Time.deltaTime;
+            if (0 < playerState.powerTimeLeft) return;
             deactivate();
         }
 

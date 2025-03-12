@@ -109,7 +109,7 @@ namespace PlayerSystem
             if (isMovementDisabled) return;
 
             rb2d.velocity = new Vector2(input.amount * movementValues.horizontalVelocity, rb2d.velocity.y);
-            eventBus.Publish(new HorizontalMovementEvent(input.amount));
+            eventBus.Publish(new OnHorizontalMovement(input.amount));
         }
 
         private void SetCollisionEnterCallbacks(OnCollisionEnter2D collisionEnterEvent)

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -7,20 +6,21 @@ namespace PlayerSystem
     {
         private readonly EventBus eventBus;
         private readonly PlayerState playerState;
-        private readonly Rigidbody2D rb2d;
         private readonly Animator animator;
+        private readonly PlayerMovementScriptable movementValues;
 
         private AnimationState currentState;
 
-        public PlayerAnimations(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, Animator animator)
+        public PlayerAnimations(EventBus eventBus, PlayerState playerState, Animator animator, PlayerMovementScriptable movementValues)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
-            this.rb2d = rb2d;
             this.animator = animator;
+            this.movementValues = movementValues;
 
             this.eventBus.Subscribe<OnUpdate>(OnUpdate);
         }
+
 
         private void OnUpdate(OnUpdate e)
         {
@@ -29,15 +29,21 @@ namespace PlayerSystem
                 switch (playerState.activePower)
                 {
                     case Power.Dodge:
-                        SetState(AnimationState.Dodge);
+                        if (playerState.powerTimeLeft < 0.15f)
+                            SetState(AnimationState.DodgeEnd);
+                        else SetState(AnimationState.DodgeBegin);
                         break;
                 }
                 return;
             }
 
-            bool isMoving = Mathf.Abs(rb2d.velocity.x) > 0.1f;
+            bool isMoving = Mathf.Abs(playerState.velocity.x) > 0.1f;
             bool isGrounded = playerState.groundState == GroundState.Grounded;
-            bool isFalling = rb2d.velocity.y < -0f;
+            bool isFalling = playerState.velocity.y < -0f;
+
+            // Provisional sprite flipping code
+            playerState.facingDirection = playerState.velocity.x > 0 ? Direction.Right : Direction.Left;
+            animator.transform.rotation = Quaternion.Euler(0, playerState.facingDirection == Direction.Left ? 180 : 0, 0);
 
             if (isGrounded)
             {
@@ -69,8 +75,11 @@ namespace PlayerSystem
                 case AnimationState.Fall:
                     animator.Play("JumpFall");
                     break;
-                case AnimationState.Dodge:
+                case AnimationState.DodgeBegin:
                     animator.Play("DodgeBegin");
+                    break;
+                case AnimationState.DodgeEnd:
+                    animator.Play("DodgeEnd");
                     break;
             }
 

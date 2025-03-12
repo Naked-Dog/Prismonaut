@@ -1,30 +1,13 @@
 using UnityEngine;
-using CameraSystem;
 using System.Collections.Generic;
 
 namespace PlayerSystem
 {
     public class Physics2DMovement : PlayerMovement
     {
-        MonoBehaviour mb;
-        public Rigidbody2D rb2d;
-
+        private Rigidbody2D rb2d;
         private PlayerState playerState;
-        private Collider2D coll;
-
-        private bool _isFalling = false;
-        public bool IsFalling
-        {
-            get => _isFalling;
-            set
-            {
-                _isFalling = value;
-                cameraState.CameraPosState = _isFalling ? CameraPositionState.Falling : CameraPositionState.Regular;
-            }
-        }
         private List<Collision2D> collisions = new List<Collision2D>();
-        private CameraState cameraState;
-        private PlayerAudioModule playerAudio;
         private bool jumpRequested = false;
         private float requestedMovement = 0f;
         private bool landingRequested = false;
@@ -39,24 +22,18 @@ namespace PlayerSystem
             EventBus eventBus,
             PlayerState playerState,
             PlayerMovementScriptable movementValues,
-            Rigidbody2D rb2d,
-            TriggerEventHandler groundTrigger,
-            CameraState cameraState,
-            PlayerAudioModule playerAudio,
-            MonoBehaviour mb) : base(eventBus, movementValues)
+            Rigidbody2D rb2d)
+            : base(eventBus, movementValues)
         {
             this.playerState = playerState;
             this.rb2d = rb2d;
-            this.playerAudio = playerAudio;
-            this.mb = mb;
-            this.cameraState = cameraState;
-            coll = rb2d.GetComponent<Collider2D>();
 
             eventBus.Subscribe<OnHorizontalInput>(OnMovementInput);
             eventBus.Subscribe<OnJumpInput>(OnJumpInput);
             eventBus.Subscribe<OnCollisionEnter2D>(OnCollisionEnter);
             eventBus.Subscribe<OnCollisionStay2D>(OnCollisionStay);
             eventBus.Subscribe<CollisionExit2D>(OnCollisionExit);
+            eventBus.Subscribe<OnUpdate>(OnUpdate);
             eventBus.Subscribe<OnFixedUpdate>(OnFixedUpdate);
             eventBus.Subscribe<OnPowerActivation>(OnPower);
         }
@@ -122,6 +99,11 @@ namespace PlayerSystem
 
         }
 
+        private void OnUpdate(OnUpdate e)
+        {
+            playerState.velocity = rb2d.velocity;
+        }
+
         private void OnFixedUpdate(OnFixedUpdate e)
         {
             if (jumpRequested) performJump();
@@ -156,7 +138,7 @@ namespace PlayerSystem
             }
             rb2d.AddForce(forceToApply * Vector2.right);
             if (Mathf.Sign(requestedMovement * rb2d.velocity.x) < 0) performBreak();
-            eventBus.Publish(new HorizontalMovementEvent(requestedMovement));
+            eventBus.Publish(new OnHorizontalMovement(requestedMovement));
             requestedMovement = 0f;
         }
 

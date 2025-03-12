@@ -27,6 +27,9 @@ MonoBehaviour:
   circlePowerCooldown: 1
   squarePowerForce: -10
   squarePowerCooldown: 1
+  spikeKnockbackForce: 1.5
   trianglePowerForce: 10
   trianglePowerDuration: 0.3
   trianglePowerCooldown: 1
+  dodgePowerForce: 10
+  dodgePowerDuration: 0.35

@@ -15,7 +15,7 @@ namespace PlayerSystem
         public bool isTrianglePowerAvailable = false;
         public bool isCirclePowerAvailable = true;
         public Power currentPower = Power.Circle;
-        public float powerTime = 0f;
+        public float powerTimeLeft = 0f;
         public bool isOnInteractable = false;
     }
 }

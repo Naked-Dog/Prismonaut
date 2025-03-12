@@ -1,9 +1,9 @@
 namespace PlayerSystem
 {
-    public struct HorizontalMovementEvent
+    public struct OnHorizontalMovement
     {
         public float amount;
-        public HorizontalMovementEvent(float amount) { this.amount = amount; }
+        public OnHorizontalMovement(float amount) { this.amount = amount; }
     }
     public struct OnJumpMovement { }
     public struct OnUngroundedMovement { }
