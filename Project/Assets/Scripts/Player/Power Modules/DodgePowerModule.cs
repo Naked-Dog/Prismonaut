@@ -22,9 +22,9 @@ namespace PlayerSystem
             this.rb2d = rb2d;
             this.movementValues = movementValues;
 
+            eventBus.Subscribe<OnCirclePowerInput>(OnCirclePowerInput);
             eventBus.Subscribe<OnHorizontalInput>(OnHorizontaInput);
             eventBus.Subscribe<OnVerticalInput>(OnVerticalInput);
-            eventBus.Subscribe<OnCirclePowerInput>(OnCirclePowerInput);
         }
 
         private void OnHorizontaInput(OnHorizontalInput e)

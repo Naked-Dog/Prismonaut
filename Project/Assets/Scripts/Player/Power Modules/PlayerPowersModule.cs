@@ -10,7 +10,7 @@ namespace PlayerSystem
         private EventBus eventBus;
         private PlayerState playerState;
         private ShieldPowerModule squarePower;
-        private TrianglePowerModule trianglePower;
+        private DrillPowerModule trianglePower;
         private DodgePowerModule circlePower;
         private Rigidbody2D rb2d;
         private Dictionary<Direction, TriggerEventHandler> triggers;
@@ -27,7 +27,7 @@ namespace PlayerSystem
             this.movementValues = movementValues;
 
             squarePower = new ShieldPowerModule(eventBus, playerState, rb2d, movementValues);
-            trianglePower = new TrianglePowerModule(eventBus, playerState, rb2d, triggers[Direction.Up], movementValues);
+            trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, movementValues);
             circlePower = new DodgePowerModule(eventBus, playerState, rb2d, movementValues);
         }
 
@@ -41,7 +41,7 @@ namespace PlayerSystem
                     break;
                 case Power.Triangle:
                     playerState.isTrianglePowerAvailable = isAvailable;
-                    trianglePower ??= new TrianglePowerModule(eventBus, playerState, rb2d, triggers[Direction.Up], movementValues);
+                    trianglePower ??= new DrillPowerModule(eventBus, playerState, rb2d, movementValues);
                     break;
                 case Power.Circle:
                     playerState.isCirclePowerAvailable = isAvailable;

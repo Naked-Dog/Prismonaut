@@ -8,5 +8,6 @@ namespace PlayerSystem
         Triangle,
         Dodge,
         Shield,
+        Drill,
     }
 }

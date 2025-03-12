@@ -17,6 +17,7 @@ namespace PlayerSystem
         readonly float maxHorizonalVelocity = 8f;
         readonly float maxJumpCooldown = 0.2f;
         readonly float maxLandingBreakCooldown = 0.1f;
+        private bool pauseMovement = false;
 
         public Physics2DMovement(
             EventBus eventBus,
@@ -43,12 +44,14 @@ namespace PlayerSystem
         {
             eventBus.Unsubscribe<OnHorizontalInput>(OnHorizontalInput);
             eventBus.Unsubscribe<OnJumpInput>(OnJumpInput);
+            pauseMovement = true;
         }
 
         private void RequestMovementResume(RequestMovementResume e)
         {
             eventBus.Subscribe<OnHorizontalInput>(OnHorizontalInput);
             eventBus.Subscribe<OnJumpInput>(OnJumpInput);
+            pauseMovement = false;
         }
 
         private void OnCollisionEnter(OnCollisionEnter2D e)
@@ -116,6 +119,7 @@ namespace PlayerSystem
         {
             if (jumpRequested) PerformJump();
             if (landingRequested) PerformLanding();
+            if (pauseMovement) return;
             if (requestedMovement != 0f) PerformMovement();
             else PerformBreak();
         }
