@@ -10,6 +10,8 @@ namespace PlayerSystem
         private PlayerMovementScriptable movementValues;
 
         private Vector2 inputDirection = Vector2.zero;
+        private Vector2 powerVelocity = Vector2.zero;
+        private bool isSecondStage = false;
 
         public DrillPowerModule(
             EventBus eventBus,
@@ -22,24 +24,30 @@ namespace PlayerSystem
             this.rb2d = rb2d;
             this.movementValues = movementValues;
 
-            Debug.Log("Drill Power Module created");
             eventBus.Subscribe<OnTrianglePowerInput>(OnTrianglePowerInput);
         }
 
         private void OnTrianglePowerInput(OnTrianglePowerInput e)
         {
             if (playerState.activePower != Power.None) return;
+            if (playerState.velocity.magnitude < 0.1f) return;
             Activate();
         }
 
         private void Activate()
         {
             playerState.activePower = Power.Drill;
-            playerState.powerTimeLeft = 2f;
-            rb2d.gravityScale = 0;
+            playerState.powerTimeLeft = movementValues.drillFirstPowerDuration;
+            isSecondStage = false;
+            if (playerState.velocity.magnitude < movementValues.drillMinimalFirstVelocity)
+            {
+                rb2d.velocity = playerState.velocity.normalized * movementValues.drillMinimalFirstVelocity;
+            }
+            powerVelocity = rb2d.velocity;
 
             eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Publish(new RequestMovementPause());
+            eventBus.Publish(new RequestGravityOff());
             eventBus.Subscribe<OnHorizontalInput>(OnHorizontalInput);
             eventBus.Subscribe<OnVerticalInput>(OnVerticalInput);
             eventBus.Subscribe<OnFixedUpdate>(OnFixedUpdate);
@@ -57,25 +65,52 @@ namespace PlayerSystem
 
         private void OnFixedUpdate(OnFixedUpdate e)
         {
-            float angle = Vector2.SignedAngle(rb2d.velocity, inputDirection);
-            float rotationAmount = Mathf.Sign(angle) * 3f;
-            rb2d.velocity = Quaternion.Euler(0, 0, rotationAmount) * rb2d.velocity;
+            if (0.1f < inputDirection.magnitude)
+            {
+                // Steer
+                float angle = Vector2.SignedAngle(powerVelocity, inputDirection);
+                float steerAmount = isSecondStage ? movementValues.drillSecondSteeringAmount : movementValues.drillFirstSteeringAmount;
+                float rotationAmount = Mathf.Sign(angle) * steerAmount;
+                powerVelocity = Quaternion.Euler(0, 0, rotationAmount) * powerVelocity;
+
+            }
+            rb2d.velocity = powerVelocity;
         }
 
         private void ReduceTimeLeft(OnUpdate e)
         {
             playerState.powerTimeLeft -= Time.deltaTime;
             if (0 < playerState.powerTimeLeft) return;
+            eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
+            StartDrillingForReal();
+        }
+
+        private void StartDrillingForReal()
+        {
+            playerState.powerTimeLeft = movementValues.drillSecondPowerDuration;
+            isSecondStage = true;
+            if (rb2d.velocity.magnitude < movementValues.drillMinimalSecondVelocity)
+            {
+                powerVelocity = rb2d.velocity.normalized * movementValues.drillMinimalSecondVelocity;
+                rb2d.velocity = powerVelocity;
+            }
+            eventBus.Subscribe<OnUpdate>(MoreReduceTimeLeft);
+        }
+
+        private void MoreReduceTimeLeft(OnUpdate e)
+        {
+            playerState.powerTimeLeft -= Time.deltaTime;
+            if (0 < playerState.powerTimeLeft) return;
+            eventBus.Unsubscribe<OnUpdate>(MoreReduceTimeLeft);
             Deactivate();
         }
 
         private void Deactivate()
         {
             playerState.activePower = Power.None;
-            rb2d.gravityScale = 3f;
 
-            eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Publish(new RequestMovementResume());
+            eventBus.Publish(new RequestGravityOn());
             eventBus.Unsubscribe<OnHorizontalInput>(OnHorizontalInput);
             eventBus.Unsubscribe<OnVerticalInput>(OnVerticalInput);
             eventBus.Unsubscribe<OnFixedUpdate>(OnFixedUpdate);

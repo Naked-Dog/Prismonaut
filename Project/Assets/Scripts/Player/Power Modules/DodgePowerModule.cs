@@ -10,6 +10,7 @@ namespace PlayerSystem
         private PlayerMovementScriptable movementValues;
 
         private Vector2 inputDirection = Vector2.zero;
+        private Vector2 appliedDirection = Vector2.zero;
 
         public DodgePowerModule(
             EventBus eventBus,
@@ -42,7 +43,13 @@ namespace PlayerSystem
             if (playerState.activePower != Power.None) return;
             if (inputDirection.magnitude < 0.1f) return;
 
+            Activate();
+        }
+
+        private void Activate()
+        {
             Vector2 dodgeImpulse = -rb2d.velocity;
+            appliedDirection = inputDirection;
             Vector2 normalInputDirection = inputDirection.normalized;
             dodgeImpulse += normalInputDirection * movementValues.dodgePowerForce;
             dodgeImpulse += Vector2.up * Mathf.Abs(normalInputDirection.x) * 5f;
@@ -58,6 +65,7 @@ namespace PlayerSystem
         private void ReduceTimeLeft(OnUpdate e)
         {
             playerState.powerTimeLeft -= Time.deltaTime;
+            rb2d.AddForce(-appliedDirection * movementValues.dodgePowerBreakForce);
             if (0 < playerState.powerTimeLeft) return;
             Deactivate();
         }

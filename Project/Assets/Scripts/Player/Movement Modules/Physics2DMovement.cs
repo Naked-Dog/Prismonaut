@@ -38,6 +38,8 @@ namespace PlayerSystem
             eventBus.Subscribe<OnFixedUpdate>(OnFixedUpdate);
             eventBus.Subscribe<RequestMovementPause>(RequestMovementPause);
             eventBus.Subscribe<RequestMovementResume>(RequestMovementResume);
+            eventBus.Subscribe<RequestGravityOff>(RequestGravityOff);
+            eventBus.Subscribe<RequestGravityOn>(RequestGravityOn);
         }
 
         private void RequestMovementPause(RequestMovementPause e)
@@ -113,6 +115,7 @@ namespace PlayerSystem
         private void OnUpdate(OnUpdate e)
         {
             playerState.velocity = rb2d.velocity;
+            Debug.Log(rb2d.velocity.magnitude);
         }
 
         private void OnFixedUpdate(OnFixedUpdate e)
@@ -136,7 +139,7 @@ namespace PlayerSystem
 
         private void PerformMovement()
         {
-            requestedMovement *= 3f;
+            requestedMovement *= movementValues.horizontalVelocity;
             float forceToApply;
             float velocityDirection = Mathf.Sign(rb2d.velocity.x * requestedMovement);
             if (0f < velocityDirection)
@@ -156,7 +159,7 @@ namespace PlayerSystem
 
         private void PerformBreak()
         {
-            float breakModifier = playerState.groundState == GroundState.Airborne ? 1f : 3f;
+            float breakModifier = playerState.groundState == GroundState.Airborne ? movementValues.airBreak : movementValues.groundBreak;
             float breakForce = -rb2d.velocity.x * breakModifier;
             rb2d.AddForce(Vector2.right * breakForce, ForceMode2D.Force);
         }
@@ -181,6 +184,15 @@ namespace PlayerSystem
         {
             landingMoveCooldown -= Time.deltaTime;
             if (landingMoveCooldown <= 0f) eventBus.Unsubscribe<OnUpdate>(ReduceLandigMoveCooldown);
+        }
+
+        private void RequestGravityOff(RequestGravityOff e)
+        {
+            rb2d.gravityScale = 0f;
+        }
+        private void RequestGravityOn(RequestGravityOn e)
+        {
+            rb2d.gravityScale = movementValues.gravityScale;
         }
     }
 }

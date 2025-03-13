@@ -10,4 +10,6 @@ namespace PlayerSystem
     public struct OnGroundedMovement { }
     public struct RequestMovementPause { }
     public struct RequestMovementResume { }
+    public struct RequestGravityOff { }
+    public struct RequestGravityOn { }
 }

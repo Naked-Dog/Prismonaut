@@ -5,8 +5,11 @@ public class PlayerMovementScriptable : ScriptableObject
 {
     [Header("Movement")]
     public float horizontalVelocity = 8f;
+    public float airBreak = 2f;
+    public float groundBreak = 6f;
     public float maximumYSpeed = 25;
     public float minimumYSpeed = -15;
+    public float gravityScale = 3f;
 
     [Header("Jump")]
     public float jumpForce = 10f;
@@ -33,7 +36,16 @@ public class PlayerMovementScriptable : ScriptableObject
     [Header("Dodge Power")]
     public float dodgePowerForce = 12f;
     public float dodgePowerDuration = 0.7f;
+    public float dodgePowerBreakForce = 2f;
 
     [Header("Shield Power")]
     public float shieldPowerDuration = 0.5f;
+
+    [Header("Drill Power")]
+    public float drillMinimalFirstVelocity = 4f;
+    public float drillMinimalSecondVelocity = 8f;
+    public float drillFirstPowerDuration = 0.5f;
+    public float drillSecondPowerDuration = 2f;
+    public float drillFirstSteeringAmount = 1f;
+    public float drillSecondSteeringAmount = 4f;
 }

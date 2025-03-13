@@ -45,7 +45,7 @@ public class EventBus
             _events[typeof(T)] = handlers;
         }
 
-        if (-1 < handlers.FindIndex(h => h.Equals(handler))) UnityEngine.Debug.Log("Handler already exists");
+        if (-1 < handlers.FindIndex(h => h.Equals(handler))) UnityEngine.Debug.Log("Handler already exists " + handler.Method.Name);
         handlers.Add(handler); // Store the original delegate
     }
 
