@@ -40,11 +40,11 @@ namespace PlayerSystem
 
         private void updateVisuals(OnUpdate e)
         {
-            bool isMoving = Mathf.Abs(rb2d.velocity.x) > 0.1f;
+            bool isMoving = Mathf.Abs(rb2d.linearVelocity.x) > 0.1f;
             bool isGrounded = playerState.groundState == GroundState.Grounded;
-            bool isFalling = rb2d.velocity.y < -0.1f;
+            bool isFalling = rb2d.linearVelocity.y < -0.1f;
             bool isDeath = playerState.healthState == HealthState.Death;
-            int facingHorizontalScale = Math.Sign(rb2d.velocity.x);
+            int facingHorizontalScale = Math.Sign(rb2d.linearVelocity.x);
 
             if (isMoving) animator.gameObject.transform.localScale = new Vector3(facingHorizontalScale, 1, 1);
             if (isMoving) playerState.facingDirection = facingHorizontalScale > 0 ? Direction.Right : Direction.Left;

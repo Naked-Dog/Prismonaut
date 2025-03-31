@@ -54,7 +54,7 @@ public class Knockback : MonoBehaviour
             }
 
             //apply knockback
-            rb2d.velocity = _combinedForce;
+            rb2d.linearVelocity = _combinedForce;
             yield return new WaitForFixedUpdate();
         }
 

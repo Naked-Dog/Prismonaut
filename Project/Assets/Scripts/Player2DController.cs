@@ -266,13 +266,13 @@ public class Player2DController : MonoBehaviour
         if (trianglePowerAction.WasPressedThisFrame()) formInput(FormState.Triangle);
         if (squarePowerAction.WasPressedThisFrame()) formInput(FormState.Square);
 
-        isMoving = Mathf.Abs(rb2d.velocity.x) > 0.1f;
-        playerSpriteRender.flipX = rb2d.velocity.x < 0;
+        isMoving = Mathf.Abs(rb2d.linearVelocity.x) > 0.1f;
+        playerSpriteRender.flipX = rb2d.linearVelocity.x < 0;
     }
 
     private void LateUpdate()
     {
-        isFalling = !isGrounded && rb2d.velocity.y < 0f;
+        isFalling = !isGrounded && rb2d.linearVelocity.y < 0f;
     }
 
     private void velocityUpdate()
@@ -281,25 +281,25 @@ public class Player2DController : MonoBehaviour
         float formMaxVelocity = form == FormState.Circle ? maxCircleVelocity : maxVelocity;
         float formDeacceleration = form == FormState.Circle ? circleDeacceleration : deacceleration;
 
-        float newHorizontalVelocity = rb2d.velocity.x;
+        float newHorizontalVelocity = rb2d.linearVelocity.x;
         if (!isStagger)
         {
             // If the player exceeds the max horizontal velocity, set player input to zero to prevent further acceleration
-            if (Math.Sign(rb2d.velocity.x) * Math.Sign(horizontalInput) > 0 &&
-                (rb2d.velocity.x < -formMaxVelocity || rb2d.velocity.x > formMaxVelocity))
+            if (Math.Sign(rb2d.linearVelocity.x) * Math.Sign(horizontalInput) > 0 &&
+                (rb2d.linearVelocity.x < -formMaxVelocity || rb2d.linearVelocity.x > formMaxVelocity))
             {
                 horizontalInput = 0;
             }
 
-            newHorizontalVelocity = rb2d.velocity.x + horizontalInput * Time.deltaTime * acceleration;
-            if (Math.Sign(rb2d.velocity.x) * Math.Sign(horizontalInput) <= 0) newHorizontalVelocity *= 1f - Time.deltaTime * formDeacceleration;
+            newHorizontalVelocity = rb2d.linearVelocity.x + horizontalInput * Time.deltaTime * acceleration;
+            if (Math.Sign(rb2d.linearVelocity.x) * Math.Sign(horizontalInput) <= 0) newHorizontalVelocity *= 1f - Time.deltaTime * formDeacceleration;
         }
         if (horizontalInput != 0) inputDirection = Math.Sign(horizontalInput);
 
-        float newVerticalVelocity = rb2d.velocity.y;
+        float newVerticalVelocity = rb2d.linearVelocity.y;
         if (form != FormState.Circle || !isUsingPower)
         {
-            newVerticalVelocity = rb2d.velocity.y - (form == FormState.Triangle ? triangleGravity : gravity) * Time.deltaTime;
+            newVerticalVelocity = rb2d.linearVelocity.y - (form == FormState.Triangle ? triangleGravity : gravity) * Time.deltaTime;
             if (jumpAction.IsPressed() && isGrounded)
             {
                 newVerticalVelocity = form == FormState.Triangle ? triangleJumpVelocity : jumpVelocity;
@@ -307,7 +307,7 @@ public class Player2DController : MonoBehaviour
             }
         }
 
-        rb2d.velocity = new Vector2(newHorizontalVelocity, newVerticalVelocity);
+        rb2d.linearVelocity = new Vector2(newHorizontalVelocity, newVerticalVelocity);
     }
 
     private void formInput(FormState newForm, bool isAnimated = true)
@@ -340,7 +340,7 @@ public class Player2DController : MonoBehaviour
         GetComponent<CircleCollider2D>().enabled = newForm == FormState.Circle;
         GetComponent<BoxCollider2D>().enabled = newForm != FormState.Circle;
 
-        rb2d.velocity = new Vector2(rb2d.velocity.x / 2f, rb2d.velocity.y / 2f);
+        rb2d.linearVelocity = new Vector2(rb2d.linearVelocity.x / 2f, rb2d.linearVelocity.y / 2f);
         form = newForm;
         isUsingPower = false;
         playerSpriteRender.color = Color.white;
@@ -357,19 +357,19 @@ public class Player2DController : MonoBehaviour
         switch (form)
         {
             case FormState.Circle:
-                rb2d.velocity = new Vector2(inputDirection * circlePowerVelocity, 0f);
+                rb2d.linearVelocity = new Vector2(inputDirection * circlePowerVelocity, 0f);
                 audioSource.PlayOneShot(circlePowerSound);
                 powerColor = circlePowerColor;
                 break;
             case FormState.Square:
                 if (isGrounded) yield break;
-                rb2d.velocity = new Vector2(rb2d.velocity.x, -squarePowerVelocity);
+                rb2d.linearVelocity = new Vector2(rb2d.linearVelocity.x, -squarePowerVelocity);
                 audioSource.PlayOneShot(squarePowerSound);
                 powerColor = squarePowerColor;
                 break;
             case FormState.Triangle:
             default:
-                rb2d.velocity = new Vector2(rb2d.velocity.x, trianglePowerVelocity);
+                rb2d.linearVelocity = new Vector2(rb2d.linearVelocity.x, trianglePowerVelocity);
                 audioSource.PlayOneShot(trianglePowerSound);
                 powerColor = trianglePowerColor;
                 break;
@@ -401,7 +401,7 @@ public class Player2DController : MonoBehaviour
         {
             isDead = true;
             MenuController.Instance.DisplayLosePanel();
-            rb2d.velocity = Vector2.zero;
+            rb2d.linearVelocity = Vector2.zero;
             this.enabled = false;
         }
     }
@@ -417,7 +417,7 @@ public class Player2DController : MonoBehaviour
 
     private IEnumerator staggerPlayer(Vector2 direction)
     {
-        rb2d.velocity = new Vector2(direction.x * staggerVelocity, 3f + direction.y * staggerVelocity);
+        rb2d.linearVelocity = new Vector2(direction.x * staggerVelocity, 3f + direction.y * staggerVelocity);
         isStagger = true;
         yield return new WaitForSeconds(staggerDuration);
         isStagger = false;
@@ -479,7 +479,7 @@ public class Player2DController : MonoBehaviour
     {
         splineAnimate.Container = null;
         splineAnimate.NormalizedTime = 0f;
-        rb2d.velocity = Vector2.zero;
+        rb2d.linearVelocity = Vector2.zero;
         enabled = true;
         splineAnimate.Completed -= onCompletedSpline;
     }
