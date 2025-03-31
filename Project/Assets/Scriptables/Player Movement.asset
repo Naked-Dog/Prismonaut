@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f8889d93ce4f76894033053fbb9579, type: 3}
   m_Name: Player Movement
   m_EditorClassIdentifier: 
-  horizontalVelocity: 6
+  horizontalVelocity: 8
+  airBreak: 2
+  groundBreak: 6
   maximumYSpeed: 25
   minimumYSpeed: -15
+  gravityScale: 3
   jumpForce: 10
   jumpTime: 0.25
   gravity: 3
@@ -31,5 +34,13 @@ MonoBehaviour:
   trianglePowerForce: 10
   trianglePowerDuration: 0.3
   trianglePowerCooldown: 1
-  dodgePowerForce: 10
+  dodgePowerForce: 18
   dodgePowerDuration: 0.35
+  dodgePowerBreakForce: 2
+  shieldPowerDuration: 0.5
+  drillMinimalFirstVelocity: 4
+  drillMinimalSecondVelocity: 8
+  drillFirstPowerDuration: 0.5
+  drillSecondPowerDuration: 2
+  drillFirstSteeringAmount: 1
+  drillSecondSteeringAmount: 4

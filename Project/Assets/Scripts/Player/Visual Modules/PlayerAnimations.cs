@@ -33,6 +33,9 @@ namespace PlayerSystem
                             SetState(AnimationState.DodgeEnd);
                         else SetState(AnimationState.DodgeBegin);
                         break;
+                    case Power.Drill:
+                        // animator.transform.rotation = Quaternion.LookRotation()
+                        break;
                 }
                 return;
             }
