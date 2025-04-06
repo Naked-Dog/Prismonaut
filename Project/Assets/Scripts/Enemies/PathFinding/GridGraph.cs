@@ -11,7 +11,7 @@ public class GridGraph : MonoBehaviour
     public LayerMask obstacle;
     public bool drawGrid = false;
 
-    private List<PathNode> pathMap = new();
+    private PathNode[,] pathMap;
 
     public void Scan(){
         GenerateGridPositions();
@@ -20,50 +20,34 @@ public class GridGraph : MonoBehaviour
 
     public void GenerateGridPositions()
     {
-        pathMap.Clear();
-
+        pathMap = new PathNode[width, height];
         float initialXpos = gridCenter.x - (width / 2f) * cellSize;
         float initialYpos = gridCenter.y - (height / 2f) * cellSize;
 
-        for (int i = 0; i <= width; i++)
+        for (int i = 0; i < width; i++)
         {
-            for (int j = 0; j <= height; j++) 
+            for (int j = 0; j < height; j++) 
             {
                 Vector2 nodePosition = new Vector2(initialXpos + (i * cellSize), initialYpos + (j * cellSize));
                 Vector2 nodeSize = Vector2.zero;
-                bool isNodeWalkable = IsPathNodeWalkable(nodePosition, nodeSize, obstacle);
-                pathMap.Add(new PathNode(nodePosition, nodeSize, isNodeWalkable));
+                bool isNodeWalkable = IsPathNodeWalkable(nodePosition, obstacle);
+                pathMap[i,j] = new PathNode(nodePosition, isNodeWalkable);
             }
         }
     }
 
-    private bool IsPathNodeWalkable(Vector2 nodePosition, Vector2 nodeSize, LayerMask mask)
+    private bool IsPathNodeWalkable(Vector2 nodePosition, LayerMask mask)
     {
-        float cellOffset = cellSize/2f;
-        Vector2[] checkPoints = {
-            nodePosition + new Vector2(cellOffset, 0),
-            nodePosition + new Vector2(-cellOffset, 0),
-            nodePosition + new Vector2(0, cellOffset),
-            nodePosition + new Vector2(0, -cellOffset),
-        };
-
-        foreach(Vector2 point in checkPoints){
-            Collider2D hit = Physics2D.OverlapCircle(point, 0.1f, mask);
-            if(hit){
-                return false;
-            }
-        }
-        return true;
-}
+         return !Physics2D.OverlapCircle(nodePosition, cellSize, mask);
+    }
 
     private void GenerateNodeConnections()
     {
-        for (int i = 0; i <= width; i++)
+        for (int i = 0; i < width; i++)
         {
-            for (int j = 0; j <= height; j++)
+            for (int j = 0; j < height; j++)
             {
-                int currentNodeIndex = j * (width + 1) + i;
-                PathNode currentNode = pathMap[currentNodeIndex];
+                PathNode currentNode = pathMap[i,j];
 
                 if (currentNode.isWalkable)
                 {
@@ -82,10 +66,9 @@ public class GridGraph : MonoBehaviour
 
     private void AddNeighborConnection(PathNode currentNode, int neighborX, int neighborY)
     {
-        if (neighborX >= 0 && neighborX <= width && neighborY >= 0 && neighborY <= height)
+        if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
         {
-            int neighborIndex = neighborY * (width + 1) + neighborX;
-            PathNode neighborNode = pathMap[neighborIndex];
+            PathNode neighborNode = pathMap[neighborX, neighborY];
 
             if (neighborNode.isWalkable)
             {
@@ -96,39 +79,56 @@ public class GridGraph : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if (pathMap.Count == 0) return;
+        if (!drawGrid || pathMap == null) return;
 
-        if(drawGrid){
-            Gizmos.color = Color.red;
-            foreach(PathNode node in pathMap){
-                if(!node.isWalkable){
-                    Gizmos.DrawSphere(node.position, 0.1f);
+        Gizmos.color = Color.red;
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                PathNode node = pathMap[i, j];
+
+                if (!node.isWalkable)
+                {
+                    Gizmos.DrawCube(node.position, Vector3.one * cellSize * 0.4f);
                 }
             }
+        }
 
-            Gizmos.color = Color.blue;
-            foreach(PathNode node in pathMap){
-                if(node.isWalkable && node.neighbors != null){
-                    foreach(PathNode neighbor in node.neighbors){
-                        Gizmos.DrawLine(node.position, neighbor.position);
+        Gizmos.color = Color.blue;
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                PathNode node = pathMap[i, j];
+
+                if (node.isWalkable)
+                {
+                    foreach (var neighbor in node.neighbors)
+                    {
+                        if (neighbor.position.x >= node.position.x && neighbor.position.y >= node.position.y)
+                        {
+                            Gizmos.DrawLine(node.position, neighbor.position);
+                        }
                     }
                 }
             }
         }
     }
-}
 
-public class PathNode
-{
-    public Vector2 position;
-    public Vector2 size;
-    public bool isWalkable;
-    public List<PathNode> neighbors = new List<PathNode>();
-
-    public PathNode(Vector2 position, Vector2 size, bool isWalkable)
+    public PathNode GetNearestNode(Vector2 worldPosition)
     {
-        this.position = position;
-        this.size = size;
-        this.isWalkable = isWalkable;
+        float initialXpos = gridCenter.x - (width / 2f) * cellSize;
+        float initialYpos = gridCenter.y - (height / 2f) * cellSize;
+
+        int x = Mathf.RoundToInt((worldPosition.x - initialXpos) / cellSize);
+        int y = Mathf.RoundToInt((worldPosition.y - initialYpos) / cellSize);
+
+        if (x >= 0 && x < width && y >= 0 && y < height)
+        {
+            return pathMap[x,y];
+        }
+
+        return null;
     }
 }
