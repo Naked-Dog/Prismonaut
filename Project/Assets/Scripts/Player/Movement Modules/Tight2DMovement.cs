@@ -65,7 +65,7 @@ namespace PlayerSystem
             if (input.jumpInputAction.WasPressedThisFrame() && IsGrounded() && !IsFalling)
             {
                 jumpTimer = movementValues.jumpTime;
-                rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpForce);
+                rb2d.linearVelocity = new Vector2(rb2d.linearVelocity.x, movementValues.jumpForce);
                 if (!IsPlatform()) SaveSafeGround();
                 playerState.groundState = GroundState.Airborne;
                 eventBus.Publish(new JumpMovementEvent());
@@ -75,7 +75,7 @@ namespace PlayerSystem
             {
                 if (playerState.groundState == GroundState.Airborne && jumpTimer > 0)
                 {
-                    rb2d.velocity = new Vector2(rb2d.velocity.x, movementValues.jumpForce);
+                    rb2d.linearVelocity = new Vector2(rb2d.linearVelocity.x, movementValues.jumpForce);
                     jumpTimer -= Time.deltaTime;
                 }
                 else if (jumpTimer <= 0)
@@ -98,9 +98,9 @@ namespace PlayerSystem
 
         private void CheckForVelocity(UpdateEvent e)
         {
-            float vSpeed = rb2d.velocity.y > movementValues.maximumYSpeed ? movementValues.maximumYSpeed :
-                rb2d.velocity.y < movementValues.minimumYSpeed ? movementValues.minimumYSpeed : rb2d.velocity.y;
-            rb2d.velocity = new Vector2(rb2d.velocity.x, vSpeed);
+            float vSpeed = rb2d.linearVelocity.y > movementValues.maximumYSpeed ? movementValues.maximumYSpeed :
+                rb2d.linearVelocity.y < movementValues.minimumYSpeed ? movementValues.minimumYSpeed : rb2d.linearVelocity.y;
+            rb2d.linearVelocity = new Vector2(rb2d.linearVelocity.x, vSpeed);
         }
 
         public override void MoveHorizontally(HorizontalInputEvent input)
@@ -108,7 +108,7 @@ namespace PlayerSystem
             if (playerState.healthState == HealthState.Stagger) return;
             if (isMovementDisabled) return;
 
-            rb2d.velocity = new Vector2(input.amount * movementValues.horizontalVelocity, rb2d.velocity.y);
+            rb2d.linearVelocity = new Vector2(input.amount * movementValues.horizontalVelocity, rb2d.linearVelocity.y);
             eventBus.Publish(new HorizontalMovementEvent(input.amount));
         }
 
@@ -175,8 +175,8 @@ namespace PlayerSystem
 
         private void StopPlayerMovement(PauseEvent e)
         {
-            playerState.velocity = rb2d.velocity;
-            rb2d.velocity = Vector2.zero;
+            playerState.velocity = rb2d.linearVelocity;
+            rb2d.linearVelocity = Vector2.zero;
             rb2d.gravityScale = 0;
             playerState.isPaused = true;
             eventBus.Publish(new StopPlayerInputsEvent());
@@ -184,7 +184,7 @@ namespace PlayerSystem
 
         private void EnablePlayerMovement(UnpauseEvent e)
         {
-            rb2d.velocity = playerState.velocity;
+            rb2d.linearVelocity = playerState.velocity;
             rb2d.gravityScale = movementValues.gravity;
             playerState.isPaused = false;
             eventBus.Publish(new EnablePlayerInputsEvent());

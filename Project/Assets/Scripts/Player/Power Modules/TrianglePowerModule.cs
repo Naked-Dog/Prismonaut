@@ -29,7 +29,7 @@ namespace PlayerSystem
             if (cooldownTimeLeft > 0f) return;
             isActive = true;
             playerState.activePower = Power.Triangle;
-            rb2d.velocity = new Vector2(0, 5f).normalized * movementValues.trianglePowerForce;
+            rb2d.linearVelocity = new Vector2(0, 5f).normalized * movementValues.trianglePowerForce;
             powerTimeLeft = movementValues.trianglePowerDuration;
 
             upTrigger.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
@@ -48,7 +48,7 @@ namespace PlayerSystem
 
         private void deactivateOnMomentumLoss(UpdateEvent e)
         {
-            if (0 < Mathf.Abs(rb2d.velocity.y)) return;
+            if (0 < Mathf.Abs(rb2d.linearVelocity.y)) return;
             deactivate();
         }
 

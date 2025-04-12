@@ -114,7 +114,7 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
     #region Movement Functions
     public void MoveEnemy(Vector2 velocity)
     {
-        RigidBody.velocity = velocity;
+        RigidBody.linearVelocity = velocity;
         CheckForLeftOrRightFacing(velocity);
     }
 

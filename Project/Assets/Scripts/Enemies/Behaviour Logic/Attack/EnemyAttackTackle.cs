@@ -76,7 +76,7 @@ public class EnemyAttackTackle : EnemyAttackSOBase
         }
         enemy.GetComponentInChildren<SpriteRenderer>().color = Color.red;
         float direction = enemy.IsFacingRight ? 1.0f : -1.0f;
-        enemy.MoveEnemy(new Vector2(_tackleForce * direction, enemy.RigidBody.velocity.y));
+        enemy.MoveEnemy(new Vector2(_tackleForce * direction, enemy.RigidBody.linearVelocity.y));
         await Task.Delay((int)(0.35f * 1000));
         enemy.GetComponentInChildren<SpriteRenderer>().color = _startingColor;
         enemy.StartCoroutine(enemy.StartAttackCooldown());
