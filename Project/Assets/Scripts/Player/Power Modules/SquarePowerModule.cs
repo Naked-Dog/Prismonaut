@@ -47,7 +47,7 @@ namespace PlayerSystem
             playerState.activePower = Power.Square;
             if (playerState.groundState == GroundState.Grounded) rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
             powerTimeSum = 0;
-            rb2d.velocity = new Vector2(0, movementValues.squarePowerForce);
+            rb2d.linearVelocity = new Vector2(0, movementValues.squarePowerForce);
             groundTrigger.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
 
             eventBus.Subscribe<UpdateEvent>(addTimeSum);
