@@ -1,134 +1,119 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+
 public class GridGraph : MonoBehaviour
 {
-    public int width = 10;
-    public int height = 10;
-    public float cellSize = 1;
-    public Vector2 gridCenter => transform.position;
-    public GameObject pathGuide;
-    public LayerMask obstacle;
-    public bool drawGrid = false;
+    public Grid worldGrid; 
+    public Tilemap groundTilemap;
+    public Tilemap[] staticObstaclesTileMaps;
+    public bool debugDraw = true;
+    public Dictionary<Vector3, PathNode> nodeMap = new Dictionary<Vector3, PathNode>();
 
-    private PathNode[,] pathMap;
-
-    public void Scan(){
-        GenerateGridPositions();
-        GenerateNodeConnections();
-    }
-
-    public void GenerateGridPositions()
+    private Vector3[] directionsToEvaluate = new Vector3[]
     {
-        pathMap = new PathNode[width, height];
-        float initialXpos = gridCenter.x - (width / 2f) * cellSize;
-        float initialYpos = gridCenter.y - (height / 2f) * cellSize;
+        Vector3.left,
+        Vector3.up,
+        Vector3.right,
+        Vector3.down,
+        new Vector3(-1, 1, 0),
+        new Vector3(1, 1, 0),
+        new Vector3(-1, -1, 0),
+        new Vector3(1, -1, 0)
+    };
 
-        for (int i = 0; i < width; i++)
+    private HashSet<Vector3Int> obstacleSet = new HashSet<Vector3Int>();
+
+    public void Scan()
+    {
+        nodeMap.Clear();
+        obstacleSet.Clear();
+
+        BoundsInt bounds = groundTilemap.cellBounds;
+        List<Vector3Int> groundCellPositions = new List<Vector3Int>();
+
+        for (int x = bounds.xMin; x < bounds.xMax; x++)
         {
-            for (int j = 0; j < height; j++) 
+            for (int y = bounds.yMin; y < bounds.yMax; y++)
             {
-                Vector2 nodePosition = new Vector2(initialXpos + (i * cellSize), initialYpos + (j * cellSize));
-                Vector2 nodeSize = Vector2.zero;
-                bool isNodeWalkable = IsPathNodeWalkable(nodePosition, obstacle);
-                pathMap[i,j] = new PathNode(nodePosition, isNodeWalkable);
-            }
-        }
-    }
-
-    private bool IsPathNodeWalkable(Vector2 nodePosition, LayerMask mask)
-    {
-         return !Physics2D.OverlapCircle(nodePosition, cellSize, mask);
-    }
-
-    private void GenerateNodeConnections()
-    {
-        for (int i = 0; i < width; i++)
-        {
-            for (int j = 0; j < height; j++)
-            {
-                PathNode currentNode = pathMap[i,j];
-
-                if (currentNode.isWalkable)
+                Vector3Int cell = new Vector3Int(x, y, 0);
+                if (groundTilemap.HasTile(cell))
                 {
-                    AddNeighborConnection(currentNode, i + 1, j);
-                    AddNeighborConnection(currentNode, i - 1, j);
-                    AddNeighborConnection(currentNode, i, j + 1);
-                    AddNeighborConnection(currentNode, i, j - 1);
-                    AddNeighborConnection(currentNode, i + 1, j + 1);
-                    AddNeighborConnection(currentNode, i - 1, j - 1);
-                    AddNeighborConnection(currentNode, i + 1, j - 1);
-                    AddNeighborConnection(currentNode, i - 1, j + 1);
+                    groundCellPositions.Add(cell);
                 }
-            }
-        }
-    }
 
-    private void AddNeighborConnection(PathNode currentNode, int neighborX, int neighborY)
-    {
-        if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
-        {
-            PathNode neighborNode = pathMap[neighborX, neighborY];
-
-            if (neighborNode.isWalkable)
-            {
-                currentNode.neighbors.Add(neighborNode);
-            }
-        }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (!drawGrid || pathMap == null) return;
-
-        Gizmos.color = Color.red;
-        for (int i = 0; i < width; i++)
-        {
-            for (int j = 0; j < height; j++)
-            {
-                PathNode node = pathMap[i, j];
-
-                if (!node.isWalkable)
+                foreach (Tilemap obstacleMap in staticObstaclesTileMaps)
                 {
-                    Gizmos.DrawCube(node.position, Vector3.one * cellSize * 0.4f);
-                }
-            }
-        }
-
-        Gizmos.color = Color.blue;
-        for (int i = 0; i < width; i++)
-        {
-            for (int j = 0; j < height; j++)
-            {
-                PathNode node = pathMap[i, j];
-
-                if (node.isWalkable)
-                {
-                    foreach (var neighbor in node.neighbors)
+                    if (obstacleMap.HasTile(cell))
                     {
-                        if (neighbor.position.x >= node.position.x && neighbor.position.y >= node.position.y)
-                        {
-                            Gizmos.DrawLine(node.position, neighbor.position);
-                        }
+                        obstacleSet.Add(cell);
+                        break;
                     }
                 }
             }
         }
+
+        GeneratePathNodes(groundCellPositions);
+        GenerateConnections();
     }
 
-    public PathNode GetNearestNode(Vector2 worldPosition)
+    private void GeneratePathNodes(List<Vector3Int> groundCellsPositions)
     {
-        float initialXpos = gridCenter.x - (width / 2f) * cellSize;
-        float initialYpos = gridCenter.y - (height / 2f) * cellSize;
-
-        int x = Mathf.RoundToInt((worldPosition.x - initialXpos) / cellSize);
-        int y = Mathf.RoundToInt((worldPosition.y - initialYpos) / cellSize);
-
-        if (x >= 0 && x < width && y >= 0 && y < height)
+        foreach (Vector3Int cellPos in groundCellsPositions)
         {
-            return pathMap[x,y];
+            GenerateGroundPathNodes(cellPos);
         }
+    }
 
-        return null;
+    private void GenerateGroundPathNodes(Vector3Int cellPos)
+    {
+        foreach (Vector3 direction in directionsToEvaluate)
+        {
+            Vector3Int neighborCellPos = cellPos + Vector3Int.FloorToInt(direction);
+            if (groundTilemap.HasTile(neighborCellPos) || obstacleSet.Contains(neighborCellPos))
+                continue;
+
+            Vector3 neighborWorldPos = worldGrid.CellToWorld(neighborCellPos) + worldGrid.cellSize / 2;
+            if (nodeMap.TryGetValue(neighborWorldPos, out var existingNode))
+            {
+                if (existingNode.isWalkable)
+                    continue;
+                else
+                    existingNode.isWalkable = true;
+            }
+            else
+            {
+                nodeMap[neighborWorldPos] = new PathNode(neighborWorldPos, true);
+            }
+        }
+    }
+
+    private void GenerateConnections()
+    {
+        foreach (PathNode node in nodeMap.Values)
+        {
+            foreach (Vector3 direction in directionsToEvaluate)
+            {
+                Vector3Int neighborCellPos = worldGrid.WorldToCell(node.worldPosition) + Vector3Int.FloorToInt(direction);
+                Vector3 neighborWorldPos = worldGrid.CellToWorld(neighborCellPos) + worldGrid.cellSize / 2;
+                if (nodeMap.TryGetValue(neighborWorldPos, out var neighborNode))
+                {
+                    node.neighbors.Add(neighborNode);
+                }
+            }
+        }
+    }
+
+    public void OnDrawGizmosSelected()
+    {
+        if (!debugDraw || nodeMap == null)
+            return;
+
+        Gizmos.color = Color.green;
+        foreach (var node in nodeMap.Values)
+        {
+            if (node.isWalkable)
+                Gizmos.DrawWireCube(node.worldPosition, worldGrid.cellSize);
+        }
     }
 }

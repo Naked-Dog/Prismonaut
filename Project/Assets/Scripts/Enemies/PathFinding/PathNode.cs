@@ -3,19 +3,14 @@ using UnityEngine;
 
 public class PathNode
 {
-    public Vector2 position;
+    public Vector3 worldPosition;
     public bool isWalkable;
-    public List<PathNode> neighbors = new List<PathNode>();
+    public List<PathNode> neighbors;
 
-    //This is for the A-star data
-    public float gCost;
-    public float hCost;
-    public float fCost => gCost + hCost;
-    public PathNode cameFrom;
-
-    public PathNode(Vector2 position, bool isWalkable)
+    public PathNode(Vector3 worldPosition, bool isWalkable)
     {
-        this.position = position;
+        this.worldPosition = worldPosition;
         this.isWalkable = isWalkable;
+        neighbors = new List<PathNode>();
     }
 }
