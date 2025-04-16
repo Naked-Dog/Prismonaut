@@ -13,7 +13,7 @@ namespace PlayerSystem
         private Knockback knockback;
         private PlayerMovementScriptable movementValues;
 
-        private readonly float minPowerDuration = 0.2f;
+        // private readonly float minPowerDuration = 0.2f;
         private float powerTimeSum = 0f;
         private float cooldownTimeLeft = 0f;
         private bool isActive = false;

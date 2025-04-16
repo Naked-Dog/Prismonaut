@@ -36,8 +36,8 @@ namespace PlayerSystem
             eventBus.Publish(new RequestMovementPause());
             playerState.activePower = Power.Shield;
             playerState.powerTimeLeft = movementValues.shieldPowerDuration;
-            savedVelocity = rb2d.velocity;
-            rb2d.velocity = Vector2.zero;
+            savedVelocity = rb2d.linearVelocity;
+            rb2d.linearVelocity = Vector2.zero;
             rb2d.gravityScale = 0;
             eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
         }
@@ -53,7 +53,7 @@ namespace PlayerSystem
         {
             playerState.activePower = Power.None;
             rb2d.gravityScale = 3f;
-            rb2d.velocity = savedVelocity;
+            rb2d.linearVelocity = savedVelocity;
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Publish(new RequestMovementResume());
         }

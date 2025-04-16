@@ -48,7 +48,7 @@ namespace PlayerSystem
 
         private void Activate()
         {
-            Vector2 dodgeImpulse = -rb2d.velocity;
+            Vector2 dodgeImpulse = -rb2d.linearVelocity;
             appliedDirection = inputDirection;
             Vector2 normalInputDirection = inputDirection.normalized;
             dodgeImpulse += normalInputDirection * movementValues.dodgePowerForce;

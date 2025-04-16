@@ -41,9 +41,9 @@ namespace PlayerSystem
             isSecondStage = false;
             if (playerState.velocity.magnitude < movementValues.drillMinimalFirstVelocity)
             {
-                rb2d.velocity = playerState.velocity.normalized * movementValues.drillMinimalFirstVelocity;
+                rb2d.linearVelocity = playerState.velocity.normalized * movementValues.drillMinimalFirstVelocity;
             }
-            powerVelocity = rb2d.velocity;
+            powerVelocity = rb2d.linearVelocity;
 
             eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Publish(new RequestMovementPause());
@@ -74,7 +74,7 @@ namespace PlayerSystem
                 powerVelocity = Quaternion.Euler(0, 0, rotationAmount) * powerVelocity;
 
             }
-            rb2d.velocity = powerVelocity;
+            rb2d.linearVelocity = powerVelocity;
         }
 
         private void ReduceTimeLeft(OnUpdate e)
@@ -89,10 +89,10 @@ namespace PlayerSystem
         {
             playerState.powerTimeLeft = movementValues.drillSecondPowerDuration;
             isSecondStage = true;
-            if (rb2d.velocity.magnitude < movementValues.drillMinimalSecondVelocity)
+            if (rb2d.linearVelocity.magnitude < movementValues.drillMinimalSecondVelocity)
             {
-                powerVelocity = rb2d.velocity.normalized * movementValues.drillMinimalSecondVelocity;
-                rb2d.velocity = powerVelocity;
+                powerVelocity = rb2d.linearVelocity.normalized * movementValues.drillMinimalSecondVelocity;
+                rb2d.linearVelocity = powerVelocity;
             }
             eventBus.Subscribe<OnUpdate>(MoreReduceTimeLeft);
         }

@@ -114,8 +114,8 @@ namespace PlayerSystem
 
         private void OnUpdate(OnUpdate e)
         {
-            playerState.velocity = rb2d.velocity;
-            Debug.Log(rb2d.velocity.magnitude);
+            playerState.velocity = rb2d.linearVelocity;
+            Debug.Log(rb2d.linearVelocity.magnitude);
         }
 
         private void OnFixedUpdate(OnFixedUpdate e)
@@ -129,7 +129,7 @@ namespace PlayerSystem
 
         private void PerformJump()
         {
-            Vector2 impulseVector = new Vector2(0, 12f - rb2d.velocity.y);
+            Vector2 impulseVector = new Vector2(0, 12f - rb2d.linearVelocity.y);
             rb2d.AddForce(impulseVector, ForceMode2D.Impulse);
             playerState.groundState = GroundState.Airborne;
             jumpCooldown = maxJumpCooldown;
@@ -141,10 +141,10 @@ namespace PlayerSystem
         {
             requestedMovement *= movementValues.horizontalVelocity;
             float forceToApply;
-            float velocityDirection = Mathf.Sign(rb2d.velocity.x * requestedMovement);
+            float velocityDirection = Mathf.Sign(rb2d.linearVelocity.x * requestedMovement);
             if (0f < velocityDirection)
             {
-                float lerpAmount = Mathf.Abs(rb2d.velocity.x) / maxHorizonalVelocity;
+                float lerpAmount = Mathf.Abs(rb2d.linearVelocity.x) / maxHorizonalVelocity;
                 forceToApply = velocityDirection < 0f ? requestedMovement : Mathf.Lerp(requestedMovement, 0f, lerpAmount);
             }
             else
@@ -152,7 +152,7 @@ namespace PlayerSystem
                 forceToApply = requestedMovement;
             }
             rb2d.AddForce(forceToApply * Vector2.right);
-            if (Mathf.Sign(requestedMovement * rb2d.velocity.x) < 0) PerformBreak();
+            if (Mathf.Sign(requestedMovement * rb2d.linearVelocity.x) < 0) PerformBreak();
             eventBus.Publish(new OnHorizontalMovement(requestedMovement));
             requestedMovement = 0f;
         }
@@ -160,7 +160,7 @@ namespace PlayerSystem
         private void PerformBreak()
         {
             float breakModifier = playerState.groundState == GroundState.Airborne ? movementValues.airBreak : movementValues.groundBreak;
-            float breakForce = -rb2d.velocity.x * breakModifier;
+            float breakForce = -rb2d.linearVelocity.x * breakModifier;
             rb2d.AddForce(Vector2.right * breakForce, ForceMode2D.Force);
         }
 
@@ -168,8 +168,8 @@ namespace PlayerSystem
         {
             playerState.groundState = GroundState.Grounded;
             landingRequested = false;
-            if (0 < requestedMovement * rb2d.velocity.x) return;
-            rb2d.AddForce(Vector2.right * -rb2d.velocity.x * 0.75f, ForceMode2D.Impulse);
+            if (0 < requestedMovement * rb2d.linearVelocity.x) return;
+            rb2d.AddForce(Vector2.right * -rb2d.linearVelocity.x * 0.75f, ForceMode2D.Impulse);
             landingMoveCooldown = maxLandingBreakCooldown;
             eventBus.Subscribe<OnUpdate>(ReduceLandigMoveCooldown);
         }
