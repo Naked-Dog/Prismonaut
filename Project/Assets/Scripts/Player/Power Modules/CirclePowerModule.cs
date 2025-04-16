@@ -40,7 +40,7 @@ namespace PlayerSystem
             isActive = true;
             playerState.activePower = Power.Circle;
             directionValue = playerState.facingDirection == Direction.Right ? 1 : -1;
-            rb2d.velocity = new Vector2(movementValues.circlePowerForce * directionValue, 0f);
+            rb2d.linearVelocity = new Vector2(movementValues.circlePowerForce * directionValue, 0f);
             powerTimeLeft = movementValues.circlePowerDuration;
 
             TriggerEventHandler triggerToActivate = playerState.facingDirection == Direction.Right ? rightTrigger : leftTrigger;
@@ -83,7 +83,7 @@ namespace PlayerSystem
 
         private void deactivateOnMomentumLoss(OnUpdate e)
         {
-            if (0.1f < Mathf.Abs(rb2d.velocity.x)) return;
+            if (0.1f < Mathf.Abs(rb2d.linearVelocity.x)) return;
             deactivate();
         }
 

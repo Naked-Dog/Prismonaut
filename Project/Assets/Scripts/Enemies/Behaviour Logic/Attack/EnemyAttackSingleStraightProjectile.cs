@@ -180,7 +180,7 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
         Rigidbody2D bullet = Instantiate(projectilePrefab, (enemy as Spitter).projectileOrigin.position, Quaternion.identity);
         bullet.gameObject.GetComponent<Projectile>()?.Initialize(enemy.GetComponent<Collider2D>(), direction.normalized);
         bullet.transform.rotation = Quaternion.AngleAxis(angle - 180, Vector3.forward);
-        bullet.velocity = direction.normalized * projectileSpeed;
+        bullet.linearVelocity = direction.normalized * projectileSpeed;
         enemy.audioManager.PlayAudioClip("Shoot");
         await Task.Delay((int)(0.2f * 1000));
         _isAttacking = false;
