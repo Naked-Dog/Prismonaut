@@ -2,11 +2,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Attach to Unity Editor",
+            "type": "mono",
+            "request": "attach",
+            "address": "127.0.0.1",
+            "port": 56000
+        },
+        {
             "name": "Attach to Unity",
             "type": "vstuc",
-            "request": "attach",
-            "endPoint": "127.0.0.1:56008",
-            "logFile": "${workspaceRoot}/debug.log"
+            "request": "attach"
         }
     ]
 }

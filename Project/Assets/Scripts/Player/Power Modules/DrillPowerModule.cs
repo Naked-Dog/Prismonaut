@@ -10,7 +10,6 @@ namespace PlayerSystem
         private PlayerMovementScriptable movementValues;
 
         private Vector2 inputDirection = Vector2.zero;
-        private Vector2 powerVelocity = Vector2.zero;
         private bool isSecondStage = false;
 
         public DrillPowerModule(
@@ -43,7 +42,6 @@ namespace PlayerSystem
             {
                 rb2d.linearVelocity = playerState.velocity.normalized * movementValues.drillMinimalFirstVelocity;
             }
-            powerVelocity = rb2d.linearVelocity;
 
             eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Publish(new RequestMovementPause());
@@ -51,7 +49,9 @@ namespace PlayerSystem
             eventBus.Subscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
             eventBus.Subscribe<OnVerticalInput>(TakeVerticalInputDirection);
             eventBus.Subscribe<OnFixedUpdate>(Steer);
+            eventBus.Subscribe<OnCollisionEnter2D>(ConfirmDrillCollision);
         }
+
 
         private void TakeHorizontalInputDirection(OnHorizontalInput e)
         {
@@ -65,18 +65,24 @@ namespace PlayerSystem
 
         private void Steer(OnFixedUpdate e)
         {
+            float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
+            rb2d.transform.rotation = Quaternion.Euler(0, 0, angle);
+
             if (0.1f < inputDirection.magnitude)
             {
-                float angleChange = Vector2.SignedAngle(powerVelocity, inputDirection);
+                float angleChange = Vector2.SignedAngle(playerState.velocity, inputDirection);
                 float steerAmount = isSecondStage ? movementValues.drillSecondSteeringAmount : movementValues.drillFirstSteeringAmount;
                 float rotationAmount = Mathf.Sign(angleChange) * steerAmount;
-                powerVelocity = Quaternion.Euler(0, 0, rotationAmount) * powerVelocity;
-
+                rb2d.linearVelocity = Quaternion.Euler(0, 0, rotationAmount) * playerState.velocity;
             }
-            float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
-            Debug.Log(angle);
-            rb2d.linearVelocity = powerVelocity;
-            rb2d.transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
+
+        private void ConfirmDrillCollision(OnCollisionEnter2D e)
+        {
+            GameObject collisionObject = e.collision.gameObject;
+            if (!collisionObject.GetComponent<TestFly>()) return;
+            eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
+            DrillIntoGameObject(collisionObject);
         }
 
         private void ReduceTimeLeft(OnUpdate e)
@@ -85,17 +91,15 @@ namespace PlayerSystem
             if (0 < playerState.powerTimeLeft) return;
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
             Deactivate();
-            // BeginSecondStage();
         }
 
-        private void BeginSecondStage()
+        private void DrillIntoGameObject(GameObject gameObject)
         {
             playerState.powerTimeLeft = movementValues.drillSecondPowerDuration;
             isSecondStage = true;
             if (rb2d.linearVelocity.magnitude < movementValues.drillMinimalSecondVelocity)
             {
-                powerVelocity = rb2d.linearVelocity.normalized * movementValues.drillMinimalSecondVelocity;
-                rb2d.linearVelocity = powerVelocity;
+                rb2d.linearVelocity = rb2d.linearVelocity.normalized * movementValues.drillMinimalSecondVelocity;
             }
             eventBus.Subscribe<OnUpdate>(MoreReduceTimeLeft);
         }

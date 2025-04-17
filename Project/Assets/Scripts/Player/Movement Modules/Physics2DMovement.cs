@@ -89,7 +89,11 @@ namespace PlayerSystem
                 }
                 if (hasGroundedContact) break;
             }
-            if (!hasGroundedContact) playerState.groundState = GroundState.Airborne;
+            if (!hasGroundedContact)
+            {
+                playerState.groundState = GroundState.Airborne;
+                Debug.Log(collisions);
+            }
             if (!playerState.groundState.Equals(GroundState.Grounded) && hasGroundedContact) landingRequested = true;
         }
 
@@ -170,7 +174,7 @@ namespace PlayerSystem
             if (0 < requestedMovement * rb2d.linearVelocity.x) return;
             rb2d.AddForce(Vector2.right * -rb2d.linearVelocity.x * 0.75f, ForceMode2D.Impulse);
             landingMoveCooldown = maxLandingBreakCooldown;
-            eventBus.Subscribe<OnUpdate>(ReduceLandigMoveCooldown);
+            eventBus.Subscribe<OnUpdate>(ReduceLandingMoveCooldown);
         }
 
         private void ReduceJumpCooldown(OnUpdate e)
@@ -179,10 +183,10 @@ namespace PlayerSystem
             if (jumpCooldown <= 0f) eventBus.Unsubscribe<OnUpdate>(ReduceJumpCooldown);
         }
 
-        private void ReduceLandigMoveCooldown(OnUpdate e)
+        private void ReduceLandingMoveCooldown(OnUpdate e)
         {
             landingMoveCooldown -= Time.deltaTime;
-            if (landingMoveCooldown <= 0f) eventBus.Unsubscribe<OnUpdate>(ReduceLandigMoveCooldown);
+            if (landingMoveCooldown <= 0f) eventBus.Unsubscribe<OnUpdate>(ReduceLandingMoveCooldown);
         }
 
         private void RequestGravityOff(RequestGravityOff e)
