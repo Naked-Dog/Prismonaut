@@ -115,7 +115,6 @@ namespace PlayerSystem
         private void OnUpdate(OnUpdate e)
         {
             playerState.velocity = rb2d.linearVelocity;
-            Debug.Log(rb2d.linearVelocity.magnitude);
         }
 
         private void OnFixedUpdate(OnFixedUpdate e)

@@ -34,7 +34,8 @@ namespace PlayerSystem
                         else SetState(AnimationState.DodgeBegin);
                         break;
                     case Power.Drill:
-                        // animator.transform.rotation = Quaternion.LookRotation()
+                        // float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
+                        // animator.transform.rotation = Quaternion.Euler(0, 0, angle);
                         break;
                 }
                 return;
@@ -45,8 +46,11 @@ namespace PlayerSystem
             bool isFalling = playerState.velocity.y < -0f;
 
             // Provisional sprite flipping code
-            playerState.facingDirection = playerState.velocity.x > 0 ? Direction.Right : Direction.Left;
-            animator.transform.rotation = Quaternion.Euler(0, playerState.facingDirection == Direction.Left ? 180 : 0, 0);
+            if (Mathf.Abs(playerState.velocity.x) > 0.05f)
+            {
+                playerState.facingDirection = playerState.velocity.x > 0 ? Direction.Right : Direction.Left;
+                animator.transform.localRotation = Quaternion.Euler(0, playerState.facingDirection == Direction.Left ? 180 : 0, 0);
+            }
 
             if (isGrounded)
             {

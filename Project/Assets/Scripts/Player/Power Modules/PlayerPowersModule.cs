@@ -14,16 +14,13 @@ namespace PlayerSystem
         private DodgePowerModule circlePower;
         private Rigidbody2D rb2d;
         private Dictionary<Direction, TriggerEventHandler> triggers;
-        private Knockback knockback;
         private PlayerMovementScriptable movementValues;
 
-        public PlayerPowersModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, Dictionary<Direction, TriggerEventHandler> triggers, Knockback knockback, PlayerMovementScriptable movementValues)
+        public PlayerPowersModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, PlayerMovementScriptable movementValues)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
-            this.triggers = triggers;
-            this.knockback = knockback;
             this.movementValues = movementValues;
 
             squarePower = new ShieldPowerModule(eventBus, playerState, rb2d, movementValues);

@@ -48,33 +48,35 @@ namespace PlayerSystem
             eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Publish(new RequestMovementPause());
             eventBus.Publish(new RequestGravityOff());
-            eventBus.Subscribe<OnHorizontalInput>(OnHorizontalInput);
-            eventBus.Subscribe<OnVerticalInput>(OnVerticalInput);
-            eventBus.Subscribe<OnFixedUpdate>(OnFixedUpdate);
+            eventBus.Subscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
+            eventBus.Subscribe<OnVerticalInput>(TakeVerticalInputDirection);
+            eventBus.Subscribe<OnFixedUpdate>(Steer);
         }
 
-        private void OnHorizontalInput(OnHorizontalInput e)
+        private void TakeHorizontalInputDirection(OnHorizontalInput e)
         {
             inputDirection.x = e.amount;
         }
 
-        private void OnVerticalInput(OnVerticalInput e)
+        private void TakeVerticalInputDirection(OnVerticalInput e)
         {
             inputDirection.y = e.amount;
         }
 
-        private void OnFixedUpdate(OnFixedUpdate e)
+        private void Steer(OnFixedUpdate e)
         {
             if (0.1f < inputDirection.magnitude)
             {
-                // Steer
-                float angle = Vector2.SignedAngle(powerVelocity, inputDirection);
+                float angleChange = Vector2.SignedAngle(powerVelocity, inputDirection);
                 float steerAmount = isSecondStage ? movementValues.drillSecondSteeringAmount : movementValues.drillFirstSteeringAmount;
-                float rotationAmount = Mathf.Sign(angle) * steerAmount;
+                float rotationAmount = Mathf.Sign(angleChange) * steerAmount;
                 powerVelocity = Quaternion.Euler(0, 0, rotationAmount) * powerVelocity;
 
             }
+            float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
+            Debug.Log(angle);
             rb2d.linearVelocity = powerVelocity;
+            rb2d.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
 
         private void ReduceTimeLeft(OnUpdate e)
@@ -82,10 +84,11 @@ namespace PlayerSystem
             playerState.powerTimeLeft -= Time.deltaTime;
             if (0 < playerState.powerTimeLeft) return;
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
-            StartDrillingForReal();
+            Deactivate();
+            // BeginSecondStage();
         }
 
-        private void StartDrillingForReal()
+        private void BeginSecondStage()
         {
             playerState.powerTimeLeft = movementValues.drillSecondPowerDuration;
             isSecondStage = true;
@@ -108,12 +111,13 @@ namespace PlayerSystem
         private void Deactivate()
         {
             playerState.activePower = Power.None;
+            rb2d.transform.rotation = Quaternion.identity;
 
             eventBus.Publish(new RequestMovementResume());
             eventBus.Publish(new RequestGravityOn());
-            eventBus.Unsubscribe<OnHorizontalInput>(OnHorizontalInput);
-            eventBus.Unsubscribe<OnVerticalInput>(OnVerticalInput);
-            eventBus.Unsubscribe<OnFixedUpdate>(OnFixedUpdate);
+            eventBus.Unsubscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
+            eventBus.Unsubscribe<OnVerticalInput>(TakeVerticalInputDirection);
+            eventBus.Unsubscribe<OnFixedUpdate>(Steer);
         }
     }
 }

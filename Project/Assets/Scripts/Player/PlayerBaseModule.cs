@@ -51,7 +51,7 @@ namespace PlayerSystem
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Physics2DMovement(eventBus, state, movementValues, avatarRigidbody2D);
             animationsModule = new PlayerAnimations(eventBus, state, animator, movementValues);
-            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers, knockback, movementValues);
+            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, movementValues);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
             {
                 MaxHealth = 3
