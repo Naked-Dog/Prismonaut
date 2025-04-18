@@ -30,10 +30,12 @@ namespace PlayerSystem
         private bool landingRequested = false;
         private float jumpCooldown = 0f;
         private float landingMoveCooldown = 0f;
+        private float groundedGraceTimer = 0f;
 
         readonly float maxHorizonalVelocity = 8f;
         readonly float maxJumpCooldown = 0.2f;
         readonly float maxLandingBreakCooldown = 0.1f;
+        readonly float groundedGracePeriod = 0.1f;
         private bool pauseMovement = false;
 
         public Physics2DMovement(
@@ -49,6 +51,7 @@ namespace PlayerSystem
             eventBus.Subscribe<OnHorizontalInput>(OnHorizontalInput);
             eventBus.Subscribe<OnJumpInput>(OnJumpInput);
             eventBus.Subscribe<OnCollisionEnter2D>(OnCollisionEnter);
+            eventBus.Subscribe<OnCollisionStay2D>(OnCollisionStay2D);
             eventBus.Subscribe<OnCollisionExit2D>(OnCollisionExit);
             eventBus.Subscribe<OnFixedUpdate>(OnFixedUpdate);
             eventBus.Subscribe<RequestMovementPause>(RequestMovementPause);
@@ -77,6 +80,11 @@ namespace PlayerSystem
             collisions[e.collision.collider] = snapshot;
         }
 
+        void OnCollisionStay2D(OnCollisionStay2D e)
+        {
+            collisions[e.collision.collider] = new CollisionSnapshot(e.collision);
+        }
+
         private void OnCollisionExit(OnCollisionExit2D e)
         {
             collisions.Remove(e.collision.collider);
@@ -98,7 +106,17 @@ namespace PlayerSystem
                 }
                 if (hasGroundedContact) break;
             }
-            if (!hasGroundedContact) playerState.groundState = GroundState.Airborne;
+
+            if (hasGroundedContact)
+            {
+                groundedGraceTimer = groundedGracePeriod;
+            }
+            else
+            {
+                groundedGraceTimer -= Time.deltaTime;
+                if (groundedGraceTimer < 0f) playerState.groundState = GroundState.Airborne;
+            }
+
             if (!playerState.groundState.Equals(GroundState.Grounded) && hasGroundedContact) landingRequested = true;
         }
 
