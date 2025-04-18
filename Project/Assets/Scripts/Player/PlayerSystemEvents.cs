@@ -16,10 +16,10 @@ namespace PlayerSystem
         public Collision2D collision;
         public OnCollisionStay2D(Collision2D collision) { this.collision = collision; }
     }
-    public struct CollisionExit2D
+    public struct OnCollisionExit2D
     {
         public Collision2D collision;
-        public CollisionExit2D(Collision2D collision) { this.collision = collision; }
+        public OnCollisionExit2D(Collision2D collision) { this.collision = collision; }
     }
 
     public struct PlayPlayerSounEffect

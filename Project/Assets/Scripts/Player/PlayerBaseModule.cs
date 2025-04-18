@@ -94,7 +94,7 @@ namespace PlayerSystem
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            eventBus.Publish(new CollisionExit2D(other));
+            eventBus.Publish(new OnCollisionExit2D(other));
         }
 
         private void OnDestroy()

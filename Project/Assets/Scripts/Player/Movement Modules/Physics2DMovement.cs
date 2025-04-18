@@ -1,13 +1,30 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 namespace PlayerSystem
 {
+    public class CollisionSnapshot
+    {
+        public Collider2D otherCollider;
+        public List<ContactPoint2D> contacts = new();
+        public Vector2 relativeVelocity;
+        public float timestamp;
+
+        public CollisionSnapshot(Collision2D collision)
+        {
+            otherCollider = collision.collider;
+            contacts.AddRange(collision.contacts); // store all contact points
+            relativeVelocity = collision.relativeVelocity;
+            timestamp = Time.time;
+        }
+    }
+
     public class Physics2DMovement : PlayerMovement
     {
         private Rigidbody2D rb2d;
         private PlayerState playerState;
-        private List<Collision2D> collisions = new List<Collision2D>();
+        private Dictionary<Collider2D, CollisionSnapshot> collisions = new();
         private bool jumpRequested = false;
         private float requestedMovement = 0f;
         private bool landingRequested = false;
@@ -32,9 +49,7 @@ namespace PlayerSystem
             eventBus.Subscribe<OnHorizontalInput>(OnHorizontalInput);
             eventBus.Subscribe<OnJumpInput>(OnJumpInput);
             eventBus.Subscribe<OnCollisionEnter2D>(OnCollisionEnter);
-            eventBus.Subscribe<OnCollisionStay2D>(OnCollisionStay);
-            eventBus.Subscribe<CollisionExit2D>(OnCollisionExit);
-            eventBus.Subscribe<OnUpdate>(OnUpdate);
+            eventBus.Subscribe<OnCollisionExit2D>(OnCollisionExit);
             eventBus.Subscribe<OnFixedUpdate>(OnFixedUpdate);
             eventBus.Subscribe<RequestMovementPause>(RequestMovementPause);
             eventBus.Subscribe<RequestMovementResume>(RequestMovementResume);
@@ -58,28 +73,22 @@ namespace PlayerSystem
 
         private void OnCollisionEnter(OnCollisionEnter2D e)
         {
-            collisions.Add(e.collision);
+            var snapshot = new CollisionSnapshot(e.collision);
+            collisions[e.collision.collider] = snapshot;
         }
 
-        private void OnCollisionStay(OnCollisionStay2D e)
+        private void OnCollisionExit(OnCollisionExit2D e)
         {
-            DoGroundCheck();
-        }
-
-        private void OnCollisionExit(CollisionExit2D e)
-        {
-            collisions.Remove(e.collision);
-            DoGroundCheck();
+            collisions.Remove(e.collision.collider);
         }
 
         private void DoGroundCheck()
         {
             if (landingRequested) return;
-            if (0f < jumpCooldown) return;
             bool hasGroundedContact = false;
-            foreach (Collision2D collision in collisions)
+            foreach (CollisionSnapshot snapshot in collisions.Values)
             {
-                foreach (ContactPoint2D contact in collision.contacts)
+                foreach (ContactPoint2D contact in snapshot.contacts)
                 {
                     if (0.9f < contact.normal.y && 0.01f < contact.normalImpulse)
                     {
@@ -89,11 +98,7 @@ namespace PlayerSystem
                 }
                 if (hasGroundedContact) break;
             }
-            if (!hasGroundedContact)
-            {
-                playerState.groundState = GroundState.Airborne;
-                Debug.Log(collisions);
-            }
+            if (!hasGroundedContact) playerState.groundState = GroundState.Airborne;
             if (!playerState.groundState.Equals(GroundState.Grounded) && hasGroundedContact) landingRequested = true;
         }
 
@@ -116,13 +121,10 @@ namespace PlayerSystem
 
         }
 
-        private void OnUpdate(OnUpdate e)
-        {
-            playerState.velocity = rb2d.linearVelocity;
-        }
-
         private void OnFixedUpdate(OnFixedUpdate e)
         {
+            playerState.velocity = rb2d.linearVelocity;
+            DoGroundCheck();
             if (jumpRequested) PerformJump();
             if (landingRequested) PerformLanding();
             if (pauseMovement) return;
