@@ -13,10 +13,16 @@ namespace PlayerSystem
         private DrillPowerModule trianglePower;
         private DodgePowerModule circlePower;
         private Rigidbody2D rb2d;
+        private TriggerEventHandler drillTrigger;
         private Dictionary<Direction, TriggerEventHandler> triggers;
         private PlayerMovementScriptable movementValues;
 
-        public PlayerPowersModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, PlayerMovementScriptable movementValues)
+        public PlayerPowersModule(
+            EventBus eventBus,
+            PlayerState playerState,
+            Rigidbody2D rb2d,
+            TriggerEventHandler drillTrigger,
+            PlayerMovementScriptable movementValues)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
@@ -24,7 +30,7 @@ namespace PlayerSystem
             this.movementValues = movementValues;
 
             squarePower = new ShieldPowerModule(eventBus, playerState, rb2d, movementValues);
-            trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, movementValues);
+            trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, drillTrigger, movementValues);
             circlePower = new DodgePowerModule(eventBus, playerState, rb2d, movementValues);
         }
 
@@ -38,7 +44,7 @@ namespace PlayerSystem
                     break;
                 case Power.Triangle:
                     playerState.isTrianglePowerAvailable = isAvailable;
-                    trianglePower ??= new DrillPowerModule(eventBus, playerState, rb2d, movementValues);
+                    trianglePower ??= new DrillPowerModule(eventBus, playerState, rb2d, drillTrigger, movementValues);
                     break;
                 case Power.Circle:
                     playerState.isCirclePowerAvailable = isAvailable;

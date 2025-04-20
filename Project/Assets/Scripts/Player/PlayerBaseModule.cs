@@ -10,11 +10,7 @@ namespace PlayerSystem
         [SerializeField] private Rigidbody2D avatarRigidbody2D;
         [SerializeField] private Animator animator;
         [SerializeField] private SpriteRenderer helmetRenderer;
-        [SerializeField] private TriggerEventHandler groundTrigger;
-        [SerializeField] private TriggerEventHandler leftTrigger;
-        [SerializeField] private TriggerEventHandler rightTrigger;
-        [SerializeField] private TriggerEventHandler upTrigger;
-        [SerializeField] private TriggerEventHandler downTrigger;
+        [SerializeField] private TriggerEventHandler drillTrigger;
         [SerializeField] private PlayerMovementScriptable movementValues;
         [SerializeField] private InputActionAsset playerInputAsset;
         [SerializeField] private HealthUIController healthUIController;
@@ -40,18 +36,11 @@ namespace PlayerSystem
             state = new PlayerState();
             eventBus = new EventBus();
 
-            triggers = new Dictionary<Direction, TriggerEventHandler>() {
-                {Direction.Up, upTrigger},
-                {Direction.Down, downTrigger},
-                {Direction.Left, leftTrigger},
-                {Direction.Right, rightTrigger}
-            };
-
             audioModule = new PlayerAudioModule(eventBus, GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Physics2DMovement(eventBus, state, movementValues, avatarRigidbody2D);
             animationsModule = new PlayerAnimations(eventBus, state, animator, movementValues);
-            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, movementValues);
+            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillTrigger, movementValues);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
             {
                 MaxHealth = 3

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f8889d93ce4f76894033053fbb9579, type: 3}
   m_Name: Player Movement
   m_EditorClassIdentifier: 
-  horizontalVelocity: 8
+  horizontalVelocity: 40
   airBreak: 2
   groundBreak: 6
   maximumYSpeed: 25
@@ -43,4 +43,4 @@ MonoBehaviour:
   drillFirstPowerDuration: 0.5
   drillSecondPowerDuration: 2
   drillFirstSteeringAmount: 1
-  drillSecondSteeringAmount: 4
+  drillSecondSteeringAmount: 2.5

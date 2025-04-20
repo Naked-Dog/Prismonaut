@@ -27,7 +27,6 @@ namespace PlayerSystem
         private Dictionary<Collider2D, CollisionSnapshot> collisions = new();
         private bool jumpRequested = false;
         private float requestedMovement = 0f;
-        private bool landingRequested = false;
         private float jumpCooldown = 0f;
         private float landingMoveCooldown = 0f;
         private float groundedGraceTimer = 0f;
@@ -92,7 +91,6 @@ namespace PlayerSystem
 
         private void DoGroundCheck()
         {
-            if (landingRequested) return;
             bool hasGroundedContact = false;
             foreach (CollisionSnapshot snapshot in collisions.Values)
             {
@@ -117,7 +115,7 @@ namespace PlayerSystem
                 if (groundedGraceTimer < 0f) playerState.groundState = GroundState.Airborne;
             }
 
-            if (!playerState.groundState.Equals(GroundState.Grounded) && hasGroundedContact) landingRequested = true;
+            if (!playerState.groundState.Equals(GroundState.Grounded) && hasGroundedContact) PerformLanding();
         }
 
         protected override void OnHorizontalInput(OnHorizontalInput e)
@@ -126,14 +124,14 @@ namespace PlayerSystem
             if (isMovementDisabled) return;
             if (requestedMovement != 0f) return;
             if (0 < landingMoveCooldown) return;
-            requestedMovement = e.amount * 5f;
+            requestedMovement = e.amount;
         }
 
         protected override void OnJumpInput(OnJumpInput e)
         {
+            if (!playerState.groundState.Equals(GroundState.Grounded)) return;
             if (isJumpingDisabled) return;
             if (jumpRequested) return;
-            if (!playerState.groundState.Equals(GroundState.Grounded)) return;
             if (0f < jumpCooldown) return;
             jumpRequested = true;
 
@@ -144,7 +142,6 @@ namespace PlayerSystem
             playerState.velocity = rb2d.linearVelocity;
             DoGroundCheck();
             if (jumpRequested) PerformJump();
-            if (landingRequested) PerformLanding();
             if (pauseMovement) return;
             if (requestedMovement != 0f) PerformMovement();
             else PerformBreak();
@@ -190,7 +187,6 @@ namespace PlayerSystem
         private void PerformLanding()
         {
             playerState.groundState = GroundState.Grounded;
-            landingRequested = false;
             if (0 < requestedMovement * rb2d.linearVelocity.x) return;
             rb2d.AddForce(Vector2.right * -rb2d.linearVelocity.x * 0.75f, ForceMode2D.Impulse);
             landingMoveCooldown = maxLandingBreakCooldown;

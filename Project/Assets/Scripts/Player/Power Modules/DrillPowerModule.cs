@@ -7,6 +7,7 @@ namespace PlayerSystem
         private EventBus eventBus;
         private PlayerState playerState;
         private Rigidbody2D rb2d;
+        private TriggerEventHandler drillTrigger;
         private PlayerMovementScriptable movementValues;
 
         private Vector2 inputDirection = Vector2.zero;
@@ -16,11 +17,13 @@ namespace PlayerSystem
             EventBus eventBus,
             PlayerState playerState,
             Rigidbody2D rb2d,
+            TriggerEventHandler drillTrigger,
             PlayerMovementScriptable movementValues)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
+            this.drillTrigger = drillTrigger;
             this.movementValues = movementValues;
 
             eventBus.Subscribe<OnTrianglePowerInput>(OnTrianglePowerInput);
@@ -42,14 +45,14 @@ namespace PlayerSystem
             {
                 rb2d.linearVelocity = playerState.velocity.normalized * movementValues.drillMinimalFirstVelocity;
             }
+            rb2d.freezeRotation = false;
 
             eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Publish(new RequestMovementPause());
-            eventBus.Publish(new RequestGravityOff());
             eventBus.Subscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
             eventBus.Subscribe<OnVerticalInput>(TakeVerticalInputDirection);
             eventBus.Subscribe<OnFixedUpdate>(Steer);
-            eventBus.Subscribe<OnCollisionEnter2D>(ConfirmDrillCollision);
+            drillTrigger.OnTriggerEnter2DAction.AddListener(ConfirmDrillCollision);
         }
 
 
@@ -66,7 +69,7 @@ namespace PlayerSystem
         private void Steer(OnFixedUpdate e)
         {
             float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
-            rb2d.transform.rotation = Quaternion.Euler(0, 0, angle);
+            drillTrigger.transform.rotation = Quaternion.Euler(0, 0, angle);
 
             if (0.1f < inputDirection.magnitude)
             {
@@ -77,12 +80,12 @@ namespace PlayerSystem
             }
         }
 
-        private void ConfirmDrillCollision(OnCollisionEnter2D e)
+        private void ConfirmDrillCollision(Collider2D other)
         {
-            GameObject collisionObject = e.collision.gameObject;
-            if (!collisionObject.GetComponent<TestFly>()) return;
+            if (!other.GetComponent<TestFly>()) return;
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
-            DrillIntoGameObject(collisionObject);
+            drillTrigger.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
+            DrillIntoGameObject(other.gameObject);
         }
 
         private void ReduceTimeLeft(OnUpdate e)
@@ -101,6 +104,7 @@ namespace PlayerSystem
             {
                 rb2d.linearVelocity = rb2d.linearVelocity.normalized * movementValues.drillMinimalSecondVelocity;
             }
+            eventBus.Publish(new RequestGravityOff());
             eventBus.Subscribe<OnUpdate>(MoreReduceTimeLeft);
         }
 
@@ -116,12 +120,14 @@ namespace PlayerSystem
         {
             playerState.activePower = Power.None;
             rb2d.transform.rotation = Quaternion.identity;
+            rb2d.freezeRotation = true;
 
             eventBus.Publish(new RequestMovementResume());
             eventBus.Publish(new RequestGravityOn());
             eventBus.Unsubscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
             eventBus.Unsubscribe<OnVerticalInput>(TakeVerticalInputDirection);
             eventBus.Unsubscribe<OnFixedUpdate>(Steer);
+            drillTrigger.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
         }
     }
 }
