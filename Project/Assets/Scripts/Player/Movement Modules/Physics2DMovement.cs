@@ -49,9 +49,9 @@ namespace PlayerSystem
 
             eventBus.Subscribe<OnHorizontalInput>(OnHorizontalInput);
             eventBus.Subscribe<OnJumpInput>(OnJumpInput);
-            eventBus.Subscribe<OnCollisionEnter2D>(OnCollisionEnter);
-            eventBus.Subscribe<OnCollisionStay2D>(OnCollisionStay2D);
-            eventBus.Subscribe<OnCollisionExit2D>(OnCollisionExit);
+            eventBus.Subscribe<OnCollisionEnter2D>(AddCollisionSnapshot);
+            eventBus.Subscribe<OnCollisionStay2D>(UpdateCollisionSnapshot);
+            eventBus.Subscribe<OnCollisionExit2D>(RemoveCollisionSnapshot);
             eventBus.Subscribe<OnFixedUpdate>(OnFixedUpdate);
             eventBus.Subscribe<RequestMovementPause>(RequestMovementPause);
             eventBus.Subscribe<RequestMovementResume>(RequestMovementResume);
@@ -73,18 +73,18 @@ namespace PlayerSystem
             pauseMovement = false;
         }
 
-        private void OnCollisionEnter(OnCollisionEnter2D e)
+        private void AddCollisionSnapshot(OnCollisionEnter2D e)
         {
             var snapshot = new CollisionSnapshot(e.collision);
             collisions[e.collision.collider] = snapshot;
         }
 
-        void OnCollisionStay2D(OnCollisionStay2D e)
+        void UpdateCollisionSnapshot(OnCollisionStay2D e)
         {
             collisions[e.collision.collider] = new CollisionSnapshot(e.collision);
         }
 
-        private void OnCollisionExit(OnCollisionExit2D e)
+        private void RemoveCollisionSnapshot(OnCollisionExit2D e)
         {
             collisions.Remove(e.collision.collider);
         }
@@ -149,7 +149,7 @@ namespace PlayerSystem
 
         private void PerformJump()
         {
-            Vector2 impulseVector = new Vector2(0, 12f - rb2d.linearVelocity.y);
+            Vector2 impulseVector = new Vector2(0, movementValues.jumpForce - rb2d.linearVelocity.y);
             rb2d.AddForce(impulseVector, ForceMode2D.Impulse);
             playerState.groundState = GroundState.Airborne;
             jumpCooldown = maxJumpCooldown;

@@ -8,6 +8,7 @@ namespace PlayerSystem
         private PlayerState playerState;
         private Rigidbody2D rb2d;
         private TriggerEventHandler drillTrigger;
+        private FixedJoint2D drillJoint;
         private PlayerMovementScriptable movementValues;
 
         private Vector2 inputDirection = Vector2.zero;
@@ -18,12 +19,14 @@ namespace PlayerSystem
             PlayerState playerState,
             Rigidbody2D rb2d,
             TriggerEventHandler drillTrigger,
+            FixedJoint2D drillJoint,
             PlayerMovementScriptable movementValues)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.drillTrigger = drillTrigger;
+            this.drillJoint = drillJoint;
             this.movementValues = movementValues;
 
             eventBus.Subscribe<OnTrianglePowerInput>(OnTrianglePowerInput);
@@ -45,7 +48,6 @@ namespace PlayerSystem
             {
                 rb2d.linearVelocity = playerState.velocity.normalized * movementValues.drillMinimalFirstVelocity;
             }
-            rb2d.freezeRotation = false;
 
             eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Publish(new RequestMovementPause());
@@ -98,6 +100,9 @@ namespace PlayerSystem
 
         private void DrillIntoGameObject(GameObject gameObject)
         {
+            drillJoint.enabled = true;
+            drillJoint.connectedBody = gameObject.GetComponent<Rigidbody2D>();
+            drillJoint.connectedAnchor = gameObject.transform.position - rb2d.transform.position;
             playerState.powerTimeLeft = movementValues.drillSecondPowerDuration;
             isSecondStage = true;
             if (rb2d.linearVelocity.magnitude < movementValues.drillMinimalSecondVelocity)
@@ -120,7 +125,7 @@ namespace PlayerSystem
         {
             playerState.activePower = Power.None;
             rb2d.transform.rotation = Quaternion.identity;
-            rb2d.freezeRotation = true;
+            drillJoint.enabled = false;
 
             eventBus.Publish(new RequestMovementResume());
             eventBus.Publish(new RequestGravityOn());

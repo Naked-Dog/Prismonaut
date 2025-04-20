@@ -41,6 +41,6 @@ MonoBehaviour:
   drillMinimalFirstVelocity: 4
   drillMinimalSecondVelocity: 8
   drillFirstPowerDuration: 0.5
-  drillSecondPowerDuration: 2
+  drillSecondPowerDuration: 20
   drillFirstSteeringAmount: 1
   drillSecondSteeringAmount: 2.5

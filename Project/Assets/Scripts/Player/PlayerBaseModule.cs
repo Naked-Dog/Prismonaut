@@ -11,6 +11,7 @@ namespace PlayerSystem
         [SerializeField] private Animator animator;
         [SerializeField] private SpriteRenderer helmetRenderer;
         [SerializeField] private TriggerEventHandler drillTrigger;
+        [SerializeField] private FixedJoint2D drillJoint;
         [SerializeField] private PlayerMovementScriptable movementValues;
         [SerializeField] private InputActionAsset playerInputAsset;
         [SerializeField] private HealthUIController healthUIController;
@@ -36,16 +37,20 @@ namespace PlayerSystem
             state = new PlayerState();
             eventBus = new EventBus();
 
-            audioModule = new PlayerAudioModule(eventBus, GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
+            audioModule = new PlayerAudioModule(eventBus, avatarRigidbody2D.GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Physics2DMovement(eventBus, state, movementValues, avatarRigidbody2D);
             animationsModule = new PlayerAnimations(eventBus, state, animator, movementValues);
-            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillTrigger, movementValues);
+            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillTrigger, drillJoint, movementValues);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
             {
                 MaxHealth = 3
             };
-            interactionModule = new PlayerInteractionModule(eventBus, GetComponent<TriggerEventHandler>(), interactSign, state);
+            interactionModule = new PlayerInteractionModule(eventBus, avatarRigidbody2D.GetComponent<TriggerEventHandler>(), interactSign, state);
+
+            avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionEnter2DAction.AddListener(OnCollisionEnter2D);
+            avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionStay2DAction.AddListener(OnCollisionStay2D);
+            avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionExit2DAction.AddListener(OnCollisionExit2D);
 
             healthModule.CurrentHealth = healthModule.MaxHealth;
             healthUIController.InitUI(healthModule.CurrentHealth);
