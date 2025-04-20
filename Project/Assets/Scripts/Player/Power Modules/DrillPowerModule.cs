@@ -8,7 +8,7 @@ namespace PlayerSystem
         private PlayerState playerState;
         private Rigidbody2D rb2d;
         private TriggerEventHandler drillTrigger;
-        private FixedJoint2D drillJoint;
+        private HingeJoint2D drillJoint;
         private PlayerMovementScriptable movementValues;
 
         private Vector2 inputDirection = Vector2.zero;
@@ -19,7 +19,7 @@ namespace PlayerSystem
             PlayerState playerState,
             Rigidbody2D rb2d,
             TriggerEventHandler drillTrigger,
-            FixedJoint2D drillJoint,
+            HingeJoint2D drillJoint,
             PlayerMovementScriptable movementValues)
         {
             this.eventBus = eventBus;
@@ -100,7 +100,6 @@ namespace PlayerSystem
 
         private void DrillIntoGameObject(GameObject gameObject)
         {
-            drillJoint.enabled = true;
             drillJoint.connectedBody = gameObject.GetComponent<Rigidbody2D>();
             drillJoint.connectedAnchor = gameObject.transform.position - rb2d.transform.position;
             playerState.powerTimeLeft = movementValues.drillSecondPowerDuration;
@@ -125,7 +124,6 @@ namespace PlayerSystem
         {
             playerState.activePower = Power.None;
             rb2d.transform.rotation = Quaternion.identity;
-            drillJoint.enabled = false;
 
             eventBus.Publish(new RequestMovementResume());
             eventBus.Publish(new RequestGravityOn());

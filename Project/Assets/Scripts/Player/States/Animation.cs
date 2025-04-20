@@ -7,6 +7,7 @@ namespace PlayerSystem
         Running,
         Jump,
         Fall,
+        Land,
         DodgeBegin,
         DodgeEnd,
     }

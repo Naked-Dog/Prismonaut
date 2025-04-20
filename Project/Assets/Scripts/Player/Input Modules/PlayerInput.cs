@@ -21,7 +21,7 @@ namespace PlayerSystem
             InitializeActions();
 
             this.eventBus = eventBus;
-            eventBus.Subscribe<OnUpdate>(OnUpdate);
+            eventBus.Subscribe<OnFixedUpdate>(PublishInputEvents);
             eventBus.Subscribe<RequestPlayerInputs>(EnablePlayerMapInput);
             eventBus.Subscribe<RequestStopPlayerInputs>(StopPlayerMapInput);
             eventBus.Subscribe<RequestEnableDialogueInputs>(EnableDialogueInputs);
@@ -89,7 +89,7 @@ namespace PlayerSystem
             registeredCallbacks.Add((action, callback));
         }
 
-        private void OnUpdate(OnUpdate e)
+        private void PublishInputEvents(OnFixedUpdate e)
         {
             bool playerIsPressingJump = playerGameMap.FindAction("Jump").IsPressed();
             bool playerIsPressingMove = playerGameMap.FindAction("Move").IsPressed();
@@ -145,7 +145,7 @@ namespace PlayerSystem
 
         public void Dispose()
         {
-            eventBus.Unsubscribe<OnUpdate>(OnUpdate);
+            eventBus.Unsubscribe<OnFixedUpdate>(PublishInputEvents);
             eventBus.Unsubscribe<RequestPlayerInputs>(EnablePlayerMapInput);
             eventBus.Unsubscribe<RequestStopPlayerInputs>(StopPlayerMapInput);
             eventBus.Unsubscribe<RequestEnableDialogueInputs>(EnableDialogueInputs);

@@ -139,6 +139,7 @@ namespace PlayerSystem
 
         private void OnFixedUpdate(OnFixedUpdate e)
         {
+            Debug.Log("Request: " + requestedMovement);
             playerState.velocity = rb2d.linearVelocity;
             DoGroundCheck();
             if (jumpRequested) PerformJump();

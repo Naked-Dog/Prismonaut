@@ -14,7 +14,7 @@ namespace PlayerSystem
         private DodgePowerModule circlePower;
         private Rigidbody2D rb2d;
         private TriggerEventHandler drillTrigger;
-        private FixedJoint2D drillJoint;
+        private HingeJoint2D drillJoint;
         private Dictionary<Direction, TriggerEventHandler> triggers;
         private PlayerMovementScriptable movementValues;
 
@@ -23,7 +23,7 @@ namespace PlayerSystem
             PlayerState playerState,
             Rigidbody2D rb2d,
             TriggerEventHandler drillTrigger,
-            FixedJoint2D drillJoint,
+            HingeJoint2D drillJoint,
             PlayerMovementScriptable movementValues)
         {
             this.eventBus = eventBus;

@@ -11,7 +11,7 @@ namespace PlayerSystem
         [SerializeField] private Animator animator;
         [SerializeField] private SpriteRenderer helmetRenderer;
         [SerializeField] private TriggerEventHandler drillTrigger;
-        [SerializeField] private FixedJoint2D drillJoint;
+        [SerializeField] private HingeJoint2D drillJoint;
         [SerializeField] private PlayerMovementScriptable movementValues;
         [SerializeField] private InputActionAsset playerInputAsset;
         [SerializeField] private HealthUIController healthUIController;

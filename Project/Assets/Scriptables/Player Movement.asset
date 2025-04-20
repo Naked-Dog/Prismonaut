@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f8889d93ce4f76894033053fbb9579, type: 3}
   m_Name: Player Movement
   m_EditorClassIdentifier: 
-  horizontalVelocity: 40
+  horizontalVelocity: 200
   airBreak: 2
-  groundBreak: 6
+  groundBreak: 20
   maximumYSpeed: 25
   minimumYSpeed: -15
-  gravityScale: 3
-  jumpForce: 10
+  gravityScale: 4
+  jumpForce: 20
   jumpTime: 0.25
   gravity: 3
   groundCheckExtraHeight: 0.2

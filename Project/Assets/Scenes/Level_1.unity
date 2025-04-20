@@ -2884,30 +2884,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &323448074 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2654296522972983931, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
-  m_PrefabInstance: {fileID: 3426503853708861235}
-  m_PrefabAsset: {fileID: 0}
---- !u!255 &323448082
-FixedJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 323448074}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 1708917277}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_DampingRatio: 0
-  m_Frequency: 0
 --- !u!1001 &342355791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6147,11 +6123,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c062b41a20fe220499d6c18b0f5e8237, type: 3}
---- !u!4 &622881007 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1767910178151767957, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
-  m_PrefabInstance: {fileID: 3426503853708861235}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &627872181 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7973562562856298566, guid: c062b41a20fe220499d6c18b0f5e8237, type: 3}
@@ -10026,7 +9997,7 @@ MonoBehaviour:
   m_Priority: 0
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 622881007}
+  m_Follow: {fileID: 3426503853708861237}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 8
@@ -10709,7 +10680,7 @@ MonoBehaviour:
   m_Priority: 0
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 622881007}
+  m_Follow: {fileID: 3426503853708861237}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 2.5
@@ -11571,7 +11542,7 @@ MonoBehaviour:
   m_Priority: 0
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 622881007}
+  m_Follow: {fileID: 3426503853708861237}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 6
@@ -16024,7 +15995,7 @@ GameObject:
   - component: {fileID: 1673827493}
   - component: {fileID: 1673827498}
   - component: {fileID: 1673827499}
-  - component: {fileID: 1673827501}
+  - component: {fileID: 1673827500}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -16194,8 +16165,8 @@ FixedJoint2D:
   m_ConnectedAnchor: {x: 2.3900003, y: -3.46}
   m_DampingRatio: 0
   m_Frequency: 0
---- !u!232 &1673827501
-DistanceJoint2D:
+--- !u!233 &1673827500
+HingeJoint2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -16208,12 +16179,18 @@ DistanceJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 0
+  m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 1
-  m_Distance: 4.3621325
-  m_MaxDistanceOnly: 0
+  m_ConnectedAnchor: {x: -2.5900002, y: -3.51}
+  m_UseConnectedAnchor: 1
+  m_UseMotor: 0
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 0
+  m_AngleLimits:
+    m_LowerAngle: 0
+    m_UpperAngle: 359
 --- !u!1001 &1681645139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16435,11 +16412,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2083375322019919995, guid: f16a4bdaa99780f448257f2996833c91, type: 3}
   m_PrefabInstance: {fileID: 1708282275}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &1708917277 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 283549714567199758, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
-  m_PrefabInstance: {fileID: 3426503853708861235}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1712754351
 GameObject:
@@ -18841,7 +18813,7 @@ MonoBehaviour:
   m_Priority: 1
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 622881007}
+  m_Follow: {fileID: 3426503853708861237}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 6
@@ -21243,10 +21215,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 283549714567199758, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1236071349304804809, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
       propertyPath: m_Name
       value: Player
@@ -21295,17 +21263,10 @@ PrefabInstance:
       propertyPath: cameraState
       value: 
       objectReference: {fileID: 1900656940}
-    - target: {fileID: 7359745449289850381, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2654296522972983931, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 323448082}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
 --- !u!114 &3426503853708861236 stripped
 MonoBehaviour:
@@ -21318,6 +21279,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8cf4eb710cb1e4b88ea3e244f2ac50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &3426503853708861237 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2594086797658534107, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
+  m_PrefabInstance: {fileID: 3426503853708861235}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3523451671772672480 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3160744466920231424, guid: 7ac13e01512d4844e89e442a32872595, type: 3}
