@@ -7,7 +7,7 @@ namespace PlayerSystem
         private EventBus eventBus;
         private PlayerState playerState;
         private Rigidbody2D rb2d;
-        private PlayerMovementScriptable movementValues;
+        private PlayerPowersScriptable movementValues;
 
         private Vector2 inputDirection = Vector2.zero;
         private Vector2 appliedDirection = Vector2.zero;
@@ -16,7 +16,7 @@ namespace PlayerSystem
             EventBus eventBus,
             PlayerState playerState,
             Rigidbody2D rb2d,
-            PlayerMovementScriptable movementValues)
+            PlayerPowersScriptable movementValues)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;

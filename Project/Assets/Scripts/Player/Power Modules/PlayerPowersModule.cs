@@ -16,7 +16,7 @@ namespace PlayerSystem
         private TriggerEventHandler drillTrigger;
         private HingeJoint2D drillJoint;
         private Dictionary<Direction, TriggerEventHandler> triggers;
-        private PlayerMovementScriptable movementValues;
+        private PlayerPowersScriptable powersConstants;
 
         public PlayerPowersModule(
             EventBus eventBus,
@@ -24,18 +24,18 @@ namespace PlayerSystem
             Rigidbody2D rb2d,
             TriggerEventHandler drillTrigger,
             HingeJoint2D drillJoint,
-            PlayerMovementScriptable movementValues)
+            PlayerPowersScriptable powersConstants)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.drillTrigger = drillTrigger;
             this.drillJoint = drillJoint;
-            this.movementValues = movementValues;
+            this.powersConstants = powersConstants;
 
-            squarePower = new ShieldPowerModule(eventBus, playerState, rb2d, movementValues);
-            trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, drillTrigger, drillJoint, movementValues);
-            circlePower = new DodgePowerModule(eventBus, playerState, rb2d, movementValues);
+            squarePower = new ShieldPowerModule(eventBus, playerState, rb2d, powersConstants);
+            trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, drillTrigger, drillJoint, powersConstants);
+            circlePower = new DodgePowerModule(eventBus, playerState, rb2d, powersConstants);
         }
 
         public void SetPowerAvailable(Power power, bool isAvailable)
@@ -44,15 +44,15 @@ namespace PlayerSystem
             {
                 case Power.Square:
                     playerState.isSquarePowerAvailable = isAvailable;
-                    squarePower ??= new ShieldPowerModule(eventBus, playerState, rb2d, movementValues);
+                    squarePower ??= new ShieldPowerModule(eventBus, playerState, rb2d, powersConstants);
                     break;
                 case Power.Triangle:
                     playerState.isTrianglePowerAvailable = isAvailable;
-                    trianglePower ??= new DrillPowerModule(eventBus, playerState, rb2d, drillTrigger, drillJoint, movementValues);
+                    trianglePower ??= new DrillPowerModule(eventBus, playerState, rb2d, drillTrigger, drillJoint, powersConstants);
                     break;
                 case Power.Circle:
                     playerState.isCirclePowerAvailable = isAvailable;
-                    circlePower ??= new DodgePowerModule(eventBus, playerState, rb2d, movementValues);
+                    circlePower ??= new DodgePowerModule(eventBus, playerState, rb2d, powersConstants);
                     break;
             }
         }

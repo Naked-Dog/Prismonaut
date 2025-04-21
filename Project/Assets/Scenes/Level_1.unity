@@ -21100,6 +21100,14 @@ PrefabInstance:
       propertyPath: cameraState
       value: 
       objectReference: {fileID: 1900656940}
+    - target: {fileID: 2576048620030230097, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
+      propertyPath: powersConstants
+      value: 
+      objectReference: {fileID: 11400000, guid: da1e40bbce74331ea910a0eac8672449, type: 2}
+    - target: {fileID: 2576048620030230097, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
+      propertyPath: movementConstants
+      value: 
+      objectReference: {fileID: 11400000, guid: c65272a994cec7551933f096bf6b3a5f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

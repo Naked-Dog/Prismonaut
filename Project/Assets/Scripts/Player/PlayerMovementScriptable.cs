@@ -4,7 +4,8 @@ using UnityEngine;
 public class PlayerMovementScriptable : ScriptableObject
 {
     [Header("Movement")]
-    public float horizontalVelocity = 8f;
+    public float horizontalGroundedForce = 150f;
+    public float horizontalAirborneForce = 50f;
     public float airBreak = 2f;
     public float groundBreak = 6f;
     public float maximumYSpeed = 25;
@@ -32,20 +33,4 @@ public class PlayerMovementScriptable : ScriptableObject
     public float trianglePowerForce = 10f;
     public float trianglePowerDuration = 0.3f;
     public float trianglePowerCooldown = 1f;
-
-    [Header("Dodge Power")]
-    public float dodgePowerForce = 12f;
-    public float dodgePowerDuration = 0.7f;
-    public float dodgePowerBreakForce = 2f;
-
-    [Header("Shield Power")]
-    public float shieldPowerDuration = 0.5f;
-
-    [Header("Drill Power")]
-    public float drillMinimalFirstVelocity = 4f;
-    public float drillMinimalSecondVelocity = 8f;
-    public float drillFirstPowerDuration = 0.5f;
-    public float drillSecondPowerDuration = 2f;
-    public float drillFirstSteeringAmount = 1f;
-    public float drillSecondSteeringAmount = 4f;
 }

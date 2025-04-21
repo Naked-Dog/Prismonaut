@@ -9,7 +9,7 @@ namespace PlayerSystem
         private Rigidbody2D rb2d;
         private TriggerEventHandler drillTrigger;
         private HingeJoint2D drillJoint;
-        private PlayerMovementScriptable movementValues;
+        private PlayerPowersScriptable powersConstants;
 
         private Vector2 inputDirection = Vector2.zero;
         private bool isSecondStage = false;
@@ -20,14 +20,14 @@ namespace PlayerSystem
             Rigidbody2D rb2d,
             TriggerEventHandler drillTrigger,
             HingeJoint2D drillJoint,
-            PlayerMovementScriptable movementValues)
+            PlayerPowersScriptable powersConstants)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.drillTrigger = drillTrigger;
             this.drillJoint = drillJoint;
-            this.movementValues = movementValues;
+            this.powersConstants = powersConstants;
 
             eventBus.Subscribe<OnTrianglePowerInput>(OnTrianglePowerInput);
         }
@@ -42,11 +42,11 @@ namespace PlayerSystem
         private void Activate()
         {
             playerState.activePower = Power.Drill;
-            playerState.powerTimeLeft = movementValues.drillFirstPowerDuration;
+            playerState.powerTimeLeft = powersConstants.drillFirstPowerDuration;
             isSecondStage = false;
-            if (playerState.velocity.magnitude < movementValues.drillMinimalFirstVelocity)
+            if (playerState.velocity.magnitude < powersConstants.drillMinimalFirstVelocity)
             {
-                rb2d.linearVelocity = playerState.velocity.normalized * movementValues.drillMinimalFirstVelocity;
+                rb2d.linearVelocity = playerState.velocity.normalized * powersConstants.drillMinimalFirstVelocity;
             }
 
             eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
@@ -75,7 +75,7 @@ namespace PlayerSystem
             // drillTrigger.transform.rotation = Quaternion.Euler(0, 0, angle);
 
             float angleChange = Vector2.SignedAngle(playerState.velocity, inputDirection);
-            float steerAmount = isSecondStage ? movementValues.drillSecondSteeringAmount : movementValues.drillFirstSteeringAmount;
+            float steerAmount = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
             float rotationAmount = Mathf.Sign(angleChange) * steerAmount;
             drillJoint.GetComponent<Rigidbody2D>().AddTorque(50);
             rb2d.linearVelocity = Quaternion.Euler(0, 0, rotationAmount) * playerState.velocity;
@@ -103,11 +103,11 @@ namespace PlayerSystem
         {
             drillJoint.connectedBody = gameObject.GetComponent<Rigidbody2D>();
             drillJoint.connectedAnchor = gameObject.transform.position - rb2d.transform.position;
-            playerState.powerTimeLeft = movementValues.drillSecondPowerDuration;
+            playerState.powerTimeLeft = powersConstants.drillSecondPowerDuration;
             isSecondStage = true;
-            if (rb2d.linearVelocity.magnitude < movementValues.drillMinimalSecondVelocity)
+            if (rb2d.linearVelocity.magnitude < powersConstants.drillMinimalSecondVelocity)
             {
-                rb2d.linearVelocity = rb2d.linearVelocity.normalized * movementValues.drillMinimalSecondVelocity;
+                rb2d.linearVelocity = rb2d.linearVelocity.normalized * powersConstants.drillMinimalSecondVelocity;
             }
             eventBus.Publish(new RequestGravityOff());
             eventBus.Subscribe<OnUpdate>(MoreReduceTimeLeft);

@@ -40,9 +40,9 @@ namespace PlayerSystem
         public Physics2DMovement(
             EventBus eventBus,
             PlayerState playerState,
-            PlayerMovementScriptable movementValues,
+            PlayerMovementScriptable movementConstants,
             Rigidbody2D rb2d)
-            : base(eventBus, movementValues)
+            : base(eventBus, movementConstants)
         {
             this.playerState = playerState;
             this.rb2d = rb2d;
@@ -134,7 +134,6 @@ namespace PlayerSystem
             if (jumpRequested) return;
             if (0f < jumpCooldown) return;
             jumpRequested = true;
-
         }
 
         private void OnFixedUpdate(OnFixedUpdate e)
@@ -150,7 +149,7 @@ namespace PlayerSystem
 
         private void PerformJump()
         {
-            Vector2 impulseVector = new Vector2(0, movementValues.jumpForce - rb2d.linearVelocity.y);
+            Vector2 impulseVector = new Vector2(0, movementConstants.jumpForce - rb2d.linearVelocity.y);
             rb2d.AddForce(impulseVector, ForceMode2D.Impulse);
             playerState.groundState = GroundState.Airborne;
             jumpCooldown = maxJumpCooldown;
@@ -160,7 +159,9 @@ namespace PlayerSystem
 
         private void PerformMovement()
         {
-            requestedMovement *= movementValues.horizontalVelocity;
+            requestedMovement *= playerState.groundState == GroundState.Grounded ?
+                movementConstants.horizontalGroundedForce :
+                movementConstants.horizontalAirborneForce;
             float forceToApply;
             float velocityDirection = Mathf.Sign(rb2d.linearVelocity.x * requestedMovement);
             if (0f < velocityDirection)
@@ -180,7 +181,7 @@ namespace PlayerSystem
 
         private void PerformBreak()
         {
-            float breakModifier = playerState.groundState == GroundState.Airborne ? movementValues.airBreak : movementValues.groundBreak;
+            float breakModifier = playerState.groundState == GroundState.Airborne ? movementConstants.airBreak : movementConstants.groundBreak;
             float breakForce = -rb2d.linearVelocity.x * breakModifier;
             rb2d.AddForce(Vector2.right * breakForce, ForceMode2D.Force);
         }
@@ -212,7 +213,7 @@ namespace PlayerSystem
         }
         private void RequestGravityOn(RequestGravityOn e)
         {
-            rb2d.gravityScale = movementValues.gravityScale;
+            rb2d.gravityScale = movementConstants.gravityScale;
         }
     }
 }

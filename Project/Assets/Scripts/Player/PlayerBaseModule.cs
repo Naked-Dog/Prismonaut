@@ -12,7 +12,8 @@ namespace PlayerSystem
         [SerializeField] private SpriteRenderer helmetRenderer;
         [SerializeField] private TriggerEventHandler drillTrigger;
         [SerializeField] private HingeJoint2D drillJoint;
-        [SerializeField] private PlayerMovementScriptable movementValues;
+        [SerializeField] private PlayerMovementScriptable movementConstants;
+        [SerializeField] private PlayerPowersScriptable powersConstants;
         [SerializeField] private InputActionAsset playerInputAsset;
         [SerializeField] private HealthUIController healthUIController;
         [SerializeField] private CameraState cameraState;
@@ -39,9 +40,9 @@ namespace PlayerSystem
 
             audioModule = new PlayerAudioModule(eventBus, gameObject.GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
             inputModule = new PlayerInput(eventBus, playerInputAsset);
-            movementModule = new Physics2DMovement(eventBus, state, movementValues, avatarRigidbody2D);
-            animationsModule = new PlayerAnimations(eventBus, state, animator, movementValues);
-            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillTrigger, drillJoint, movementValues);
+            movementModule = new Physics2DMovement(eventBus, state, movementConstants, avatarRigidbody2D);
+            animationsModule = new PlayerAnimations(eventBus, state, animator, movementConstants);
+            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillTrigger, drillJoint, powersConstants);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
             {
                 MaxHealth = 3

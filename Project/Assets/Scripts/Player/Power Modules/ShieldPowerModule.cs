@@ -7,7 +7,7 @@ namespace PlayerSystem
         private EventBus eventBus;
         private PlayerState playerState;
         private Rigidbody2D rb2d;
-        private PlayerMovementScriptable movementValues;
+        private PlayerPowersScriptable powersConstants;
 
         private Vector2 savedVelocity;
 
@@ -15,12 +15,12 @@ namespace PlayerSystem
             EventBus eventBus,
             PlayerState playerState,
             Rigidbody2D rb2d,
-            PlayerMovementScriptable movementValues)
+            PlayerPowersScriptable powersConstants)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
-            this.movementValues = movementValues;
+            this.powersConstants = powersConstants;
 
             eventBus.Subscribe<OnSquarePowerInput>(OnSquarePowerInput);
         }
@@ -35,7 +35,7 @@ namespace PlayerSystem
         {
             eventBus.Publish(new RequestMovementPause());
             playerState.activePower = Power.Shield;
-            playerState.powerTimeLeft = movementValues.shieldPowerDuration;
+            playerState.powerTimeLeft = powersConstants.shieldPowerDuration;
             savedVelocity = rb2d.linearVelocity;
             rb2d.linearVelocity = Vector2.zero;
             rb2d.gravityScale = 0;
