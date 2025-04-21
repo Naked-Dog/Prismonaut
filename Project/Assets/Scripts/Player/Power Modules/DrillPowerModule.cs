@@ -51,6 +51,7 @@ namespace PlayerSystem
 
             eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Publish(new RequestMovementPause());
+            eventBus.Publish(new RequestGravityOff());
             eventBus.Subscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
             eventBus.Subscribe<OnVerticalInput>(TakeVerticalInputDirection);
             eventBus.Subscribe<OnFixedUpdate>(Steer);
@@ -70,16 +71,16 @@ namespace PlayerSystem
 
         private void Steer(OnFixedUpdate e)
         {
-            float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
-            drillTrigger.transform.rotation = Quaternion.Euler(0, 0, angle);
+            // float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
+            // drillTrigger.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-            if (0.1f < inputDirection.magnitude)
-            {
-                float angleChange = Vector2.SignedAngle(playerState.velocity, inputDirection);
-                float steerAmount = isSecondStage ? movementValues.drillSecondSteeringAmount : movementValues.drillFirstSteeringAmount;
-                float rotationAmount = Mathf.Sign(angleChange) * steerAmount;
-                rb2d.linearVelocity = Quaternion.Euler(0, 0, rotationAmount) * playerState.velocity;
-            }
+            float angleChange = Vector2.SignedAngle(playerState.velocity, inputDirection);
+            float steerAmount = isSecondStage ? movementValues.drillSecondSteeringAmount : movementValues.drillFirstSteeringAmount;
+            float rotationAmount = Mathf.Sign(angleChange) * steerAmount;
+            drillJoint.GetComponent<Rigidbody2D>().AddTorque(50);
+            rb2d.linearVelocity = Quaternion.Euler(0, 0, rotationAmount) * playerState.velocity;
+
+
         }
 
         private void ConfirmDrillCollision(Collider2D other)

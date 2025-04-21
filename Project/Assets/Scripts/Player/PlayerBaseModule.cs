@@ -37,7 +37,7 @@ namespace PlayerSystem
             state = new PlayerState();
             eventBus = new EventBus();
 
-            audioModule = new PlayerAudioModule(eventBus, avatarRigidbody2D.GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
+            audioModule = new PlayerAudioModule(eventBus, gameObject.GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Physics2DMovement(eventBus, state, movementValues, avatarRigidbody2D);
             animationsModule = new PlayerAnimations(eventBus, state, animator, movementValues);
@@ -46,7 +46,7 @@ namespace PlayerSystem
             {
                 MaxHealth = 3
             };
-            interactionModule = new PlayerInteractionModule(eventBus, avatarRigidbody2D.GetComponent<TriggerEventHandler>(), interactSign, state);
+            interactionModule = new PlayerInteractionModule(eventBus, gameObject.GetComponent<PhysicsEventsRelay>(), interactSign, state);
 
             avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionEnter2DAction.AddListener(OnCollisionEnter2D);
             avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionStay2DAction.AddListener(OnCollisionStay2D);

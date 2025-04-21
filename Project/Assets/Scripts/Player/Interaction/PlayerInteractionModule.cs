@@ -9,7 +9,7 @@ namespace PlayerSystem
         private GameObject signObject;
         private PlayerState playerState;
 
-        public PlayerInteractionModule(EventBus eventBus, TriggerEventHandler triggerEvent, GameObject interactSign, PlayerState state)
+        public PlayerInteractionModule(EventBus eventBus, PhysicsEventsRelay triggerEvent, GameObject interactSign, PlayerState state)
         {
             this.eventBus = eventBus;
             signObject = interactSign;

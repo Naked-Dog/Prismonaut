@@ -18,7 +18,7 @@ MonoBehaviour:
   maximumYSpeed: 25
   minimumYSpeed: -15
   gravityScale: 4
-  jumpForce: 20
+  jumpForce: 11
   jumpTime: 0.25
   gravity: 3
   groundCheckExtraHeight: 0.2
