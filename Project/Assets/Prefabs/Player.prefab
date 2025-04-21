@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 660891374109999405}
   - component: {fileID: 1144923050816293185}
   - component: {fileID: 4823931297030676588}
+  - component: {fileID: 5114936052932786681}
   - component: {fileID: 8195196797147147297}
   m_Layer: 0
   m_Name: Player
@@ -58,9 +59,10 @@ MonoBehaviour:
   avatarRigidbody2D: {fileID: 5905121191740833872}
   animator: {fileID: 2167560117015818270}
   helmetRenderer: {fileID: 4533460467198538667}
-  drillTrigger: {fileID: 2603695498861958772}
+  drillPhysicsRelay: {fileID: 6423650992875616377}
   drillJoint: {fileID: 4823931297030676588}
-  movementValues: {fileID: 11400000, guid: c65272a994cec7551933f096bf6b3a5f, type: 2}
+  movementConstants: {fileID: 11400000, guid: c65272a994cec7551933f096bf6b3a5f, type: 2}
+  powersConstants: {fileID: 11400000, guid: da1e40bbce74331ea910a0eac8672449, type: 2}
   playerInputAsset: {fileID: -944628639613478452, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
   healthUIController: {fileID: 2392222460885011908}
   cameraState: {fileID: 0}
@@ -198,6 +200,18 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!114 &5114936052932786681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236071349304804809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e2490c71c52567b8ae88a6133f2d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!81 &8195196797147147297
 AudioListener:
   m_ObjectHideFlags: 0
@@ -569,7 +583,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7688169702909972716}
   - component: {fileID: 4986979646962038064}
-  - component: {fileID: 2603695498861958772}
+  - component: {fileID: 6423650992875616377}
   m_Layer: 0
   m_Name: DrillTrigger
   m_TagString: Untagged
@@ -642,7 +656,7 @@ PolygonCollider2D:
       - {x: -0.24, y: 0.31}
       - {x: 0.24, y: 0.31}
   m_UseDelaunayMesh: 0
---- !u!114 &2603695498861958772
+--- !u!114 &6423650992875616377
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -651,7 +665,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6741273155044933290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95fbfa18a15957c6986d7b5595b8d2cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 05e2490c71c52567b8ae88a6133f2d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8574966060637271533

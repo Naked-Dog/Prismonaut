@@ -10,7 +10,7 @@ namespace PlayerSystem
         [SerializeField] private Rigidbody2D avatarRigidbody2D;
         [SerializeField] private Animator animator;
         [SerializeField] private SpriteRenderer helmetRenderer;
-        [SerializeField] private TriggerEventHandler drillTrigger;
+        [SerializeField] private PhysicsEventsRelay drillPhysicsRelay;
         [SerializeField] private HingeJoint2D drillJoint;
         [SerializeField] private PlayerMovementScriptable movementConstants;
         [SerializeField] private PlayerPowersScriptable powersConstants;
@@ -42,7 +42,7 @@ namespace PlayerSystem
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Physics2DMovement(eventBus, state, movementConstants, avatarRigidbody2D);
             animationsModule = new PlayerAnimations(eventBus, state, animator, movementConstants);
-            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillTrigger, drillJoint, powersConstants);
+            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillPhysicsRelay, drillJoint, powersConstants);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
             {
                 MaxHealth = 3
@@ -77,9 +77,9 @@ namespace PlayerSystem
             eventBus.Publish(new OnLateUpdate());
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            eventBus.Publish(new OnCollisionEnter2D(other));
+            eventBus.Publish(new OnCollisionEnter2D(collision));
         }
 
         private void OnCollisionStay2D(Collision2D collision)
@@ -87,9 +87,9 @@ namespace PlayerSystem
             eventBus.Publish(new OnCollisionStay2D(collision));
         }
 
-        private void OnCollisionExit2D(Collision2D other)
+        private void OnCollisionExit2D(Collision2D collision)
         {
-            eventBus.Publish(new OnCollisionExit2D(other));
+            eventBus.Publish(new OnCollisionExit2D(collision));
         }
 
         private void OnDestroy()

@@ -24,21 +24,20 @@ namespace PlayerSystem
 
         private void OnUpdate(OnUpdate e)
         {
-            if (playerState.activePower != Power.None)
+            switch (playerState.activePower)
             {
-                switch (playerState.activePower)
-                {
-                    case Power.Dodge:
-                        if (playerState.powerTimeLeft < 0.15f)
-                            SetState(AnimationState.DodgeEnd);
-                        else SetState(AnimationState.DodgeBegin);
-                        break;
-                    case Power.Drill:
-                        float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
-                        animator.transform.parent.rotation = Quaternion.Euler(0, 0, angle);
-                        break;
-                }
-                return;
+                case Power.Dodge:
+                    if (playerState.powerTimeLeft < 0.15f)
+                        SetState(AnimationState.DodgeEnd);
+                    else SetState(AnimationState.DodgeBegin);
+                    return;
+                case Power.Drill:
+                    float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
+                    animator.transform.parent.rotation = Quaternion.Euler(0, 0, angle);
+                    return;
+                default:
+                    animator.transform.parent.rotation = Quaternion.identity;
+                    break;
             }
 
             bool isMoving = Mathf.Abs(playerState.velocity.x) > 0.1f;

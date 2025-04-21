@@ -166,7 +166,7 @@ namespace PlayerSystem
             float velocityDirection = Mathf.Sign(rb2d.linearVelocity.x * requestedMovement);
             if (0f < velocityDirection)
             {
-                float lerpAmount = Mathf.Abs(rb2d.linearVelocity.x) / maxHorizonalVelocity;
+                float lerpAmount = Mathf.Abs(rb2d.linearVelocity.x) / movementConstants.maxHorizontalVelocity;
                 forceToApply = velocityDirection < 0f ? requestedMovement : Mathf.Lerp(requestedMovement, 0f, lerpAmount);
             }
             else

@@ -13,7 +13,6 @@ public class PhysicsEventsRelay : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("OnTriggerEnter2D: " + collider.name);
         OnTriggerEnter2DAction?.Invoke(collider);
     }
 
@@ -29,7 +28,6 @@ public class PhysicsEventsRelay : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("OnCollisionEnter2D: " + collision.collider.name);
         OnCollisionEnter2DAction?.Invoke(collision);
     }
 

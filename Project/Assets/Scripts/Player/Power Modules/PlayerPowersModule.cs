@@ -13,7 +13,7 @@ namespace PlayerSystem
         private DrillPowerModule trianglePower;
         private DodgePowerModule circlePower;
         private Rigidbody2D rb2d;
-        private TriggerEventHandler drillTrigger;
+        private PhysicsEventsRelay drillPhysicsRelay;
         private HingeJoint2D drillJoint;
         private Dictionary<Direction, TriggerEventHandler> triggers;
         private PlayerPowersScriptable powersConstants;
@@ -22,19 +22,19 @@ namespace PlayerSystem
             EventBus eventBus,
             PlayerState playerState,
             Rigidbody2D rb2d,
-            TriggerEventHandler drillTrigger,
+            PhysicsEventsRelay drillPhysicsRelay,
             HingeJoint2D drillJoint,
             PlayerPowersScriptable powersConstants)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
-            this.drillTrigger = drillTrigger;
+            this.drillPhysicsRelay = drillPhysicsRelay;
             this.drillJoint = drillJoint;
             this.powersConstants = powersConstants;
 
             squarePower = new ShieldPowerModule(eventBus, playerState, rb2d, powersConstants);
-            trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, drillTrigger, drillJoint, powersConstants);
+            trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, drillPhysicsRelay, drillJoint, powersConstants);
             circlePower = new DodgePowerModule(eventBus, playerState, rb2d, powersConstants);
         }
 
@@ -48,7 +48,7 @@ namespace PlayerSystem
                     break;
                 case Power.Triangle:
                     playerState.isTrianglePowerAvailable = isAvailable;
-                    trianglePower ??= new DrillPowerModule(eventBus, playerState, rb2d, drillTrigger, drillJoint, powersConstants);
+                    trianglePower ??= new DrillPowerModule(eventBus, playerState, rb2d, drillPhysicsRelay, drillJoint, powersConstants);
                     break;
                 case Power.Circle:
                     playerState.isCirclePowerAvailable = isAvailable;

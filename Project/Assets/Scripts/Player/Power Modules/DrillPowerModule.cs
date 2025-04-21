@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -7,7 +8,7 @@ namespace PlayerSystem
         private EventBus eventBus;
         private PlayerState playerState;
         private Rigidbody2D rb2d;
-        private TriggerEventHandler drillTrigger;
+        private PhysicsEventsRelay drillPhysicsRelay;
         private HingeJoint2D drillJoint;
         private PlayerPowersScriptable powersConstants;
 
@@ -18,14 +19,14 @@ namespace PlayerSystem
             EventBus eventBus,
             PlayerState playerState,
             Rigidbody2D rb2d,
-            TriggerEventHandler drillTrigger,
+            PhysicsEventsRelay drillPhysicsRelay,
             HingeJoint2D drillJoint,
             PlayerPowersScriptable powersConstants)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
-            this.drillTrigger = drillTrigger;
+            this.drillPhysicsRelay = drillPhysicsRelay;
             this.drillJoint = drillJoint;
             this.powersConstants = powersConstants;
 
@@ -51,11 +52,10 @@ namespace PlayerSystem
 
             eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Publish(new RequestMovementPause());
-            eventBus.Publish(new RequestGravityOff());
             eventBus.Subscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
             eventBus.Subscribe<OnVerticalInput>(TakeVerticalInputDirection);
             eventBus.Subscribe<OnFixedUpdate>(Steer);
-            drillTrigger.OnTriggerEnter2DAction.AddListener(ConfirmDrillCollision);
+            drillPhysicsRelay.OnTriggerEnter2DAction.AddListener(ConfirmDrillCollision);
         }
 
 
@@ -71,15 +71,30 @@ namespace PlayerSystem
 
         private void Steer(OnFixedUpdate e)
         {
-            // float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
-            // drillTrigger.transform.rotation = Quaternion.Euler(0, 0, angle);
+            if (!isSecondStage)
+            {
+                // Move the drill trigger the the front of the velocity vector
+                float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
+                drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-            float angleChange = Vector2.SignedAngle(playerState.velocity, inputDirection);
-            float steerAmount = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
-            float rotationAmount = Mathf.Sign(angleChange) * steerAmount;
-            drillJoint.GetComponent<Rigidbody2D>().AddTorque(50);
-            rb2d.linearVelocity = Quaternion.Euler(0, 0, rotationAmount) * playerState.velocity;
-
+                if (inputDirection.magnitude < 0.1f) return;
+                // Lightly steer the velocity vector with the player's input
+                float angleChange = Vector2.SignedAngle(playerState.velocity, inputDirection);
+                float steerAmount = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
+                float rotationAmount = Mathf.Sign(angleChange) * steerAmount;
+                rb2d.linearVelocity = Quaternion.Euler(0, 0, rotationAmount) * playerState.velocity;
+            }
+            else
+            {
+                if (inputDirection.magnitude < 0.1f) return;
+                // Rotate the drill's hinge joint with its motor
+                float angleChange = Vector2.SignedAngle(playerState.velocity, inputDirection);
+                float steerAmount = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
+                float rotationAmount = Mathf.Sign(angleChange) * steerAmount;
+                JointMotor2D motor = drillJoint.motor;
+                motor.motorSpeed = rotationAmount * powersConstants.drillSecondSteeringAmount;
+                drillJoint.motor = motor;
+            }
 
         }
 
@@ -87,8 +102,30 @@ namespace PlayerSystem
         {
             if (!other.GetComponent<TestFly>()) return;
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
-            drillTrigger.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
-            DrillIntoGameObject(other.gameObject);
+            drillPhysicsRelay.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
+            AttachObjectToDrill(other.gameObject);
+            eventBus.Subscribe<OnFixedUpdate>(DrillIntoGameObject);
+        }
+
+        private void AttachObjectToDrill(GameObject gameObject)
+        {
+            drillJoint.enabled = true;
+            drillJoint.connectedBody = gameObject.GetComponent<Rigidbody2D>();
+            drillJoint.connectedAnchor = gameObject.transform.position - rb2d.transform.position;
+            playerState.powerTimeLeft = powersConstants.drillSecondPowerDuration;
+            isSecondStage = true;
+            if (rb2d.linearVelocity.magnitude < powersConstants.drillMinimalSecondVelocity)
+            {
+                rb2d.linearVelocity = rb2d.linearVelocity.normalized * powersConstants.drillMinimalSecondVelocity;
+            }
+            eventBus.Publish(new RequestGravityOff());
+            eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
+        }
+
+        private void DrillIntoGameObject(OnFixedUpdate e)
+        {
+            Vector2 drillingVector = drillJoint.connectedBody.transform.position - rb2d.transform.position;
+            rb2d.linearVelocity = drillingVector.normalized * rb2d.linearVelocity.magnitude;
         }
 
         private void ReduceTimeLeft(OnUpdate e)
@@ -99,39 +136,18 @@ namespace PlayerSystem
             Deactivate();
         }
 
-        private void DrillIntoGameObject(GameObject gameObject)
-        {
-            drillJoint.connectedBody = gameObject.GetComponent<Rigidbody2D>();
-            drillJoint.connectedAnchor = gameObject.transform.position - rb2d.transform.position;
-            playerState.powerTimeLeft = powersConstants.drillSecondPowerDuration;
-            isSecondStage = true;
-            if (rb2d.linearVelocity.magnitude < powersConstants.drillMinimalSecondVelocity)
-            {
-                rb2d.linearVelocity = rb2d.linearVelocity.normalized * powersConstants.drillMinimalSecondVelocity;
-            }
-            eventBus.Publish(new RequestGravityOff());
-            eventBus.Subscribe<OnUpdate>(MoreReduceTimeLeft);
-        }
-
-        private void MoreReduceTimeLeft(OnUpdate e)
-        {
-            playerState.powerTimeLeft -= Time.deltaTime;
-            if (0 < playerState.powerTimeLeft) return;
-            eventBus.Unsubscribe<OnUpdate>(MoreReduceTimeLeft);
-            Deactivate();
-        }
-
         private void Deactivate()
         {
             playerState.activePower = Power.None;
-            rb2d.transform.rotation = Quaternion.identity;
+            drillJoint.enabled = false;
 
             eventBus.Publish(new RequestMovementResume());
             eventBus.Publish(new RequestGravityOn());
             eventBus.Unsubscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
             eventBus.Unsubscribe<OnVerticalInput>(TakeVerticalInputDirection);
             eventBus.Unsubscribe<OnFixedUpdate>(Steer);
-            drillTrigger.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
+            eventBus.Unsubscribe<OnFixedUpdate>(DrillIntoGameObject);
+            drillPhysicsRelay.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
         }
     }
 }

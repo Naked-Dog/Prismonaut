@@ -6,8 +6,9 @@ public class PlayerMovementScriptable : ScriptableObject
     [Header("Movement")]
     public float horizontalGroundedForce = 150f;
     public float horizontalAirborneForce = 50f;
-    public float airBreak = 2f;
     public float groundBreak = 6f;
+    public float airBreak = 2f;
+    public float maxHorizontalVelocity = 8f;
     public float maximumYSpeed = 25;
     public float minimumYSpeed = -15;
     public float gravityScale = 3f;
