@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 namespace PlayerSystem
 {
@@ -31,7 +30,6 @@ namespace PlayerSystem
         private float landingMoveCooldown = 0f;
         private float groundedGraceTimer = 0f;
 
-        readonly float maxHorizonalVelocity = 8f;
         readonly float maxJumpCooldown = 0.2f;
         readonly float maxLandingBreakCooldown = 0.1f;
         readonly float groundedGracePeriod = 0.1f;
@@ -40,9 +38,8 @@ namespace PlayerSystem
         public Physics2DMovement(
             EventBus eventBus,
             PlayerState playerState,
-            PlayerMovementScriptable movementConstants,
             Rigidbody2D rb2d)
-            : base(eventBus, movementConstants)
+            : base(eventBus)
         {
             this.playerState = playerState;
             this.rb2d = rb2d;
@@ -138,7 +135,6 @@ namespace PlayerSystem
 
         private void OnFixedUpdate(OnFixedUpdate e)
         {
-            Debug.Log("Request: " + requestedMovement);
             playerState.velocity = rb2d.linearVelocity;
             DoGroundCheck();
             if (jumpRequested) PerformJump();

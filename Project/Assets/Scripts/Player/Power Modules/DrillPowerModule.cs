@@ -20,15 +20,14 @@ namespace PlayerSystem
             PlayerState playerState,
             Rigidbody2D rb2d,
             PhysicsEventsRelay drillPhysicsRelay,
-            HingeJoint2D drillJoint,
-            PlayerPowersScriptable powersConstants)
+            HingeJoint2D drillJoint)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.drillPhysicsRelay = drillPhysicsRelay;
             this.drillJoint = drillJoint;
-            this.powersConstants = powersConstants;
+            this.powersConstants = GlobalConstants.Get<PlayerPowersScriptable>();
 
             eventBus.Subscribe<OnTrianglePowerInput>(OnTrianglePowerInput);
         }
@@ -100,7 +99,8 @@ namespace PlayerSystem
 
         private void ConfirmDrillCollision(Collider2D other)
         {
-            if (!other.GetComponent<TestFly>()) return;
+            // if (!other.GetComponent<TestFly>()) return;
+            if (other.isTrigger) return;
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
             drillPhysicsRelay.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
             AttachObjectToDrill(other.gameObject);

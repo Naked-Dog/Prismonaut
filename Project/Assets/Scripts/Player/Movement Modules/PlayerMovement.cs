@@ -8,10 +8,10 @@ namespace PlayerSystem
         protected bool isJumpingDisabled = false;
         protected bool isGravityDisabled = false;
 
-        protected PlayerMovement(EventBus eventBus, PlayerMovementScriptable movementConstants)
+        protected PlayerMovement(EventBus eventBus)
         {
             this.eventBus = eventBus;
-            this.movementConstants = movementConstants;
+            this.movementConstants = GlobalConstants.Get<PlayerMovementScriptable>();
         }
 
         protected abstract void OnHorizontalInput(OnHorizontalInput e);

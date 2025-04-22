@@ -14,13 +14,12 @@ namespace PlayerSystem
         public ShieldPowerModule(
             EventBus eventBus,
             PlayerState playerState,
-            Rigidbody2D rb2d,
-            PlayerPowersScriptable powersConstants)
+            Rigidbody2D rb2d)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
-            this.powersConstants = powersConstants;
+            this.powersConstants = GlobalConstants.Get<PlayerPowersScriptable>();
 
             eventBus.Subscribe<OnSquarePowerInput>(OnSquarePowerInput);
         }

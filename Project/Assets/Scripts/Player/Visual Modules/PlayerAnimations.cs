@@ -11,12 +11,12 @@ namespace PlayerSystem
 
         private AnimationState currentState;
 
-        public PlayerAnimations(EventBus eventBus, PlayerState playerState, Animator animator, PlayerMovementScriptable movementValues)
+        public PlayerAnimations(EventBus eventBus, PlayerState playerState, Animator animator)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.animator = animator;
-            this.movementValues = movementValues;
+            this.movementValues = GlobalConstants.Get<PlayerMovementScriptable>();
 
             this.eventBus.Subscribe<OnUpdate>(OnUpdate);
         }

@@ -15,13 +15,12 @@ namespace PlayerSystem
         public DodgePowerModule(
             EventBus eventBus,
             PlayerState playerState,
-            Rigidbody2D rb2d,
-            PlayerPowersScriptable movementValues)
+            Rigidbody2D rb2d)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
-            this.movementValues = movementValues;
+            this.movementValues = GlobalConstants.Get<PlayerPowersScriptable>();
 
             eventBus.Subscribe<OnCirclePowerInput>(OnCirclePowerInput);
             eventBus.Subscribe<OnHorizontalInput>(OnHorizontaInput);
