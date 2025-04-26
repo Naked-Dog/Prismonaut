@@ -1,14 +1,22 @@
-using UnityEngine;
+// using PathFinder;
+// using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class EnemyTest : MonoBehaviour
-{
-    [SerializeField] private Transform player;
-    private PathFinder2DAgent pathFinderAgent;
+// [RequireComponent(typeof(Rigidbody2D))]
+// public class EnemyTest : MonoBehaviour
+// {
+//     public Transform player;
+//     private PathfindingAgent2D agent;
 
-    void Start()
-    {
-        pathFinderAgent = GetComponent<PathFinder2DAgent>();
-        pathFinderAgent.TargetDestination = player.position;
-    }
-}
+//     void Start()
+//     {
+//         agent = GetComponent<PathfindingAgent2D>();
+//         agent.SetDestination(player.position);
+//     }
+
+//     void Update()
+//     {
+//         if (agent == null || player == null) return;
+
+//         agent.SetDestination(player.position);
+//     }
+// }

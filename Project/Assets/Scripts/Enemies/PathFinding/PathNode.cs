@@ -1,16 +1,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PathNode
+namespace PathFinder
 {
-    public Vector3 worldPosition;
-    public bool isWalkable;
-    public List<PathNode> neighbors;
-
-    public PathNode(Vector3 worldPosition, bool isWalkable)
+    public enum NodeType
     {
-        this.worldPosition = worldPosition;
-        this.isWalkable = isWalkable;
-        neighbors = new List<PathNode>();
+        Ground,
+        Fly
+    }
+
+    public class PathNode
+    {
+        public bool walkable;
+        public Vector2 worldPos;
+        public int gridX, gridY;
+
+        // A* costs
+        public int gCost;
+        public int hCost;
+        public int fCost => gCost + hCost;
+
+        public PathNode parent;
+
+        public PathNode(bool walkable, Vector2 worldPos, int gridX, int gridY) {
+            this.walkable = walkable;
+            this.worldPos = worldPos;
+            this.gridX = gridX;
+            this.gridY = gridY;
+        }
     }
 }
