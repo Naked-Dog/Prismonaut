@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Player Library
   m_EditorClassIdentifier: 
   clips:
-    _serializedList: []
+    _serializedList:
+    - Key: 3
+      Value: {fileID: 8300000, guid: 3026f31c6eae96346879d2e97ec62a22, type: 3}

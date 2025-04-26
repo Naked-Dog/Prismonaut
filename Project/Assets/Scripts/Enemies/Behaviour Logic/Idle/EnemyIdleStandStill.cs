@@ -13,12 +13,10 @@ public class EnemyIdleStandStill : EnemyIdleSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        //enemy.audioManager.PlayAudioClip("Idle", true, 0.5f);
     }
 
     public override void DoExitLogic()
     {
-        //enemy.audioManager.StopAudioClip("Idle");
         base.DoExitLogic();
     }
 

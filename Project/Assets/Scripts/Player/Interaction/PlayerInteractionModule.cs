@@ -27,7 +27,7 @@ namespace PlayerSystem
 
             if (currentInteractable.IsInteractable)
             {
-                AudioManager.Instance.Play(PlayerSoundsEnum.Interact);
+                AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Interact);
                 currentInteractable.Interact();
                 playerState.isOnInteractable = false;
                 signObject.SetActive(false);

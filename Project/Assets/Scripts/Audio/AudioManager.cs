@@ -89,7 +89,7 @@ public class AudioManager: MonoBehaviour
         clips[name] = clip;
     }
 
-    public AudioSource Play<TEnum>(TEnum key, float volume = 1f, bool loop = false) where TEnum : Enum
+    public AudioSource PlaySound<TEnum>(TEnum key, float volume = 1f, bool loop = false, float spatialBlend = 1) where TEnum : Enum
     {
         if (!libraryMap.TryGetValue(typeof(TEnum), out var baseLib))
         {
@@ -108,22 +108,27 @@ public class AudioManager: MonoBehaviour
         src.volume = volume;
         src.loop = loop;
         src.outputAudioMixerGroup = sfxMixer;
-        src.spatialBlend = 1f;
+        src.spatialBlend = spatialBlend;
+        src.spread = 180;
+        src.minDistance = 0.07f;
+        src.maxDistance = 0.15f;
         src.Play();
         if (!loop) StartCoroutine(RecycleWhenDone(src));
         return src;
     }
 
-    public AudioSource PlayAtPosition<TEnum>(TEnum key, Vector3 position, float volume = 1f, bool loop = false) where TEnum : Enum
+
+
+    public AudioSource Play3DSountAtPosition<TEnum>(TEnum key, Vector3 position, float volume = 1f, bool loop = false) where TEnum : Enum
     {
-        var src = Play(key, volume, loop);
+        var src = PlaySound(key, volume, loop);
         if (src != null) src.transform.position = position;
         return src;
     }
 
-    public AudioSource PlayAttached<TEnum>(TEnum key, Transform parent, float volume = 1f, bool loop = false) where TEnum : Enum
+    public AudioSource Play3DSoundAttached<TEnum>(TEnum key, Transform parent, float volume = 1f, bool loop = false) where TEnum : Enum
     {
-        var src = Play(key, volume, loop);
+        var src = PlaySound(key, volume, loop);
 
         if (src != null)
         {
@@ -131,6 +136,12 @@ public class AudioManager: MonoBehaviour
             src.transform.localPosition = Vector3.zero;
         }
         
+        return src;
+    }
+
+    public AudioSource Play2DSound<TEnum>(TEnum key, float volume = 1, bool loop = false) where TEnum : Enum
+    {
+        var src = PlaySound(key, volume, loop, 0);
         return src;
     }
 

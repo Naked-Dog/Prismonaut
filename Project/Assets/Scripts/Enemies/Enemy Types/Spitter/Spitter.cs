@@ -1,4 +1,5 @@
 using PlayerSystem;
+using UnityEditor.Recorder.Input;
 using UnityEngine;
 
 public class Spitter : Enemy, IPlayerPowerInteractable
@@ -6,6 +7,12 @@ public class Spitter : Enemy, IPlayerPowerInteractable
     public PlayerSystem.Power weakness;
     public Transform mouthTransform;
     public Transform projectileOrigin;
+
+
+    private void OnEnable()
+    {
+        AudioManager.Instance.Play3DSoundAttached(EnemySpitterSoundsEnum.Idle, transform, 1f, true);
+    }
 
     public void PlayerPowerInteraction(PlayerSystem.PlayerState playerState)
     {

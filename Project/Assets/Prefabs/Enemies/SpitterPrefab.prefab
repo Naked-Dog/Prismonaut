@@ -53,6 +53,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 955743028057587267}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -76,7 +77,8 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 2.7934184}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -87,7 +89,6 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 6.0532093, y: 4.665248}
   m_EdgeRadius: 0
 --- !u!1 &1391534798321504308
@@ -235,6 +236,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -320,6 +324,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -367,7 +374,6 @@ GameObject:
   - component: {fileID: 2479853728651891822}
   - component: {fileID: 6151151694804280224}
   - component: {fileID: 2553119693882862322}
-  - component: {fileID: 7138197068023563323}
   - component: {fileID: 3985735322548326758}
   - component: {fileID: 1240004961828807732}
   m_Layer: 0
@@ -415,6 +421,7 @@ MonoBehaviour:
   attackCooldown: 2
   isAttackInCooldown: 0
   isAttacking: 0
+  audioManager: {fileID: 0}
   lootDrop: {fileID: 1240004961828807732}
   lootOrigin: {fileID: 591140622340866350}
   weakness: 2
@@ -422,7 +429,7 @@ MonoBehaviour:
   projectileOrigin: {fileID: 2606573467513542103}
 --- !u!50 &6151151694804280224
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -433,8 +440,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -455,6 +462,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8210435350966014907}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -478,7 +486,8 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.097895384}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -489,29 +498,8 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 1.1292673, y: 0.69579077}
   m_EdgeRadius: 0
---- !u!114 &7138197068023563323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8210435350966014907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b0bb193f77d64c4f8815308742cacc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemySpitterSounds:
-    _serializedList:
-    - Key: Shoot
-      Value: {fileID: 8300000, guid: e2ad9990cda6031429fa4dbdca0ac871, type: 3}
-    - Key: Idle
-      Value: {fileID: 8300000, guid: fc892115adb876d46b2ad96fbce0ee3f, type: 3}
-    - Key: Death
-      Value: {fileID: 8300000, guid: b600f3b643ed15c4fba2c457f02ac646, type: 3}
 --- !u!82 &3985735322548326758
 AudioSource:
   m_ObjectHideFlags: 0
@@ -523,6 +511,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
