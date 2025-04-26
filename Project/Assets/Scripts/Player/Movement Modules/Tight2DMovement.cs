@@ -30,7 +30,6 @@ namespace PlayerSystem
         private RaycastHit2D groundHit;
         private bool isTriangleActive = false;
         private bool isCircleActive = false;
-        private bool isLanding = false;
         private CameraState cameraState;
         private PlayerAudioModule playerAudio;
         private bool isLookingDown = false;
@@ -244,17 +243,6 @@ namespace PlayerSystem
             float direction = 1;
             if (playerState.facingDirection == Direction.Left) direction = -1;
             playerState.lastSafeGroundLocation = new Vector2(rb2d.position.x - (modificator * direction), rb2d.position.y);
-        }
-
-        private IEnumerator JumpEnd()
-        {
-            isJumpingDisabled = true;
-            isLanding = true;
-
-            yield return new WaitForSeconds(0.05f);
-
-            isJumpingDisabled = false;
-            isLanding = false;
         }
 
         #region Debug Functions

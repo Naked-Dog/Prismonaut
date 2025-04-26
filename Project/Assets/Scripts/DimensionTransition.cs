@@ -17,7 +17,7 @@ public class DimensionTransition : MonoBehaviour
     [HideInInspector] public  Vector3 endPoint = new Vector3(5,5,0);
     private Vector3 startPoint => transform.position;
     private BoxCollider2D[] box2DColliders => GetComponents<BoxCollider2D>();
-    private CameraSystem.CameraState cameraManager => FindObjectOfType<CameraSystem.CameraState>();
+    private CameraSystem.CameraState cameraManager => FindAnyObjectByType<CameraSystem.CameraState>();
     private bool isTraveling;
     private PlayerBaseModule playerController = null;
     private InputAction trianglePowerAction;
@@ -30,16 +30,16 @@ public class DimensionTransition : MonoBehaviour
     private void Awake()
     {
         EnsureRequiredBoxColliders();
-        startPointAudio = new AudioManager(gameObject, GetComponent<PortalSoundList>(), GetComponent<AudioSource>());
-        endPointAudio = new AudioManager(endPortal, GetComponent<PortalSoundList>(), GetComponent<AudioSource>());
+        // startPointAudio = new AudioManager(gameObject, GetComponent<PortalSoundList>(), GetComponent<AudioSource>());
+        // endPointAudio = new AudioManager(endPortal, GetComponent<PortalSoundList>(), GetComponent<AudioSource>());
     }
 
     private void Start()
     {
         UpdateBoxColliders();
         InitializeInputActions();
-        startPointAudio.PlayAudioClip("Idle", true);
-        endPointAudio.PlayAudioClip("Idle", true);
+        // startPointAudio.PlayAudioClip("Idle", true);
+        // endPointAudio.PlayAudioClip("Idle", true);
     }
 
     private void Update() 
@@ -65,11 +65,11 @@ public class DimensionTransition : MonoBehaviour
             Vector3 finalPosition = GetTravelPoint(playerPosition);
             if(finalPosition == endPoint)
             {
-                startPointAudio.PlayAudioClip("Entry");
+                //startPointAudio.PlayAudioClip("Entry");
             } 
             else
             {
-                endPointAudio.PlayAudioClip("Entry");
+                //endPointAudio.PlayAudioClip("Entry");
             }
             Vector3 startTangentPos = finalPosition == endPoint ? startTangent : endTangent;
             Vector3 endTangentPos = finalPosition == endPoint ? endTangent : startTangent;

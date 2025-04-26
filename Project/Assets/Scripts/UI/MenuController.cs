@@ -30,12 +30,12 @@ public class MenuController : MonoBehaviour
             DontDestroyOnLoad(this);
         }
 
-        musicManager = new AudioManager(gameObject, GetComponent<MusicList>(), null);
+        //musicManager = new AudioManager(gameObject, GetComponent<MusicList>(), null);
     }
 
     private void Start()
     {
-        musicManager.PlayAudioClip(GetMusicClip(), true, 0.45f);
+        //musicManager.PlayAudioClip(GetMusicClip(), true, 0.45f);
     }
 
     public void ChangeScene(string sceneName)
@@ -57,7 +57,7 @@ public class MenuController : MonoBehaviour
         yield return fadeIn.WaitForCompletion();
 
         if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
-        musicManager.StopAllAudioClips();
+        //musicManager.StopAllAudioClips();
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         while (!asyncLoad.isDone)
@@ -67,7 +67,7 @@ public class MenuController : MonoBehaviour
         setMenuDisplay(sceneName);
         yield return new WaitForSeconds(1);
 
-        musicManager.PlayAudioClip(GetMusicClip(), true, 0.45f);
+        //musicManager.PlayAudioClip(GetMusicClip(), true, 0.45f);
 
         Tween fadeOut = backgroundImage.DOFade(0, 0.5f);
         yield return fadeOut.WaitForCompletion();

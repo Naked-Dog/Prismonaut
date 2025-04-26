@@ -47,7 +47,7 @@ public class DialogueController : MonoBehaviour
             Instance = this;
         }
 
-        currentCameraState = FindObjectOfType<CameraState>();
+        currentCameraState = FindAnyObjectByType<CameraState>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -59,7 +59,7 @@ public class DialogueController : MonoBehaviour
     public void RunDialogue(Narrative narrative)
     {
         eventBus.Publish(new EnableDialogueInputsEvent());
-        currentCameraState = FindObjectOfType<CameraState>();
+        currentCameraState = FindAnyObjectByType<CameraState>();
         currentCameraState.CameraPosState = CameraPositionState.Dialogue;
         currentDialogueIndex = 0;
         isDialogueRunning = true;

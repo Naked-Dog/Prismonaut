@@ -47,7 +47,7 @@ namespace PlayerSystem
                 {Direction.Right, rightTrigger}
             };
 
-            audioModule = new PlayerAudioModule(eventBus, GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
+            //audioModule = new PlayerAudioModule(eventBus, GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger, cameraState, audioModule, this);
             visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator, helmetRenderer);
