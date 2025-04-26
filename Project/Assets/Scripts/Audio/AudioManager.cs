@@ -1,98 +1,166 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
-public class AudioManager
+
+public class AudioManager: MonoBehaviour
 {
-    public AudioDictionary sounds;
-    public AudioSource audioSourceTemplate;
-    private GameObject audioContainer;
-    private List<AudioSource> audioSources = new();
+    public static AudioManager Instance {get; private set;}
 
-    public AudioManager(GameObject parent, AudioDictionary audioList, AudioSource audioSourceTemplate)
+    [Header("Pool settings")]
+    [SerializeField] private int initialPoolSize = 10;
+
+    [Header("Mixer Groups")]
+    [SerializeField] private AudioMixerGroup sfxMixer;   
+    [SerializeField] private AudioMixerGroup musicMixer;   
+
+    [Header("Audio Libraries")]
+    [SerializeField] private AudioLibraryBase[] libraries;
+    private Dictionary<Type, AudioLibraryBase> libraryMap = new();
+
+
+    public Dictionary<string, AudioClip> clips;
+    private List<AudioSource> allSources = new();
+    private Stack<AudioSource> freeSources = new();
+
+    protected void Awake()
     {
-        sounds = audioList;
-        this.audioSourceTemplate = audioSourceTemplate;
-        audioContainer = new GameObject("AudiosContainer");
-        audioContainer.transform.parent = parent.transform;
-        audioContainer.transform.localPosition = Vector2.zero;
-        CreateNewAudioSource();
-    }
-
-    private AudioSource CreateNewAudioSource()
-    {
-        GameObject audioObject = new GameObject();
-        audioObject.transform.parent = audioContainer.transform;
-        audioObject.transform.localPosition = Vector2.zero;
-        AudioSource newAudioSource = audioObject.AddComponent<AudioSource>();
-        newAudioSource.playOnAwake = false;
-
-        if (audioSourceTemplate)
+        if(Instance == null)
         {
-            newAudioSource.spatialBlend = audioSourceTemplate.spatialBlend;
-            newAudioSource.spread = audioSourceTemplate.spread;
-            newAudioSource.rolloffMode = audioSourceTemplate.rolloffMode;
-            newAudioSource.minDistance = audioSourceTemplate.minDistance;
-            newAudioSource.maxDistance = audioSourceTemplate.maxDistance;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
         }
 
-        audioSources.Add(newAudioSource);
-        return newAudioSource;
-    }
-
-    private AudioSource GetFreeAudioSource()
-    {
-        foreach (AudioSource audioSource in audioSources)
+        for(int i = 0; i < initialPoolSize; i++)
         {
-            if (!audioSource.isPlaying)
-            {
-                return audioSource;
-            }
+            freeSources.Push(CreateSource());
         }
 
-        return CreateNewAudioSource();
-
+        RegisterAudioLibraries();
     }
 
-    public void PlayAudioClip(string clipName, bool isLoop = false, float volume = 1)
+    private void RegisterAudioLibraries()
     {
-        AudioClip clip = sounds.GetAudioClip(clipName);
-        if (clip == null) return;
-
-        AudioSource freeAudioSource = GetFreeAudioSource();
-
-        freeAudioSource.clip = clip;
-        freeAudioSource.loop = isLoop;
-        freeAudioSource.volume = volume;
-        freeAudioSource.Play();
-    }
-
-    public void StopAudioClip(string clipName)
-    {
-        AudioClip clip = sounds.GetAudioClip(clipName);
-
-        foreach (AudioSource audioSource in audioSources)
+        foreach (var lib in libraries)
         {
-            if (audioSource.clip == clip && audioSource.isPlaying)
-            {
-                audioSource.Stop();
-                audioSource.clip = null;
-                audioSource.loop = false;
-                return;
-            }
+            libraryMap[lib.EnumType] = lib;
         }
     }
 
-    public void StopAllAudioClips()
+    private AudioSource CreateSource()
     {
-        foreach (AudioSource audioSource in audioSources)
+        var go = new GameObject("PooledAudio");
+        go.transform.SetParent(transform);
+        var src = go.AddComponent<AudioSource>();
+        src.playOnAwake = false;
+        allSources.Add(src);
+        return src;
+    }
+
+    private AudioSource GetSource()
+    {
+        return freeSources.Count > 0 ? freeSources.Pop() : CreateSource();
+    }
+
+    private void ReleaseSource(AudioSource src)
+    {
+        src.clip = null;
+        src.loop = false;
+        src.outputAudioMixerGroup = null;
+        src.transform.SetParent(transform);
+        freeSources.Push(src);
+    }
+
+    private IEnumerator RecycleWhenDone(AudioSource src)
+    {
+        yield return new WaitWhile(() => src.isPlaying);
+        ReleaseSource(src);
+    }
+
+    public void RegisterClip(string name, AudioClip clip)
+    {
+        clips[name] = clip;
+    }
+
+    public AudioSource PlaySound<TEnum>(TEnum key, float volume = 1f, bool loop = false, float spatialBlend = 1) where TEnum : Enum
+    {
+        if (!libraryMap.TryGetValue(typeof(TEnum), out var baseLib))
         {
-            if (audioSource.isPlaying)
+            return null;
+        }
+
+        var lib = baseLib as AudioLibrary<TEnum>;
+        var clip = lib?.GetClip(key);
+
+        if (clip == null){
+            return null;
+        } 
+
+        var src = GetSource();
+        src.clip = clip;
+        src.volume = volume;
+        src.loop = loop;
+        src.outputAudioMixerGroup = sfxMixer;
+        src.spatialBlend = spatialBlend;
+        src.spread = 180;
+        src.minDistance = 0.07f;
+        src.maxDistance = 0.15f;
+        src.Play();
+        if (!loop) StartCoroutine(RecycleWhenDone(src));
+        return src;
+    }
+
+
+
+    public AudioSource Play3DSountAtPosition<TEnum>(TEnum key, Vector3 position, float volume = 1f, bool loop = false) where TEnum : Enum
+    {
+        var src = PlaySound(key, volume, loop);
+        if (src != null) src.transform.position = position;
+        return src;
+    }
+
+    public AudioSource Play3DSoundAttached<TEnum>(TEnum key, Transform parent, float volume = 1f, bool loop = false) where TEnum : Enum
+    {
+        var src = PlaySound(key, volume, loop);
+
+        if (src != null)
+        {
+            src.transform.SetParent(parent);
+            src.transform.localPosition = Vector3.zero;
+        }
+        
+        return src;
+    }
+
+    public AudioSource Play2DSound<TEnum>(TEnum key, float volume = 1, bool loop = false) where TEnum : Enum
+    {
+        var src = PlaySound(key, volume, loop, 0);
+        return src;
+    }
+
+    public void Stop(string name)
+    {
+        foreach (var src in allSources)
+        {
+            if (src.isPlaying && src.clip != null && src.clip.name == name)
             {
-                audioSource.Stop();
-                audioSource.clip = null;
-                audioSource.loop = false;
-                return;
+                src.Stop();
             }
+        }
+    }
+
+    public void StopAll()
+    {
+        foreach (var src in allSources)
+        {
+            if (src.isPlaying) src.Stop();
         }
     }
 }

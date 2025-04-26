@@ -22,12 +22,12 @@ public class EnemyFollowDirectToPlayer : EnemyFollowSOBase
         base.DoEnterLogic();
         PointA = (enemy as Grub).PointA;
         PointB = (enemy as Grub).PointB;
-        enemy.audioManager.PlayAudioClip("Move", true, 0.08f);
+        //enemy.audioManager.PlayAudioClip("Move", true, 0.08f);
     }
 
     public override void DoExitLogic()
     {
-        enemy.audioManager.StopAudioClip("Move");
+       //enemy.audioManager.StopAudioClip("Move");
         base.DoExitLogic();
     }
 

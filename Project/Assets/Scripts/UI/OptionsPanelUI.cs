@@ -21,7 +21,7 @@ public class OptionsPanelUI : PanelUI
 
     private void Awake()
     {
-        menuAudio = new AudioManager(gameObject, GetComponent<MenuSoundList>(), GetComponent<AudioSource>());
+        //menuAudio = new AudioManager(gameObject, GetComponent<MenuSoundList>(), GetComponent<AudioSource>());
     }
 
     private void Start()

@@ -181,7 +181,7 @@ public class EnemyAttackSingleStraightProjectile : EnemyAttackSOBase
         bullet.gameObject.GetComponent<Projectile>()?.Initialize(enemy.GetComponent<Collider2D>(), direction.normalized);
         bullet.transform.rotation = Quaternion.AngleAxis(angle - 180, Vector3.forward);
         bullet.linearVelocity = direction.normalized * projectileSpeed;
-        enemy.audioManager.PlayAudioClip("Shoot");
+        //enemy.audioManager.PlayAudioClip("Shoot");
         await Task.Delay((int)(0.2f * 1000));
         _isAttacking = false;
         enemy.GetComponentInChildren<SpriteRenderer>().color = _startingColor;

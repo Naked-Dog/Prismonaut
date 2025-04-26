@@ -80,8 +80,8 @@ public class EnemyAttackTackle : EnemyAttackSOBase
         await Task.Delay((int)(0.35f * 1000));
         enemy.GetComponentInChildren<SpriteRenderer>().color = _startingColor;
         enemy.StartCoroutine(enemy.StartAttackCooldown());
-        enemy.audioManager.StopAudioClip("Move");
-        enemy.audioManager.PlayAudioClip("Dash");
+        //enemy.audioManager.StopAudioClip("Move");
+        //enemy.audioManager.PlayAudioClip("Dash");
         enemy.isAttacking = false;
     }
 

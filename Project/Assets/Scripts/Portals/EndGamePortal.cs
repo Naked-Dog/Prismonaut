@@ -16,12 +16,12 @@ public class EndGamePortal : MonoBehaviour
 
     private void Awake()
     {
-        audioManager = new AudioManager(gameObject, GetComponent<PortalSoundList>(), GetComponent<AudioSource>());
+        //audioManager = new AudioManager(gameObject, GetComponent<PortalSoundList>(), GetComponent<AudioSource>());
     }
 
     private void Start()
     {
-        audioManager.PlayAudioClip("Idle", true);
+        //audioManager.PlayAudioClip("Idle", true);
     }
 
     private IEnumerator EnterEndGamePortal(PlayerBaseModule playerBaseModule)
@@ -29,7 +29,7 @@ public class EndGamePortal : MonoBehaviour
         // isTeleporting = true;
         yield return new WaitForSeconds(1);
         playerBaseModule.transform.GetChild(1).gameObject.SetActive(false);
-        audioManager.PlayAudioClip("Entry", true);
+        //audioManager.PlayAudioClip("Entry", true);
         player3DModel.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         player3DModel.GetComponent<SplineAnimate>().Play();

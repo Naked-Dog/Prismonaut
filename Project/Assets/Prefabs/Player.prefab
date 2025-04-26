@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5905121191740833872}
   - component: {fileID: 6576846937216253312}
   - component: {fileID: 660891374109999405}
-  - component: {fileID: 1144923050816293185}
   - component: {fileID: 4823931297030676588}
   - component: {fileID: 5114936052932786681}
   - component: {fileID: 8195196797147147297}
@@ -58,14 +57,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatarRigidbody2D: {fileID: 5905121191740833872}
   animator: {fileID: 2167560117015818270}
-  helmetRenderer: {fileID: 4533460467198538667}
   drillPhysicsRelay: {fileID: 6423650992875616377}
   drillJoint: {fileID: 4823931297030676588}
-  movementConstants: {fileID: 11400000, guid: c65272a994cec7551933f096bf6b3a5f, type: 2}
-  powersConstants: {fileID: 11400000, guid: da1e40bbce74331ea910a0eac8672449, type: 2}
   playerInputAsset: {fileID: -944628639613478452, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
   healthUIController: {fileID: 2392222460885011908}
-  cameraState: {fileID: 0}
   interactSign: {fileID: 2274050569513530640}
   knockback: {fileID: 660891374109999405}
 --- !u!50 &5905121191740833872
@@ -134,46 +129,6 @@ MonoBehaviour:
   hitDirectionForce: 10
   constForce: 5
   inputForce: 7.5
---- !u!114 &1144923050816293185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1236071349304804809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34f2176663d88c8459fa7307a7612ec7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSounds:
-    _serializedList:
-    - Key: Jump
-      Value: {fileID: 8300000, guid: 2f287c6df970b6a47b2818c22e3011ea, type: 3}
-    - Key: Explode
-      Value: {fileID: 8300000, guid: d10b4d9361778ec4a9168d2934a23838, type: 3}
-    - Key: Defeat
-      Value: {fileID: 8300000, guid: 61ddb794a856667488319c14ae04d50d, type: 3}
-    - Key: Hurt
-      Value: {fileID: 8300000, guid: 8fb48ecac19fcaa459a59b90e69d89e2, type: 3}
-    - Key: TouchFloor
-      Value: {fileID: 8300000, guid: ff41c796c393922469e2f4c7ec2243d2, type: 3}
-    - Key: Walk
-      Value: {fileID: 8300000, guid: df870242261df614193e42efd966d332, type: 3}
-    - Key: Walk2
-      Value: {fileID: 8300000, guid: 6af02e603e2516e48be0a57f3bea33c9, type: 3}
-    - Key: CircleTransition
-      Value: {fileID: 8300000, guid: 70b9a486fe52c9b4cbc8792f1e9bedb3, type: 3}
-    - Key: SquareBlock
-      Value: {fileID: 8300000, guid: de7704bb2ebf06942a51c02228fbbda4, type: 3}
-    - Key: SquareBlockSpikes
-      Value: {fileID: 8300000, guid: 9cba4db0cafc4624397a1ea247fd95bc, type: 3}
-    - Key: SquareTransition
-      Value: {fileID: 8300000, guid: 86ff7ac6bace9dd4baa00ca161ca99ac, type: 3}
-    - Key: Interaction
-      Value: {fileID: 8300000, guid: 3026f31c6eae96346879d2e97ec62a22, type: 3}
-    - Key: TriangleTransition
-      Value: {fileID: 8300000, guid: 3fab571a05a69a34fb90b1fe54bb9d0d, type: 3}
 --- !u!233 &4823931297030676588
 HingeJoint2D:
   m_ObjectHideFlags: 0

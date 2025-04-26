@@ -1,13 +1,13 @@
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
-public class MenuSoundList : AudioDictionary
+public class PortalSoundList : AudioDictionary
 {
     [SerializedDictionary("AudioName", "AudiClip")]
-    public SerializedDictionary<string, AudioClip> menuSoundList;
+    public SerializedDictionary<string, AudioClip> portalSoundList;
 
     protected void Awake()
     {
-        AttachSounds(menuSoundList);
+        //AttachSounds(portalSoundList);
     }
 }
