@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
         CurrentHealth = MaxHealth;
 
         RigidBody = GetComponent<Rigidbody2D>();
-        //audioManager = new AudioManager(gameObject, GetComponent<AudioDictionary>(), GetComponent<AudioSource>());
+        audioManager = new AudioManager(gameObject, GetComponent<AudioDictionary>(), GetComponent<AudioSource>());
 
         EnemyIdleBaseInstance.Initialize(gameObject, this);
         if (EnemyFollowBase != null) EnemyFollowBaseInstance.Initialize(gameObject, this);
@@ -103,10 +103,10 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
 
     public void Die()
     {
-        //audioManager.StopAllAudioClips();
-        //audioManager.PlayAudioClip("Death");
+        audioManager.StopAllAudioClips();
+        audioManager.PlayAudioClip("Death");
         lootDrop?.DropLoot(lootOrigin);
-        //RigidBody.isKinematic = true;
+        RigidBody.bodyType = RigidbodyType2D.Kinematic;
         gameObject.SetActive(false);
     }
     #endregion

@@ -13,7 +13,7 @@ namespace PlayerSystem
         private Knockback knockback;
         private PlayerMovementScriptable movementValues;
 
-        private readonly float minPowerDuration = 0.2f;
+        // private readonly float minPowerDuration = 0.2f;
         private float powerTimeSum = 0f;
         private float cooldownTimeLeft = 0f;
         private bool isActive = false;
@@ -28,10 +28,10 @@ namespace PlayerSystem
             this.knockback = knockback;
             this.movementValues = movementValues;
 
-            eventBus.Subscribe<SquarePowerInputEvent>(togglePower);
+            eventBus.Subscribe<OnSquarePowerInput>(togglePower);
         }
 
-        private void togglePower(SquarePowerInputEvent e)
+        private void togglePower(OnSquarePowerInput e)
         {
             if (e.toggle == isActive) return;
             if (e.toggle) activate();
@@ -50,11 +50,11 @@ namespace PlayerSystem
             rb2d.linearVelocity = new Vector2(0, movementValues.squarePowerForce);
             groundTrigger.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
 
-            eventBus.Subscribe<UpdateEvent>(addTimeSum);
+            eventBus.Subscribe<OnUpdate>(addTimeSum);
             eventBus.Publish(new ToggleSquarePowerEvent(true));
         }
 
-        private void addTimeSum(UpdateEvent e)
+        private void addTimeSum(OnUpdate e)
         {
             powerTimeSum += Time.deltaTime;
         }
@@ -91,17 +91,17 @@ namespace PlayerSystem
             cooldownTimeLeft = movementValues.squarePowerCooldown;
             groundTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
 
-            eventBus.Subscribe<UpdateEvent>(reduceCooldown);
-            eventBus.Unsubscribe<UpdateEvent>(addTimeSum);
+            eventBus.Subscribe<OnUpdate>(reduceCooldown);
+            eventBus.Unsubscribe<OnUpdate>(addTimeSum);
             eventBus.Publish(new ToggleSquarePowerEvent(false));
         }
 
-        private void reduceCooldown(UpdateEvent e)
+        private void reduceCooldown(OnUpdate e)
         {
             cooldownTimeLeft -= Time.deltaTime;
             if (0 < cooldownTimeLeft) return;
 
-            eventBus.Unsubscribe<UpdateEvent>(reduceCooldown);
+            eventBus.Unsubscribe<OnUpdate>(reduceCooldown);
         }
     }
 }

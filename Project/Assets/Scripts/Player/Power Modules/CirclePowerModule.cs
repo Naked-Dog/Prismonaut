@@ -30,10 +30,10 @@ namespace PlayerSystem
             this.knockback = knockback;
             this.movementValues = movementValues;
 
-            eventBus.Subscribe<CirclePowerInputEvent>(activate);
+            eventBus.Subscribe<OnCirclePowerInput>(activate);
         }
 
-        private void activate(CirclePowerInputEvent e)
+        private void activate(OnCirclePowerInput e)
         {
             if (isActive) return;
             if (cooldownTimeLeft > 0f) return;
@@ -45,12 +45,12 @@ namespace PlayerSystem
 
             TriggerEventHandler triggerToActivate = playerState.facingDirection == Direction.Right ? rightTrigger : leftTrigger;
             triggerToActivate.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
-            eventBus.Subscribe<UpdateEvent>(reduceTimeLeft);
+            eventBus.Subscribe<OnUpdate>(reduceTimeLeft);
             //eventBus.Subscribe<UpdateEvent>(deactivateOnMomentumLoss);
             eventBus.Publish(new ToggleCirclePowerEvent(true));
         }
 
-        private void reduceTimeLeft(UpdateEvent e)
+        private void reduceTimeLeft(OnUpdate e)
         {
             powerTimeLeft -= Time.deltaTime;
             if (0 < powerTimeLeft) return;
@@ -66,22 +66,22 @@ namespace PlayerSystem
             rightTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
 
             cooldownTimeLeft = movementValues.circlePowerCooldown;
-            eventBus.Subscribe<UpdateEvent>(reduceCooldown);
+            eventBus.Subscribe<OnUpdate>(reduceCooldown);
 
-            eventBus.Unsubscribe<UpdateEvent>(reduceTimeLeft);
+            eventBus.Unsubscribe<OnUpdate>(reduceTimeLeft);
             //eventBus.Unsubscribe<UpdateEvent>(deactivateOnMomentumLoss);
             eventBus.Publish(new ToggleCirclePowerEvent(false));
         }
 
-        private void reduceCooldown(UpdateEvent e)
+        private void reduceCooldown(OnUpdate e)
         {
             cooldownTimeLeft -= Time.deltaTime;
             if (cooldownTimeLeft > 0f) return;
 
-            eventBus.Unsubscribe<UpdateEvent>(reduceCooldown);
+            eventBus.Unsubscribe<OnUpdate>(reduceCooldown);
         }
 
-        private void deactivateOnMomentumLoss(UpdateEvent e)
+        private void deactivateOnMomentumLoss(OnUpdate e)
         {
             if (0.1f < Mathf.Abs(rb2d.linearVelocity.x)) return;
             deactivate();

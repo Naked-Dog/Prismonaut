@@ -24,7 +24,7 @@ namespace PlayerSystem
             this.healthUIController = healthUIController;
             this.mb = mb;
 
-            eventBus.Subscribe<RespawnEvent>(Respawn);
+            eventBus.Subscribe<RequestRespawn>(Respawn);
         }
 
         public bool Damage(int damageAmount)
@@ -39,7 +39,7 @@ namespace PlayerSystem
                     Die();
                     return true;
                 }
-                eventBus.Publish(new ReceivedDamageEvent());
+                eventBus.Publish(new OnDamageReceived());
             }
             return false;
         }
@@ -68,11 +68,11 @@ namespace PlayerSystem
         public void Die()
         {
             playerState.healthState = HealthState.Death;
-            eventBus.Publish(new DeathEvent());
-            eventBus.Publish(new PauseEvent());
+            eventBus.Publish(new OnDeath());
+            eventBus.Publish(new RequestPause());
         }
 
-        public void Respawn(RespawnEvent e)
+        public void Respawn(RequestRespawn e)
         {
             mb.StartCoroutine(RespawnSequence());
         }
@@ -101,7 +101,7 @@ namespace PlayerSystem
 
             yield return mb.StartCoroutine(MenuController.Instance.FadeOutSolidPanel());
 
-            eventBus.Publish(new UnpauseEvent());
+            eventBus.Publish(new RequestUnpause());
         }
     }
 }

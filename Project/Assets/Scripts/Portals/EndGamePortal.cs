@@ -12,7 +12,7 @@ public class EndGamePortal : MonoBehaviour
 {
     private AudioManager audioManager;
     [SerializeField] private GameObject player3DModel;
-    private bool isTeleporting = false;
+    // private bool isTeleporting = false;
 
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class EndGamePortal : MonoBehaviour
 
     private IEnumerator EnterEndGamePortal(PlayerBaseModule playerBaseModule)
     {
-        isTeleporting = true;
+        // isTeleporting = true;
         yield return new WaitForSeconds(1);
         playerBaseModule.transform.GetChild(1).gameObject.SetActive(false);
         //audioManager.PlayAudioClip("Entry", true);

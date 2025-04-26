@@ -2,33 +2,38 @@ using UnityEngine.InputSystem;
 
 namespace PlayerSystem
 {
-    public struct HorizontalInputEvent
+    public struct OnHorizontalInput
     {
         public float amount;
-        public HorizontalInputEvent(float amount) { this.amount = amount; }
+        public OnHorizontalInput(float amount) { this.amount = amount; }
     }
-    public struct JumpInputEvent
+    public struct OnVerticalInput
+    {
+        public float amount;
+        public OnVerticalInput(float amount) { this.amount = amount; }
+    }
+    public struct OnJumpInput
     {
         public InputAction jumpInputAction;
-        public JumpInputEvent(InputAction jumpInputAction) { this.jumpInputAction = jumpInputAction; }
+        public OnJumpInput(InputAction jumpInputAction) { this.jumpInputAction = jumpInputAction; }
     }
-    public struct LookDownInputEvent
+    public struct OnLookDownInput
     {
         public bool toggle;
-        public LookDownInputEvent(bool toggle) { this.toggle = toggle; }
+        public OnLookDownInput(bool toggle) { this.toggle = toggle; }
     }
-    public struct SquarePowerInputEvent
+    public struct OnSquarePowerInput
     {
         public bool toggle;
-        public SquarePowerInputEvent(bool toggle) { this.toggle = toggle; }
+        public OnSquarePowerInput(bool toggle) { this.toggle = toggle; }
     }
-    public struct TrianglePowerInputEvent { }
-    public struct CirclePowerInputEvent { }
-    public struct PauseInputEvent { }
-    public struct InteractionInputEvent { }
-    public struct EnablePlayerInputsEvent { }
-    public struct StopPlayerInputsEvent { }
-    public struct EnableDialogueInputsEvent { }
-    public struct DisableDilagueInputsEvent { }
+    public struct OnTrianglePowerInput { }
+    public struct OnCirclePowerInput { }
+    public struct OnPauseInput { }
+    public struct OnInteractionInput { }
+    public struct RequestPlayerInputs { }
+    public struct RequestStopPlayerInputs { }
+    public struct RequestEnableDialogueInputs { }
+    public struct RequestDisableDialogueInputs { }
 }
 

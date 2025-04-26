@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9457953ba2fe4c7910cf44d6346f68, type: 3}
+  m_Name: Player Powers
+  m_EditorClassIdentifier: 
+  dodgePowerForce: 12
+  dodgePowerDuration: 0.7
+  dodgePowerBreakForce: 2
+  shieldPowerDuration: 0.5
+  drillMinimalFirstVelocity: 4
+  drillMinimalSecondVelocity: 8
+  drillFirstPowerDuration: 0.5
+  drillSecondPowerDuration: 5
+  drillFirstSteeringAmount: 2
+  drillSecondSteeringAmount: 30
+  drillBehavior: 0
