@@ -23,10 +23,10 @@ public class CheckPoint : MonoBehaviour, IInteractable
         switch (eventName)
         {
             case "Idle":
-                AudioManager.Instance.Play("Idle", 0.35f, true);
+                //AudioManager.Instance.Play("Idle", 0.35f, true);
                 break;
             case "Deploy":
-                AudioManager.Instance.Play("Deploy");
+                //AudioManager.Instance.Play("Deploy");
                 break;
         }
     }

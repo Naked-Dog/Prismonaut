@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+
 
 public class AudioManager: MonoBehaviour
 {
@@ -14,10 +16,12 @@ public class AudioManager: MonoBehaviour
     [SerializeField] private AudioMixerGroup sfxMixer;   
     [SerializeField] private AudioMixerGroup musicMixer;   
 
+    [Header("Audio Libraries")]
+    [SerializeField] private AudioLibraryBase[] libraries;
+    private Dictionary<Type, AudioLibraryBase> libraryMap = new();
 
-    public AudioDictionary clips;
-    public AudioSource audioSourceTemplate;
-    private GameObject audioContainer;
+
+    public Dictionary<string, AudioClip> clips;
     private List<AudioSource> allSources = new();
     private Stack<AudioSource> freeSources = new();
 
@@ -37,6 +41,16 @@ public class AudioManager: MonoBehaviour
         for(int i = 0; i < initialPoolSize; i++)
         {
             freeSources.Push(CreateSource());
+        }
+
+        RegisterAudioLibraries();
+    }
+
+    private void RegisterAudioLibraries()
+    {
+        foreach (var lib in libraries)
+        {
+            libraryMap[lib.EnumType] = lib;
         }
     }
 
@@ -72,14 +86,25 @@ public class AudioManager: MonoBehaviour
 
     public void RegisterClip(string name, AudioClip clip)
     {
-        //clips[name] = clip;
+        clips[name] = clip;
     }
 
-    public AudioSource Play(string name, float volume = 1f, bool loop = false)
+    public AudioSource Play<TEnum>(TEnum key, float volume = 1f, bool loop = false) where TEnum : Enum
     {
-        //if (!clips.TryGetValue(name, out var clip)) return null;
+        if (!libraryMap.TryGetValue(typeof(TEnum), out var baseLib))
+        {
+            return null;
+        }
+
+        var lib = baseLib as AudioLibrary<TEnum>;
+        var clip = lib?.GetClip(key);
+
+        if (clip == null){
+            return null;
+        } 
+
         var src = GetSource();
-        //src.clip = clip;
+        src.clip = clip;
         src.volume = volume;
         src.loop = loop;
         src.outputAudioMixerGroup = sfxMixer;
@@ -89,21 +114,23 @@ public class AudioManager: MonoBehaviour
         return src;
     }
 
-    public AudioSource PlayAtPosition(string name, Vector3 position, float volume = 1f, bool loop = false)
+    public AudioSource PlayAtPosition<TEnum>(TEnum key, Vector3 position, float volume = 1f, bool loop = false) where TEnum : Enum
     {
-        var src = Play(name, volume, loop);
+        var src = Play(key, volume, loop);
         if (src != null) src.transform.position = position;
         return src;
     }
 
-    public AudioSource PlayAttached(string name, Transform parent, float volume = 1f, bool loop = false)
+    public AudioSource PlayAttached<TEnum>(TEnum key, Transform parent, float volume = 1f, bool loop = false) where TEnum : Enum
     {
-        var src = Play(name, volume, loop);
+        var src = Play(key, volume, loop);
+
         if (src != null)
         {
             src.transform.SetParent(parent);
             src.transform.localPosition = Vector3.zero;
         }
+        
         return src;
     }
 
@@ -125,82 +152,4 @@ public class AudioManager: MonoBehaviour
             if (src.isPlaying) src.Stop();
         }
     }
-
-    // private AudioSource CreateNewAudioSource()
-    // {
-    //     GameObject audioObject = new GameObject();
-    //     audioObject.transform.parent = audioContainer.transform;
-    //     audioObject.transform.localPosition = Vector2.zero;
-    //     AudioSource newAudioSource = audioObject.AddComponent<AudioSource>();
-    //     newAudioSource.playOnAwake = false;
-
-    //     if (audioSourceTemplate)
-    //     {
-    //         newAudioSource.spatialBlend = audioSourceTemplate.spatialBlend;
-    //         newAudioSource.spread = audioSourceTemplate.spread;
-    //         newAudioSource.rolloffMode = audioSourceTemplate.rolloffMode;
-    //         newAudioSource.minDistance = audioSourceTemplate.minDistance;
-    //         newAudioSource.maxDistance = audioSourceTemplate.maxDistance;
-    //     }
-
-    //     allSources.Add(newAudioSource);
-    //     return newAudioSource;
-    // }
-
-    // private AudioSource GetFreeAudioSource()
-    // {
-    //     foreach (AudioSource audioSource in allSources)
-    //     {
-    //         if (!audioSource.isPlaying)
-    //         {
-    //             return audioSource;
-    //         }
-    //     }
-
-    //     return CreateNewAudioSource();
-
-    // }
-
-    // public void PlayAudioClip(string clipName, bool isLoop = false, float volume = 1)
-    // {
-    //     AudioClip clip = clips.GetAudioClip(clipName);
-    //     if (clip == null) return;
-
-    //     AudioSource freeAudioSource = GetFreeAudioSource();
-
-    //     freeAudioSource.clip = clip;
-    //     freeAudioSource.loop = isLoop;
-    //     freeAudioSource.volume = volume;
-    //     freeAudioSource.Play();
-    // }
-
-    // public void StopAudioClip(string clipName)
-    // {
-    //     AudioClip clip = clips.GetAudioClip(clipName);
-
-    //     foreach (AudioSource audioSource in allSources)
-    //     {
-    //         if (audioSource.clip == clip && audioSource.isPlaying)
-    //         {
-    //             audioSource.Stop();
-    //             audioSource.clip = null;
-    //             audioSource.loop = false;
-    //             return;
-    //         }
-    //     }
-    // }
-
-    // public void StopAllAudioClips()
-    // {
-    //     foreach (AudioSource audioSource in allSources)
-    //     {
-    //         if (audioSource.isPlaying)
-    //         {
-    //             audioSource.Stop();
-    //             audioSource.clip = null;
-    //             audioSource.loop = false;
-    //             return;
-    //         }
-    //     }
-    // }
 }

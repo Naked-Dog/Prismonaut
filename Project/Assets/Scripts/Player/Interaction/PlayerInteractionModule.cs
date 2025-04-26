@@ -27,7 +27,7 @@ namespace PlayerSystem
 
             if (currentInteractable.IsInteractable)
             {
-                eventBus.Publish(new PlayPlayerSounEffect("Interaction"));
+                AudioManager.Instance.Play(PlayerSoundsEnum.Interact);
                 currentInteractable.Interact();
                 playerState.isOnInteractable = false;
                 signObject.SetActive(false);

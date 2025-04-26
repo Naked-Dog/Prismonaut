@@ -8,6 +8,6 @@ public class CheckPointSoundList : AudioDictionary
 
     protected void Awake()
     {
-        AttachSounds(checkPointSoundList);
+        //AttachSounds(checkPointSoundList);
     }
 }

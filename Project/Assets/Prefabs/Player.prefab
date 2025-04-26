@@ -49,7 +49,6 @@ GameObject:
   - component: {fileID: 6606604844634264972}
   - component: {fileID: 6642275358410668762}
   - component: {fileID: 9087612573211454472}
-  - component: {fileID: 146389845468497314}
   - component: {fileID: 8195196797147147297}
   - component: {fileID: 5658199844008864677}
   m_Layer: 0
@@ -107,7 +106,7 @@ MonoBehaviour:
   knockback: {fileID: 9087612573211454472}
 --- !u!50 &285264918639432098
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,8 +117,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 3
   m_Material: {fileID: 6200000, guid: c454553def854474193a2d83bd550ac0, type: 2}
   m_IncludeLayers:
@@ -140,6 +139,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1236071349304804809}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: c454553def854474193a2d83bd550ac0, type: 2}
   m_IncludeLayers:
@@ -163,7 +163,8 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,7 +175,6 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 0.6, y: 0.8}
   m_EdgeRadius: 0.05
 --- !u!114 &6642275358410668762
@@ -216,46 +216,6 @@ MonoBehaviour:
   hitDirectionForce: 10
   constForce: 5
   inputForce: 7.5
---- !u!114 &146389845468497314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1236071349304804809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34f2176663d88c8459fa7307a7612ec7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSounds:
-    _serializedList:
-    - Key: Jump
-      Value: {fileID: 8300000, guid: 2f287c6df970b6a47b2818c22e3011ea, type: 3}
-    - Key: Explode
-      Value: {fileID: 8300000, guid: d10b4d9361778ec4a9168d2934a23838, type: 3}
-    - Key: Defeat
-      Value: {fileID: 8300000, guid: 61ddb794a856667488319c14ae04d50d, type: 3}
-    - Key: Hurt
-      Value: {fileID: 8300000, guid: 8fb48ecac19fcaa459a59b90e69d89e2, type: 3}
-    - Key: TouchFloor
-      Value: {fileID: 8300000, guid: ff41c796c393922469e2f4c7ec2243d2, type: 3}
-    - Key: Walk
-      Value: {fileID: 8300000, guid: df870242261df614193e42efd966d332, type: 3}
-    - Key: Walk2
-      Value: {fileID: 8300000, guid: 6af02e603e2516e48be0a57f3bea33c9, type: 3}
-    - Key: CircleTransition
-      Value: {fileID: 8300000, guid: 70b9a486fe52c9b4cbc8792f1e9bedb3, type: 3}
-    - Key: SquareBlock
-      Value: {fileID: 8300000, guid: de7704bb2ebf06942a51c02228fbbda4, type: 3}
-    - Key: SquareBlockSpikes
-      Value: {fileID: 8300000, guid: 9cba4db0cafc4624397a1ea247fd95bc, type: 3}
-    - Key: SquareTransition
-      Value: {fileID: 8300000, guid: 86ff7ac6bace9dd4baa00ca161ca99ac, type: 3}
-    - Key: Interaction
-      Value: {fileID: 8300000, guid: 3026f31c6eae96346879d2e97ec62a22, type: 3}
-    - Key: TriangleTransition
-      Value: {fileID: 8300000, guid: 3fab571a05a69a34fb90b1fe54bb9d0d, type: 3}
 --- !u!81 &8195196797147147297
 AudioListener:
   m_ObjectHideFlags: 0
@@ -325,6 +285,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -401,6 +364,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2338365986527800756}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: c454553def854474193a2d83bd550ac0, type: 2}
   m_IncludeLayers:
@@ -424,7 +388,8 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -435,7 +400,6 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 0.4, y: 0.3}
   m_EdgeRadius: 0
 --- !u!114 &7838880276084729994
@@ -491,6 +455,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2768277519126438984}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: c454553def854474193a2d83bd550ac0, type: 2}
   m_IncludeLayers:
@@ -514,7 +479,8 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -525,7 +491,6 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 0.5, y: 0.150001}
   m_EdgeRadius: 0
 --- !u!114 &6330523030317470590
@@ -592,6 +557,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -641,7 +609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!95 &3014582218926206383
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -655,6 +623,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -701,6 +670,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5828510411990590162}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: c454553def854474193a2d83bd550ac0, type: 2}
   m_IncludeLayers:
@@ -724,7 +694,8 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -735,7 +706,6 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 0.4, y: 0.3}
   m_EdgeRadius: 0
 --- !u!114 &6438164688059498295
@@ -791,6 +761,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7692272950507168486}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: c454553def854474193a2d83bd550ac0, type: 2}
   m_IncludeLayers:
@@ -814,7 +785,8 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -825,7 +797,6 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 0.3, y: 0.7}
   m_EdgeRadius: 0
 --- !u!114 &2264470363599488113
@@ -881,6 +852,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7990249695492964847}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: c454553def854474193a2d83bd550ac0, type: 2}
   m_IncludeLayers:
@@ -904,7 +876,8 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -915,7 +888,6 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 0.3, y: 0.7}
   m_EdgeRadius: 0
 --- !u!114 &7298546434045326552
@@ -979,6 +951,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

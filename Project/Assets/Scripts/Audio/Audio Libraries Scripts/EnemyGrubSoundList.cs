@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
-public class EnemySpitterSoundList : AudioDictionary
+public class EnemyGrubSoundList : AudioDictionary
 {
     [SerializedDictionary("AudioName", "AudiClip")]
-    public SerializedDictionary<string, AudioClip> enemySpitterSounds;
+    public SerializedDictionary<string, AudioClip> enemyGrubSounds;
 
     protected void Awake()
     {
-        AttachSounds(enemySpitterSounds);
+        //AttachSounds(enemyGrubSounds);
     }
 }

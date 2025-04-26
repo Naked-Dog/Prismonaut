@@ -18,6 +18,6 @@ public class PlayerAudioModule : AudioManager
 
     private void ReproduceSoundEffect(PlayPlayerSounEffect e)
     {
-        AudioManager.Instance.Play(e.clipName, e.volume, false);
+        //AudioManager.Instance.Play(e.clipName, e.volume, false);
     }
 }
