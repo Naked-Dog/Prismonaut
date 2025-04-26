@@ -11,8 +11,9 @@ namespace PlayerSystem
             this.eventBus = eventBus;
         }
 
-        public void PublishRespawnEvent(){
-            eventBus.Publish(new RespawnEvent());
+        public void PublishRespawnEvent()
+        {
+            eventBus.Publish(new RequestRespawn());
         }
 
         public void PlaySound(string clipName)

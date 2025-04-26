@@ -14,10 +14,10 @@ public class DimensionTransition : MonoBehaviour
     [SerializeField] private GameObject endPortal;
     [HideInInspector] public Vector3 startTangent = Vector3.zero;
     [HideInInspector] public Vector3 endTangent = Vector3.zero;
-    [HideInInspector] public  Vector3 endPoint = new Vector3(5,5,0);
+    [HideInInspector] public Vector3 endPoint = new Vector3(5, 5, 0);
     private Vector3 startPoint => transform.position;
     private BoxCollider2D[] box2DColliders => GetComponents<BoxCollider2D>();
-    private CameraSystem.CameraState cameraManager => FindObjectOfType<CameraSystem.CameraState>();
+    private CameraSystem.CameraState cameraManager => FindFirstObjectByType<CameraSystem.CameraState>();
     private bool isTraveling;
     private PlayerBaseModule playerController = null;
     private InputAction trianglePowerAction;
@@ -42,7 +42,7 @@ public class DimensionTransition : MonoBehaviour
         endPointAudio.PlayAudioClip("Idle", true);
     }
 
-    private void Update() 
+    private void Update()
     {
         HandleTravelInput();
     }
@@ -63,17 +63,17 @@ public class DimensionTransition : MonoBehaviour
         {
             Vector3 playerPosition = playerController.transform.position;
             Vector3 finalPosition = GetTravelPoint(playerPosition);
-            if(finalPosition == endPoint)
+            if (finalPosition == endPoint)
             {
                 startPointAudio.PlayAudioClip("Entry");
-            } 
+            }
             else
             {
                 endPointAudio.PlayAudioClip("Entry");
             }
             Vector3 startTangentPos = finalPosition == endPoint ? startTangent : endTangent;
             Vector3 endTangentPos = finalPosition == endPoint ? endTangent : startTangent;
-            StartCoroutine(TravelTransition(playerController, finalPosition, startTangentPos , endTangentPos, transitionTime));
+            StartCoroutine(TravelTransition(playerController, finalPosition, startTangentPos, endTangentPos, transitionTime));
         }
     }
 
@@ -87,18 +87,18 @@ public class DimensionTransition : MonoBehaviour
 
     private void EnsureRequiredBoxColliders()
     {
-        while (box2DColliders.Length < 2) 
+        while (box2DColliders.Length < 2)
         {
             gameObject.AddComponent<BoxCollider2D>();
-        } 
+        }
 
-        while(box2DColliders.Length > 2) 
+        while (box2DColliders.Length > 2)
         {
             Destroy(box2DColliders[box2DColliders.Length - 1]);
         }
     }
 
-    public  void UpdateBoxColliders()
+    public void UpdateBoxColliders()
     {
         if (box2DColliders.Length < 2) return;
 
@@ -136,7 +136,7 @@ public class DimensionTransition : MonoBehaviour
             elapseTime += Time.deltaTime;
             yield return null;
         }
-        
+
         Destroy(model3D);
         player.transform.position = targetPosition;
         cameraManager.setNewFollowTarget(player.transform);
@@ -144,14 +144,15 @@ public class DimensionTransition : MonoBehaviour
         isTraveling = false;
     }
 
-    Vector3 GetPointOnBezierCurve(Vector3 startPoint, Vector3 startTangent, Vector3 endTangent, Vector3 endPoint, float t){
+    Vector3 GetPointOnBezierCurve(Vector3 startPoint, Vector3 startTangent, Vector3 endTangent, Vector3 endPoint, float t)
+    {
         float u = 1 - t;
         float t2 = t * t;
         float u2 = u * u;
         float u3 = u2 * u;
         float t3 = t * t2;
 
-        Vector3 result = 
+        Vector3 result =
             u3 * startPoint +
             3 * u2 * t * startTangent +
             3 * u * t2 * endTangent +
@@ -160,16 +161,18 @@ public class DimensionTransition : MonoBehaviour
         return result;
     }
 
-    private void OnTriggerEnter2D(Collider2D collider) 
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.GetComponent<PlayerBaseModule>()){
+        if (collider.GetComponent<PlayerBaseModule>())
+        {
             playerController = collider.GetComponent<PlayerBaseModule>();
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collider) 
+    private void OnTriggerExit2D(Collider2D collider)
     {
-        if(collider.GetComponent<PlayerBaseModule>()){
+        if (collider.GetComponent<PlayerBaseModule>())
+        {
             playerController = null;
         }
     }

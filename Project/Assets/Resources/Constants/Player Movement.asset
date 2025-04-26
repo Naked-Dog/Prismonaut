@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f8889d93ce4f76894033053fbb9579, type: 3}
   m_Name: Player Movement
   m_EditorClassIdentifier: 
-  horizontalVelocity: 6
+  horizontalGroundedForce: 150
+  horizontalAirborneForce: 50
+  airBreak: 2
+  groundBreak: 20
   maximumYSpeed: 25
   minimumYSpeed: -15
-  jumpForce: 10
+  gravityScale: 3
+  jumpForce: 12
   jumpTime: 0.25
   gravity: 3
   groundCheckExtraHeight: 0.2
@@ -27,6 +31,7 @@ MonoBehaviour:
   circlePowerCooldown: 1
   squarePowerForce: -10
   squarePowerCooldown: 1
+  spikeKnockbackForce: 1.5
   trianglePowerForce: 10
-  trianglePowerDuration: 0.3
+  trianglePowerDuration: 0.8
   trianglePowerCooldown: 1

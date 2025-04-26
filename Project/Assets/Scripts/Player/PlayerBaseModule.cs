@@ -8,17 +8,11 @@ namespace PlayerSystem
     public class PlayerBaseModule : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D avatarRigidbody2D;
-        [SerializeField] private Animator spriteAnimator;
-        [SerializeField] private SpriteRenderer helmetRenderer;
-        [SerializeField] private TriggerEventHandler groundTrigger;
-        [SerializeField] private TriggerEventHandler leftTrigger;
-        [SerializeField] private TriggerEventHandler rightTrigger;
-        [SerializeField] private TriggerEventHandler upTrigger;
-        [SerializeField] private TriggerEventHandler downTrigger;
-        [SerializeField] private PlayerMovementScriptable movementValues;
+        [SerializeField] private Animator animator;
+        [SerializeField] private PhysicsEventsRelay drillPhysicsRelay;
+        [SerializeField] private HingeJoint2D drillJoint;
         [SerializeField] private InputActionAsset playerInputAsset;
         [SerializeField] private HealthUIController healthUIController;
-        [SerializeField] private CameraState cameraState;
         [SerializeField] private GameObject interactSign;
 
         public Knockback knockback;
@@ -28,7 +22,7 @@ namespace PlayerSystem
 
         private PlayerInput inputModule;
         private PlayerMovement movementModule;
-        private PlayerVisuals visualsModule;
+        private PlayerAnimations animationsModule;
         public PlayerPowersModule powersModule;
         public PlayerHealthModule healthModule;
         private PlayerAudioModule audioModule;
@@ -40,56 +34,58 @@ namespace PlayerSystem
             state = new PlayerState();
             eventBus = new EventBus();
 
-            triggers = new Dictionary<Direction, TriggerEventHandler>() {
-                {Direction.Up, upTrigger},
-                {Direction.Down, downTrigger},
-                {Direction.Left, leftTrigger},
-                {Direction.Right, rightTrigger}
-            };
-
-            audioModule = new PlayerAudioModule(eventBus, GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
+            audioModule = new PlayerAudioModule(eventBus, gameObject.GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
             inputModule = new PlayerInput(eventBus, playerInputAsset);
-            movementModule = new Tight2DMovement(eventBus, state, movementValues, avatarRigidbody2D, groundTrigger, cameraState, audioModule, this);
-            visualsModule = new PlayerVisuals(eventBus, state, avatarRigidbody2D, spriteAnimator, helmetRenderer);
-            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, triggers, knockback, movementValues);
+            movementModule = new Physics2DMovement(eventBus, state, avatarRigidbody2D);
+            animationsModule = new PlayerAnimations(eventBus, state, animator);
+            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillPhysicsRelay, drillJoint);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
             {
                 MaxHealth = 3
             };
-            interactionModule = new PlayerInteractionModule(eventBus, GetComponent<TriggerEventHandler>(), interactSign, state);
+            interactionModule = new PlayerInteractionModule(eventBus, gameObject.GetComponent<PhysicsEventsRelay>(), interactSign, state);
+
+            avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionEnter2DAction.AddListener(OnCollisionEnter2D);
+            avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionStay2DAction.AddListener(OnCollisionStay2D);
+            avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionExit2DAction.AddListener(OnCollisionExit2D);
 
             healthModule.CurrentHealth = healthModule.MaxHealth;
             healthUIController.InitUI(healthModule.CurrentHealth);
             MenuController.Instance?.setEvents(eventBus);
             DialogueController.Instance?.SetEventBus(eventBus);
-            spriteAnimator.GetComponent<PlayerAnimationEvents>()?.SetEventBus(eventBus);
+            animator.GetComponent<PlayerAnimationEvents>()?.SetEventBus(eventBus);
 
             GameDataManager.Instance?.SavePlayerPosition(avatarRigidbody2D.position);
         }
 
         protected void Update()
         {
-            eventBus.Publish(new UpdateEvent());
+            eventBus.Publish(new OnUpdate());
         }
 
         protected void FixedUpdate()
         {
-            eventBus.Publish(new FixedUpdateEvent());
+            eventBus.Publish(new OnFixedUpdate());
         }
 
         protected void LateUpdate()
         {
-            eventBus.Publish(new LateUpdateEvent());
+            eventBus.Publish(new OnLateUpdate());
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            eventBus.Publish(new CollisionEnterEvent(other));
+            eventBus.Publish(new OnCollisionEnter2D(collision));
         }
 
-        private void OnCollisionExit2D(Collision2D other)
+        private void OnCollisionStay2D(Collision2D collision)
         {
-            eventBus.Publish(new CollisionExitEvent(other));
+            eventBus.Publish(new OnCollisionStay2D(collision));
+        }
+
+        private void OnCollisionExit2D(Collision2D collision)
+        {
+            eventBus.Publish(new OnCollisionExit2D(collision));
         }
 
         private void OnDestroy()

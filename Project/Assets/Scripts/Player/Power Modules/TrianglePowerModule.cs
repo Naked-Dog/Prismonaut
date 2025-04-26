@@ -20,10 +20,10 @@ namespace PlayerSystem
             this.rb2d = rb2d;
             this.upTrigger = upTrigger;
             this.movementValues = movementValues;
-            eventBus.Subscribe<TrianglePowerInputEvent>(activate);
+            eventBus.Subscribe<OnTrianglePowerInput>(activate);
         }
 
-        private void activate(TrianglePowerInputEvent e)
+        private void activate(OnTrianglePowerInput e)
         {
             if (isActive) return;
             if (cooldownTimeLeft > 0f) return;
@@ -34,19 +34,19 @@ namespace PlayerSystem
 
             upTrigger.OnTriggerEnter2DAction.AddListener(onTriggerEnter);
 
-            eventBus.Subscribe<UpdateEvent>(reduceTimeLeft);
-            eventBus.Subscribe<UpdateEvent>(deactivateOnMomentumLoss);
+            eventBus.Subscribe<OnUpdate>(reduceTimeLeft);
+            eventBus.Subscribe<OnUpdate>(deactivateOnMomentumLoss);
             eventBus.Publish(new ToggleTrianglePowerEvent(true));
         }
 
-        private void reduceTimeLeft(UpdateEvent e)
+        private void reduceTimeLeft(OnUpdate e)
         {
             powerTimeLeft -= Time.deltaTime;
             if (0 < powerTimeLeft) return;
             deactivate();
         }
 
-        private void deactivateOnMomentumLoss(UpdateEvent e)
+        private void deactivateOnMomentumLoss(OnUpdate e)
         {
             if (0 < Mathf.Abs(rb2d.linearVelocity.y)) return;
             deactivate();
@@ -59,19 +59,19 @@ namespace PlayerSystem
             upTrigger.OnTriggerEnter2DAction.RemoveListener(onTriggerEnter);
 
             cooldownTimeLeft = movementValues.trianglePowerCooldown;
-            eventBus.Subscribe<UpdateEvent>(reducePowerCooldown);
+            eventBus.Subscribe<OnUpdate>(reducePowerCooldown);
 
-            eventBus.Unsubscribe<UpdateEvent>(reduceTimeLeft);
-            eventBus.Unsubscribe<UpdateEvent>(deactivateOnMomentumLoss);
+            eventBus.Unsubscribe<OnUpdate>(reduceTimeLeft);
+            eventBus.Unsubscribe<OnUpdate>(deactivateOnMomentumLoss);
             eventBus.Publish(new ToggleTrianglePowerEvent(false));
         }
 
-        private void reducePowerCooldown(UpdateEvent e)
+        private void reducePowerCooldown(OnUpdate e)
         {
             cooldownTimeLeft -= Time.deltaTime;
             if (cooldownTimeLeft > 0f) return;
 
-            eventBus.Unsubscribe<UpdateEvent>(reducePowerCooldown);
+            eventBus.Unsubscribe<OnUpdate>(reducePowerCooldown);
         }
 
         private void onTriggerEnter(Collider2D other)

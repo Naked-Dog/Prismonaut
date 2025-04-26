@@ -104,7 +104,7 @@ public class MenuController : MonoBehaviour
         DisplayPanel(losePanel);
     }
 
-    public void DisplayGamePanel(PauseInputEvent e)
+    public void DisplayGamePanel(OnPauseInput e)
     {
         DisplayPanel(gameMenuPanel);
     }
@@ -130,20 +130,20 @@ public class MenuController : MonoBehaviour
     public void setEvents(EventBus bus)
     {
         eventBus = bus;
-        eventBus.Subscribe<PauseInputEvent>(DisplayGamePanel);
+        eventBus.Subscribe<OnPauseInput>(DisplayGamePanel);
     }
 
     public void ResetGame()
     {
-        eventBus.Publish(new RespawnEvent());
-        eventBus.Publish(new PauseInputEvent());
+        eventBus.Publish(new RequestRespawn());
+        eventBus.Publish(new OnPauseInput());
     }
 
     public void ResumeGame()
     {
         Debug.Log("Resuming game");
-        eventBus.Publish(new  UnpauseEvent());
-        eventBus.Publish(new PauseInputEvent());
+        eventBus.Publish(new RequestUnpause());
+        eventBus.Publish(new OnPauseInput());
     }
 
     private string GetMusicClip()

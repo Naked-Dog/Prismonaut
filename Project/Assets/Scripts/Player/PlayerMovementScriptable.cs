@@ -4,9 +4,14 @@ using UnityEngine;
 public class PlayerMovementScriptable : ScriptableObject
 {
     [Header("Movement")]
-    public float horizontalVelocity = 8f;
+    public float horizontalGroundedForce = 150f;
+    public float horizontalAirborneForce = 50f;
+    public float groundBreak = 6f;
+    public float airBreak = 2f;
+    public float maxHorizontalVelocity = 8f;
     public float maximumYSpeed = 25;
     public float minimumYSpeed = -15;
+    public float gravityScale = 3f;
 
     [Header("Jump")]
     public float jumpForce = 10f;

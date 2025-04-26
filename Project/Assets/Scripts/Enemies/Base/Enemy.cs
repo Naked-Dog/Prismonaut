@@ -106,7 +106,7 @@ public class Enemy : MonoBehaviour, IDamageable, ITriggerCheckable
         audioManager.StopAllAudioClips();
         audioManager.PlayAudioClip("Death");
         lootDrop?.DropLoot(lootOrigin);
-        RigidBody.isKinematic = true;
+        RigidBody.bodyType = RigidbodyType2D.Kinematic;
         gameObject.SetActive(false);
     }
     #endregion

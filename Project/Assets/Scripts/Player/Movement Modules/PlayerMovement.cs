@@ -3,18 +3,18 @@ namespace PlayerSystem
     public abstract class PlayerMovement
     {
         protected EventBus eventBus;
-        protected PlayerMovementScriptable movementValues;
+        protected PlayerMovementScriptable movementConstants;
         protected bool isMovementDisabled = false;
         protected bool isJumpingDisabled = false;
         protected bool isGravityDisabled = false;
 
-        protected PlayerMovement(EventBus eventBus, PlayerMovementScriptable movementValues)
+        protected PlayerMovement(EventBus eventBus)
         {
             this.eventBus = eventBus;
-            this.movementValues = movementValues;
+            this.movementConstants = GlobalConstants.Get<PlayerMovementScriptable>();
         }
 
-        public abstract void MoveHorizontally(HorizontalInputEvent e);
-        public abstract void Jump(JumpInputEvent e);
+        protected abstract void OnHorizontalInput(OnHorizontalInput e);
+        protected abstract void OnJumpInput(OnJumpInput e);
     }
 }
