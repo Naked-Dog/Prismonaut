@@ -14,6 +14,9 @@ namespace PlayerSystem
 
         private Vector2 inputDirection = Vector2.zero;
         private bool isSecondStage = false;
+        private Vector2 drillDir = Vector2.right;
+        private bool isFacingRight => playerState.facingDirection == Direction.Right;
+
 
         public DrillPowerModule(
             EventBus eventBus,
@@ -30,12 +33,13 @@ namespace PlayerSystem
             this.powersConstants = GlobalConstants.Get<PlayerPowersScriptable>();
 
             eventBus.Subscribe<OnTrianglePowerInput>(OnTrianglePowerInput);
+            eventBus.Subscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
+            eventBus.Subscribe<OnVerticalInput>(TakeVerticalInputDirection);
         }
 
         private void OnTrianglePowerInput(OnTrianglePowerInput e)
         {
             if (playerState.activePower != Power.None) return;
-            if (playerState.velocity.magnitude < 0.1f) return;
             Activate();
         }
 
@@ -44,15 +48,25 @@ namespace PlayerSystem
             playerState.activePower = Power.Drill;
             playerState.powerTimeLeft = powersConstants.drillFirstPowerDuration;
             isSecondStage = false;
-            if (playerState.velocity.magnitude < powersConstants.drillMinimalFirstVelocity)
+
+            Debug.Log(inputDirection.sqrMagnitude);
+
+            if (inputDirection.sqrMagnitude > 0.1f)
             {
-                rb2d.linearVelocity = playerState.velocity.normalized * powersConstants.drillMinimalFirstVelocity;
+                drillDir = inputDirection;
+                Debug.Log(inputDirection);
+            }
+            else
+            {
+                drillDir = isFacingRight ? Vector2.right : Vector2.left;
             }
 
-            eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
+            float initSpeed = powersConstants.drillMinimalFirstVelocity;
+            rb2d.linearVelocity = drillDir * initSpeed;
+
             eventBus.Publish(new RequestMovementPause());
-            eventBus.Subscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
-            eventBus.Subscribe<OnVerticalInput>(TakeVerticalInputDirection);
+            eventBus.Publish(new RequestGravityOff());
+            eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Subscribe<OnFixedUpdate>(Steer);
             drillPhysicsRelay.OnTriggerEnter2DAction.AddListener(ConfirmDrillCollision);
         }
@@ -77,16 +91,25 @@ namespace PlayerSystem
                 drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, angle);
 
                 if (inputDirection.magnitude < 0.1f) return;
-                // Lightly steer the velocity vector with the player's input
-                float angleChange = Vector2.SignedAngle(playerState.velocity, inputDirection);
-                float steerAmount = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
-                float rotationAmount = Mathf.Sign(angleChange) * steerAmount;
-                rb2d.linearVelocity = Quaternion.Euler(0, 0, rotationAmount) * playerState.velocity;
+                // // Lightly steer the velocity vector with the player's input
+                // float angleChange = Vector2.SignedAngle(playerState.velocity, inputDirection);
+                // float steerAmount = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
+                // float rotationAmount = Mathf.Sign(angleChange) * steerAmount;
+                // rb2d.linearVelocity = Quaternion.Euler(0, 0, rotationAmount) * playerState.velocity;
+                if (inputDirection.sqrMagnitude < 0.1f) return;
+                float angleDiff = Vector2.SignedAngle(playerState.velocity, inputDirection);
+                float steerSpeed = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
+                float rotationAmount = Mathf.Sign(angleDiff) * steerSpeed;
+                drillDir = Quaternion.Euler(0, 0, rotationAmount) * playerState.velocity;
+                float currentSpeed = rb2d.linearVelocity.magnitude;
+                float maxSpeed = powersConstants.drillMaxFirstVelocity;
+                float speed = Mathf.Min(currentSpeed, maxSpeed);
+                rb2d.linearVelocity = drillDir.normalized * speed;
+
             }
             else
             {
                 if (inputDirection.magnitude < 0.1f) return;
-                // Rotate the drill's hinge joint with its motor
                 float angleChange = Vector2.SignedAngle(playerState.velocity, inputDirection);
                 float steerAmount = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
                 float rotationAmount = Mathf.Sign(angleChange) * steerAmount;
@@ -99,8 +122,7 @@ namespace PlayerSystem
 
         private void ConfirmDrillCollision(Collider2D other)
         {
-            // if (!other.GetComponent<TestFly>()) return;
-            if (other.isTrigger) return;
+            if (!other.GetComponent<TestFly>()) return;
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
             drillPhysicsRelay.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
             AttachObjectToDrill(other.gameObject);
@@ -131,7 +153,7 @@ namespace PlayerSystem
         private void ReduceTimeLeft(OnUpdate e)
         {
             playerState.powerTimeLeft -= Time.deltaTime;
-            if (0 < playerState.powerTimeLeft) return;
+            if (playerState.powerTimeLeft > 0) return;
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
             Deactivate();
         }
@@ -143,8 +165,6 @@ namespace PlayerSystem
 
             eventBus.Publish(new RequestMovementResume());
             eventBus.Publish(new RequestGravityOn());
-            eventBus.Unsubscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
-            eventBus.Unsubscribe<OnVerticalInput>(TakeVerticalInputDirection);
             eventBus.Unsubscribe<OnFixedUpdate>(Steer);
             eventBus.Unsubscribe<OnFixedUpdate>(DrillIntoGameObject);
             drillPhysicsRelay.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
