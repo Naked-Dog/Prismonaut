@@ -1,4 +1,7 @@
+using System;
 using System.Runtime.CompilerServices;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -39,7 +42,14 @@ namespace PlayerSystem
 
         private void OnTrianglePowerInput(OnTrianglePowerInput e)
         {
+            if (playerState.activePower == Power.Drill && isSecondStage)
+            {
+                Deactivate();
+                return;
+            }
+
             if (playerState.activePower != Power.None) return;
+
             Activate();
         }
 
@@ -49,12 +59,9 @@ namespace PlayerSystem
             playerState.powerTimeLeft = powersConstants.drillFirstPowerDuration;
             isSecondStage = false;
 
-            Debug.Log(inputDirection.sqrMagnitude);
-
             if (inputDirection.sqrMagnitude > 0.1f)
             {
                 drillDir = inputDirection;
-                Debug.Log(inputDirection);
             }
             else
             {
@@ -86,21 +93,22 @@ namespace PlayerSystem
         {
             if (!isSecondStage)
             {
-                // Move the drill trigger the the front of the velocity vector
                 float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
                 drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-                if (inputDirection.magnitude < 0.1f) return;
-                // // Lightly steer the velocity vector with the player's input
-                // float angleChange = Vector2.SignedAngle(playerState.velocity, inputDirection);
-                // float steerAmount = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
-                // float rotationAmount = Mathf.Sign(angleChange) * steerAmount;
-                // rb2d.linearVelocity = Quaternion.Euler(0, 0, rotationAmount) * playerState.velocity;
                 if (inputDirection.sqrMagnitude < 0.1f) return;
-                float angleDiff = Vector2.SignedAngle(playerState.velocity, inputDirection);
+                float angleDiff = Vector2.SignedAngle(drillDir, inputDirection);
+                if(Mathf.Approximately(angleDiff,0f)) return;
                 float steerSpeed = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
-                float rotationAmount = Mathf.Sign(angleDiff) * steerSpeed;
-                drillDir = Quaternion.Euler(0, 0, rotationAmount) * playerState.velocity;
+                if (Mathf.Abs(angleDiff) < steerSpeed)
+                {
+                    drillDir = inputDirection.normalized;
+                }
+                else
+                {
+                    float rotationAmount = Mathf.Sign(angleDiff) * steerSpeed;
+                    drillDir = Quaternion.Euler(0, 0, rotationAmount) * drillDir;
+                }
                 float currentSpeed = rb2d.linearVelocity.magnitude;
                 float maxSpeed = powersConstants.drillMaxFirstVelocity;
                 float speed = Mathf.Min(currentSpeed, maxSpeed);
@@ -111,10 +119,17 @@ namespace PlayerSystem
             {
                 if (inputDirection.magnitude < 0.1f) return;
                 float angleChange = Vector2.SignedAngle(playerState.velocity, inputDirection);
-                float steerAmount = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
-                float rotationAmount = Mathf.Sign(angleChange) * steerAmount;
                 JointMotor2D motor = drillJoint.motor;
-                motor.motorSpeed = rotationAmount * powersConstants.drillSecondSteeringAmount;
+                if(Mathf.Approximately(angleChange,0f))
+                {
+                    motor.motorSpeed = 0f;
+                } 
+                else
+                {
+                    float steerAmount = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
+                    float rotationAmount = Mathf.Sign(angleChange) * steerAmount;
+                    motor.motorSpeed = rotationAmount * powersConstants.drillSecondSteeringAmount;
+                }
                 drillJoint.motor = motor;
             }
 
