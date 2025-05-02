@@ -6,6 +6,7 @@ namespace PlayerSystem
     {
         public bool isPaused = false;
         public Vector2 velocity = Vector2.zero;
+        public float rotation = 0f;
         public Direction facingDirection = Direction.Right;
         public HealthState healthState = HealthState.Undefined;
         public GroundState groundState = GroundState.Undefined;

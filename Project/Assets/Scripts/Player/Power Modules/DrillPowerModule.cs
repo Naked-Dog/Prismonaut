@@ -1,8 +1,4 @@
-using System;
-using System.Runtime.CompilerServices;
-using Unity.Mathematics;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -27,6 +23,7 @@ namespace PlayerSystem
         private Collider2D enemyCollider;
         private Collider2D heavyTilemapCollider;
         private Collider2D heavyCompositeCollider;
+        private float rotationVelocity;   
         private bool isInside;
 
         public DrillPowerModule(
@@ -105,26 +102,50 @@ namespace PlayerSystem
         {
             if (!isSecondStage)
             {
-                float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
-                drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, angle);
+                float targetAngle = Mathf.Atan2(inputDirection.y, inputDirection.x) * Mathf.Rad2Deg - 90f;
+                drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, targetAngle);
+                if (inputDirection.sqrMagnitude < 0.1f)
+                {
+                    rb2d.linearVelocity = rb2d.transform.up * powersConstants.drillMinimalFirstVelocity;
+                    return;
+                }
+                float smoothTime = 0.1f;
+                float newAngle = Mathf.SmoothDampAngle(
+                    rb2d.rotation,    
+                    targetAngle,      
+                    ref rotationVelocity,
+                    smoothTime
+                );
+                rb2d.MoveRotation(newAngle);
+                rb2d.linearVelocity = rb2d.transform.up * powersConstants.drillMinimalFirstVelocity;
 
-                if (inputDirection.sqrMagnitude < 0.1f) return;
-                float angleDiff = Vector2.SignedAngle(drillDir, inputDirection);
-                if(Mathf.Approximately(angleDiff,0f)) return;
-                float steerSpeed = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
-                if (Mathf.Abs(angleDiff) < steerSpeed)
-                {
-                    drillDir = inputDirection.normalized;
-                }
-                else
-                {
-                    float rotationAmount = Mathf.Sign(angleDiff) * steerSpeed;
-                    drillDir = Quaternion.Euler(0, 0, rotationAmount) * drillDir;
-                }
-                float currentSpeed = rb2d.linearVelocity.magnitude;
-                float maxSpeed = powersConstants.drillMaxFirstVelocity;
-                float speed = Mathf.Min(currentSpeed, maxSpeed);
-                rb2d.linearVelocity = drillDir.normalized * speed;
+                // if (inputDirection.sqrMagnitude < 0.1f) return;
+
+                // float targetAngle = Mathf.Atan2(drillDir.y, drillDir.x) * Mathf.Rad2Deg - 90f;
+                // float newAngle = Mathf.Lerp(rb2d.rotation, targetAngle, powersConstants.drillFirstSteeringAmount * Time.fixedDeltaTime);
+
+                // float velocity = powersConstants.drillMinimalFirstVelocity;
+                // float rotationAmount = Mathf.Sign(newAngle);
+                // drillDir = Quaternion.Euler(0, 0, rotationAmount) * drillDir;
+                // rb2d.MoveRotation(newAngle);
+                // rb2d.linearVelocity = inputDirection * velocity;
+
+                // float angleDiff = Vector2.SignedAngle(drillDir, inputDirection);
+                // if(Mathf.Approximately(angleDiff,0f)) return;
+                // float steerSpeed = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
+                // if (Mathf.Abs(angleDiff) < steerSpeed)
+                // {
+                //     drillDir = inputDirection.normalized;
+                // }
+                // else
+                // {
+                //     float rotationAmount = Mathf.Sign(angleDiff) * steerSpeed;
+                //     drillDir = Quaternion.Euler(0, 0, rotationAmount) * drillDir;
+                // }
+                // float currentSpeed = rb2d.linearVelocity.magnitude;
+                // float maxSpeed = powersConstants.drillMaxFirstVelocity;
+                // float speed = Mathf.Min(currentSpeed, maxSpeed);
+                // rb2d.linearVelocity = drillDir.normalized * speed;
 
             }
             else
@@ -235,7 +256,7 @@ namespace PlayerSystem
         {
             playerState.activePower = Power.None;
             drillJoint.enabled = false;
-
+            rb2d.MoveRotation(0f);
             eventBus.Publish(new RequestMovementResume());
             eventBus.Publish(new RequestGravityOn());
             eventBus.Unsubscribe<OnFixedUpdate>(Steer);

@@ -136,6 +136,7 @@ namespace PlayerSystem
         private void OnFixedUpdate(OnFixedUpdate e)
         {
             playerState.velocity = rb2d.linearVelocity;
+            playerState.rotation = rb2d.rotation;
             DoGroundCheck();
             if (jumpRequested) PerformJump();
             if (pauseMovement) return;
