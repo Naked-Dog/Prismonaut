@@ -2,7 +2,9 @@ using System;
 using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace PlayerSystem
 {
@@ -12,6 +14,7 @@ namespace PlayerSystem
         private PlayerState playerState;
         private Rigidbody2D rb2d;
         private PhysicsEventsRelay drillPhysicsRelay;
+        private PhysicsEventsRelay drillExitPhysicsRelay;
         private HingeJoint2D drillJoint;
         private PlayerPowersScriptable powersConstants;
 
@@ -20,20 +23,28 @@ namespace PlayerSystem
         private Vector2 drillDir = Vector2.right;
         private bool isFacingRight => playerState.facingDirection == Direction.Right;
 
+        private Collider2D playerCollider;
+        private Collider2D enemyCollider;
+        private Collider2D heavyTilemapCollider;
+        private Collider2D heavyCompositeCollider;
+        private bool isInside;
 
         public DrillPowerModule(
             EventBus eventBus,
             PlayerState playerState,
             Rigidbody2D rb2d,
             PhysicsEventsRelay drillPhysicsRelay,
+            PhysicsEventsRelay drillExitPhysicsRelay,
             HingeJoint2D drillJoint)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.drillPhysicsRelay = drillPhysicsRelay;
+            this.drillExitPhysicsRelay = drillExitPhysicsRelay;
             this.drillJoint = drillJoint;
-            this.powersConstants = GlobalConstants.Get<PlayerPowersScriptable>();
+            powersConstants = GlobalConstants.Get<PlayerPowersScriptable>();
+            playerCollider = rb2d.gameObject.transform.GetChild(1).GetComponent<Collider2D>();
 
             eventBus.Subscribe<OnTrianglePowerInput>(OnTrianglePowerInput);
             eventBus.Subscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
@@ -76,6 +87,7 @@ namespace PlayerSystem
             eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Subscribe<OnFixedUpdate>(Steer);
             drillPhysicsRelay.OnTriggerEnter2DAction.AddListener(ConfirmDrillCollision);
+            drillPhysicsRelay.OnTriggerExit2DAction.AddListener(ConfirmDrillExit);
         }
 
 
@@ -137,11 +149,57 @@ namespace PlayerSystem
 
         private void ConfirmDrillCollision(Collider2D other)
         {
-            if (!other.GetComponent<TestFly>()) return;
-            eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
-            drillPhysicsRelay.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
-            AttachObjectToDrill(other.gameObject);
-            eventBus.Subscribe<OnFixedUpdate>(DrillIntoGameObject);
+            if (other.GetComponent<TestFly>())
+            {
+                eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
+                drillPhysicsRelay.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
+                AttachObjectToDrill(other.gameObject);
+                eventBus.Subscribe<OnFixedUpdate>(DrillIntoGameObject);
+            } 
+            else if(other.gameObject.CompareTag("Enemy"))
+            {
+                enemyCollider = other.GetComponent<Collider2D>();  
+                Physics2D.IgnoreCollision(playerCollider, enemyCollider, true);
+                eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);  
+                isInside = true;
+            } 
+            else if(other.gameObject.CompareTag("HeavyTerrain"))
+            {
+                heavyTilemapCollider = other.GetComponent<TilemapCollider2D>();
+                heavyCompositeCollider= other.GetComponent<CompositeCollider2D>();
+                Physics2D.IgnoreCollision(playerCollider, heavyTilemapCollider, true);
+                Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, true);
+                eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
+            }
+        }
+
+        private void ConfirmDrillExit(Collider2D other)
+        {
+            if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("HeavyTerrain"))
+            {
+                eventBus.Unsubscribe<OnFixedUpdate>(Steer);
+                drillExitPhysicsRelay.OnTriggerExit2DAction.AddListener(ConfirmPlayerExit);
+            }
+        }
+
+        private void ConfirmPlayerExit(Collider2D other)
+        {
+            if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("HeavyTerrain"))
+            {
+                if(enemyCollider != null)
+                {
+                    Physics2D.IgnoreCollision(playerCollider, enemyCollider, false);
+                } 
+            
+                if(heavyCompositeCollider != null && heavyTilemapCollider != null)
+                {
+                    Physics2D.IgnoreCollision(playerCollider, heavyTilemapCollider, false);
+                Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, false);
+                }
+                    
+                Deactivate();
+                rb2d.linearVelocity *= 3f;
+            }
         }
 
         private void AttachObjectToDrill(GameObject gameObject)
@@ -183,6 +241,8 @@ namespace PlayerSystem
             eventBus.Unsubscribe<OnFixedUpdate>(Steer);
             eventBus.Unsubscribe<OnFixedUpdate>(DrillIntoGameObject);
             drillPhysicsRelay.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
+            drillPhysicsRelay.OnTriggerExit2DAction.RemoveListener(ConfirmDrillExit);
+            drillExitPhysicsRelay.OnTriggerExit2DAction.RemoveListener(ConfirmPlayerExit);
         }
     }
 }

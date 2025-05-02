@@ -19,4 +19,7 @@ public class PlayerPowersScriptable : ScriptableObject
     public float drillSecondPowerDuration = 2f;
     public float drillFirstSteeringAmount = 1f;
     public float drillSecondSteeringAmount = 4f;
+    public float lightDrillDamagePerSecond = 2f;
+    public float heavyDrillDamagePerSecond = 4f;
+    public float heavyDrillSpeed = 2f;
 }
