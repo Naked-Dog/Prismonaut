@@ -24,7 +24,10 @@ namespace PlayerSystem
         private Collider2D heavyTilemapCollider;
         private Collider2D heavyCompositeCollider;
         private float rotationVelocity;   
-        private bool isInside;
+        private float currentSpeed = 0f;
+
+        private float timeToReturnSteer = 0.4f;
+        private bool isInside = false;
 
         public DrillPowerModule(
             EventBus eventBus,
@@ -73,11 +76,10 @@ namespace PlayerSystem
             }
             else
             {
-                drillDir = isFacingRight ? Vector2.right : Vector2.left;
+                drillDir = isFacingRight ? rb2d.transform.right : -rb2d.transform.right;
             }
-
-            float initSpeed = powersConstants.drillMinimalFirstVelocity;
-            rb2d.linearVelocity = drillDir * initSpeed;
+            currentSpeed = powersConstants.drillMinimalFirstVelocity;
+            rb2d.linearVelocity = drillDir * powersConstants.drillMinimalFirstVelocity;
 
             eventBus.Publish(new RequestMovementPause());
             eventBus.Publish(new RequestGravityOff());
@@ -102,14 +104,12 @@ namespace PlayerSystem
         {
             if (!isSecondStage)
             {
-                float targetAngle = Mathf.Atan2(inputDirection.y, inputDirection.x) * Mathf.Rad2Deg - 90f;
-                drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, targetAngle);
-                if (inputDirection.sqrMagnitude < 0.1f)
+                if (inputDirection.sqrMagnitude > 0.1f)
                 {
-                    rb2d.linearVelocity = rb2d.transform.up * powersConstants.drillMinimalFirstVelocity;
-                    return;
+                    drillDir = inputDirection.normalized;
                 }
-                float smoothTime = 0.1f;
+                float targetAngle = Mathf.Atan2(drillDir.y, drillDir.x) * Mathf.Rad2Deg - 90f;
+                float smoothTime = 0.13f;
                 float newAngle = Mathf.SmoothDampAngle(
                     rb2d.rotation,    
                     targetAngle,      
@@ -117,36 +117,9 @@ namespace PlayerSystem
                     smoothTime
                 );
                 rb2d.MoveRotation(newAngle);
-                rb2d.linearVelocity = rb2d.transform.up * powersConstants.drillMinimalFirstVelocity;
-
-                // if (inputDirection.sqrMagnitude < 0.1f) return;
-
-                // float targetAngle = Mathf.Atan2(drillDir.y, drillDir.x) * Mathf.Rad2Deg - 90f;
-                // float newAngle = Mathf.Lerp(rb2d.rotation, targetAngle, powersConstants.drillFirstSteeringAmount * Time.fixedDeltaTime);
-
-                // float velocity = powersConstants.drillMinimalFirstVelocity;
-                // float rotationAmount = Mathf.Sign(newAngle);
-                // drillDir = Quaternion.Euler(0, 0, rotationAmount) * drillDir;
-                // rb2d.MoveRotation(newAngle);
-                // rb2d.linearVelocity = inputDirection * velocity;
-
-                // float angleDiff = Vector2.SignedAngle(drillDir, inputDirection);
-                // if(Mathf.Approximately(angleDiff,0f)) return;
-                // float steerSpeed = isSecondStage ? powersConstants.drillSecondSteeringAmount : powersConstants.drillFirstSteeringAmount;
-                // if (Mathf.Abs(angleDiff) < steerSpeed)
-                // {
-                //     drillDir = inputDirection.normalized;
-                // }
-                // else
-                // {
-                //     float rotationAmount = Mathf.Sign(angleDiff) * steerSpeed;
-                //     drillDir = Quaternion.Euler(0, 0, rotationAmount) * drillDir;
-                // }
-                // float currentSpeed = rb2d.linearVelocity.magnitude;
-                // float maxSpeed = powersConstants.drillMaxFirstVelocity;
-                // float speed = Mathf.Min(currentSpeed, maxSpeed);
-                // rb2d.linearVelocity = drillDir.normalized * speed;
-
+                drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, newAngle);
+                currentSpeed = Mathf.MoveTowards(currentSpeed, powersConstants.drillMaxFirstVelocity, powersConstants.drillAceleration * Time.fixedDeltaTime);
+                rb2d.linearVelocity = drillDir * currentSpeed;
             }
             else
             {
@@ -181,8 +154,8 @@ namespace PlayerSystem
             {
                 enemyCollider = other.GetComponent<Collider2D>();  
                 Physics2D.IgnoreCollision(playerCollider, enemyCollider, true);
-                eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);  
-                isInside = true;
+                eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
+                isInside = true;  
             } 
             else if(other.gameObject.CompareTag("HeavyTerrain"))
             {
@@ -191,6 +164,19 @@ namespace PlayerSystem
                 Physics2D.IgnoreCollision(playerCollider, heavyTilemapCollider, true);
                 Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, true);
                 eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
+                isInside = true;
+            }
+            else if(other.gameObject.CompareTag("Ground"))
+            {
+                if(isInside)
+                {
+                    eventBus.Unsubscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
+                    eventBus.Unsubscribe<OnVerticalInput>(TakeVerticalInputDirection);
+                    eventBus.Subscribe<OnUpdate>(SteerControlReturn);
+                    inputDirection = Vector2.zero;
+                    drillDir = -drillDir;
+                    return;
+                }
             }
         }
 
@@ -215,11 +201,10 @@ namespace PlayerSystem
                 if(heavyCompositeCollider != null && heavyTilemapCollider != null)
                 {
                     Physics2D.IgnoreCollision(playerCollider, heavyTilemapCollider, false);
-                Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, false);
+                    Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, false);
                 }
                     
                 Deactivate();
-                rb2d.linearVelocity *= 3f;
             }
         }
 
@@ -252,11 +237,24 @@ namespace PlayerSystem
             Deactivate();
         }
 
+        private void SteerControlReturn(OnUpdate e)
+        {
+            timeToReturnSteer -= Time.deltaTime;
+            Debug.Log(timeToReturnSteer);
+            if (timeToReturnSteer > 0) return;
+            eventBus.Subscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
+            eventBus.Subscribe<OnVerticalInput>(TakeVerticalInputDirection);
+            eventBus.Unsubscribe<OnUpdate>(SteerControlReturn);
+            timeToReturnSteer = 0.4f;
+        }
+
         private void Deactivate()
         {
             playerState.activePower = Power.None;
             drillJoint.enabled = false;
             rb2d.MoveRotation(0f);
+            drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, 0);
+            currentSpeed = 0f;
             eventBus.Publish(new RequestMovementResume());
             eventBus.Publish(new RequestGravityOn());
             eventBus.Unsubscribe<OnFixedUpdate>(Steer);

@@ -12,8 +12,11 @@ public class PlayerPowersScriptable : ScriptableObject
     public float shieldPowerDuration = 0.5f;
 
     [Header("Drill Power")]
+    [Header("First state")]
     public float drillMinimalFirstVelocity = 4f;
-    public float drillMaxFirstVelocity = 4f;
+    public float drillMaxFirstVelocity = 8f;
+    public float drillAceleration = 0.5f;
+    [Header("Second state")]
     public float drillMinimalSecondVelocity = 8f;
     public float drillFirstPowerDuration = 0.5f;
     public float drillSecondPowerDuration = 2f;
