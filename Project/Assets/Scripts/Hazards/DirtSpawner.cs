@@ -13,11 +13,14 @@ public class DirtSpawner : MonoBehaviour
     private float speed;
     [SerializeField]
     public float reloadTime;
+    [SerializeField]
+    public float startReload = 0;
     public Coroutine spawnRoutine;
 
     private void Start()
     {
-        SpawnDirtBall(Random.Range(0.5f, 2.5f));
+        float startTime = startReload != 0 ? startReload : Random.Range(0.5f, 2.5f);
+        SpawnDirtBall(startTime);
     }
 
     public void SpawnDirtBall(float time)
