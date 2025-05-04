@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalGroundedForce: 150
   horizontalAirborneForce: 50
-  airBreak: 2
   groundBreak: 20
+  airBreak: 2
+  maxHorizontalVelocity: 8
   maximumYSpeed: 25
   minimumYSpeed: -15
   gravityScale: 3
@@ -35,3 +36,4 @@ MonoBehaviour:
   trianglePowerForce: 10
   trianglePowerDuration: 0.8
   trianglePowerCooldown: 1
+  oppositeForce: 5

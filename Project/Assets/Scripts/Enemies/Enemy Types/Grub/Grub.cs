@@ -33,7 +33,7 @@ public class Grub : Enemy, IEnemyMoveable, IPlayerPowerInteractable
                     bool playerDied = collision.gameObject.GetComponent<PlayerBaseModule>().healthModule.Damage(DamageAmount);
                     if (playerDied) return;
                 }
-                collision.gameObject.GetComponent<PlayerBaseModule>().knockback.CallKnockback(direction, Vector2.up, Input.GetAxisRaw("Horizontal"), !isStun);
+                //collision.gameObject.GetComponent<PlayerBaseModule>().knockback.CallKnockback(direction, Vector2.up, Input.GetAxisRaw("Horizontal"), !isStun);
             }
             else
             {

@@ -21,7 +21,7 @@ public class AudioManager: MonoBehaviour
     private Dictionary<Type, AudioLibraryBase> libraryMap = new();
 
 
-    public Dictionary<string, AudioClip> clips;
+    public Dictionary<string, AudioClip> clips = new();
     private List<AudioSource> allSources = new();
     private Stack<AudioSource> freeSources = new();
 
