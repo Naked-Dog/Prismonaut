@@ -10,7 +10,8 @@ namespace PlayerSystem
         [SerializeField] private Rigidbody2D avatarRigidbody2D;
         [SerializeField] private Animator animator;
         [SerializeField] private PhysicsEventsRelay drillPhysicsRelay;
-        [SerializeField] private HingeJoint2D drillJoint;
+        [SerializeField] private PhysicsEventsRelay drillExitPhysicsRelay;
+        [SerializeField] private FixedJoint2D drillJoint;
         [SerializeField] private InputActionAsset playerInputAsset;
         [SerializeField] private HealthUIController healthUIController;
         [SerializeField] private GameObject interactSign;
@@ -34,11 +35,10 @@ namespace PlayerSystem
             state = new PlayerState();
             eventBus = new EventBus();
 
-            //audioModule = new PlayerAudioModule(eventBus, gameObject.GetComponent<PlayerSounds>(), gameObject, GetComponent<AudioSource>());
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Physics2DMovement(eventBus, state, avatarRigidbody2D);
             animationsModule = new PlayerAnimations(eventBus, state, animator);
-            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillPhysicsRelay, drillJoint);
+            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
             {
                 MaxHealth = 3

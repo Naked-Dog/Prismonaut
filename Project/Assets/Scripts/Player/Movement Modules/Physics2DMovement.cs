@@ -54,6 +54,7 @@ namespace PlayerSystem
             eventBus.Subscribe<RequestMovementResume>(RequestMovementResume);
             eventBus.Subscribe<RequestGravityOff>(RequestGravityOff);
             eventBus.Subscribe<RequestGravityOn>(RequestGravityOn);
+            eventBus.Subscribe<RequestOppositeReaction>(RequestOppositeReaction);
         }
 
         private void RequestMovementPause(RequestMovementPause e)
@@ -136,6 +137,7 @@ namespace PlayerSystem
         private void OnFixedUpdate(OnFixedUpdate e)
         {
             playerState.velocity = rb2d.linearVelocity;
+            playerState.rotation = rb2d.rotation;
             DoGroundCheck();
             if (jumpRequested) PerformJump();
             if (pauseMovement) return;
@@ -210,6 +212,12 @@ namespace PlayerSystem
         private void RequestGravityOn(RequestGravityOn e)
         {
             rb2d.gravityScale = movementConstants.gravityScale;
+        }
+
+        private void RequestOppositeReaction(RequestOppositeReaction e)
+        {
+            Vector2 reactionVector = Vector2.up * movementConstants.oppositeForce;
+            rb2d.AddForce( reactionVector, ForceMode2D.Impulse);            
         }
     }
 }
