@@ -15,7 +15,7 @@ namespace PlayerSystem
         private Rigidbody2D rb2d;
         private PhysicsEventsRelay drillPhysicsRelay;
         private PhysicsEventsRelay drillExitPhysicsRelay;
-        private HingeJoint2D drillJoint;
+        private FixedJoint2D drillJoint;
 
         public PlayerPowersModule(
             EventBus eventBus,
@@ -23,7 +23,7 @@ namespace PlayerSystem
             Rigidbody2D rb2d,
             PhysicsEventsRelay drillPhysicsRelay,
             PhysicsEventsRelay drillExitPhysicsRelay,
-            HingeJoint2D drillJoint)
+            FixedJoint2D drillJoint)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;

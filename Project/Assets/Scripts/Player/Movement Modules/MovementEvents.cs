@@ -12,4 +12,5 @@ namespace PlayerSystem
     public struct RequestMovementResume { }
     public struct RequestGravityOff { }
     public struct RequestGravityOn { }
+    public struct RequestOppositeReaction{ }
 }
