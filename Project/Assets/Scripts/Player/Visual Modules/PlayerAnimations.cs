@@ -32,8 +32,8 @@ namespace PlayerSystem
                     else SetState(AnimationState.DodgeBegin);
                     return;
                 case Power.Drill:
-                    float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
-                    animator.transform.parent.rotation = Quaternion.Euler(0, 0, angle);
+                    //float angle = Mathf.Atan2(playerState.velocity.y, playerState.velocity.x) * Mathf.Rad2Deg - 90f;
+                    animator.transform.parent.rotation = Quaternion.Euler(0, 0, playerState.rotation);
                     return;
                 default:
                     animator.transform.parent.rotation = Quaternion.identity;

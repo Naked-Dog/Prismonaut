@@ -14,23 +14,26 @@ namespace PlayerSystem
         private DodgePowerModule circlePower;
         private Rigidbody2D rb2d;
         private PhysicsEventsRelay drillPhysicsRelay;
-        private HingeJoint2D drillJoint;
+        private PhysicsEventsRelay drillExitPhysicsRelay;
+        private FixedJoint2D drillJoint;
 
         public PlayerPowersModule(
             EventBus eventBus,
             PlayerState playerState,
             Rigidbody2D rb2d,
             PhysicsEventsRelay drillPhysicsRelay,
-            HingeJoint2D drillJoint)
+            PhysicsEventsRelay drillExitPhysicsRelay,
+            FixedJoint2D drillJoint)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.drillPhysicsRelay = drillPhysicsRelay;
+            this.drillExitPhysicsRelay = drillExitPhysicsRelay;
             this.drillJoint = drillJoint;
 
             squarePower = new ShieldPowerModule(eventBus, playerState, rb2d);
-            trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, drillPhysicsRelay, drillJoint);
+            trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint);
             circlePower = new DodgePowerModule(eventBus, playerState, rb2d);
         }
 
@@ -44,7 +47,7 @@ namespace PlayerSystem
                     break;
                 case Power.Triangle:
                     playerState.isTrianglePowerAvailable = isAvailable;
-                    trianglePower ??= new DrillPowerModule(eventBus, playerState, rb2d, drillPhysicsRelay, drillJoint);
+                    trianglePower ??= new DrillPowerModule(eventBus, playerState, rb2d, drillPhysicsRelay, drillExitPhysicsRelay,drillJoint);
                     break;
                 case Power.Circle:
                     playerState.isCirclePowerAvailable = isAvailable;
