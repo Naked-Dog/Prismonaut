@@ -5,22 +5,24 @@ using Action = Unity.Behavior.Action;
 using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "DetectTarget", story: "Collides with [Target] on [Collider]", category: "Action", id: "818301574f088cdd8cf019602a3b0580")]
-public partial class DetectTargetAction : Action
+[NodeDescription(name: "Attack", story: "[Agent] attacks [Target] after reaching [Collider]", category: "Action", id: "59d206075694382899a735dece7b5175")]
+public partial class AttackAction : Action
 {
+    [SerializeReference] public BlackboardVariable<GameObject> Agent;
     [SerializeReference] public BlackboardVariable<GameObject> Target;
     [SerializeReference] public BlackboardVariable<GameObject> Collider;
-    private ColliderDetector detectionCollider;
+
+    private ColliderDetector attackCollider;  
 
     protected override Status OnStart()
     {
-        detectionCollider = Collider.Value.GetComponent<ColliderDetector>();
+        attackCollider = Collider.Value.GetComponent<ColliderDetector>();
         return Status.Running;
     }
 
     protected override Status OnUpdate()
     {
-        var target = detectionCollider.GetTarget("Player");
+        var target = attackCollider.GetTarget("Player");
         if(target == null) return Status.Running;
 
         Target.Value = target.gameObject;
