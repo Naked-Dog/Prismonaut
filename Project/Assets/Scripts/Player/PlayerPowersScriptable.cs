@@ -10,6 +10,8 @@ public class PlayerPowersScriptable : ScriptableObject
 
     [Header("Shield Power")]
     public float shieldPowerDuration = 0.5f;
+    public float parryDuration = 0.15f;
+    public float reflectionDamage = 8f;
 
     [Header("Drill Power")]
 
