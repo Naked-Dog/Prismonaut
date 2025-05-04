@@ -13,12 +13,17 @@ public class PlatformScript : MonoBehaviour
     private Transform lavaTransform;
     private Rigidbody2D rb;
 
+    [SerializeField]
     private PlatformManager platformManager;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
+    }
+
+    private void Start()
+    {
         platformManager = PlatformManager.Instance;
         lavaTransform = platformManager.lavaManager.transform;
     }

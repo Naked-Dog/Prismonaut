@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7469877486243916716}
   - component: {fileID: 6975564815028125986}
   - component: {fileID: 1029000078627797169}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: DirtBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,5 +178,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62df7cc9ee1d93f42bad77f7a781332d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedLimit: 8
+  impulseLimit: 4.5
   spawner: {fileID: 0}

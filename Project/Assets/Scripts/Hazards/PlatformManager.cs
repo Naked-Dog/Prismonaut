@@ -39,7 +39,7 @@ public class PlatformManager : MonoBehaviour
 
     private void MakePlatformsFall()
     {
-        if (platforms[0] != platforms[platformIndex] && platformIndex != -1)
+        if (platforms.Count > 0 && platforms[0] != platforms[platformIndex] && platformIndex != -1)
         {
             float gravityMultiplier = (platformIndex - platforms.IndexOf(platforms[0])) * 2;
             platforms[0].StartFalling(gravityScale * gravityMultiplier);
@@ -57,6 +57,7 @@ public class PlatformManager : MonoBehaviour
             foreach (var platform in platforms)
             {
                 platform.StartFalling(gravityScale * 4);
+                Destroy(platform.gameObject, 4);
             }
         }
     }

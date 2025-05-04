@@ -11,18 +11,24 @@ public class DirtSpawner : MonoBehaviour
     private Vector2 direction;
     [SerializeField]
     private float speed;
+    [SerializeField]
+    public float reloadTime;
+    public Coroutine spawnRoutine;
 
     private void Start()
     {
-        StartCoroutine(SpawnDirtBall());
+        SpawnDirtBall(Random.Range(0.5f, 2.5f));
     }
-    public IEnumerator SpawnDirtBall()
+
+    public void SpawnDirtBall(float time)
     {
-        float randomNum = Random.Range(0.5f, 2.5f);
-        Debug.Log("Worked");
-        Debug.Log(randomNum);
-        yield return new WaitForSeconds(randomNum);
-        Debug.Log("Passed");
+        if (spawnRoutine != null) StopCoroutine(spawnRoutine);
+        spawnRoutine = StartCoroutine(GenerateDirtBall(time));
+    }
+    public IEnumerator GenerateDirtBall(float time)
+    {
+        yield return new WaitForSeconds(time);
+
         GameObject dirtball = Instantiate(dirtBallPrefab);
         dirtball.transform.SetParent(transform);
         dirtball.transform.position = SpawnPoint.position;
@@ -30,7 +36,5 @@ public class DirtSpawner : MonoBehaviour
         DirtBallScript dbScript = dirtball.GetComponent<DirtBallScript>();
         dbScript.spawner = this;
         dbScript.setInitialSpeed(direction, speed);
-
-        yield return null;
     }
 }
