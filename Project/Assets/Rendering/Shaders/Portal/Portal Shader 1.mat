@@ -45,14 +45,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Density: 5
-    - _Intensity: 1.5
-    - _Pixel: 48
-    - _Speed: 0.25
-    - _Spiral_Strength: 15
+    - _Density: 7
+    - _Intensity: 0.7
+    - _Pixel: 96
+    - _Speed: 0.15
+    - _Spiral_Strength: 16.6
+    - _Spirals_Size_Diff: 0.5
     m_Colors:
-    - _Color: {r: 0.9095336, g: 4.237095, b: 0.4658587, a: 0}
-    - _SecondaryColor: {r: 3.5652845, g: 4.2370954, b: 1.059274, a: 0}
+    - _Color: {r: 1.1602479, g: 4.7521405, b: 0.6052255, a: 0}
+    - _SecondaryColor: {r: 2.1940799, g: 2.1484087, b: 0.42432672, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2323808517118886355
