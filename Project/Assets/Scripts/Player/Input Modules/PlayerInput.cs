@@ -78,7 +78,7 @@ namespace PlayerSystem
                 eventBus.Publish(new RequestUnpause());
             });
 
-            RegisterCallback(DialogueMap.FindAction("SkipDialogue"), ctx => DialogueController.Instance.SkipDialogue());
+            RegisterCallback(DialogueMap.FindAction("SkipDialogue"), ctx => DialogueController.Instance?.SkipDialogue());
         }
 
         private void RegisterCallback(InputAction action, Action<InputAction.CallbackContext> callback, bool started = true, bool canceled = false)

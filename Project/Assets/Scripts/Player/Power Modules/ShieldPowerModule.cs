@@ -11,8 +11,8 @@ namespace PlayerSystem
         private PlayerPowersScriptable powersConstants;
         private Vector2 savedVelocity;
         private PhysicsEventsRelay shieldPhysicsRelay;
+        Collider2D shieldCollider;
         private float parryTime;
-        private bool isParry;
 
         public ShieldPowerModule(
             EventBus eventBus,
@@ -24,6 +24,8 @@ namespace PlayerSystem
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.shieldPhysicsRelay = shieldPhysicsRelay;
+            shieldCollider = shieldPhysicsRelay.GetComponent<Collider2D>();
+            shieldCollider.enabled = false;
 
             powersConstants = GlobalConstants.Get<PlayerPowersScriptable>();
 
@@ -46,14 +48,15 @@ namespace PlayerSystem
             rb2d.linearVelocity = Vector2.zero;
             eventBus.Publish(new RequestGravityOff());
             eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
+            shieldCollider.enabled = true;
             shieldPhysicsRelay.OnTriggerEnter2DAction.AddListener(ShieldCollision);
-            isParry = true;
+            playerState.isParry = true;
         }
 
         private void ReduceTimeLeft(OnUpdate e)
         {
             playerState.powerTimeLeft -= Time.deltaTime;
-            if(playerState.powerTimeLeft < parryTime) isParry = false;
+            if(playerState.powerTimeLeft < parryTime) playerState.isParry = false;
             if (0 < playerState.powerTimeLeft) return;
             Deactivate();
         }
@@ -62,7 +65,7 @@ namespace PlayerSystem
         {
             if(other.CompareTag("Enemy"))
             {
-                if(isParry)
+                if(playerState.isParry)
                 {
                     ReflectDamage();
                 } 
@@ -70,18 +73,6 @@ namespace PlayerSystem
                 {
                     //get enemy damage
                     //rb2d.gameObject.GetComponent<PlayerBaseModule>().healthModule.Damage(damageAmount)
-                    Deactivate();
-                }
-            }
-
-            if(other.CompareTag("Slime"))
-            {
-                if(isParry)
-                {
-                    //Break slime
-                } 
-                else 
-                {
                     Deactivate();
                 }
             }
@@ -101,6 +92,7 @@ namespace PlayerSystem
             eventBus.Publish(new RequestMovementResume());
             eventBus.Publish(new RequestGravityOn());
             shieldPhysicsRelay.OnTriggerEnter2DAction.RemoveListener(ShieldCollision);
+            shieldCollider.enabled = false;
         }
     }
 }

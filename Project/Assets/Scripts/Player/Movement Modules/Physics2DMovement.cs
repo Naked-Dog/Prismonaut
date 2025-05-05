@@ -216,8 +216,9 @@ namespace PlayerSystem
 
         private void RequestOppositeReaction(RequestOppositeReaction e)
         {
-            Vector2 reactionVector = Vector2.up * movementConstants.oppositeForce;
-            rb2d.AddForce( reactionVector, ForceMode2D.Impulse);            
+            Vector2 reactionVector = -e.direction;
+            reactionVector *= e.forceAmount;
+            rb2d.AddForce(reactionVector, ForceMode2D.Impulse);            
         }
     }
 }
