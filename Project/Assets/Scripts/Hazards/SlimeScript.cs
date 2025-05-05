@@ -5,12 +5,20 @@ using UnityEngine;
 public class SlimeScript : MonoBehaviour
 {
     [Header("Speed Parameters")]
-    public float minTriggerSpeed = 2f;
-    public float maxTriggerSpeed = 6f;
+
+    [SerializeField]
+    private float minTriggerSpeed = 2f;
+    [SerializeField]
+    private float maxTriggerSpeed = 6f;
 
     [Header("Bounce Parameters")]
-    public float maxBounceSpeed = 11f;
-    public float chargeTime = 0.2f;
+
+    [SerializeField]
+    private float maxBounceSpeed = 11f;
+    [SerializeField]
+    private float oppositeDirMult = 0.5f;
+    [SerializeField]
+    private float chargeTime = 0.2f;
 
     private readonly HashSet<Rigidbody2D> busy = new HashSet<Rigidbody2D>();
 
@@ -19,70 +27,76 @@ public class SlimeScript : MonoBehaviour
         Rigidbody2D rb = collision.rigidbody;
         if (rb == null || busy.Contains(rb)) return;
 
-        // 1) Velocidad relativa justo antes del choque
-        Vector2 relVel = collision.relativeVelocity;
-
-        // 2) Normal del punto de contacto
+        Vector2 relativeSpeed = collision.relativeVelocity;
         Vector2 normal = collision.contacts[0].normal;
-
-        // 3) Determinar eje de rebote: si |normal.y| > |normal.x| → suelo/techo (eje Y),
-        //    si no → paredes (eje X)
         bool bounceOnY = Mathf.Abs(normal.y) > Mathf.Abs(normal.x);
 
-        // 4) Medir sólo la componente relevante de la velocidad
-        float impactSpeed = bounceOnY
-            ? Mathf.Abs(relVel.y)
-            : Mathf.Abs(relVel.x);
+        float impactSpeed = bounceOnY ? Mathf.Abs(relativeSpeed.y) : Mathf.Abs(relativeSpeed.x);
 
         if (impactSpeed < minTriggerSpeed) return;
 
-        // 5) Mapear [minTriggerSpeed, maxTriggerSpeed] → [0,1]
         float t = Mathf.InverseLerp(minTriggerSpeed, maxTriggerSpeed, impactSpeed);
-        // 6) Calcular la velocidad de rebote en [0, maxBounceSpeed]
+
         float bounceImpulse = Mathf.Lerp(0f, maxBounceSpeed, t);
 
-        // 7) Lanza la coroutine de carga y rebote
-        StartCoroutine(ChargeAndBounce(rb, normal, relVel, bounceImpulse));
+        BounceValues bounceValues = new(rb, t, bounceOnY, normal, relativeSpeed, bounceImpulse);
+
+        StartCoroutine(ChargeAndBounce(bounceValues));
     }
 
-    private IEnumerator ChargeAndBounce(Rigidbody2D rb, Vector2 normal, Vector2 relVel, float bounceImpulse)
+    private IEnumerator ChargeAndBounce(BounceValues bounceValues)
     {
-        busy.Add(rb);
+        busy.Add(bounceValues.rb);
 
-        // ——— Fase “pegado” al slime ———
-        rb.linearVelocity = Vector2.zero;
-        RigidbodyType2D rbType = rb.bodyType;
-        rb.bodyType = RigidbodyType2D.Kinematic;
+        bounceValues.rb.linearVelocity = Vector2.zero;
+        RigidbodyType2D rbType = bounceValues.rb.bodyType;
+        bounceValues.rb.bodyType = RigidbodyType2D.Kinematic;
 
-        yield return new WaitForSeconds(chargeTime);
+        yield return new WaitForSeconds(chargeTime * bounceValues.timeMultiplier);
 
-        // ——— Fase de rebote ———
-        rb.bodyType = rbType;
+        bounceValues.rb.bodyType = rbType;
 
         Vector2 newVel;
-        if (Mathf.Abs(normal.y) > Mathf.Abs(normal.x))
+        if (bounceValues.bounceOnY)
         {
-            // Rebote en Y: invertimos sólo Y, X queda igual
-            float dirY = Mathf.Sign(normal.y); // +1 si es suelo, -1 si es techo
+            float dirY = -Mathf.Sign(bounceValues.normal.y);
             newVel = new Vector2(
-                relVel.x,
-                bounceImpulse * dirY
+                bounceValues.relativeSpeed.x * (1 + Mathf.Clamp(bounceValues.bounceImpulse, 0, oppositeDirMult)),
+                bounceValues.bounceImpulse * dirY
             );
         }
         else
         {
-            // Rebote en X: invertimos sólo X, Y queda igual
-            float dirX = Mathf.Sign(normal.x); // +1 si es pared izquierda, -1 pared derecha
+            float dirX = -Mathf.Sign(bounceValues.normal.x);
             newVel = new Vector2(
-                bounceImpulse * dirX,
-                relVel.y
+                bounceValues.bounceImpulse * dirX,
+                bounceValues.relativeSpeed.y * (1 + Mathf.Clamp(bounceValues.bounceImpulse, 0, oppositeDirMult))
             );
         }
 
-        rb.AddForce(newVel, ForceMode2D.Impulse);
+        bounceValues.rb.AddForce(newVel, ForceMode2D.Impulse);
 
-        // Pequeña espera antes de permitir otro rebote
         yield return new WaitForSeconds(0.1f);
-        busy.Remove(rb);
+        busy.Remove(bounceValues.rb);
+    }
+}
+
+public class BounceValues
+{
+    public Rigidbody2D rb;
+    public float timeMultiplier;
+    public bool bounceOnY;
+    public Vector2 normal;
+    public Vector2 relativeSpeed;
+    public float bounceImpulse;
+
+    public BounceValues(Rigidbody2D rb, float timeMultiplier, bool bounceOnY, Vector2 normal, Vector2 relativeSpeed, float bounceImpulse)
+    {
+        this.rb = rb;
+        this.timeMultiplier = timeMultiplier;
+        this.bounceOnY = bounceOnY;
+        this.normal = normal;
+        this.relativeSpeed = relativeSpeed;
+        this.bounceImpulse = bounceImpulse;
     }
 }

@@ -26,5 +26,4 @@ public class TutorialManager : MonoBehaviour
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
-
 }
