@@ -16,9 +16,16 @@ public class LavaManager : MonoBehaviour
     private bool eventFinished = false;
     [SerializeField]
     private List<LavaPositions> lavaPositions = new List<LavaPositions>();
+    public static LavaManager Instance { get; private set; }
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
         initialHeight = transform.position.y;
     }
 
@@ -84,10 +91,17 @@ public class LavaManager : MonoBehaviour
     public void FinishEvent()
     {
         if (lavaPositions.Count == 0) return;
+
+        eventStarted = true;
+
         while (lavaPositions.Count > 1)
         {
-            SetLavaGoal();
+            lavaPositions.RemoveAt(0);
         }
+        initialHeight = transform.position.y;
+        timeElapsed = 0;
+        riseDuration = lavaPositions[0].time;
+        finalHeight = lavaPositions[0].position;
     }
 }
 

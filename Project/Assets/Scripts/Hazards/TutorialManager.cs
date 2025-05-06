@@ -4,8 +4,6 @@ using UnityEngine;
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance { get; private set; }
-    [SerializeField]
-    private LavaManager lavaManager;
 
     void Awake()
     {
@@ -21,7 +19,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            lavaManager.FinishEvent();
+            LavaManager.Instance.FinishEvent();
             PlatformManager.Instance.FinishEvent();
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
