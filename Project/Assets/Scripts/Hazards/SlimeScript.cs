@@ -68,9 +68,10 @@ public class SlimeScript : MonoBehaviour
         else
         {
             float dirX = -Mathf.Sign(bounceValues.normal.x);
+            float oppDirMult = bounceValues.relativeSpeed.y > 0 ? oppositeDirMult : 0;
             newVel = new Vector2(
                 bounceValues.bounceImpulse * dirX,
-                bounceValues.relativeSpeed.y * (1 + Mathf.Clamp(bounceValues.bounceImpulse, 0, oppositeDirMult))
+                bounceValues.relativeSpeed.y * (1 + Mathf.Clamp(bounceValues.bounceImpulse, 0, oppDirMult))
             );
         }
 
