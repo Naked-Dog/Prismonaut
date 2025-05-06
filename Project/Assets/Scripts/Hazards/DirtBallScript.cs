@@ -43,7 +43,6 @@ public class DirtBallScript : MonoBehaviour
 
     private void Death()
     {
-        Debug.Log("death");
         spawner.SpawnDirtBall(spawner.reloadTime);
         Destroy(gameObject, 0.1f);//animation later
     }
