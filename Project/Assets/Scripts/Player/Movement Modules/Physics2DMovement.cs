@@ -218,7 +218,7 @@ namespace PlayerSystem
         {
             Vector2 reactionVector = -e.direction;
             reactionVector *= e.forceAmount;
-            rb2d.AddForce(reactionVector, ForceMode2D.Impulse);            
+            rb2d.linearVelocity = reactionVector;           
         }
     }
 }

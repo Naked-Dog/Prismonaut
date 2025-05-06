@@ -268,27 +268,21 @@ namespace PlayerSystem
         private void AttachObjectToDrill(GameObject gameObject)
         {
             lightObjectRigidBody = gameObject.GetComponent<Rigidbody2D>();
-            
-            var bounds = lightObjectRigidBody.GetComponent<Collider2D>().bounds;
-            Vector2 extents = bounds.extents;
             Vector2 worldTip = drillPhysicsRelay.transform.GetChild(0).position;
-            float borderDist = Vector2.Dot(extents, drillDir);
-            Vector2 center = worldTip + drillDir * borderDist;
-            lightObjectRigidBody.position = center;
-
-
-            drillJoint.enabled = true;
-            drillJoint.connectedBody = lightObjectRigidBody;
+            
             drillJoint.autoConfigureConnectedAnchor = false;
+            drillJoint.connectedBody = lightObjectRigidBody;
 
             Vector2 localTip = rb2d.transform.InverseTransformPoint(worldTip);
             drillJoint.anchor = localTip;
 
-            Vector2 enemyLocal = lightObjectRigidBody.transform.InverseTransformPoint(worldTip);
-            drillJoint.connectedAnchor = enemyLocal;
+            Vector2 lightLocalTip = lightObjectRigidBody.transform.InverseTransformDirection(worldTip);
+            drillJoint.connectedAnchor = lightLocalTip;
+            drillJoint.enabled = true;
 
             isSecondStage = true;
         }
+
 
         private void ReduceTimeLeft(OnUpdate e)
         {
