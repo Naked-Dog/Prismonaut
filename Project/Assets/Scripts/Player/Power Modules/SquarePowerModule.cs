@@ -33,9 +33,9 @@ namespace PlayerSystem
 
         private void togglePower(OnSquarePowerInput e)
         {
-            if (e.toggle == isActive) return;
-            if (e.toggle) activate();
-            else /*if (minPowerDuration < powerTimeSum)*/ deactivate();
+            // if (e.toggle == isActive) return;
+            // if (e.toggle) activate();
+            // else /*if (minPowerDuration < powerTimeSum)*/ deactivate();
             // Todo: Current implementation of minPowerDuration feels uncomfortable during play, figure a way to better handle deactivation input
         }
 

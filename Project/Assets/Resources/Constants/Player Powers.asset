@@ -16,14 +16,20 @@ MonoBehaviour:
   dodgePowerDuration: 0.7
   dodgePowerBreakForce: 2
   shieldPowerDuration: 0.5
-  drillMinimalFirstVelocity: 0
-  drillMaxFirstVelocity: 5
+  parryDuration: 0.15
+  reflectionDamage: 8
+  drillMinimalFirstVelocity: 2
+  drillMaxFirstVelocity: 6
   drillAceleration: 100
-  drillMinimalSecondVelocity: 8
+  drillMinimalSecondVelocity: 4
   drillFirstPowerDuration: 0.5
   drillSecondPowerDuration: 5
   drillFirstSteeringAmount: 10
-  drillSecondSteeringAmount: 90
+  drillSecondSteeringAmount: 200
   lightDrillDamagePerSecond: 2
+  lightObjectExitForce: 2
   heavyDrillDamagePerSecond: 4
   heavyDrillSpeed: 2
+  steerReturnTimer: 0.4
+  heavyExitForceImpulse: 5
+  drillOppositeForce: 10
