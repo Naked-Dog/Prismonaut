@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthUIController : MonoBehaviour
 {
@@ -8,15 +8,24 @@ public class HealthUIController : MonoBehaviour
     [SerializeField] private GameObject mainContainer;
     [SerializeField] private GameObject[] lives;
 
+    [SerializeField] private Image portraitContainer;
+
+    [SerializeField] private Sprite[] portraits;
+
+    private enum Portraits
+    {
+        Full,
+        Damaged,
+        Dead
+    }
+
     private int maxHealth;
-    private int currentHealth;
 
     private float HEALTH_SHOW_TIME = 1f;
 
     public void InitUI(int maxHealth)
     {
         this.maxHealth = maxHealth;
-        currentHealth = maxHealth;
         foreach (GameObject live in lives)
         {
             live.SetActive(true);
@@ -27,17 +36,33 @@ public class HealthUIController : MonoBehaviour
     //Actualizar vidas antes de aparecer
     public void UpdateHealthUI(int currentHealth)
     {
-        this.currentHealth = currentHealth;
         for (int i = 0; i < lives.Length; i++)
         {
             lives[i].SetActive(i + 1 <= currentHealth);
         }
-        StartCoroutine(ShowHealthUI());
+        SetPortraitImage(currentHealth);
+        StartCoroutine(ShowHUDUI());
+    }
+
+    private void SetPortraitImage(int currentHealth)
+    {
+        if (currentHealth == 0)
+        {
+            portraitContainer.sprite = portraits[(int)Portraits.Damaged];
+        }
+        else if (currentHealth == maxHealth)
+        {
+            portraitContainer.sprite = portraits[(int)Portraits.Full];
+        }
+        else
+        {
+            portraitContainer.sprite = portraits[(int)Portraits.Dead];
+        }
     }
 
     public void ResetHealthUI()
     {
-        currentHealth = maxHealth;
+        portraitContainer.sprite = portraits[(int)Portraits.Full];
         foreach (GameObject live in lives)
         {
             live.SetActive(true);
@@ -45,7 +70,7 @@ public class HealthUIController : MonoBehaviour
     }
 
     //Animacion de aparecer y desaparecer
-    private IEnumerator ShowHealthUI()
+    private IEnumerator ShowHUDUI()
     {
         mainContainer.SetActive(true);
         yield return new WaitForSeconds(HEALTH_SHOW_TIME);

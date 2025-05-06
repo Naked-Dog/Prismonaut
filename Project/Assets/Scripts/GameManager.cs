@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
 {
     [Header("Player")]
     [SerializeField] private PlayerBaseModule player;
+    [SerializeField] private int maxCharges = 2;
 
 
     [Header("Collectables")]
@@ -54,6 +55,11 @@ public class GameManager : MonoBehaviour
     [Header("GameWin")]
     [SerializeField] private GameObject[] endGamePortals;
 
+    [Header("HUD")]
+    [SerializeField] private HealthUIController healthUIController;
+    [SerializeField] private PrismsUIController prismsUIController;
+    [SerializeField] private ChargesUIController chargesUIController;
+
 
     #region Old Code
     public static int maxLifes = 3;
@@ -63,16 +69,19 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         if (player == null) player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBaseModule>();
+        healthUIController.InitUI(maxLifes);
+        prismsUIController.InitUI(collectedPrisms);
+        chargesUIController.InitChargesUI(maxCharges);
     }
 
     public void GetGem()
     {
-         collectedGems++;
-         Debug.Log("Current Gems: " + collectedGems);
-         if (collectedGems == levelTargetGems)
+        collectedGems++;
+        Debug.Log("Current Gems: " + collectedGems);
+        if (collectedGems == levelTargetGems)
         {
-             //clear level
-             Debug.Log("Game Cleared");
+            //clear level
+            Debug.Log("Game Cleared");
             StartCoroutine(EnableGameEndPortals());
         }
     }
