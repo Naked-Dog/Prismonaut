@@ -416,7 +416,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.009850502, y: -0.000000029802322}
+  m_Offset: {x: 0, y: -0.00000003}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -426,7 +426,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.90904045, y: 0.9099451}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0.03
 --- !u!114 &1218244125048405323
 MonoBehaviour:
@@ -452,7 +452,7 @@ GameObject:
   - component: {fileID: 6704855287402592127}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
