@@ -12,5 +12,6 @@ public class SlimeSettings : ScriptableObject
     public float oppositeDirMult = 0.5f;
 
     [Header("Charge Parameters")]
-    public float chargeTime = 0.2f;
+    public float baseChargeTime = 0.2f;
+    public float minChargeTime = 0;
 }

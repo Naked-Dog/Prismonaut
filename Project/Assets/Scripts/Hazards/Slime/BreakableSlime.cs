@@ -10,6 +10,13 @@ public class BreakableSlime : BaseSlime
 
     protected override void DoOnReflect(BounceValues bv)
     {
+        if (currentRoutine != null)
+        {
+            if(bv.rb) bv.rb.bodyType = originalType;
+            currentRoutine = null;
+            busy.Remove(bv.rb);
+        }
+        StopAllCoroutines();
         halfA.SetActive(true);
         halfB.SetActive(true);
 

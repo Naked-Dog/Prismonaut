@@ -267,7 +267,7 @@ MonoBehaviour:
   ss: {fileID: 11400000, guid: 58349eec598397242a419edca228b8df, type: 2}
   halfA: {fileID: 2494690003727143209}
   halfB: {fileID: 9120543869457882404}
-  rejoinDelay: 2
+  rejoinDelay: 3
 --- !u!1 &9120543869457882404
 GameObject:
   m_ObjectHideFlags: 0

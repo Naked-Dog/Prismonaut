@@ -7,11 +7,11 @@ public abstract class BaseSlime : MonoBehaviour
 {
     [SerializeField] protected SlimeSettings ss;
 
-    private readonly HashSet<Rigidbody2D> busy = new();
+    protected readonly HashSet<Rigidbody2D> busy = new();
     private bool attackReceived;
-    private Coroutine currentRoutine;
+    protected Coroutine currentRoutine;
     private BounceValues pendingBounce;
-    private RigidbodyType2D originalType;
+    protected RigidbodyType2D originalType;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -39,8 +39,7 @@ public abstract class BaseSlime : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerBaseModule player = collision.attachedRigidbody.GetComponent<PlayerBaseModule>();
-        //!NEEDS TO BE CHANGED LATER
-        if(player.state.activePower == PlayerSystem.Power.Shield && currentRoutine != null)
+        if(player.state.isParry)
         {
             DoOnReflect(pendingBounce);
         }
@@ -54,7 +53,7 @@ public abstract class BaseSlime : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
 
         float elapsed = 0f;
-        float waitTime = ss.chargeTime * bv.timeMultiplier;
+        float waitTime = Mathf.Max(ss.baseChargeTime * bv.timeMultiplier, ss.minChargeTime);
 
         while (elapsed < waitTime)
         {
