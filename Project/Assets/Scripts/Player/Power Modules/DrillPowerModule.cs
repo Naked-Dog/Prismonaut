@@ -1,7 +1,4 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 
 namespace PlayerSystem
@@ -15,7 +12,6 @@ namespace PlayerSystem
         private PhysicsEventsRelay drillExitPhysicsRelay;
         FixedJoint2D drillJoint;
         private PlayerPowersScriptable powersConstants;
-        private UnityEvent activatePower;
         private PlayerBaseModule baseModule;
 
         private Vector2 inputDirection = Vector2.zero;

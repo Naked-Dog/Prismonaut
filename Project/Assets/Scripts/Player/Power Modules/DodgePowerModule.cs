@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace PlayerSystem
 {
@@ -9,7 +8,6 @@ namespace PlayerSystem
         private PlayerState playerState;
         private Rigidbody2D rb2d;
         private PlayerPowersScriptable movementValues;
-        private UnityEvent activatePower;
         private PlayerBaseModule baseModule;
 
         private Vector2 inputDirection = Vector2.zero;

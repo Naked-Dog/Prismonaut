@@ -1,8 +1,4 @@
-using System;
-using System.Runtime.CompilerServices;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace PlayerSystem
 {
@@ -12,7 +8,6 @@ namespace PlayerSystem
         private PlayerState playerState;
         private Rigidbody2D rb2d;
         private PlayerPowersScriptable powersConstants;
-        private UnityEvent activatePower;
         private PlayerBaseModule baseModule;
 
         private Vector2 savedVelocity;
@@ -33,8 +28,6 @@ namespace PlayerSystem
             shieldCollider = shieldPhysicsRelay.GetComponent<Collider2D>();
             shieldCollider.enabled = false;
             this.baseModule = baseModule;
-            //this.activatePower.AddListener(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().G);
-
 
             powersConstants = GlobalConstants.Get<PlayerPowersScriptable>();
 

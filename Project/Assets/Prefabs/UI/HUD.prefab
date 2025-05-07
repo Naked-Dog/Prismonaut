@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 1529551029751203638}
   m_Layer: 5
   m_Name: HUDPanel
-  m_TagString: Untagged
+  m_TagString: HUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -463,9 +463,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainContainer: {fileID: 6279909292958764199}
   lives:
-  - {fileID: 1487100824492073237}
-  - {fileID: 8734189816447477277}
   - {fileID: 3630055929076909930}
+  - {fileID: 8734189816447477277}
+  - {fileID: 1487100824492073237}
   portraitContainer: {fileID: 5440849844128781731}
   portraits:
   - {fileID: 1227783935, guid: 7df75a52a01f42a428d45e670534e587, type: 3}

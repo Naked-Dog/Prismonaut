@@ -48,7 +48,7 @@ public class HealthUIController : MonoBehaviour
     {
         if (currentHealth == 0)
         {
-            portraitContainer.sprite = portraits[(int)Portraits.Damaged];
+            portraitContainer.sprite = portraits[(int)Portraits.Dead];
         }
         else if (currentHealth == maxHealth)
         {
@@ -56,7 +56,7 @@ public class HealthUIController : MonoBehaviour
         }
         else
         {
-            portraitContainer.sprite = portraits[(int)Portraits.Dead];
+            portraitContainer.sprite = portraits[(int)Portraits.Damaged];
         }
     }
 

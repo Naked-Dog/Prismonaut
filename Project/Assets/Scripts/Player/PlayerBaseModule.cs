@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CameraSystem;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace PlayerSystem
@@ -18,6 +19,7 @@ namespace PlayerSystem
         [SerializeField] private HealthUIController healthUIController;
         [SerializeField] private GameObject interactSign;
         [SerializeField] private ChargesUIController chargesUIController;
+        private UnityEvent onHealthUpdate;
 
         public Knockback knockback;
         public PlayerState state;
