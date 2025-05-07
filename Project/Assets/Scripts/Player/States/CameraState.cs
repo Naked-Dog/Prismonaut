@@ -20,6 +20,8 @@ namespace CameraSystem
 
         [SerializeField] private CameraScriptable cameraValues;
 
+        [SerializeField] private Transform baseFollowObject;
+
         private CameraPositionState state;
         public CameraPositionState CameraPosState
         {
@@ -55,6 +57,11 @@ namespace CameraSystem
                     StartCoroutine(CameraChangeCheck(waitTime, cameraIndex));
                 }
             }
+        }
+
+        private void Awake()
+        {
+            setNewFollowTarget(baseFollowObject);
         }
 
         public void setNewFollowTarget(Transform newTarget)

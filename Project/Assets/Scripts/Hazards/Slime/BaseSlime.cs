@@ -54,6 +54,11 @@ public abstract class BaseSlime : MonoBehaviour
 
         float elapsed = 0f;
         float waitTime = Mathf.Max(ss.baseChargeTime * bv.timeMultiplier, ss.minChargeTime);
+        PlayerBaseModule player = rb.GetComponent<PlayerBaseModule>();
+        if (player && !bv.bounceOnY)
+        {
+            player.animationsModule.InvertPlayerFacingDirection();
+        }
 
         while (elapsed < waitTime)
         {
