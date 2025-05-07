@@ -60,12 +60,12 @@ namespace PlayerSystem
         {
             dodgeCollider.enabled = true;
             playerCollider.enabled = false;
-            Vector2 dodgeImpulse = -rb2d.linearVelocity;
             appliedDirection = inputDirection.sqrMagnitude > 0.1f
                 ? inputDirection.normalized
                 : (isFacingRight ? Vector2.right : Vector2.left);
 
-            dodgeImpulse += appliedDirection * movementValues.dodgePowerForce;
+            Vector2 dodgeImpulse = appliedDirection * movementValues.dodgePowerForce;
+            rb2d.linearVelocity = Vector2.zero;
             rb2d.AddForce(dodgeImpulse, ForceMode2D.Impulse);
 
             eventBus.Publish(new OnDodgeActivation());
@@ -79,11 +79,12 @@ namespace PlayerSystem
 
         private void CheckCancelByShapeCast(OnFixedUpdate e)
         {
-            float radius = 0.5f;
+            CircleCollider2D circle = dodgeCollider as CircleCollider2D;
+            float radius = circle.radius * dodgeCollider.transform.lossyScale.x;
             Vector2 origin = dodgeCollider.transform.TransformPoint(dodgeCollider.offset);
             Vector2 dir = appliedDirection.normalized;
 
-            RaycastHit2D[] hits = Physics2D.CircleCastAll(origin, radius, dir, radius, movementValues.circleCastLayerMask);
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(origin, radius, dir, 0.1f, movementValues.circleCastLayerMask);
             foreach (var hit in hits)
             {
                 float dot = Vector2.Dot(hit.normal, -dir);
@@ -98,24 +99,23 @@ namespace PlayerSystem
         private void ReduceTimeLeft(OnUpdate e)
         {
             playerState.powerTimeLeft -= Time.deltaTime;
-            rb2d.AddForce(-appliedDirection * movementValues.dodgePowerBreakForce);
             if (0 < playerState.powerTimeLeft) return;
             Deactivate(false);
         }
 
         private void Deactivate(bool force)
         {
-            if(force)
-            {
-                rb2d.linearVelocity = Vector2.zero;
-                rb2d.AddForce(Vector2.up * movementValues.forceCancelImpulse, ForceMode2D.Impulse);
-            }
             playerState.activePower = Power.None;
             playerCollider.enabled = true;
             dodgeCollider.enabled = false;
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Unsubscribe<OnFixedUpdate>(CheckCancelByShapeCast);
             eventBus.Publish(new RequestMovementResume());
+            if(force)
+            {
+                rb2d.linearVelocity = Vector2.zero;
+                rb2d.AddForce(Vector2.up * movementValues.forceCancelImpulse, ForceMode2D.Impulse);
+            }
         }
     }
 }

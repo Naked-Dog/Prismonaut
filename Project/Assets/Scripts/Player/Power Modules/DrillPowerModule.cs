@@ -259,7 +259,8 @@ namespace PlayerSystem
                     Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, false);
                 }
 
-                rb2d.linearVelocity = drillDir * powersConstants.heavyExitForceImpulse;
+                rb2d.linearVelocity = Vector2.zero;
+                rb2d.AddForce(drillDir * powersConstants.heavyExitForceImpulse, ForceMode2D.Impulse);
 
                 Deactivate();
             }
