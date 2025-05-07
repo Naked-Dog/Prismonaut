@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace PlayerSystem
 {
@@ -8,6 +9,8 @@ namespace PlayerSystem
         private PlayerState playerState;
         private Rigidbody2D rb2d;
         private PlayerPowersScriptable movementValues;
+        private UnityEvent activatePower;
+        private PlayerBaseModule baseModule;
 
         private Vector2 inputDirection = Vector2.zero;
         private Vector2 appliedDirection = Vector2.zero;
@@ -15,12 +18,14 @@ namespace PlayerSystem
         public DodgePowerModule(
             EventBus eventBus,
             PlayerState playerState,
-            Rigidbody2D rb2d)
+            Rigidbody2D rb2d,
+            PlayerBaseModule baseModule)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.movementValues = GlobalConstants.Get<PlayerPowersScriptable>();
+            this.baseModule = baseModule;
 
             eventBus.Subscribe<OnCirclePowerInput>(OnCirclePowerInput);
             eventBus.Subscribe<OnHorizontalInput>(OnHorizontaInput);
@@ -47,6 +52,9 @@ namespace PlayerSystem
 
         private void Activate()
         {
+            if (playerState.currentCharges <= 0) return;
+            playerState.currentCharges--;
+            baseModule.StartChargeRegeneration();
             Vector2 dodgeImpulse = -rb2d.linearVelocity;
             appliedDirection = inputDirection;
             Vector2 normalInputDirection = inputDirection.normalized;

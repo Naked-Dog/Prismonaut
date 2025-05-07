@@ -44,6 +44,7 @@ public class ChargesUIController : MonoBehaviour
     public void SetChargesContainer(int maxCharges)
     {
         setCharge = Array.Find(charges, charge => charge.maxCharges == maxCharges);
+        ResetChargesUI();
     }
 
     //Animacion de aparecer y desaparecer

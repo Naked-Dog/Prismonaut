@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 
 namespace PlayerSystem
@@ -14,11 +15,13 @@ namespace PlayerSystem
         private PhysicsEventsRelay drillExitPhysicsRelay;
         FixedJoint2D drillJoint;
         private PlayerPowersScriptable powersConstants;
+        private UnityEvent activatePower;
+        private PlayerBaseModule baseModule;
 
         private Vector2 inputDirection = Vector2.zero;
         private Vector2 drillDir;
         private float currentSpeed = 0f;
-        private float rotationVelocity;   
+        private float rotationVelocity;
         private bool isSecondStage;
         private bool isInside = false;
         private float damageTimer = 0f;
@@ -37,7 +40,8 @@ namespace PlayerSystem
             Rigidbody2D rb2d,
             PhysicsEventsRelay drillPhysicsRelay,
             PhysicsEventsRelay drillExitPhysicsRelay,
-            FixedJoint2D drillJoint)
+            FixedJoint2D drillJoint,
+            PlayerBaseModule baseModule)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
@@ -45,7 +49,8 @@ namespace PlayerSystem
             this.drillPhysicsRelay = drillPhysicsRelay;
             this.drillExitPhysicsRelay = drillExitPhysicsRelay;
             this.drillJoint = drillJoint;
-            
+            this.baseModule = baseModule;
+
             powersConstants = GlobalConstants.Get<PlayerPowersScriptable>();
             playerCollider = rb2d.gameObject.transform.GetChild(1).GetComponent<Collider2D>();
 
@@ -61,7 +66,7 @@ namespace PlayerSystem
         {
             if (playerState.activePower == Power.Drill)
             {
-                if(isSecondStage) Deactivate();
+                if (isSecondStage) Deactivate();
                 return;
             }
 
@@ -72,6 +77,10 @@ namespace PlayerSystem
 
         private void Activate()
         {
+            if (playerState.currentCharges <= 0) return;
+            playerState.currentCharges--;
+            baseModule.StartChargeRegeneration();
+
             playerState.activePower = Power.Drill;
             playerState.powerTimeLeft = powersConstants.drillFirstPowerDuration;
             isSecondStage = false;
@@ -80,7 +89,7 @@ namespace PlayerSystem
             drillDir = inputDirection.sqrMagnitude > 0.1f
                 ? inputDirection.normalized
                 : (isFacingRight ? Vector2.right : Vector2.left);
-            
+
             currentSpeed = powersConstants.drillMinimalFirstVelocity;
             rb2d.linearVelocity = drillDir * currentSpeed;
 
@@ -90,7 +99,6 @@ namespace PlayerSystem
             eventBus.Subscribe<OnFixedUpdate>(Steer);
             drillPhysicsRelay.OnTriggerEnter2DAction.AddListener(ConfirmDrillCollision);
         }
-
 
         private void TakeHorizontalInputDirection(OnHorizontalInput e)
         {
@@ -117,47 +125,47 @@ namespace PlayerSystem
         private void FirstStageSteer()
         {
             if (inputDirection.sqrMagnitude > 0.1f)
-                {
-                    drillDir = inputDirection.normalized;
-                }
-                float targetAngle = Mathf.Atan2(drillDir.y, drillDir.x) * Mathf.Rad2Deg - 90f;
-                float smoothTime = 0.13f;
-                float newAngle = Mathf.SmoothDampAngle(
-                    rb2d.rotation,    
-                    targetAngle,      
-                    ref rotationVelocity,
-                    smoothTime
-                );
-                rb2d.MoveRotation(newAngle);
-                drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, newAngle);
-                if(rb2d.linearVelocity.magnitude > powersConstants.drillMaxFirstVelocity)
-                {
-                    rb2d.linearVelocity = rb2d.linearVelocity.normalized * powersConstants.drillMaxFirstVelocity;
-                }
-                currentSpeed = Mathf.MoveTowards(currentSpeed, powersConstants.drillMaxFirstVelocity, powersConstants.drillAceleration * Time.fixedDeltaTime);
-                rb2d.linearVelocity = drillDir * currentSpeed;
+            {
+                drillDir = inputDirection.normalized;
+            }
+            float targetAngle = Mathf.Atan2(drillDir.y, drillDir.x) * Mathf.Rad2Deg - 90f;
+            float smoothTime = 0.13f;
+            float newAngle = Mathf.SmoothDampAngle(
+                rb2d.rotation,
+                targetAngle,
+                ref rotationVelocity,
+                smoothTime
+            );
+            rb2d.MoveRotation(newAngle);
+            drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, newAngle);
+            if (rb2d.linearVelocity.magnitude > powersConstants.drillMaxFirstVelocity)
+            {
+                rb2d.linearVelocity = rb2d.linearVelocity.normalized * powersConstants.drillMaxFirstVelocity;
+            }
+            currentSpeed = Mathf.MoveTowards(currentSpeed, powersConstants.drillMaxFirstVelocity, powersConstants.drillAceleration * Time.fixedDeltaTime);
+            rb2d.linearVelocity = drillDir * currentSpeed;
         }
 
         private void SecondStageSteer()
         {
             if (inputDirection.magnitude > 0.1f)
-                {
-                    float angleDiff = Vector2.SignedAngle(drillDir, inputDirection);
+            {
+                float angleDiff = Vector2.SignedAngle(drillDir, inputDirection);
 
-                    float maxSteerSpeed  = powersConstants.drillSecondSteeringAmount;
-                    float maxDelta = maxSteerSpeed * Time.fixedDeltaTime;
-                    float clampedDelta = Mathf.Clamp(angleDiff, -maxDelta, +maxDelta);
-                    drillDir = Quaternion.Euler(0, 0, clampedDelta) * drillDir;
-                    drillDir.Normalize();
-                }
-                float targetAngle = Mathf.Atan2(drillDir.y, drillDir.x) * Mathf.Rad2Deg - 90f;
-                float newAngle = Mathf.MoveTowardsAngle(
-                    rb2d.rotation,
-                    targetAngle,
-                    powersConstants.drillSecondSteeringAmount * Time.fixedDeltaTime
-                );
-                rb2d.MoveRotation(newAngle);
-                rb2d.linearVelocity = drillDir * powersConstants.drillMinimalSecondVelocity;
+                float maxSteerSpeed = powersConstants.drillSecondSteeringAmount;
+                float maxDelta = maxSteerSpeed * Time.fixedDeltaTime;
+                float clampedDelta = Mathf.Clamp(angleDiff, -maxDelta, +maxDelta);
+                drillDir = Quaternion.Euler(0, 0, clampedDelta) * drillDir;
+                drillDir.Normalize();
+            }
+            float targetAngle = Mathf.Atan2(drillDir.y, drillDir.x) * Mathf.Rad2Deg - 90f;
+            float newAngle = Mathf.MoveTowardsAngle(
+                rb2d.rotation,
+                targetAngle,
+                powersConstants.drillSecondSteeringAmount * Time.fixedDeltaTime
+            );
+            rb2d.MoveRotation(newAngle);
+            rb2d.linearVelocity = drillDir * powersConstants.drillMinimalSecondVelocity;
         }
 
         private void ConfirmDrillCollision(Collider2D other)
@@ -167,16 +175,16 @@ namespace PlayerSystem
             if (other.GetComponent<TestFly>())
             {
                 EnterSecondStage(go);
-            } 
-            else if(go.CompareTag("Enemy"))
+            }
+            else if (go.CompareTag("Enemy"))
             {
                 DrillHeavyEnemy(go);
-            } 
-            else if(go.CompareTag("HeavyTerrain"))
+            }
+            else if (go.CompareTag("HeavyTerrain"))
             {
                 DrillHeavyTerrain(go);
             }
-            else if(go.CompareTag("Ground"))
+            else if (go.CompareTag("Ground"))
             {
                 DrillGround(go);
             }
@@ -188,7 +196,7 @@ namespace PlayerSystem
             drillPhysicsRelay.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
             AttachObjectToDrill(other);
             drillPhysicsRelay.OnTriggerExit2DAction.AddListener(ConfirmDrillExit);
-            if(other.CompareTag("Enemy"))
+            if (other.CompareTag("Enemy"))
             {
                 eventBus.Subscribe<OnUpdate>(DamageTimer);
             }
@@ -196,18 +204,18 @@ namespace PlayerSystem
 
         private void DrillHeavyEnemy(GameObject other)
         {
-            enemyCollider = other.GetComponent<Collider2D>();  
+            enemyCollider = other.GetComponent<Collider2D>();
             Physics2D.IgnoreCollision(playerCollider, enemyCollider, true);
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
             isInside = true;
             drillPhysicsRelay.OnTriggerExit2DAction.AddListener(ConfirmDrillExit);
-            eventBus.Subscribe<OnUpdate>(DamageTimer);  
+            eventBus.Subscribe<OnUpdate>(DamageTimer);
         }
 
         private void DrillHeavyTerrain(GameObject other)
         {
             heavyTilemapCollider = other.GetComponent<TilemapCollider2D>();
-            heavyCompositeCollider= other.GetComponent<CompositeCollider2D>();
+            heavyCompositeCollider = other.GetComponent<CompositeCollider2D>();
             Physics2D.IgnoreCollision(playerCollider, heavyTilemapCollider, true);
             Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, true);
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
@@ -217,7 +225,7 @@ namespace PlayerSystem
 
         private void DrillGround(GameObject other)
         {
-            if(isInside)
+            if (isInside)
             {
                 eventBus.Unsubscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
                 eventBus.Unsubscribe<OnVerticalInput>(TakeVerticalInputDirection);
@@ -231,11 +239,10 @@ namespace PlayerSystem
                 eventBus.Publish(new RequestOppositeReaction());
             }
         }
-        
 
         private void ConfirmDrillExit(Collider2D other)
         {
-            if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("HeavyTerrain"))
+            if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("HeavyTerrain"))
             {
                 eventBus.Unsubscribe<OnFixedUpdate>(Steer);
                 eventBus.Unsubscribe<OnUpdate>(DamageTimer);
@@ -245,14 +252,14 @@ namespace PlayerSystem
 
         private void ConfirmPlayerExit(Collider2D other)
         {
-            if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("HeavyTerrain"))
+            if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("HeavyTerrain"))
             {
-                if(enemyCollider != null)
+                if (enemyCollider != null)
                 {
                     Physics2D.IgnoreCollision(playerCollider, enemyCollider, false);
-                } 
-            
-                if(heavyCompositeCollider != null && heavyTilemapCollider != null)
+                }
+
+                if (heavyCompositeCollider != null && heavyTilemapCollider != null)
                 {
                     Physics2D.IgnoreCollision(playerCollider, heavyTilemapCollider, false);
                     Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, false);
@@ -299,7 +306,7 @@ namespace PlayerSystem
 
         private void DamageTimer(OnUpdate e)
         {
-            if(damageTimer <= 0)
+            if (damageTimer <= 0)
             {
                 Debug.Log("Damage");
                 //Here, call the method that deals damage to the enemy. The damage value is stored in the scriptable constants. 

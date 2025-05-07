@@ -44,8 +44,6 @@ public class GameManager : MonoBehaviour
 {
     [Header("Player")]
     [SerializeField] private PlayerBaseModule player;
-    [SerializeField] private int maxCharges = 2;
-
 
     [Header("Collectables")]
     [SerializeField] private int levelTargetGems = 3;
@@ -56,9 +54,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] endGamePortals;
 
     [Header("HUD")]
-    [SerializeField] private HealthUIController healthUIController;
     [SerializeField] private PrismsUIController prismsUIController;
-    [SerializeField] private ChargesUIController chargesUIController;
 
 
     #region Old Code
@@ -69,9 +65,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         if (player == null) player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBaseModule>();
-        healthUIController.InitUI(maxLifes);
         prismsUIController.InitUI(collectedPrisms);
-        chargesUIController.InitChargesUI(maxCharges);
     }
 
     public void GetGem()
@@ -89,6 +83,7 @@ public class GameManager : MonoBehaviour
     public void GetPrism()
     {
         collectedPrisms++;
+        prismsUIController.UpdatePrismUI(collectedPrisms);
         Debug.Log("Current Prisms: " + collectedPrisms);
     }
 

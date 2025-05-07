@@ -1,4 +1,7 @@
+using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace PlayerSystem
 {
@@ -8,18 +11,23 @@ namespace PlayerSystem
         private PlayerState playerState;
         private Rigidbody2D rb2d;
         private PlayerPowersScriptable powersConstants;
+        private UnityEvent activatePower;
+        private PlayerBaseModule baseModule;
 
         private Vector2 savedVelocity;
 
         public ShieldPowerModule(
             EventBus eventBus,
             PlayerState playerState,
-            Rigidbody2D rb2d)
+            Rigidbody2D rb2d,
+            PlayerBaseModule baseModule)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.powersConstants = GlobalConstants.Get<PlayerPowersScriptable>();
+            this.baseModule = baseModule;
+            //this.activatePower.AddListener(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().G);
 
             eventBus.Subscribe<OnSquarePowerInput>(OnSquarePowerInput);
         }
@@ -32,6 +40,9 @@ namespace PlayerSystem
 
         private void Activate()
         {
+            if (playerState.currentCharges <= 0) return;
+            playerState.currentCharges--;
+            baseModule.StartChargeRegeneration();
             eventBus.Publish(new RequestMovementPause());
             playerState.activePower = Power.Shield;
             playerState.powerTimeLeft = powersConstants.shieldPowerDuration;

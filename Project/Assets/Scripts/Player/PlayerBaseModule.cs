@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using CameraSystem;
 using UnityEngine;
@@ -38,10 +39,10 @@ namespace PlayerSystem
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Physics2DMovement(eventBus, state, avatarRigidbody2D);
             animationsModule = new PlayerAnimations(eventBus, state, animator);
-            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint);
+            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, this);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
             {
-                MaxHealth = 3
+                MaxHealth = state.maxHealth
             };
             interactionModule = new PlayerInteractionModule(eventBus, gameObject.GetComponent<PhysicsEventsRelay>(), interactSign, state);
 
@@ -91,6 +92,31 @@ namespace PlayerSystem
         private void OnDestroy()
         {
             inputModule.Dispose();
+        }
+
+        public void StartChargeRegeneration()
+        {
+            Debug.Log("starting regeneration");
+            if (!state.isRecharging && state.currentCharges < state.maxCharges)
+            {
+                Debug.Log("inside if");
+                state.isRecharging = true;
+                StartCoroutine(RegenerateCharge());
+            }
+        }
+
+        private IEnumerator RegenerateCharge()
+        {
+            yield return new WaitForSeconds(state.chargeCooldown);
+            state.currentCharges++;
+            Debug.Log("Charge restored! Current charges: " + state.currentCharges);
+            state.isRecharging = false;
+
+            // Continue regeneration if not at max charges
+            if (state.currentCharges < state.maxCharges)
+            {
+                StartChargeRegeneration();
+            }
         }
     }
 }
