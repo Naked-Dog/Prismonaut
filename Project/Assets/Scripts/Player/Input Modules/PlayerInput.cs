@@ -57,8 +57,7 @@ namespace PlayerSystem
 
             RegisterCallback(playerGameMap.FindAction("TrianglePower"), ctx => eventBus.Publish(new OnTrianglePowerInput()));
             RegisterCallback(playerGameMap.FindAction("CirclePower"), ctx => eventBus.Publish(new OnCirclePowerInput()));
-            playerGameMap.FindAction("SquarePower").started += SquarePowerInput;
-            playerGameMap.FindAction("SquarePower").canceled += SquarePowerInput;
+            RegisterCallback(playerGameMap.FindAction("SquarePower"), ctx => eventBus.Publish(new OnSquarePowerInput()));
 
             RegisterCallback(playerGameMap.FindAction("Interaction"), ctx => eventBus.Publish(new OnInteractionInput()));
 
@@ -78,7 +77,7 @@ namespace PlayerSystem
                 eventBus.Publish(new RequestUnpause());
             });
 
-            RegisterCallback(DialogueMap.FindAction("SkipDialogue"), ctx => DialogueController.Instance.SkipDialogue());
+            RegisterCallback(DialogueMap.FindAction("SkipDialogue"), ctx => DialogueController.Instance?.SkipDialogue());
         }
 
         private void RegisterCallback(InputAction action, Action<InputAction.CallbackContext> callback, bool started = true, bool canceled = false)
@@ -118,19 +117,6 @@ namespace PlayerSystem
             playerGameMap.Enable();
             playerUIMap.Disable();
         }
-
-        private void SquarePowerInput(InputAction.CallbackContext ctx)
-        {
-            if (ctx.started)
-            {
-                eventBus.Publish(new OnSquarePowerInput(true));
-            }
-            else if (ctx.canceled)
-            {
-                eventBus.Publish(new OnSquarePowerInput(false));
-            }
-        }
-
         private void LookDownInput(InputAction.CallbackContext ctx)
         {
             if (ctx.started)
@@ -151,8 +137,6 @@ namespace PlayerSystem
             eventBus.Unsubscribe<RequestEnableDialogueInputs>(EnableDialogueInputs);
             eventBus.Unsubscribe<RequestDisableDialogueInputs>(DiableDialogueInputs);
 
-            playerGameMap.FindAction("SquarePower").started -= SquarePowerInput;
-            playerGameMap.FindAction("SquarePower").canceled -= SquarePowerInput;
             playerGameMap.FindAction("LookDown").started -= LookDownInput;
             playerGameMap.FindAction("LookDown").canceled -= LookDownInput;
 

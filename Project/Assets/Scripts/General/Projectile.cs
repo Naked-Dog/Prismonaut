@@ -44,6 +44,7 @@ public class Projectile : MonoBehaviour
     }
 
     private void IgnoreCollisionWithEnemyToggle()
+    
     {
         if (!Physics2D.GetIgnoreCollision(coll, EnemyCollider))
         {

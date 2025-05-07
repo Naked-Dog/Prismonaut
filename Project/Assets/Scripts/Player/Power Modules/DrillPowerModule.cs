@@ -28,6 +28,7 @@ namespace PlayerSystem
         private Collider2D enemyCollider;
         private Collider2D heavyTilemapCollider;
         private Collider2D heavyCompositeCollider;
+        private Rigidbody2D lightObjectRigidBody;
 
         private bool isFacingRight => playerState.facingDirection == Direction.Right;
 
@@ -176,9 +177,9 @@ namespace PlayerSystem
             {
                 DrillHeavyTerrain(go);
             }
-            else if(go.CompareTag("Ground"))
+            else if(go.CompareTag("Ground") || go.CompareTag("Spike"))
             {
-                DrillGround(go);
+                DrillObstacle();
             }
         }
 
@@ -215,7 +216,7 @@ namespace PlayerSystem
             drillPhysicsRelay.OnTriggerExit2DAction.AddListener(ConfirmDrillExit);
         }
 
-        private void DrillGround(GameObject other)
+        private void DrillObstacle()
         {
             if(isInside)
             {
@@ -227,8 +228,8 @@ namespace PlayerSystem
             }
             else
             {
+                eventBus.Publish(new RequestOppositeReaction(drillDir, powersConstants.drillOppositeForce));
                 Deactivate();
-                eventBus.Publish(new RequestOppositeReaction());
             }
         }
         
@@ -257,27 +258,31 @@ namespace PlayerSystem
                     Physics2D.IgnoreCollision(playerCollider, heavyTilemapCollider, false);
                     Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, false);
                 }
+
+                rb2d.AddForce(drillDir * powersConstants.heavyExitForceImpulse, ForceMode2D.Impulse);
+
                 Deactivate();
             }
         }
 
         private void AttachObjectToDrill(GameObject gameObject)
         {
-            var enemyRb = gameObject.GetComponent<Rigidbody2D>();
-
-            drillJoint.enabled = true;
-            drillJoint.connectedBody = enemyRb;
+            lightObjectRigidBody = gameObject.GetComponent<Rigidbody2D>();
+            Vector2 worldTip = drillPhysicsRelay.transform.GetChild(0).position;
+            
             drillJoint.autoConfigureConnectedAnchor = false;
+            drillJoint.connectedBody = lightObjectRigidBody;
 
-            Vector2 worldTip = drillPhysicsRelay.transform.position;
             Vector2 localTip = rb2d.transform.InverseTransformPoint(worldTip);
             drillJoint.anchor = localTip;
 
-            Vector2 enemyLocal = enemyRb.transform.InverseTransformPoint(worldTip);
-            drillJoint.connectedAnchor = enemyLocal;
+            Vector2 lightLocalTip = lightObjectRigidBody.transform.InverseTransformDirection(worldTip);
+            drillJoint.connectedAnchor = lightLocalTip;
+            drillJoint.enabled = true;
 
             isSecondStage = true;
         }
+
 
         private void ReduceTimeLeft(OnUpdate e)
         {
@@ -311,9 +316,15 @@ namespace PlayerSystem
 
         private void Deactivate()
         {
+            if(lightObjectRigidBody != null)
+            {
+                lightObjectRigidBody.AddForce(drillDir * powersConstants.lightObjectExitForce, ForceMode2D.Impulse);
+                rb2d.AddForce(Vector2.up * powersConstants.lightPlayerExitForce, ForceMode2D.Impulse);
+            }
+
+            rb2d.MoveRotation(0f);
             playerState.activePower = Power.None;
             drillJoint.enabled = false;
-            rb2d.MoveRotation(0f);
             drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, 0);
             currentSpeed = 0f;
             damageTimer = 0f;

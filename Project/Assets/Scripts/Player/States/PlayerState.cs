@@ -18,5 +18,6 @@ namespace PlayerSystem
         public Power currentPower = Power.Circle;
         public float powerTimeLeft = 0f;
         public bool isOnInteractable = false;
+        public bool isParry;
     }
 }

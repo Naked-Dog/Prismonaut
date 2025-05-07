@@ -1,5 +1,3 @@
-using NUnit.Framework.Interfaces;
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 
 public class PlatformScript : MonoBehaviour
