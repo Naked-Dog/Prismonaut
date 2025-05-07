@@ -5,8 +5,8 @@ using Unity.Behavior;
 public enum State
 {
     Idle,
-	Wander,
 	Chase,
 	Attack,
-	Die
+	StopAttack,
+	Flinch
 }
