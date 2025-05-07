@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b9457953ba2fe4c7910cf44d6346f68, type: 3}
   m_Name: Player Powers
   m_EditorClassIdentifier: 
-  dodgePowerForce: 12
+  dodgePowerForce: 7
   dodgePowerDuration: 0.7
   dodgePowerBreakForce: 2
+  circleCastLayerMask:
+    serializedVersion: 2
+    m_Bits: 192
+  forceCancelImpulse: 10
   shieldPowerDuration: 0.5
   parryDuration: 0.15
   reflectionDamage: 8

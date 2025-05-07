@@ -43,6 +43,7 @@ Transform:
   - {fileID: 8100709609290423294}
   - {fileID: 4449754934854009572}
   - {fileID: 4863609089751597476}
+  - {fileID: 8761565597902401960}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2576048620030230097
@@ -66,6 +67,8 @@ MonoBehaviour:
   playerInputAsset: {fileID: -944628639613478452, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
   healthUIController: {fileID: 2392222460885011908}
   interactSign: {fileID: 2274050569513530640}
+  dodgeCollider: {fileID: 3241963441765974002}
+  playerMainCollider: {fileID: 6704855287402592127}
   knockback: {fileID: 660891374109999405}
 --- !u!50 &5905121191740833872
 Rigidbody2D:
@@ -169,7 +172,7 @@ FixedJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 142.7, y: 29.3}
+  m_ConnectedAnchor: {x: -21.67, y: 1.09}
   m_DampingRatio: 0
   m_Frequency: 0
 --- !u!1 &2241215066433473804
@@ -515,6 +518,87 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.4512388, y: 0.46425617}
   m_EdgeRadius: 0.05
+--- !u!1 &4260568483234297242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8761565597902401960}
+  - component: {fileID: 3241963441765974002}
+  - component: {fileID: 1926666642635889620}
+  m_Layer: 0
+  m_Name: DodgeCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8761565597902401960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4260568483234297242}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.228, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1767910178151767957}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &3241963441765974002
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4260568483234297242}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
+--- !u!114 &1926666642635889620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4260568483234297242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e2490c71c52567b8ae88a6133f2d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4632547025438197775
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +641,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3256770698045140341}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: DrillTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
