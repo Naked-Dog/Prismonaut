@@ -39,12 +39,12 @@ public class SlimeScript : MonoBehaviour
 
         float bounceImpulse = Mathf.Lerp(0f, maxBounceSpeed, t);
 
-        BounceValues bounceValues = new(rb, t, bounceOnY, normal, relativeSpeed, bounceImpulse);
+        BounceValues2 bounceValues = new(rb, t, bounceOnY, normal, relativeSpeed, bounceImpulse);
 
         StartCoroutine(ChargeAndBounce(bounceValues));
     }
 
-    private IEnumerator ChargeAndBounce(BounceValues bounceValues)
+    private IEnumerator ChargeAndBounce(BounceValues2 bounceValues)
     {
         busy.Add(bounceValues.rb);
 
@@ -82,7 +82,7 @@ public class SlimeScript : MonoBehaviour
     }
 }
 
-public class BounceValues
+public class BounceValues2
 {
     public Rigidbody2D rb;
     public float timeMultiplier;
@@ -91,7 +91,7 @@ public class BounceValues
     public Vector2 relativeSpeed;
     public float bounceImpulse;
 
-    public BounceValues(Rigidbody2D rb, float timeMultiplier, bool bounceOnY, Vector2 normal, Vector2 relativeSpeed, float bounceImpulse)
+    public BounceValues2(Rigidbody2D rb, float timeMultiplier, bool bounceOnY, Vector2 normal, Vector2 relativeSpeed, float bounceImpulse)
     {
         this.rb = rb;
         this.timeMultiplier = timeMultiplier;
