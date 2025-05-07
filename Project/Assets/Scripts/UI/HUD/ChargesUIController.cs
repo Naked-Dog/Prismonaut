@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChargesUIController : MonoBehaviour
 {
@@ -8,50 +9,58 @@ public class ChargesUIController : MonoBehaviour
     private class Charge
     {
         public int maxCharges;
-        public Sprite[] chargesSprites;
+        public Sprite chargeContainer;
+        public Sprite chargeFill;
     }
 
-    [SerializeField] private GameObject chargesContainer;
-    [SerializeField] private SpriteRenderer sprite;
+    public GameObject container;
+    public Image chargesFill;
+    [SerializeField] private Image chargesContainer;
     [SerializeField] private Charge[] charges;
+
+    private Color32[] fillColors = { new(244, 241, 78, 255), new(247, 140, 11, 255) };
 
     private Charge setCharge;
 
+    private float currentCharges;
+
     private float CHARGES_SHOW_TIME = 1f;
+
+    public bool wasUsed = false;
 
     public void InitChargesUI(int maxCharges)
     {
         SetChargesContainer(maxCharges);
-        chargesContainer.SetActive(false);
-    }
-
-    //Actualizar vidas antes de aparecer
-    public void UpdateChargesUI(int currentCharges)
-    {
-        if (currentCharges > setCharge.maxCharges) return;
-
-        int chargeSpriteIndex = setCharge.maxCharges - currentCharges;
-        sprite.sprite = setCharge.chargesSprites[chargeSpriteIndex];
-
-        StartCoroutine(ShowChargesUI());
+        currentCharges = maxCharges;
+        container.SetActive(false);
     }
 
     public void ResetChargesUI()
     {
-        sprite.sprite = setCharge.chargesSprites[0];
+        currentCharges = setCharge.maxCharges;
+        chargesFill.fillAmount = 1f;
     }
 
     public void SetChargesContainer(int maxCharges)
     {
         setCharge = Array.Find(charges, charge => charge.maxCharges == maxCharges);
+        if (setCharge == null) return;
+        chargesContainer.sprite = setCharge.chargeContainer;
+        chargesFill.sprite = setCharge.chargeFill;
         ResetChargesUI();
+        StartCoroutine(ShowChargesUI());
     }
 
-    //Animacion de aparecer y desaparecer
-    private IEnumerator ShowChargesUI()
+    public IEnumerator ShowChargesUI()
     {
-        chargesContainer.SetActive(true);
+        container.SetActive(true);
         yield return new WaitForSeconds(CHARGES_SHOW_TIME);
-        chargesContainer.SetActive(false);
+        container.SetActive(false);
+        wasUsed = false;
+    }
+
+    public void SetColor(bool isUsed)
+    {
+        chargesFill.color = isUsed ? fillColors[0] : fillColors[1];
     }
 }

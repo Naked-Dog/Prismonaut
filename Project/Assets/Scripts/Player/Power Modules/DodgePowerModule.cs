@@ -52,8 +52,7 @@ namespace PlayerSystem
 
         private void Activate()
         {
-            if (playerState.currentCharges <= 0) return;
-            playerState.currentCharges--;
+            if (playerState.currentCharges < 1f) return;
             baseModule.StartChargeRegeneration();
             Vector2 dodgeImpulse = -rb2d.linearVelocity;
             appliedDirection = inputDirection;

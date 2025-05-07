@@ -17,6 +17,7 @@ namespace PlayerSystem
         [SerializeField] private InputActionAsset playerInputAsset;
         [SerializeField] private HealthUIController healthUIController;
         [SerializeField] private GameObject interactSign;
+        [SerializeField] private ChargesUIController chargesUIController;
 
         public Knockback knockback;
         public PlayerState state;
@@ -58,11 +59,28 @@ namespace PlayerSystem
             animator.GetComponent<PlayerAnimationEvents>()?.SetEventBus(eventBus);
 
             GameDataManager.Instance?.SavePlayerPosition(avatarRigidbody2D.position);
+            chargesUIController.InitChargesUI(state.maxCharges);
         }
 
         protected void Update()
         {
             eventBus.Publish(new OnUpdate());
+            if (state.currentCharges < state.maxCharges)
+            {
+                chargesUIController.SetColor(false);
+                chargesUIController.container.SetActive(true);
+                chargesUIController.wasUsed = true;
+                state.currentCharges += Time.deltaTime / state.chargeCooldown;
+                chargesUIController.StopAllCoroutines();
+            }
+            else
+            {
+                chargesUIController.SetColor(true);
+                //chargesUIController.container.SetActive(false);
+                if (chargesUIController.wasUsed) chargesUIController.StartCoroutine(chargesUIController.ShowChargesUI());
+            }
+
+            chargesUIController.chargesFill.fillAmount = state.currentCharges / state.maxCharges;
         }
 
         protected void FixedUpdate()
@@ -97,27 +115,14 @@ namespace PlayerSystem
 
         public void StartChargeRegeneration()
         {
-            Debug.Log("starting regeneration");
-            if (!state.isRecharging && state.currentCharges < state.maxCharges)
-            {
-                Debug.Log("inside if");
-                state.isRecharging = true;
-                StartCoroutine(RegenerateCharge());
-            }
+            state.currentCharges -= 1f;
         }
 
-        private IEnumerator RegenerateCharge()
+        public void GetCharge()
         {
-            yield return new WaitForSeconds(state.chargeCooldown);
-            state.currentCharges++;
-            Debug.Log("Charge restored! Current charges: " + state.currentCharges);
-            state.isRecharging = false;
-
-            // Continue regeneration if not at max charges
-            if (state.currentCharges < state.maxCharges)
-            {
-                StartChargeRegeneration();
-            }
+            state.maxCharges++;
+            state.currentCharges = state.maxCharges;
+            chargesUIController.SetChargesContainer(state.maxCharges);
         }
     }
 }

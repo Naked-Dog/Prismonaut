@@ -84,7 +84,6 @@ public class GameManager : MonoBehaviour
     {
         collectedPrisms++;
         prismsUIController.UpdatePrismUI(collectedPrisms);
-        Debug.Log("Current Prisms: " + collectedPrisms);
     }
 
     private IEnumerator EnableGameEndPortals()

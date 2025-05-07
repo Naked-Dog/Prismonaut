@@ -8,7 +8,7 @@ public class PrismsUIController : MonoBehaviour
     [SerializeField] private GameObject mainContainer;
     [SerializeField] private GameObject[] prisms;
 
-    private float PRISM_SHOW_TIME = 1f;
+    private readonly float PRISM_SHOW_TIME = 1f;
 
     public void InitUI(int currentPrism)
     {
@@ -16,10 +16,9 @@ public class PrismsUIController : MonoBehaviour
         {
             prisms[i].SetActive(i + 1 <= currentPrism);
         }
-        mainContainer.SetActive(false);
+        //mainContainer.SetActive(false);
     }
 
-    //Actualizar vidas antes de aparecer
     public void UpdatePrismUI(int currentPrism)
     {
         for (int i = 0; i < prisms.Length; i++)
@@ -29,7 +28,6 @@ public class PrismsUIController : MonoBehaviour
         StartCoroutine(ShowHUDUI());
     }
 
-    //Animacion de aparecer y desaparecer
     private IEnumerator ShowHUDUI()
     {
         mainContainer.SetActive(true);

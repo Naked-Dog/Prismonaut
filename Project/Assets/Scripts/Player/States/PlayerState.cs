@@ -21,7 +21,7 @@ namespace PlayerSystem
         public bool isParry;
         public int maxHealth = 3;
         public int maxCharges = 1;
-        public int currentCharges = 1;
+        public float currentCharges = 1;
         public float chargeCooldown = 2f;
         public bool isRecharging = false;
     }
