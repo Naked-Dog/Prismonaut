@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b9457953ba2fe4c7910cf44d6346f68, type: 3}
   m_Name: Player Powers
   m_EditorClassIdentifier: 
-  dodgePowerForce: 12
-  dodgePowerDuration: 0.7
-  dodgePowerBreakForce: 2
+  dodgePowerForce: 22
+  dodgePowerDuration: 0.5
+  dodgePowerBreakForce: 4
   shieldPowerDuration: 0.5
   parryDuration: 0.15
   reflectionDamage: 8
@@ -27,9 +27,10 @@ MonoBehaviour:
   drillFirstSteeringAmount: 10
   drillSecondSteeringAmount: 200
   lightDrillDamagePerSecond: 2
-  lightObjectExitForce: 2
+  lightObjectExitForce: 5
+  lightPlayerExitForce: 2
   heavyDrillDamagePerSecond: 4
   heavyDrillSpeed: 2
   steerReturnTimer: 0.4
-  heavyExitForceImpulse: 5
+  heavyExitForceImpulse: 10
   drillOppositeForce: 10
