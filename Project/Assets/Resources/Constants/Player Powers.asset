@@ -27,9 +27,10 @@ MonoBehaviour:
   drillFirstSteeringAmount: 10
   drillSecondSteeringAmount: 200
   lightDrillDamagePerSecond: 2
-  lightObjectExitForce: 2
+  lightObjectExitForce: 5
+  lightPlayerExitForce: 2
   heavyDrillDamagePerSecond: 4
   heavyDrillSpeed: 2
   steerReturnTimer: 0.4
-  heavyExitForceImpulse: 5
+  heavyExitForceImpulse: 10
   drillOppositeForce: 10

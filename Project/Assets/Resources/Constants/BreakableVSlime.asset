@@ -16,5 +16,5 @@ MonoBehaviour:
   maxTriggerSpeed: 18
   maxBounceSpeed: 35
   oppositeDirMult: 0.1
-  baseChargeTime: 1
+  baseChargeTime: 0.75
   minChargeTime: 0.35

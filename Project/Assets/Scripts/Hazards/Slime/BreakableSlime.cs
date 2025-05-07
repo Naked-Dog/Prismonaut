@@ -12,7 +12,7 @@ public class BreakableSlime : BaseSlime
     {
         if (currentRoutine != null)
         {
-            if(bv.rb) bv.rb.bodyType = originalType;
+            bv.rb.bodyType = RigidbodyType2D.Dynamic;
             currentRoutine = null;
             busy.Remove(bv.rb);
         }
