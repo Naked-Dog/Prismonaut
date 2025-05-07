@@ -15,6 +15,7 @@ namespace PlayerSystem
         private Rigidbody2D rb2d;
         private PhysicsEventsRelay drillPhysicsRelay;
         private PhysicsEventsRelay drillExitPhysicsRelay;
+        private PhysicsEventsRelay shieldPhysicsRelay;
         private FixedJoint2D drillJoint;
         private PlayerBaseModule baseModule;
 
@@ -25,7 +26,7 @@ namespace PlayerSystem
             PhysicsEventsRelay drillPhysicsRelay,
             PhysicsEventsRelay drillExitPhysicsRelay,
             FixedJoint2D drillJoint,
-            PlayerBaseModule baseModule)
+            PhysicsEventsRelay shieldPhysicsRelay, PlayerBaseModule baseModule)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
@@ -34,8 +35,9 @@ namespace PlayerSystem
             this.drillExitPhysicsRelay = drillExitPhysicsRelay;
             this.drillJoint = drillJoint;
             this.baseModule = baseModule;
+            this.shieldPhysicsRelay = shieldPhysicsRelay;
 
-            squarePower = new ShieldPowerModule(eventBus, playerState, rb2d, baseModule);
+            squarePower = new ShieldPowerModule(eventBus, playerState, rb2d, shieldPhysicsRelay, baseModule);
             trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, baseModule);
             circlePower = new DodgePowerModule(eventBus, playerState, rb2d, baseModule);
         }
@@ -46,7 +48,7 @@ namespace PlayerSystem
             {
                 case Power.Square:
                     playerState.isSquarePowerAvailable = isAvailable;
-                    squarePower ??= new ShieldPowerModule(eventBus, playerState, rb2d, baseModule);
+                    squarePower ??= new ShieldPowerModule(eventBus, playerState, rb2d, shieldPhysicsRelay, baseModule);
                     break;
                 case Power.Triangle:
                     playerState.isTrianglePowerAvailable = isAvailable;

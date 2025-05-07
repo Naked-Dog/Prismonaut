@@ -18,6 +18,7 @@ namespace PlayerSystem
         public Power currentPower = Power.Circle;
         public float powerTimeLeft = 0f;
         public bool isOnInteractable = false;
+        public bool isParry;
         public int maxHealth = 3;
         public int maxCharges = 1;
         public int currentCharges = 1;
