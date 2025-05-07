@@ -259,7 +259,7 @@ namespace PlayerSystem
                     Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, false);
                 }
 
-                rb2d.AddForce(drillDir * powersConstants.heavyExitForceImpulse, ForceMode2D.Impulse);
+                rb2d.linearVelocity = drillDir * powersConstants.heavyExitForceImpulse;
 
                 Deactivate();
             }
@@ -276,7 +276,7 @@ namespace PlayerSystem
             Vector2 localTip = rb2d.transform.InverseTransformPoint(worldTip);
             drillJoint.anchor = localTip;
 
-            Vector2 lightLocalTip = lightObjectRigidBody.transform.InverseTransformDirection(worldTip);
+            Vector2 lightLocalTip = lightObjectRigidBody.transform.InverseTransformPoint(worldTip);
             drillJoint.connectedAnchor = lightLocalTip;
             drillJoint.enabled = true;
 
@@ -319,7 +319,7 @@ namespace PlayerSystem
             if(lightObjectRigidBody != null)
             {
                 lightObjectRigidBody.AddForce(drillDir * powersConstants.lightObjectExitForce, ForceMode2D.Impulse);
-                rb2d.AddForce(Vector2.up * powersConstants.lightPlayerExitForce, ForceMode2D.Impulse);
+                rb2d.linearVelocity = Vector2.up * powersConstants.lightPlayerExitForce;
             }
 
             rb2d.MoveRotation(0f);
