@@ -6,7 +6,9 @@ public class PlayerPowersScriptable : ScriptableObject
     [Header("Dodge Power")]
     public float dodgePowerForce = 12f;
     public float dodgePowerDuration = 0.7f;
-    public float dodgePowerBreakForce = 2f;
+    public float forceCancelImpulse = 10f;
+    public LayerMask circleCastLayerMask;
+    public LayerMask enemyLayerMask;
 
     [Header("Shield Power")]
     public float shieldPowerDuration = 0.5f;
@@ -19,10 +21,11 @@ public class PlayerPowersScriptable : ScriptableObject
     public float drillMinimalFirstVelocity = 4f;
     public float drillMaxFirstVelocity = 8f;
     public float drillAceleration = 0.5f;
+    public float drillFirstPowerDuration = 0.5f;
+    public float drillFirstSmoothTime = 0.1f;
 
     [Header("Second stage")]
     public float drillMinimalSecondVelocity = 8f;
-    public float drillFirstPowerDuration = 0.5f;
     public float drillSecondPowerDuration = 2f;
     public float drillFirstSteeringAmount = 1f;
     public float drillSecondSteeringAmount = 4f;

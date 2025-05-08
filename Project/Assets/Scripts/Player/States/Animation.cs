@@ -8,8 +8,7 @@ namespace PlayerSystem
         Jump,
         Fall,
         Land,
-        DodgeBegin,
-        DodgeEnd,
+        Dodge,
         Shield,
     }
 }

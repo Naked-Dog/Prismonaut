@@ -16,6 +16,8 @@ namespace PlayerSystem
         [SerializeField] private InputActionAsset playerInputAsset;
         [SerializeField] private HealthUIController healthUIController;
         [SerializeField] private GameObject interactSign;
+        [SerializeField] private Collider2D dodgeCollider;
+        [SerializeField] private Collider2D playerMainCollider;
 
         public Knockback knockback;
         public PlayerState state;
@@ -39,7 +41,7 @@ namespace PlayerSystem
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Physics2DMovement(eventBus, state, avatarRigidbody2D);
             animationsModule = new PlayerAnimations(eventBus, state, animator);
-            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, shieldPhysicsRelay);
+            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, shieldPhysicsRelay, dodgeCollider, playerMainCollider);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
             {
                 MaxHealth = 3

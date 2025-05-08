@@ -27,9 +27,7 @@ namespace PlayerSystem
             switch (playerState.activePower)
             {
                 case Power.Dodge:
-                    if (playerState.powerTimeLeft < 0.15f)
-                        SetState(AnimationState.DodgeEnd);
-                    else SetState(AnimationState.DodgeBegin);
+                    SetState(AnimationState.Dodge);
                     return;
                 case Power.Drill:
                     animator.transform.parent.rotation = Quaternion.Euler(0, 0, playerState.rotation);
@@ -83,11 +81,8 @@ namespace PlayerSystem
                 case AnimationState.Fall:
                     animator.Play("JumpFall");
                     break;
-                case AnimationState.DodgeBegin:
-                    animator.Play("DodgeBegin");
-                    break;
-                case AnimationState.DodgeEnd:
-                    animator.Play("DodgeEnd");
+                case AnimationState.Dodge:
+                    animator.Play("Dodge");
                     break;
                 case AnimationState.Shield:
                     animator.Play("Shield");

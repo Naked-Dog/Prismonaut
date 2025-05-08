@@ -39,7 +39,7 @@ public abstract class BaseSlime : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerBaseModule player = collision.attachedRigidbody.GetComponent<PlayerBaseModule>();
-        Debug.Log(player);
+        //Debug.Log(player);
         if(player.state.isParry)
         {
             DoOnReflect(pendingBounce);

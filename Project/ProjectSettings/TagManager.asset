@@ -31,10 +31,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
   - Ground
+  - HeavyGround
   - Safeplaces
   - Invisiblelayer
   - 
