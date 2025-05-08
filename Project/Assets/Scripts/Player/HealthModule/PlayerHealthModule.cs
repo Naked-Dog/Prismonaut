@@ -12,6 +12,7 @@ namespace PlayerSystem
         private HealthUIController healthUIController;
         private Rigidbody2D rb2d;
         private MonoBehaviour mb;
+        private Coroutine hpRegenCoroutine;
 
         public PlayerHealthModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, HealthUIController healthUIController, MonoBehaviour mb)
         {
@@ -20,7 +21,6 @@ namespace PlayerSystem
             this.rb2d = rb2d;
             this.healthUIController = healthUIController;
             this.mb = mb;
-
             eventBus.Subscribe<RequestRespawn>(Respawn);
         }
 
@@ -29,8 +29,8 @@ namespace PlayerSystem
             if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return false;
             if (playerState.activePower != Power.Square)
             {
+                if (hpRegenCoroutine != null) mb.StopCoroutine(hpRegenCoroutine);
                 playerState.currentHealth -= damageAmount;
-
                 if (playerState.currentHealth <= 0)
                 {
                     if (playerState.currentHealthBars == 1)
@@ -49,13 +49,17 @@ namespace PlayerSystem
                 healthUIController.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
                 eventBus.Publish(new OnDamageReceived());
             }
+            StartHPRegen();
             return false;
         }
 
         public void SpikeDamage()
         {
             if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return;
+            if (hpRegenCoroutine != null) mb.StopCoroutine(hpRegenCoroutine);
+
             playerState.currentHealth -= 1;
+
             healthUIController.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
 
             if (playerState.currentHealth <= 0)
@@ -74,6 +78,7 @@ namespace PlayerSystem
                 }
                 healthUIController.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
             }
+            StartHPRegen();
             WarpPlayerToSafeGround();
         }
 
@@ -121,6 +126,27 @@ namespace PlayerSystem
             yield return mb.StartCoroutine(MenuController.Instance.FadeOutSolidPanel());
 
             eventBus.Publish(new RequestUnpause());
+        }
+
+        public void StartHPRegen()
+        {
+            if (playerState.currentHealth >= playerState.healthPerBar) return;
+            hpRegenCoroutine = mb.StartCoroutine(HPRegen());
+        }
+
+        public IEnumerator HPRegen()
+        {
+            yield return new WaitForSeconds(playerState.hpRegenRate);
+            playerState.currentHealth += 1;
+            healthUIController.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
+            if (playerState.currentHealth < playerState.healthPerBar)
+            {
+                StartHPRegen();
+            }
+            else
+            {
+                hpRegenCoroutine = null;
+            }
         }
     }
 }

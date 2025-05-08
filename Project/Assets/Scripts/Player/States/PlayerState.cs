@@ -25,6 +25,7 @@ namespace PlayerSystem
         public int currentHealthBars = 3;
         public int healthPerBar = 8;
         public int currentHealth = 8;
+        public float hpRegenRate = 2f;
 
         // Power Charges
         public int maxCharges = 1;
