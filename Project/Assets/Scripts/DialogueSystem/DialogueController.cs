@@ -27,8 +27,6 @@ public class DialogueController : MonoBehaviour
     private List<Choice> currentChoices;
     private int currentDialogueIndex = 0;
     private DialogueType currentType;
-    private AudioSource audioSource;
-    private string[] ignoreChars = { " ", ",", "-", "_", "." };
     private EventBus eventBus;
     private int currentCharactersCount = 0;
 
@@ -44,8 +42,6 @@ public class DialogueController : MonoBehaviour
         {
             Instance = this;
         }
-
-        audioSource = GetComponent<AudioSource>();
     }
 
     public void SetEventBus(EventBus bus)
@@ -56,7 +52,7 @@ public class DialogueController : MonoBehaviour
     public void RunDialogue(Narrative narrative)
     {
         eventBus.Publish(new RequestEnableDialogueInputs());
-        CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Dialogue));
+        //CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Dialogue));
         currentDialogueIndex = 0;
         isDialogueRunning = true;
 
@@ -126,7 +122,7 @@ public class DialogueController : MonoBehaviour
         yield return WriteDialogue(dialogue);
 
         viewController.ShowNextSign();
-        audioSource.PlayOneShot(skipSound);
+        AudioManager.Instance.Play2DSound(DialogueSoundsEnum.Skip);
         currentDialogueComplete = true;
 
     }
@@ -165,24 +161,18 @@ public class DialogueController : MonoBehaviour
 
     public void playDialogueSFX(string letter)
     {
-        foreach (string character in ignoreChars)
-        {
-            if (character == letter)
-            {
-                return;
-            }
-        }
+        char c = letter[0];
+        
+        if (!char.IsLetter(c)) return;
 
-        var upper = letter.ToUpper();
+        var upper = char.ToUpper(c);
 
-        foreach (AudioClip clip in currentActor.alphabetSounds)
+        if (Enum.TryParse<AlphabetEnum>(upper.ToString(), out var key))
         {
-            var dialogueLetter = clip.name.Last();
-            if (dialogueLetter.ToString() == upper)
-            {
-                audioSource.PlayOneShot(clip);
-                return;
-            }
+            AudioManager.Instance.Play2DSoundByLibrary(
+                key,
+                currentActor.alphabetSoundsLibrary
+            );
         }
     }
 
@@ -191,7 +181,7 @@ public class DialogueController : MonoBehaviour
         StopAllCoroutines();
         viewController.DisplayFullText(currentDialogueText);
         viewController.ShowNextSign();
-        audioSource.PlayOneShot(skipSound);
+        AudioManager.Instance.Play2DSound(DialogueSoundsEnum.Skip);
         currentDialogueComplete = true;
         currentCharactersCount = 0;
     }
@@ -201,7 +191,7 @@ public class DialogueController : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(viewController.CloseDialoguePanel());
         isDialogueRunning = false;
-        CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Regular));
+        //CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Regular));
         eventBus.Publish(new RequestDisableDialogueInputs());
     }
 
