@@ -14,6 +14,7 @@ namespace PlayerSystem
         private PlayerPowersScriptable movementValues;
         private Collider2D dodgeCollider;
         private Collider2D playerCollider;
+        private PlayerBaseModule baseModule;
         private Vector2 inputDirection = Vector2.zero;
         private Vector2 appliedDirection = Vector2.zero;
         private bool isFacingRight => playerState.facingDirection == Direction.Right;
@@ -26,13 +27,15 @@ namespace PlayerSystem
             PlayerState playerState,
             Rigidbody2D rb2d,
             Collider2D dodgeCollider,
-            Collider2D playerCollider)
+            Collider2D playerCollider,
+            PlayerBaseModule baseModule)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.dodgeCollider = dodgeCollider;
             this.playerCollider = playerCollider;
+            this.baseModule = baseModule;
 
             movementValues = GlobalConstants.Get<PlayerPowersScriptable>();
             dodgeCollider.enabled = false;
@@ -60,6 +63,8 @@ namespace PlayerSystem
 
         private void Activate()
         {
+            if (playerState.currentCharges < 1f) return;
+            baseModule.StartChargeRegeneration();
             dodgeCollider.enabled = true;
             playerCollider.enabled = false;
             appliedDirection = inputDirection.sqrMagnitude > 0.1f
@@ -116,9 +121,9 @@ namespace PlayerSystem
         private void CheckEnemyCollision(OnFixedUpdate e)
         {
             var boxColl = playerCollider as BoxCollider2D;
-            Vector2 origin = (Vector2)boxColl.transform.position + boxColl.offset;  
-            Vector2 size   = boxColl.size;
-            float   angle  = boxColl.transform.eulerAngles.z;
+            Vector2 origin = (Vector2)boxColl.transform.position + boxColl.offset;
+            Vector2 size = boxColl.size;
+            float angle = boxColl.transform.eulerAngles.z;
 
             Collider2D[] hits = Physics2D.OverlapBoxAll(origin, size, angle, movementValues.enemyLayerMask);
             insideEnemy = hits.Any(c => c.CompareTag("Enemy"));
@@ -126,14 +131,14 @@ namespace PlayerSystem
 
         private void Deactivate(bool force)
         {
-            if(insideEnemy)
+            if (insideEnemy)
             {
                 Vector2 repel = Vector2.up * 10f;
                 rb2d.AddForce(repel, ForceMode2D.Impulse);
                 insideEnemy = false;
             }
 
-            if(force)
+            if (force)
             {
                 rb2d.linearVelocity = Vector2.zero;
                 rb2d.AddForce(Vector2.up * movementValues.forceCancelImpulse, ForceMode2D.Impulse);

@@ -8,6 +8,4 @@ public interface IDamageable
 
     void Die();
 
-    int MaxHealth { get; set; }
-    int CurrentHealth { get; set; }
 }
