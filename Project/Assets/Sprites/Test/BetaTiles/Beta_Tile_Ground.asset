@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Beta_Tile_Ground
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -171385005, guid: 6018b5f0b949c2b418be79ded4bfb8db, type: 3}
+  m_Sprite: {fileID: 2017195895, guid: f2afb6bb3be37334a812c680f339d3c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

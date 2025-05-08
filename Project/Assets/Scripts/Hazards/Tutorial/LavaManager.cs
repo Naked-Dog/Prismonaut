@@ -5,6 +5,8 @@ using UnityEngine;
 public class LavaManager : MonoBehaviour
 {
     [SerializeField]
+    private Transform lavaTransform;
+    [SerializeField]
     private float finalHeight = -1f;
     [SerializeField]
     private float initialHeight = -10f;
@@ -26,7 +28,7 @@ public class LavaManager : MonoBehaviour
             return;
         }
         Instance = this;
-        initialHeight = transform.position.y;
+        initialHeight = lavaTransform.transform.position.y;
     }
 
     void Update()
@@ -47,7 +49,7 @@ public class LavaManager : MonoBehaviour
     {
         lavaPositions.RemoveAt(0);
         timeElapsed = 0;
-        initialHeight = transform.position.y;
+        initialHeight = lavaTransform.transform.position.y;
     }
 
     public void StartLava()
@@ -67,7 +69,7 @@ public class LavaManager : MonoBehaviour
         if (timeElapsed <= riseDuration)
         {
             float riseAmount = Mathf.Lerp(initialHeight, finalHeight, timeElapsed / riseDuration);
-            transform.position = new Vector3(transform.position.x, riseAmount, transform.position.z);
+            lavaTransform.transform.position = new Vector3(lavaTransform.transform.position.x, riseAmount, lavaTransform.transform.position.z);
         }
         else
         {
@@ -76,7 +78,7 @@ public class LavaManager : MonoBehaviour
     }
     private void SetLavaGoal()
     {
-        transform.position = new Vector3(transform.position.x, finalHeight, transform.position.z);
+        lavaTransform.transform.position = new Vector3(lavaTransform.transform.position.x, finalHeight, lavaTransform.transform.position.z);
         initialHeight = finalHeight;
         timeElapsed = 0;
         lavaPositions.RemoveAt(0);
@@ -98,7 +100,7 @@ public class LavaManager : MonoBehaviour
         {
             lavaPositions.RemoveAt(0);
         }
-        initialHeight = transform.position.y;
+        initialHeight = lavaTransform.transform.position.y;
         timeElapsed = 0;
         riseDuration = lavaPositions[0].time;
         finalHeight = lavaPositions[0].position;
