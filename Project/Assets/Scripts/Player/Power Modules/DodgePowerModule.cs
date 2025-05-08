@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -12,12 +13,13 @@ namespace PlayerSystem
         private Rigidbody2D rb2d;
         private PlayerPowersScriptable movementValues;
         private Collider2D dodgeCollider;
-        private PhysicsEventsRelay dodgePhysicsRelay;
         private Collider2D playerCollider;
         private Vector2 inputDirection = Vector2.zero;
         private Vector2 appliedDirection = Vector2.zero;
         private bool isFacingRight => playerState.facingDirection == Direction.Right;
         private float cancelDotThreshold = 0.5f;
+        private float dashTimer = 0f;
+        private bool insideEnemy = false;
 
         public DodgePowerModule(
             EventBus eventBus,
@@ -64,17 +66,32 @@ namespace PlayerSystem
                 ? inputDirection.normalized
                 : (isFacingRight ? Vector2.right : Vector2.left);
 
-            Vector2 dodgeImpulse = appliedDirection * movementValues.dodgePowerForce;
-            rb2d.linearVelocity = Vector2.zero;
-            rb2d.AddForce(dodgeImpulse, ForceMode2D.Impulse);
 
             eventBus.Publish(new OnDodgeActivation());
             eventBus.Publish(new RequestMovementPause());
+            eventBus.Publish(new RequestGravityOff());
             playerState.activePower = Power.Dodge;
 
             playerState.powerTimeLeft = movementValues.dodgePowerDuration;
-            eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
+            eventBus.Subscribe<OnFixedUpdate>(FixedImpulse);
             eventBus.Subscribe<OnFixedUpdate>(CheckCancelByShapeCast);
+            eventBus.Subscribe<OnFixedUpdate>(CheckEnemyCollision);
+        }
+
+        private void FixedImpulse(OnFixedUpdate e)
+        {
+            dashTimer += Time.fixedDeltaTime;
+            float tNorm = dashTimer / movementValues.dodgePowerDuration;
+
+            if (tNorm <= 1f)
+            {
+                float speedNow = movementValues.dodgePowerForce * (1f - tNorm);
+                rb2d.linearVelocity = appliedDirection * speedNow;
+            }
+            else
+            {
+                Deactivate(false);
+            }
         }
 
         private void CheckCancelByShapeCast(OnFixedUpdate e)
@@ -96,26 +113,43 @@ namespace PlayerSystem
             }
         }
 
-        private void ReduceTimeLeft(OnUpdate e)
+        private void CheckEnemyCollision(OnFixedUpdate e)
         {
-            playerState.powerTimeLeft -= Time.deltaTime;
-            if (0 < playerState.powerTimeLeft) return;
-            Deactivate(false);
+            var boxColl = playerCollider as BoxCollider2D;
+            Vector2 origin = (Vector2)boxColl.transform.position + boxColl.offset;  
+            Vector2 size   = boxColl.size;
+            float   angle  = boxColl.transform.eulerAngles.z;
+
+            Collider2D[] hits = Physics2D.OverlapBoxAll(origin, size, angle, movementValues.enemyLayerMask);
+            insideEnemy = hits.Any(c => c.CompareTag("Enemy"));
         }
 
         private void Deactivate(bool force)
         {
-            playerState.activePower = Power.None;
-            playerCollider.enabled = true;
-            dodgeCollider.enabled = false;
-            eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
-            eventBus.Unsubscribe<OnFixedUpdate>(CheckCancelByShapeCast);
-            eventBus.Publish(new RequestMovementResume());
+            if(insideEnemy)
+            {
+                Vector2 repel = Vector2.up * 10f;
+                rb2d.AddForce(repel, ForceMode2D.Impulse);
+                insideEnemy = false;
+            }
+
             if(force)
             {
                 rb2d.linearVelocity = Vector2.zero;
                 rb2d.AddForce(Vector2.up * movementValues.forceCancelImpulse, ForceMode2D.Impulse);
             }
+
+            dashTimer = 0f;
+            playerState.activePower = Power.None;
+            playerCollider.enabled = true;
+            dodgeCollider.enabled = false;
+
+            eventBus.Unsubscribe<OnFixedUpdate>(FixedImpulse);
+            eventBus.Unsubscribe<OnFixedUpdate>(CheckCancelByShapeCast);
+            eventBus.Unsubscribe<OnFixedUpdate>(CheckEnemyCollision);
+            eventBus.Publish(new RequestMovementResume());
+            eventBus.Publish(new RequestGravityOn());
+
         }
     }
 }

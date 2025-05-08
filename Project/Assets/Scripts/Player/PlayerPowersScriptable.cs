@@ -6,9 +6,9 @@ public class PlayerPowersScriptable : ScriptableObject
     [Header("Dodge Power")]
     public float dodgePowerForce = 12f;
     public float dodgePowerDuration = 0.7f;
-    public float dodgePowerBreakForce = 2f;
-    public LayerMask circleCastLayerMask;
     public float forceCancelImpulse = 10f;
+    public LayerMask circleCastLayerMask;
+    public LayerMask enemyLayerMask;
 
     [Header("Shield Power")]
     public float shieldPowerDuration = 0.5f;

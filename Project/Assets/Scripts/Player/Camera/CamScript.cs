@@ -12,7 +12,7 @@ namespace CameraSystem
 
         private void Start()
         {
-            Debug.Log(CameraManager.Instance);
+            //Debug.Log(CameraManager.Instance);
             CameraManager.Instance.RegisterCamera(GetComponent<CinemachineVirtualCamera>());
         }
         private void OnDisable()
