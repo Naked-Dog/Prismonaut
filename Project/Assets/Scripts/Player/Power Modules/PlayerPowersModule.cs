@@ -17,6 +17,8 @@ namespace PlayerSystem
         private PhysicsEventsRelay drillExitPhysicsRelay;
         private PhysicsEventsRelay shieldPhysicsRelay;
         private FixedJoint2D drillJoint;
+        private Collider2D dodgeCollider;
+        private Collider2D playerCollider;
 
         public PlayerPowersModule(
             EventBus eventBus,
@@ -25,7 +27,9 @@ namespace PlayerSystem
             PhysicsEventsRelay drillPhysicsRelay,
             PhysicsEventsRelay drillExitPhysicsRelay,
             FixedJoint2D drillJoint,
-            PhysicsEventsRelay shieldPhysicsRelay)
+            PhysicsEventsRelay shieldPhysicsRelay,
+            Collider2D dodgeCollider,
+            Collider2D playerCollider)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
@@ -34,10 +38,12 @@ namespace PlayerSystem
             this.drillExitPhysicsRelay = drillExitPhysicsRelay;
             this.drillJoint = drillJoint;
             this.shieldPhysicsRelay = shieldPhysicsRelay;
+            this.dodgeCollider = dodgeCollider;
+            this.playerCollider = playerCollider;
 
             squarePower = new ShieldPowerModule(eventBus, playerState, rb2d, shieldPhysicsRelay);
             trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint);
-            circlePower = new DodgePowerModule(eventBus, playerState, rb2d);
+            circlePower = new DodgePowerModule(eventBus, playerState, rb2d, dodgeCollider, playerCollider);
         }
 
         public void SetPowerAvailable(Power power, bool isAvailable)
@@ -54,7 +60,7 @@ namespace PlayerSystem
                     break;
                 case Power.Circle:
                     playerState.isCirclePowerAvailable = isAvailable;
-                    circlePower ??= new DodgePowerModule(eventBus, playerState, rb2d);
+                    circlePower ??= new DodgePowerModule(eventBus, playerState, rb2d, dodgeCollider, playerCollider);
                     break;
             }
         }

@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -122,7 +121,7 @@ namespace PlayerSystem
                     drillDir = inputDirection.normalized;
                 }
                 float targetAngle = Mathf.Atan2(drillDir.y, drillDir.x) * Mathf.Rad2Deg - 90f;
-                float smoothTime = 0.13f;
+                float smoothTime = powersConstants.drillFirstSmoothTime;
                 float newAngle = Mathf.SmoothDampAngle(
                     rb2d.rotation,    
                     targetAngle,      
@@ -259,6 +258,7 @@ namespace PlayerSystem
                     Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, false);
                 }
 
+                rb2d.linearVelocity = Vector2.zero;
                 rb2d.AddForce(drillDir * powersConstants.heavyExitForceImpulse, ForceMode2D.Impulse);
 
                 Deactivate();
@@ -267,18 +267,27 @@ namespace PlayerSystem
 
         private void AttachObjectToDrill(GameObject gameObject)
         {
+            Debug.Log("AttachObjectToDrill");
             lightObjectRigidBody = gameObject.GetComponent<Rigidbody2D>();
+            lightObjectRigidBody.simulated = false;
+            Transform lightTransform = gameObject.transform;
             Vector2 worldTip = drillPhysicsRelay.transform.GetChild(0).position;
+            Vector2 lightScale = lightTransform.lossyScale / 2f;
+            lightTransform.position = worldTip + (lightScale * drillDir);
+
+            lightTransform.SetParent(rb2d.transform, true);
+            // lightObjectRigidBody = gameObject.GetComponent<Rigidbody2D>();
+            // Vector2 worldTip = drillPhysicsRelay.transform.GetChild(0).position;
             
-            drillJoint.autoConfigureConnectedAnchor = false;
-            drillJoint.connectedBody = lightObjectRigidBody;
+            // drillJoint.autoConfigureConnectedAnchor = false;
+            // drillJoint.connectedBody = lightObjectRigidBody;
 
-            Vector2 localTip = rb2d.transform.InverseTransformPoint(worldTip);
-            drillJoint.anchor = localTip;
+            // Vector2 localTip = rb2d.transform.InverseTransformPoint(worldTip);
+            // drillJoint.anchor = localTip;
 
-            Vector2 lightLocalTip = lightObjectRigidBody.transform.InverseTransformDirection(worldTip);
-            drillJoint.connectedAnchor = lightLocalTip;
-            drillJoint.enabled = true;
+            // Vector2 lightLocalTip = lightObjectRigidBody.transform.InverseTransformPoint(worldTip);
+            // drillJoint.connectedAnchor = lightLocalTip;
+            // drillJoint.enabled = true;
 
             isSecondStage = true;
         }
@@ -316,10 +325,14 @@ namespace PlayerSystem
 
         private void Deactivate()
         {
+
             if(lightObjectRigidBody != null)
             {
+                Debug.Log("lighobject");
+                lightObjectRigidBody.transform.SetParent(null, true);
+                lightObjectRigidBody.simulated = true;
                 lightObjectRigidBody.AddForce(drillDir * powersConstants.lightObjectExitForce, ForceMode2D.Impulse);
-                rb2d.AddForce(Vector2.up * powersConstants.lightPlayerExitForce, ForceMode2D.Impulse);
+                rb2d.linearVelocity = Vector2.up * powersConstants.lightPlayerExitForce;
             }
 
             rb2d.MoveRotation(0f);
@@ -329,6 +342,7 @@ namespace PlayerSystem
             currentSpeed = 0f;
             damageTimer = 0f;
             isInside = false;
+            lightObjectRigidBody = null;
             eventBus.Publish(new RequestMovementResume());
             eventBus.Publish(new RequestGravityOn());
             eventBus.Unsubscribe<OnFixedUpdate>(Steer);

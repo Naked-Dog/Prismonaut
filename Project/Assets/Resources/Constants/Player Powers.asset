@@ -12,25 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b9457953ba2fe4c7910cf44d6346f68, type: 3}
   m_Name: Player Powers
   m_EditorClassIdentifier: 
-  dodgePowerForce: 22
-  dodgePowerDuration: 0.5
-  dodgePowerBreakForce: 4
+  dodgePowerForce: 15
+  dodgePowerDuration: 0.55
+  forceCancelImpulse: 10
+  circleCastLayerMask:
+    serializedVersion: 2
+    m_Bits: 192
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
   shieldPowerDuration: 0.5
   parryDuration: 0.15
   reflectionDamage: 8
   drillMinimalFirstVelocity: 2
   drillMaxFirstVelocity: 6
   drillAceleration: 100
+  drillFirstPowerDuration: 0.4
+  drillFirstSmoothTime: 0.1
   drillMinimalSecondVelocity: 4
-  drillFirstPowerDuration: 0.5
-  drillSecondPowerDuration: 5
+  drillSecondPowerDuration: 2.2
   drillFirstSteeringAmount: 10
   drillSecondSteeringAmount: 200
   lightDrillDamagePerSecond: 2
-  lightObjectExitForce: 5
-  lightPlayerExitForce: 2
+  lightObjectExitForce: 2
+  lightPlayerExitForce: 10
   heavyDrillDamagePerSecond: 4
   heavyDrillSpeed: 2
   steerReturnTimer: 0.4
-  heavyExitForceImpulse: 10
+  heavyExitForceImpulse: 12
   drillOppositeForce: 10
