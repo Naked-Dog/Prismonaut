@@ -130,7 +130,11 @@ namespace PlayerSystem
 
         public void StartHPRegen()
         {
-            if (playerState.currentHealth >= playerState.healthPerBar) return;
+            if (playerState.currentHealth >= playerState.healthPerBar)
+            {
+                hpRegenCoroutine = null;
+                return;
+            }
             hpRegenCoroutine = mb.StartCoroutine(HPRegen());
         }
 
