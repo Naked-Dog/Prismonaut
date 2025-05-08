@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CameraSystem;
 using PlayerSystem;
-using UnityEditor;
 using UnityEngine;
-using CameraSystem;
 
 public enum DialogueType
 {
@@ -31,8 +29,8 @@ public class DialogueController : MonoBehaviour
     private DialogueType currentType;
     private AudioSource audioSource;
     private string[] ignoreChars = { " ", ",", "-", "_", "." };
-
     private EventBus eventBus;
+    private int currentCharactersCount = 0;
 
     public static DialogueController Instance { get; private set; }
 
@@ -114,11 +112,11 @@ public class DialogueController : MonoBehaviour
     }
 
 
-    private IEnumerator DialogueSequence(Dialogue dialogue)
+    private IEnumerator DialogueSequence(Dialogue dialogue, bool resume = false)
     {
         currentActor = GetActor(dialogue.actor);
         viewController.SetActor(currentActor);
-        viewController.SetDialoguePanel(currentType);
+        viewController.SetDialoguePanel(currentType, resume);
 
         if (currentDialogueIndex == 0)
         {
@@ -141,11 +139,27 @@ public class DialogueController : MonoBehaviour
 
     public IEnumerator WriteCharByChar(string dialogueText, float writeSpeed = 0.1f)
     {
-        foreach (var character in dialogueText)
+        for (int i = currentCharactersCount; i < dialogueText.Length; i++)
         {
+            var character = dialogueText[i];
             playDialogueSFX(character.ToString());
             viewController.dialogueTMPText.text += character;
+            currentCharactersCount++;
             yield return new WaitForSeconds(writeSpeed);
+        }
+        currentCharactersCount = 0;
+    }
+
+    public void PauseDialogue()
+    {
+        if(isDialogueRunning) StopAllCoroutines();
+    }
+
+    public void ResumeDialogue()
+    {
+        if(!currentDialogueComplete)
+        {
+            StartCoroutine(DialogueSequence(currentDialogues[currentDialogueIndex], true));
         }
     }
 
@@ -179,6 +193,7 @@ public class DialogueController : MonoBehaviour
         viewController.ShowNextSign();
         audioSource.PlayOneShot(skipSound);
         currentDialogueComplete = true;
+        currentCharactersCount = 0;
     }
 
     public void EndDialogue()
