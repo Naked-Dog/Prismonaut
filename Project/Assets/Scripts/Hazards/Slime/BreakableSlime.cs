@@ -10,7 +10,7 @@ public class BreakableSlime : BaseSlime
 
     protected override void DoOnReflect(BounceValues bv)
     {
-        if (currentRoutine != null)
+        if (currentRoutine != null && bv != null && bv.rb)
         {
             bv.rb.bodyType = RigidbodyType2D.Dynamic;
             currentRoutine = null;

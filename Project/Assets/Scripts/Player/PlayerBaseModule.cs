@@ -18,6 +18,8 @@ namespace PlayerSystem
         [SerializeField] private InputActionAsset playerInputAsset;
         [SerializeField] private HealthUIController healthUIController;
         [SerializeField] private GameObject interactSign;
+        [SerializeField] private Collider2D dodgeCollider;
+        [SerializeField] private Collider2D playerMainCollider;
         [SerializeField] private ChargesUIController chargesUIController;
         private UnityEvent onHealthUpdate;
 
@@ -28,7 +30,7 @@ namespace PlayerSystem
 
         private PlayerInput inputModule;
         private PlayerMovement movementModule;
-        private PlayerAnimations animationsModule;
+        public PlayerAnimations animationsModule;
         public PlayerPowersModule powersModule;
         public PlayerHealthModule healthModule;
         private PlayerAudioModule audioModule;
@@ -43,7 +45,7 @@ namespace PlayerSystem
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Physics2DMovement(eventBus, state, avatarRigidbody2D);
             animationsModule = new PlayerAnimations(eventBus, state, animator);
-            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, shieldPhysicsRelay, this);
+            powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, shieldPhysicsRelay, dodgeCollider, playerMainCollider, this);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
             {
                 MaxHealth = state.maxHealth

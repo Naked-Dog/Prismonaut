@@ -17,6 +17,8 @@ namespace PlayerSystem
         private PhysicsEventsRelay drillExitPhysicsRelay;
         private PhysicsEventsRelay shieldPhysicsRelay;
         private FixedJoint2D drillJoint;
+        private Collider2D dodgeCollider;
+        private Collider2D playerCollider;
         private PlayerBaseModule baseModule;
 
         public PlayerPowersModule(
@@ -26,7 +28,10 @@ namespace PlayerSystem
             PhysicsEventsRelay drillPhysicsRelay,
             PhysicsEventsRelay drillExitPhysicsRelay,
             FixedJoint2D drillJoint,
-            PhysicsEventsRelay shieldPhysicsRelay, PlayerBaseModule baseModule)
+            PhysicsEventsRelay shieldPhysicsRelay,
+            Collider2D dodgeCollider,
+            Collider2D playerCollider,
+            PlayerBaseModule baseModule)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
@@ -34,12 +39,14 @@ namespace PlayerSystem
             this.drillPhysicsRelay = drillPhysicsRelay;
             this.drillExitPhysicsRelay = drillExitPhysicsRelay;
             this.drillJoint = drillJoint;
-            this.baseModule = baseModule;
             this.shieldPhysicsRelay = shieldPhysicsRelay;
+            this.dodgeCollider = dodgeCollider;
+            this.playerCollider = playerCollider;
+            this.baseModule = baseModule;
 
             squarePower = new ShieldPowerModule(eventBus, playerState, rb2d, shieldPhysicsRelay, baseModule);
             trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, baseModule);
-            circlePower = new DodgePowerModule(eventBus, playerState, rb2d, baseModule);
+            circlePower = new DodgePowerModule(eventBus, playerState, rb2d, dodgeCollider, playerCollider, baseModule);
         }
 
         public void SetPowerAvailable(Power power, bool isAvailable)
@@ -56,7 +63,7 @@ namespace PlayerSystem
                     break;
                 case Power.Circle:
                     playerState.isCirclePowerAvailable = isAvailable;
-                    circlePower ??= new DodgePowerModule(eventBus, playerState, rb2d, baseModule);
+                    circlePower ??= new DodgePowerModule(eventBus, playerState, rb2d, dodgeCollider, playerCollider, baseModule);
                     break;
             }
         }
