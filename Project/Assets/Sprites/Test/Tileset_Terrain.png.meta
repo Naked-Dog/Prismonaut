@@ -1,0 +1,1236 @@
+fileFormatVersion: 2
+guid: f2afb6bb3be37334a812c680f339d3c1
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tile_1
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 352
+        width: 35
+        height: 35
+      alignment: 9
+      pivot: {x: 0.54285717, y: 0.45714286}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf60ca7f7f165b04894a41d8e7a18580
+      internalID: -1723730875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 352
+        width: 32
+        height: 35
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45714286}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fd72c2801caff849b509a1e993731c8
+      internalID: -689541341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_3
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 320
+        width: 35
+        height: 32
+      alignment: 9
+      pivot: {x: 0.54285717, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9248a2d7e198a047a4723f4a264af6e
+      internalID: 1226839784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_18
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 320
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9616629369226824faa50e34fd626f5d
+      internalID: 2017195895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tileset_Terrain_68
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 320
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 521f93a264e606845ab77ebb1c5a3f25
+      internalID: 446873223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tileset_Terrain_69
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 320
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e7eb1945a9606549b51daa1216f61f6
+      internalID: -111334091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_4
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 285
+        width: 35
+        height: 35
+      alignment: 9
+      pivot: {x: 0.54285717, y: 0.54285717}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e0ac90002fb24f44af8bd6c394a241a
+      internalID: 1294402297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_5
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 285
+        width: 32
+        height: 35
+      alignment: 9
+      pivot: {x: 0.5, y: 0.54285717}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cce4954cf0e38f49ab3985a3a7249c2
+      internalID: -1276001945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tileset_Terrain_85
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5ed440d66074be4a8efc06c6e955dea
+      internalID: 1182767715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tileset_Terrain_86
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eab8bbdb98195a046bd51ad4a4d98ce2
+      internalID: -1365652117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tileset_Terrain_99
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a53f19616b104bd429053dfd6019093b
+      internalID: 1705055112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_7
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 192
+        width: 39
+        height: 32
+      alignment: 9
+      pivot: {x: 0.4871795, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f6f7cbc70bcdaa4686e091d35cfef69
+      internalID: 729093562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_8
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 157
+        width: 39
+        height: 35
+      alignment: 9
+      pivot: {x: 0.4871795, y: 0.54285717}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5eaa2bd660ba63d4e97c5b6b7f6d4b5d
+      internalID: -1142332714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_9
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 157
+        width: 36
+        height: 38
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc80096126541284698caa682c33b0ca
+      internalID: 665792273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_10
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 157
+        width: 32
+        height: 38
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08d94d334da354445a45a91c86ded3b8
+      internalID: 1968827013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_11
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 157
+        width: 36
+        height: 38
+      alignment: 9
+      pivot: {x: 0.44444445, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4f8968444bbf184e873eb2917489757
+      internalID: -1710172704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 128
+        width: 32
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.44444445}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93c6744830cd4e84190875b90e11914c
+      internalID: 580249555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dirt_3
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 128
+        width: 32
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08dd43e84f16d7a46b35c8a543fcf06e
+      internalID: -806474210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling_2a
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 96
+        width: 36
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.44444445}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22c06c29c4c5c3d41ae81127a5f189c2
+      internalID: -779609207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling_4
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 64
+        width: 36
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 748df9951fd7c6e4cb09e931984fa361
+      internalID: 1811866191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71be4525af0eb3c4e933e38fb9e803bf
+      internalID: -1507236292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling_8
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 57
+        width: 41
+        height: 39
+      alignment: 9
+      pivot: {x: 0.3902439, y: 0.5897436}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63a38a14169d2ef46b922300265b0a31
+      internalID: 1783999939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dirt_4
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 64
+        width: 37
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5675676, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20e9266391c71fa4a9d136e6014bf433
+      internalID: 1230377609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dirt_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be39940e2c8f3b44e8f89c130371a5cd
+      internalID: 440393643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling_6
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 28
+        width: 32
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48f00d69433821840b78350aef32c534
+      internalID: 1502136462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dirt_5
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 23
+        width: 37
+        height: 41
+      alignment: 9
+      pivot: {x: 0.5675676, y: 0.6097561}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f49a19207f5ff6040a07092165a48b95
+      internalID: -308006878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dirt_6
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 23
+        width: 32
+        height: 41
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6097561}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cf90ccc6060b09498d615de6a06f28c
+      internalID: 36542973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_6
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 224
+        width: 39
+        height: 35
+      alignment: 9
+      pivot: {x: 0.4871795, y: 0.45714286}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9535182701468948ab2b8142e2b241b
+      internalID: 563533443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_12
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 384
+        width: 42
+        height: 41
+      alignment: 9
+      pivot: {x: 0.61904764, y: 0.3902439}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a31ff7433d078dc488b64f1fd3ee644e
+      internalID: 1190490076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_13
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 247
+        width: 42
+        height: 41
+      alignment: 9
+      pivot: {x: 0.61904764, y: 0.6097561}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e946c8978a19f7d4db72405765a45ef9
+      internalID: -1369221703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_14
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 278
+        width: 37
+        height: 45
+      alignment: 9
+      pivot: {x: 0.5675676, y: 0.5777778}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e640087218df01942b3159a7d0b56344
+      internalID: -1010921272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_15
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 349
+        width: 37
+        height: 45
+      alignment: 9
+      pivot: {x: 0.5675676, y: 0.42222223}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33b8f12d545c4be428c3b4ed1dc242b5
+      internalID: -1431055783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_16
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 416
+        width: 47
+        height: 40
+      alignment: 9
+      pivot: {x: 0.5531915, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cc459b9277eafd41bd49a7335048c2d
+      internalID: -1501623939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tile_17
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 216
+        width: 47
+        height: 40
+      alignment: 9
+      pivot: {x: 0.5744681, y: 0.6}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1123b34901de9fa4c8e36519b19f2e96
+      internalID: -1398459334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dirt_7
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 96
+        width: 40
+        height: 41
+      alignment: 9
+      pivot: {x: 0.6, y: 0.3902439}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fadb33ad97075545a59bbe809eb1d07
+      internalID: 564904976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dirt_2
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 128
+        width: 37
+        height: 38
+      alignment: 9
+      pivot: {x: 0.5675676, y: 0.42105263}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38aeabe8f6c186740809e04851e43953
+      internalID: 1916453917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dirt_8
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 55
+        width: 42
+        height: 41
+      alignment: 9
+      pivot: {x: 0.3809524, y: 0.6097561}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 703a949715133e341be645456bac9311
+      internalID: 1133135649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling_2
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 128
+        width: 36
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.44444445}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c732d3dae20c08f4db4a87f977b912fc
+      internalID: -1096575124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling_7
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 96
+        width: 39
+        height: 41
+      alignment: 9
+      pivot: {x: 0.5897436, y: 0.3902439}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecbb6eb0e0d499c48a915c01b54788a1
+      internalID: 2006650027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling_5
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 28
+        width: 36
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cac186eab7003c64293c7746d6932da9
+      internalID: -838077544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tileset_Terrain_1
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 384
+        width: 32
+        height: 35
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45714286}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 153782260a6c1d44db528e20f6567da1
+      internalID: 8600635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 85b9646dc3b3a664ca4705055eeb38d3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Dirt_1: 440393643
+      Dirt_2: 1916453917
+      Dirt_3: -806474210
+      Dirt_4: 1230377609
+      Dirt_5: -308006878
+      Dirt_6: 36542973
+      Dirt_7: 564904976
+      Dirt_8: 1133135649
+      Falling_1: -1507236292
+      Falling_2: -1096575124
+      Falling_2a: -779609207
+      Falling_3: 580249555
+      Falling_4: 1811866191
+      Falling_5: -838077544
+      Falling_6: 1502136462
+      Falling_7: 2006650027
+      Falling_8: 1783999939
+      Tile_1: -1723730875
+      Tile_10: 1968827013
+      Tile_11: -1710172704
+      Tile_12: 1190490076
+      Tile_13: -1369221703
+      Tile_14: -1010921272
+      Tile_15: -1431055783
+      Tile_16: -1501623939
+      Tile_17: -1398459334
+      Tile_18: 2017195895
+      Tile_2: -689541341
+      Tile_3: 1226839784
+      Tile_4: 1294402297
+      Tile_5: -1276001945
+      Tile_6: 563533443
+      Tile_7: 729093562
+      Tile_8: -1142332714
+      Tile_9: 665792273
+      Tileset_Terrain_0: -1103098408
+      Tileset_Terrain_1: 8600635
+      Tileset_Terrain_10: 1831126452
+      Tileset_Terrain_100: 1854667421
+      Tileset_Terrain_101: 1993909701
+      Tileset_Terrain_102: 1622855081
+      Tileset_Terrain_103: -1329742318
+      Tileset_Terrain_104: 1202270776
+      Tileset_Terrain_105: 1818032714
+      Tileset_Terrain_106: 106879714
+      Tileset_Terrain_107: 903167553
+      Tileset_Terrain_108: -1658449171
+      Tileset_Terrain_109: -915407547
+      Tileset_Terrain_11: -1161786518
+      Tileset_Terrain_110: -932634114
+      Tileset_Terrain_111: -903530013
+      Tileset_Terrain_112: -11927487
+      Tileset_Terrain_113: -1674017923
+      Tileset_Terrain_115: 1137209085
+      Tileset_Terrain_116: 222432101
+      Tileset_Terrain_117: -1840346973
+      Tileset_Terrain_118: 1527849904
+      Tileset_Terrain_119: 332587423
+      Tileset_Terrain_12: 436067992
+      Tileset_Terrain_120: -917349308
+      Tileset_Terrain_121: -556345914
+      Tileset_Terrain_122: -744926419
+      Tileset_Terrain_123: 1722081610
+      Tileset_Terrain_124: -1898403085
+      Tileset_Terrain_125: -481346812
+      Tileset_Terrain_126: 1021646371
+      Tileset_Terrain_127: -135781192
+      Tileset_Terrain_128: -1961207677
+      Tileset_Terrain_13: 1368800714
+      Tileset_Terrain_130: -1681964470
+      Tileset_Terrain_131: -1381582927
+      Tileset_Terrain_135: 1642221818
+      Tileset_Terrain_136: -560543150
+      Tileset_Terrain_137: 2023184275
+      Tileset_Terrain_139: 854046352
+      Tileset_Terrain_14: -34977955
+      Tileset_Terrain_140: 1943213130
+      Tileset_Terrain_141: -2111596005
+      Tileset_Terrain_142: 1368638014
+      Tileset_Terrain_144: 1159527958
+      Tileset_Terrain_145: -6246941
+      Tileset_Terrain_146: -1162613465
+      Tileset_Terrain_147: 1579160528
+      Tileset_Terrain_148: -1555514977
+      Tileset_Terrain_149: 933617875
+      Tileset_Terrain_15: 87554175
+      Tileset_Terrain_150: -1501805093
+      Tileset_Terrain_151: 129824764
+      Tileset_Terrain_153: 1978042942
+      Tileset_Terrain_154: -1209351107
+      Tileset_Terrain_155: 1884674251
+      Tileset_Terrain_156: -577675781
+      Tileset_Terrain_157: -989948526
+      Tileset_Terrain_158: -173766171
+      Tileset_Terrain_159: -1012880899
+      Tileset_Terrain_16: -1620068080
+      Tileset_Terrain_160: -96599488
+      Tileset_Terrain_161: -1899137618
+      Tileset_Terrain_162: 776517199
+      Tileset_Terrain_163: -2119742387
+      Tileset_Terrain_167: -1471868511
+      Tileset_Terrain_168: 1980692367
+      Tileset_Terrain_169: -572052429
+      Tileset_Terrain_17: 1028301926
+      Tileset_Terrain_172: 157012816
+      Tileset_Terrain_173: 825496131
+      Tileset_Terrain_174: 770007857
+      Tileset_Terrain_175: -2087214027
+      Tileset_Terrain_176: -172180008
+      Tileset_Terrain_178: 51695301
+      Tileset_Terrain_179: 161645858
+      Tileset_Terrain_18: -1201360470
+      Tileset_Terrain_180: -2059813816
+      Tileset_Terrain_183: 1229709359
+      Tileset_Terrain_184: 593628947
+      Tileset_Terrain_185: -1772659342
+      Tileset_Terrain_186: 2130682220
+      Tileset_Terrain_187: 1388960127
+      Tileset_Terrain_188: 1789804247
+      Tileset_Terrain_189: -617313906
+      Tileset_Terrain_19: -472437541
+      Tileset_Terrain_190: 1164275720
+      Tileset_Terrain_2: -1461711470
+      Tileset_Terrain_20: -847733231
+      Tileset_Terrain_21: 309111920
+      Tileset_Terrain_22: 1915666738
+      Tileset_Terrain_23: -1146707921
+      Tileset_Terrain_24: 1095221553
+      Tileset_Terrain_25: -691955673
+      Tileset_Terrain_26: -612867502
+      Tileset_Terrain_27: 2001432888
+      Tileset_Terrain_28: 1474342277
+      Tileset_Terrain_29: 1533681057
+      Tileset_Terrain_3: 803714696
+      Tileset_Terrain_30: -142846652
+      Tileset_Terrain_31: 1959383184
+      Tileset_Terrain_32: -1483224365
+      Tileset_Terrain_33: 972494455
+      Tileset_Terrain_34: -996749998
+      Tileset_Terrain_37: 1675195592
+      Tileset_Terrain_38: -473004379
+      Tileset_Terrain_39: -1434422466
+      Tileset_Terrain_4: 646318148
+      Tileset_Terrain_40: -820357665
+      Tileset_Terrain_41: -1369704222
+      Tileset_Terrain_42: 1244608793
+      Tileset_Terrain_43: 1309635936
+      Tileset_Terrain_44: -311692448
+      Tileset_Terrain_45: -1780108486
+      Tileset_Terrain_46: 1900519432
+      Tileset_Terrain_47: 627915849
+      Tileset_Terrain_48: 1980747131
+      Tileset_Terrain_49: 2054742775
+      Tileset_Terrain_5: 27621718
+      Tileset_Terrain_50: 1828436744
+      Tileset_Terrain_51: -1256630724
+      Tileset_Terrain_52: 812619789
+      Tileset_Terrain_55: -1901815557
+      Tileset_Terrain_56: 554634739
+      Tileset_Terrain_57: 1274551135
+      Tileset_Terrain_58: -1695933597
+      Tileset_Terrain_59: -1198499782
+      Tileset_Terrain_6: -212390963
+      Tileset_Terrain_60: -2097231898
+      Tileset_Terrain_61: -704163730
+      Tileset_Terrain_62: -1135264374
+      Tileset_Terrain_63: 1251621555
+      Tileset_Terrain_64: 2022304307
+      Tileset_Terrain_65: -769145290
+      Tileset_Terrain_66: -1424764085
+      Tileset_Terrain_67: -184675003
+      Tileset_Terrain_68: 446873223
+      Tileset_Terrain_69: -111334091
+      Tileset_Terrain_7: -381865866
+      Tileset_Terrain_70: 359762889
+      Tileset_Terrain_73: 1118073076
+      Tileset_Terrain_74: -1053666504
+      Tileset_Terrain_75: 658102315
+      Tileset_Terrain_76: 1472920824
+      Tileset_Terrain_77: -1686555378
+      Tileset_Terrain_78: 148902208
+      Tileset_Terrain_79: 1854498190
+      Tileset_Terrain_8: 1847655797
+      Tileset_Terrain_80: 568732073
+      Tileset_Terrain_81: 1859748171
+      Tileset_Terrain_82: -1794792086
+      Tileset_Terrain_83: -40008901
+      Tileset_Terrain_84: -1388563737
+      Tileset_Terrain_85: 1182767715
+      Tileset_Terrain_86: -1365652117
+      Tileset_Terrain_87: 800416839
+      Tileset_Terrain_88: 189875657
+      Tileset_Terrain_89: -680403365
+      Tileset_Terrain_9: -1740585587
+      Tileset_Terrain_90: -1751270033
+      Tileset_Terrain_91: 661338981
+      Tileset_Terrain_92: 154264916
+      Tileset_Terrain_93: 754980106
+      Tileset_Terrain_94: -826271177
+      Tileset_Terrain_95: -806268525
+      Tileset_Terrain_96: -1547741779
+      Tileset_Terrain_97: 370892505
+      Tileset_Terrain_98: 1800061472
+      Tileset_Terrain_99: 1705055112
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
