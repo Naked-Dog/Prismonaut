@@ -56,13 +56,13 @@ public class ChargesUIController : MonoBehaviour
         container.SetActive(true);
         yield return new WaitForSeconds(CHARGES_SHOW_TIME);
         container.SetActive(false);
-        wasUsed = false;
     }
 
     public IEnumerator WhiteBlink()
     {
         SetColor(2);
         yield return new WaitForSeconds(0.1f);
+        wasUsed = false;
         SetColor(0);
     }
 

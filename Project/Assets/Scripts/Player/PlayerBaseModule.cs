@@ -58,6 +58,7 @@ namespace PlayerSystem
             animator.GetComponent<PlayerAnimationEvents>()?.SetEventBus(eventBus);
 
             GameDataManager.Instance?.SavePlayerPosition(avatarRigidbody2D.position);
+            state.lastSafeGroundLocation = avatarRigidbody2D.position;
             chargesUIController.InitChargesUI(state.maxCharges);
         }
 
@@ -108,6 +109,14 @@ namespace PlayerSystem
         private void OnCollisionExit2D(Collision2D collision)
         {
             eventBus.Publish(new OnCollisionExit2D(collision));
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.layer == 8)
+            {
+                state.lastSafeGroundLocation = avatarRigidbody2D.position;
+            }
         }
 
         private void OnDestroy()

@@ -73,8 +73,8 @@ namespace PlayerSystem
                     healthUIController.UpdateCurrentHealthBar(playerState.currentHealthBars);
                 }
                 healthUIController.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
-                WarpPlayerToSafeGround();
             }
+            WarpPlayerToSafeGround();
         }
 
         public void WarpPlayerToSafeGround()
