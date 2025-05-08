@@ -14385,6 +14385,9 @@ MonoBehaviour:
   libraries:
   - {fileID: 11400000, guid: 14ccf2047df047142a88febe869a1e3e, type: 2}
   - {fileID: 11400000, guid: 93f45442e1ed9cd41b12da703320655d, type: 2}
+  - {fileID: 11400000, guid: a52464e58b2b9854b82eafa1e1f9f44d, type: 2}
+  - {fileID: 11400000, guid: cd6e386bf29a07f4ca51cc009e20416c, type: 2}
+  - {fileID: 11400000, guid: fabc6d6b003253342befd5ddb838059a, type: 2}
 --- !u!4 &1337218675
 Transform:
   m_ObjectHideFlags: 0
@@ -21062,7 +21065,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7991604121644436692, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8489369742517510671, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: m_Size.x

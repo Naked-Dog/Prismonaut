@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UIElements;
 
 
 public class AudioManager: MonoBehaviour
@@ -142,6 +143,28 @@ public class AudioManager: MonoBehaviour
     public AudioSource Play2DSound<TEnum>(TEnum key, float volume = 1, bool loop = false) where TEnum : Enum
     {
         var src = PlaySound(key, volume, loop, 0);
+        return src;
+    }
+
+    public AudioSource Play2DSoundByLibrary<TEnum>(
+        TEnum key,
+        AudioLibrary<TEnum> library,
+        float volume = 1f,
+        bool loop = false
+    ) where TEnum : Enum
+    {
+        if (library == null) return null;
+        var clip = library.GetClip(key);
+        if (clip == null) return null;
+
+        var src = GetSource();
+        src.clip = clip;
+        src.volume = volume;
+        src.loop = loop;
+        src.outputAudioMixerGroup = sfxMixer;
+        src.spatialBlend = 0f;
+        src.Play();
+        if (!loop) StartCoroutine(RecycleWhenDone(src));
         return src;
     }
 
