@@ -96,5 +96,11 @@ namespace PlayerSystem
 
             currentState = newState;
         }
+
+        public void InvertPlayerFacingDirection()
+        {
+            playerState.facingDirection = playerState.facingDirection == Direction.Right ? Direction.Left : Direction.Right;
+            animator.transform.localRotation = Quaternion.Euler(0, playerState.facingDirection == Direction.Left ? 180 : 0, 0);
+        }
     }
 }
