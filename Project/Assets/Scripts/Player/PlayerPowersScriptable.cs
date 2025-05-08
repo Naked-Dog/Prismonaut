@@ -21,10 +21,11 @@ public class PlayerPowersScriptable : ScriptableObject
     public float drillMinimalFirstVelocity = 4f;
     public float drillMaxFirstVelocity = 8f;
     public float drillAceleration = 0.5f;
+    public float drillFirstPowerDuration = 0.5f;
+    public float drillFirstSmoothTime = 0.1f;
 
     [Header("Second stage")]
     public float drillMinimalSecondVelocity = 8f;
-    public float drillFirstPowerDuration = 0.5f;
     public float drillSecondPowerDuration = 2f;
     public float drillFirstSteeringAmount = 1f;
     public float drillSecondSteeringAmount = 4f;

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player Powers
   m_EditorClassIdentifier: 
   dodgePowerForce: 15
-  dodgePowerDuration: 0.5
+  dodgePowerDuration: 0.55
   forceCancelImpulse: 10
   circleCastLayerMask:
     serializedVersion: 2
@@ -27,8 +27,9 @@ MonoBehaviour:
   drillMinimalFirstVelocity: 2
   drillMaxFirstVelocity: 6
   drillAceleration: 100
+  drillFirstPowerDuration: 0.4
+  drillFirstSmoothTime: 0.1
   drillMinimalSecondVelocity: 4
-  drillFirstPowerDuration: 0.5
   drillSecondPowerDuration: 2.2
   drillFirstSteeringAmount: 10
   drillSecondSteeringAmount: 200
