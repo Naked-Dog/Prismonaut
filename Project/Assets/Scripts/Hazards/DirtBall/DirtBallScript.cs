@@ -12,6 +12,7 @@ public class DirtBallScript : MonoBehaviour
     public DirtSpawner spawner;
     private Animator anim;
     private string randomAnim;
+    private string currentAnim;
 
     private void Awake()
     {
@@ -55,17 +56,24 @@ public class DirtBallScript : MonoBehaviour
 
     private void ControlRollingAnim()
     {
+        string animClip;
         if (rb.linearVelocityX > 0)
         {
-            anim.Play("RollingRight");
+            animClip = "RollingRight";
         }
         else if (rb.linearVelocityX < 0)
         {
-            anim.Play("RollingLeft");
+            animClip = "RollingLeft";
         }
         else
         {
-            anim.Play(randomAnim);
+            animClip = randomAnim;
+        }
+
+        if(currentAnim != animClip)
+        {
+            currentAnim = animClip;
+            anim.Play(animClip);
         }
 
         float minSpeed = Mathf.Abs(rb.linearVelocityY) > 0 ? 0.3f : 0;

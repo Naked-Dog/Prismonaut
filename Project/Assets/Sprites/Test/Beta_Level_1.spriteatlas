@@ -58,6 +58,18 @@ SpriteAtlas:
     - 16fe1f176e78d874a8ac9161f49f3360: -1044478478
     - 16fe1f176e78d874a8ac9161f49f3360: -1342096354
     - 16fe1f176e78d874a8ac9161f49f3360: -223303099
+    - fa1169f8db246c640b88783bfc0e29e9: 1971995483
+    - fa1169f8db246c640b88783bfc0e29e9: -83948309
+    - fa1169f8db246c640b88783bfc0e29e9: -782345714
+    - fa1169f8db246c640b88783bfc0e29e9: -1765216496
+    - fa1169f8db246c640b88783bfc0e29e9: -1493968583
+    - fa1169f8db246c640b88783bfc0e29e9: -399067020
+    - fa1169f8db246c640b88783bfc0e29e9: -2075535939
+    - fa1169f8db246c640b88783bfc0e29e9: -1564369066
+    - fa1169f8db246c640b88783bfc0e29e9: 286683695
+    - fa1169f8db246c640b88783bfc0e29e9: 1065794032
+    - fa1169f8db246c640b88783bfc0e29e9: -880091848
+    - fa1169f8db246c640b88783bfc0e29e9: 179973112
     - b307522bdf4f4cf4993632f5a5a74c07: -1116647351
     - b307522bdf4f4cf4993632f5a5a74c07: 1645161501
     - b307522bdf4f4cf4993632f5a5a74c07: -1809308427
@@ -152,6 +164,18 @@ SpriteAtlas:
   - {fileID: -1044478478, guid: 16fe1f176e78d874a8ac9161f49f3360, type: 3}
   - {fileID: -1342096354, guid: 16fe1f176e78d874a8ac9161f49f3360, type: 3}
   - {fileID: -223303099, guid: 16fe1f176e78d874a8ac9161f49f3360, type: 3}
+  - {fileID: 1971995483, guid: fa1169f8db246c640b88783bfc0e29e9, type: 3}
+  - {fileID: -83948309, guid: fa1169f8db246c640b88783bfc0e29e9, type: 3}
+  - {fileID: -782345714, guid: fa1169f8db246c640b88783bfc0e29e9, type: 3}
+  - {fileID: -1765216496, guid: fa1169f8db246c640b88783bfc0e29e9, type: 3}
+  - {fileID: -1493968583, guid: fa1169f8db246c640b88783bfc0e29e9, type: 3}
+  - {fileID: -399067020, guid: fa1169f8db246c640b88783bfc0e29e9, type: 3}
+  - {fileID: -2075535939, guid: fa1169f8db246c640b88783bfc0e29e9, type: 3}
+  - {fileID: -1564369066, guid: fa1169f8db246c640b88783bfc0e29e9, type: 3}
+  - {fileID: 286683695, guid: fa1169f8db246c640b88783bfc0e29e9, type: 3}
+  - {fileID: 1065794032, guid: fa1169f8db246c640b88783bfc0e29e9, type: 3}
+  - {fileID: -880091848, guid: fa1169f8db246c640b88783bfc0e29e9, type: 3}
+  - {fileID: 179973112, guid: fa1169f8db246c640b88783bfc0e29e9, type: 3}
   - {fileID: -1116647351, guid: b307522bdf4f4cf4993632f5a5a74c07, type: 3}
   - {fileID: 1645161501, guid: b307522bdf4f4cf4993632f5a5a74c07, type: 3}
   - {fileID: -1809308427, guid: b307522bdf4f4cf4993632f5a5a74c07, type: 3}
@@ -245,6 +269,18 @@ SpriteAtlas:
   - Spike_Idle_2
   - Spike_Idle_9
   - Spike_Idle_8
+  - Prisma_IDLE_10
+  - Prisma_IDLE_11
+  - Prisma_IDLE_1
+  - Prisma_IDLE_0
+  - Prisma_IDLE_3
+  - Prisma_IDLE_2
+  - Prisma_IDLE_5
+  - Prisma_IDLE_4
+  - Prisma_IDLE_7
+  - Prisma_IDLE_6
+  - Prisma_IDLE_9
+  - Prisma_IDLE_8
   - Roca_Rolling_29
   - Roca_Rolling_28
   - Roca_Rolling_25
