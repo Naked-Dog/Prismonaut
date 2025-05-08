@@ -18,7 +18,7 @@ public class ChargesUIController : MonoBehaviour
     [SerializeField] private Image chargesContainer;
     [SerializeField] private Charge[] charges;
 
-    private Color32[] fillColors = { new(244, 241, 78, 255), new(247, 140, 11, 255) };
+    private Color32[] fillColors = { new(244, 241, 78, 255), new(247, 140, 11, 255), new(255, 255, 255, 255) };
 
     private Charge setCharge;
 
@@ -59,8 +59,15 @@ public class ChargesUIController : MonoBehaviour
         wasUsed = false;
     }
 
-    public void SetColor(bool isUsed)
+    public IEnumerator WhiteBlink()
     {
-        chargesFill.color = isUsed ? fillColors[0] : fillColors[1];
+        SetColor(2);
+        yield return new WaitForSeconds(0.1f);
+        SetColor(0);
+    }
+
+    public void SetColor(int index)
+    {
+        chargesFill.color = fillColors[index];
     }
 }

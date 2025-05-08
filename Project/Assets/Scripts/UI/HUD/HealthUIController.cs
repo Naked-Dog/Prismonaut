@@ -41,7 +41,15 @@ public class HealthUIController : MonoBehaviour
             lives[i].SetActive(i + 1 <= currentHealth);
         }
         SetPortraitImage(currentHealth);
-        StartCoroutine(ShowHUDUI());
+
+        if (currentHealth == maxHealth)
+        {
+            StartCoroutine(ShowHUDUI());
+        }
+        else
+        {
+            mainContainer.SetActive(true);
+        }
     }
 
     private void SetPortraitImage(int currentHealth)

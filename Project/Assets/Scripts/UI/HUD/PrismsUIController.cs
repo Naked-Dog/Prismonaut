@@ -25,7 +25,7 @@ public class PrismsUIController : MonoBehaviour
         {
             prisms[i].SetActive(i + 1 <= currentPrism);
         }
-        StartCoroutine(ShowHUDUI());
+        if (!mainContainer.activeSelf) StartCoroutine(ShowHUDUI());
     }
 
     private IEnumerator ShowHUDUI()

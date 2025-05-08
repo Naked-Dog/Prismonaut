@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using CameraSystem;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -21,7 +20,6 @@ namespace PlayerSystem
         [SerializeField] private Collider2D dodgeCollider;
         [SerializeField] private Collider2D playerMainCollider;
         [SerializeField] private ChargesUIController chargesUIController;
-        private UnityEvent onHealthUpdate;
 
         public Knockback knockback;
         public PlayerState state;
@@ -71,7 +69,7 @@ namespace PlayerSystem
             eventBus.Publish(new OnUpdate());
             if (state.currentCharges < state.maxCharges)
             {
-                chargesUIController.SetColor(false);
+                chargesUIController.SetColor(1);
                 chargesUIController.container.SetActive(true);
                 chargesUIController.wasUsed = true;
                 state.currentCharges += Time.deltaTime / state.chargeCooldown;
@@ -79,9 +77,12 @@ namespace PlayerSystem
             }
             else
             {
-                chargesUIController.SetColor(true);
-                //chargesUIController.container.SetActive(false);
-                if (chargesUIController.wasUsed) chargesUIController.StartCoroutine(chargesUIController.ShowChargesUI());
+                chargesUIController.SetColor(0);
+                if (chargesUIController.wasUsed)
+                {
+                    chargesUIController.StartCoroutine(chargesUIController.WhiteBlink());
+                    chargesUIController.StartCoroutine(chargesUIController.ShowChargesUI());
+                }
             }
 
             chargesUIController.chargesFill.fillAmount = state.currentCharges / state.maxCharges;
