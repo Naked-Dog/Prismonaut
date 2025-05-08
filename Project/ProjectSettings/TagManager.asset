@@ -38,11 +38,10 @@ TagManager:
   - HeavyGround
   - Safeplaces
   - Invisiblelayer
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Spikes
+  - Dodgeable
+  - Dirthole
+  - Player
   - 
   - 
   - 
