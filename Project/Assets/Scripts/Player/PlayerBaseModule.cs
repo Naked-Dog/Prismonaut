@@ -45,17 +45,14 @@ namespace PlayerSystem
             animationsModule = new PlayerAnimations(eventBus, state, animator);
             powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, shieldPhysicsRelay, dodgeCollider, playerMainCollider, this);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
-            {
-                MaxHealth = state.maxHealth
-            };
+            ;
             interactionModule = new PlayerInteractionModule(eventBus, gameObject.GetComponent<PhysicsEventsRelay>(), interactSign, state);
 
             avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionEnter2DAction.AddListener(OnCollisionEnter2D);
             avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionStay2DAction.AddListener(OnCollisionStay2D);
             avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionExit2DAction.AddListener(OnCollisionExit2D);
 
-            healthModule.CurrentHealth = healthModule.MaxHealth;
-            healthUIController.InitUI(healthModule.CurrentHealth);
+            healthUIController.InitUI(state.currentHealth, state.healthPerBar, state.currentHealthBars);
             MenuController.Instance?.setEvents(eventBus);
             DialogueController.Instance?.SetEventBus(eventBus);
             animator.GetComponent<PlayerAnimationEvents>()?.SetEventBus(eventBus);

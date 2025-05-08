@@ -1,49 +1,56 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthUIController : MonoBehaviour
 {
-    //Referencias a vidas
+    [Serializable]
+    public class HPBar
+    {
+        public int activeHealthBars;
+        public float hpBarUpperLimit;
+        public float hpBarLowerLimit;
+    }
+
     [SerializeField] private GameObject mainContainer;
-    [SerializeField] private GameObject[] lives;
 
     [SerializeField] private Image portraitContainer;
+    [SerializeField] private Image livesBar;
 
     [SerializeField] private Sprite[] portraits;
 
-    private enum Portraits
+
+    public enum Portraits
     {
         Full,
         Damaged,
         Dead
     }
 
-    private int maxHealth;
 
     private float HEALTH_SHOW_TIME = 1f;
 
-    public void InitUI(int maxHealth)
+    [SerializeField] private HPBar[] hpBars;
+
+    public HPBar currentHPBar;
+
+    public void InitUI(int currentHealth, int healthPerBar, int currentHealthBars)
     {
-        this.maxHealth = maxHealth;
-        foreach (GameObject live in lives)
-        {
-            live.SetActive(true);
-        }
-        mainContainer.SetActive(false);
+        UpdateCurrentHealthBar(currentHealthBars);
+        float currentBarAmount = (currentHPBar.hpBarUpperLimit - currentHPBar.hpBarLowerLimit) * currentHealth / healthPerBar;
+        livesBar.fillAmount = currentHPBar.hpBarLowerLimit + currentBarAmount;
+        StartCoroutine(ShowHUDUI());
     }
 
-    //Actualizar vidas antes de aparecer
-    public void UpdateHealthUI(int currentHealth)
+    public void UpdateHealthUI(int currentHealth, int healthPerBar, int currentHealthBars)
     {
-        for (int i = 0; i < lives.Length; i++)
+        SetPortraitImage(Portraits.Damaged);
+        float currentBarAmount = (currentHPBar.hpBarUpperLimit - currentHPBar.hpBarLowerLimit) * currentHealth / healthPerBar;
+        livesBar.fillAmount = currentHPBar.hpBarLowerLimit + currentBarAmount;
+        if (currentHealthBars == 3 && currentHealth == healthPerBar)
         {
-            lives[i].SetActive(i + 1 <= currentHealth);
-        }
-        SetPortraitImage(currentHealth);
-
-        if (currentHealth == maxHealth)
-        {
+            SetPortraitImage(Portraits.Full);
             StartCoroutine(ShowHUDUI());
         }
         else
@@ -52,32 +59,29 @@ public class HealthUIController : MonoBehaviour
         }
     }
 
-    private void SetPortraitImage(int currentHealth)
+
+    public void UpdateCurrentHealthBar(int currentHealthBars)
     {
-        if (currentHealth == 0)
-        {
-            portraitContainer.sprite = portraits[(int)Portraits.Dead];
-        }
-        else if (currentHealth == maxHealth)
-        {
-            portraitContainer.sprite = portraits[(int)Portraits.Full];
-        }
-        else
-        {
-            portraitContainer.sprite = portraits[(int)Portraits.Damaged];
-        }
+        currentHPBar = Array.Find(hpBars, hpBar => hpBar.activeHealthBars == currentHealthBars);
+    }
+
+    private void SetPortraitImage(Portraits portrait)
+    {
+        portraitContainer.sprite = portraits[(int)portrait];
+    }
+
+    public void SetDeadPortraitImage()
+    {
+        portraitContainer.sprite = portraits[(int)Portraits.Dead];
     }
 
     public void ResetHealthUI()
     {
+        UpdateCurrentHealthBar(3);
         portraitContainer.sprite = portraits[(int)Portraits.Full];
-        foreach (GameObject live in lives)
-        {
-            live.SetActive(true);
-        }
+        livesBar.fillAmount = 1;
     }
 
-    //Animacion de aparecer y desaparecer
     private IEnumerator ShowHUDUI()
     {
         mainContainer.SetActive(true);

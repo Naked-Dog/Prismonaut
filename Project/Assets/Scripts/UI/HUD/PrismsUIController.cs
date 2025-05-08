@@ -16,7 +16,6 @@ public class PrismsUIController : MonoBehaviour
         {
             prisms[i].SetActive(i + 1 <= currentPrism);
         }
-        //mainContainer.SetActive(false);
     }
 
     public void UpdatePrismUI(int currentPrism)
