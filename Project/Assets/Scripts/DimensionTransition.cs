@@ -17,7 +17,7 @@ public class DimensionTransition : MonoBehaviour
     [HideInInspector] public Vector3 endPoint = new Vector3(5, 5, 0);
     private Vector3 startPoint => transform.position;
     private BoxCollider2D[] box2DColliders => GetComponents<BoxCollider2D>();
-    private CameraSystem.CameraState cameraManager => FindFirstObjectByType<CameraSystem.CameraState>();
+    private CameraManager cameraManager => FindFirstObjectByType<CameraManager>();
     private bool isTraveling;
     private PlayerBaseModule playerController = null;
     private InputAction trianglePowerAction;

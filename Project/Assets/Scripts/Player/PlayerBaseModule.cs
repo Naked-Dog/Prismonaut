@@ -26,7 +26,7 @@ namespace PlayerSystem
 
         private PlayerInput inputModule;
         private PlayerMovement movementModule;
-        private PlayerAnimations animationsModule;
+        public PlayerAnimations animationsModule;
         public PlayerPowersModule powersModule;
         public PlayerHealthModule healthModule;
         private PlayerAudioModule audioModule;
