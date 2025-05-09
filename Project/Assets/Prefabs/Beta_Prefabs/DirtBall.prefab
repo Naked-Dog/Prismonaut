@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6975564815028125986}
   - component: {fileID: 1029000078627797169}
   - component: {fileID: 1501560780740950896}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DirtBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

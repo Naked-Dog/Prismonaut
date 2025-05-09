@@ -10,6 +10,18 @@ public class PrismsUIController : MonoBehaviour
 
     private readonly float PRISM_SHOW_TIME = 1f;
 
+    public static PrismsUIController Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
     public void InitUI(int currentPrism)
     {
         for (int i = 0; i < prisms.Length; i++)

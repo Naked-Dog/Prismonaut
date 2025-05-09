@@ -13,6 +13,17 @@ MonoBehaviour:
   m_Name: Main Camera Blends
   m_EditorClassIdentifier: 
   m_CustomBlends:
+  - m_From: '**ANY CAMERA**'
+    m_To: RegularCamera
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.5
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
   - m_From: RegularCamera
     m_To: LookDownCamera
     m_Blend:
@@ -42,33 +53,11 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 0
-  - m_From: LookDownCamera
-    m_To: RegularCamera
-    m_Blend:
-      m_Style: 1
-      m_Time: 0.5
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
   - m_From: RegularCamera
     m_To: FallingCamera
     m_Blend:
       m_Style: 1
       m_Time: 1
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: FallingCamera
-    m_To: RegularCamera
-    m_Blend:
-      m_Style: 1
-      m_Time: 1.5
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []
@@ -86,11 +75,22 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: DialogueCamera
-    m_To: RegularCamera
+  - m_From: RegularCamera
+    m_To: LookUpCamera
     m_Blend:
       m_Style: 1
-      m_Time: 0.5
+      m_Time: 1
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: RegularCamera
+    m_To: LookDownCamera
+    m_Blend:
+      m_Style: 1
+      m_Time: 1
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []

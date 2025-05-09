@@ -20,6 +20,8 @@ public class HealthUIController : MonoBehaviour
 
     [SerializeField] private Sprite[] portraits;
 
+    public static HealthUIController Instance;
+
 
     public enum Portraits
     {
@@ -29,18 +31,25 @@ public class HealthUIController : MonoBehaviour
     }
 
 
-    private float HEALTH_SHOW_TIME = 1f;
-
     [SerializeField] private HPBar[] hpBars;
 
     public HPBar currentHPBar;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     public void InitUI(int currentHealth, int healthPerBar, int currentHealthBars)
     {
         UpdateCurrentHealthBar(currentHealthBars);
         float currentBarAmount = (currentHPBar.hpBarUpperLimit - currentHPBar.hpBarLowerLimit) * currentHealth / healthPerBar;
         livesBar.fillAmount = currentHPBar.hpBarLowerLimit + currentBarAmount;
-        StartCoroutine(ShowHUDUI());
     }
 
     public void UpdateHealthUI(int currentHealth, int healthPerBar, int currentHealthBars)
@@ -51,11 +60,6 @@ public class HealthUIController : MonoBehaviour
         if (currentHealthBars == 3 && currentHealth == healthPerBar)
         {
             SetPortraitImage(Portraits.Full);
-            StartCoroutine(ShowHUDUI());
-        }
-        else
-        {
-            mainContainer.SetActive(true);
         }
     }
 
@@ -82,10 +86,4 @@ public class HealthUIController : MonoBehaviour
         livesBar.fillAmount = 1;
     }
 
-    private IEnumerator ShowHUDUI()
-    {
-        mainContainer.SetActive(true);
-        yield return new WaitForSeconds(HEALTH_SHOW_TIME);
-        mainContainer.SetActive(false);
-    }
 }

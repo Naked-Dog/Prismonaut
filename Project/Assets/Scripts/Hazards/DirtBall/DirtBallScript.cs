@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using PlayerSystem;
@@ -13,6 +14,7 @@ public class DirtBallScript : MonoBehaviour
     private Animator anim;
     private string randomAnim;
     private string currentAnim;
+    private const float baseDeathTime = 1;
 
     private void Awake()
     {
@@ -46,6 +48,25 @@ public class DirtBallScript : MonoBehaviour
         {
             Death();
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<DirtSpawner>())
+        {
+            StartCoroutine(DieAfterTime(baseDeathTime));
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponent<DirtSpawner>()) StopAllCoroutines();
+    }
+
+    IEnumerator DieAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        Death();
     }
 
     private void Death()

@@ -42,9 +42,6 @@ public enum CollectableType
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Player")]
-    [SerializeField] private PlayerBaseModule player;
-
     [Header("Collectables")]
     [SerializeField] private int levelTargetGems = 3;
     [SerializeField] private int collectedGems = 0;
@@ -53,8 +50,7 @@ public class GameManager : MonoBehaviour
     [Header("GameWin")]
     [SerializeField] private GameObject[] endGamePortals;
 
-    [Header("HUD")]
-    [SerializeField] private PrismsUIController prismsUIController;
+    public static GameManager Instance;
 
 
     #region Old Code
@@ -64,8 +60,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (player == null) player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBaseModule>();
-        prismsUIController.InitUI(collectedPrisms);
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        
+        PrismsUIController.Instance.InitUI(collectedPrisms);
     }
 
     public void GetGem()
@@ -83,7 +85,7 @@ public class GameManager : MonoBehaviour
     public void GetPrism()
     {
         collectedPrisms++;
-        prismsUIController.UpdatePrismUI(collectedPrisms);
+        PrismsUIController.Instance.UpdatePrismUI(collectedPrisms);
     }
 
     private IEnumerator EnableGameEndPortals()

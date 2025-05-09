@@ -9,17 +9,15 @@ namespace PlayerSystem
     {
         private EventBus eventBus;
         private PlayerState playerState;
-        private HealthUIController healthUIController;
         private Rigidbody2D rb2d;
         private MonoBehaviour mb;
         private Coroutine hpRegenCoroutine;
 
-        public PlayerHealthModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, HealthUIController healthUIController, MonoBehaviour mb)
+        public PlayerHealthModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, MonoBehaviour mb)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
             this.rb2d = rb2d;
-            this.healthUIController = healthUIController;
             this.mb = mb;
             eventBus.Subscribe<RequestRespawn>(Respawn);
         }
@@ -35,7 +33,7 @@ namespace PlayerSystem
                 {
                     if (playerState.currentHealthBars == 1)
                     {
-                        healthUIController.UpdateHealthUI(0, playerState.healthPerBar, 1);
+                        HealthUIController.Instance.UpdateHealthUI(0, playerState.healthPerBar, 1);
                         Die();
                         return true;
                     }
@@ -43,10 +41,10 @@ namespace PlayerSystem
                     {
                         playerState.currentHealthBars--;
                         playerState.currentHealth = playerState.healthPerBar;
-                        healthUIController.UpdateCurrentHealthBar(playerState.currentHealthBars);
+                        HealthUIController.Instance.UpdateCurrentHealthBar(playerState.currentHealthBars);
                     }
                 }
-                healthUIController.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
+                HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
                 eventBus.Publish(new OnDamageReceived());
             }
             StartHPRegen();
@@ -60,13 +58,13 @@ namespace PlayerSystem
 
             playerState.currentHealth -= 1;
 
-            healthUIController.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
+            HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
 
             if (playerState.currentHealth <= 0)
             {
                 if (playerState.currentHealthBars == 1)
                 {
-                    healthUIController.UpdateHealthUI(0, playerState.healthPerBar, 1);
+                    HealthUIController.Instance.UpdateHealthUI(0, playerState.healthPerBar, 1);
                     Die();
                     return;
                 }
@@ -74,9 +72,9 @@ namespace PlayerSystem
                 {
                     playerState.currentHealthBars--;
                     playerState.currentHealth = playerState.healthPerBar;
-                    healthUIController.UpdateCurrentHealthBar(playerState.currentHealthBars);
+                    HealthUIController.Instance.UpdateCurrentHealthBar(playerState.currentHealthBars);
                 }
-                healthUIController.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
+                HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
             }
             StartHPRegen();
             WarpPlayerToSafeGround();
@@ -89,7 +87,7 @@ namespace PlayerSystem
 
         public void Die()
         {
-            healthUIController.SetDeadPortraitImage();
+            HealthUIController.Instance.SetDeadPortraitImage();
             playerState.healthState = HealthState.Death;
             eventBus.Publish(new OnDeath());
             eventBus.Publish(new RequestPause());
@@ -105,7 +103,7 @@ namespace PlayerSystem
             playerState.healthState = HealthState.Undefined;
             playerState.currentHealthBars = playerState.MAX_HEALTH_BARS;
             playerState.currentHealth = playerState.healthPerBar;
-            healthUIController.ResetHealthUI();
+            HealthUIController.Instance.ResetHealthUI();
         }
 
         private void SetRespawnPosition()
@@ -142,7 +140,7 @@ namespace PlayerSystem
         {
             yield return new WaitForSeconds(playerState.hpRegenRate);
             playerState.currentHealth += 1;
-            healthUIController.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
+            HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
             if (playerState.currentHealth < playerState.healthPerBar)
             {
                 StartHPRegen();

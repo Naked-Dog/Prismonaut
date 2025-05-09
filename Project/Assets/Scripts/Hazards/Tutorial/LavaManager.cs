@@ -1,23 +1,20 @@
 using System;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class LavaManager : MonoBehaviour
 {
-    [SerializeField]
-    private Transform lavaTransform;
-    [SerializeField]
-    private float finalHeight = -1f;
-    [SerializeField]
-    private float initialHeight = -10f;
-    [SerializeField]
-    private float riseDuration = -1f;
-    [SerializeField]
-    private float timeElapsed = 0f;
+    [SerializeField] private Transform lavaTransform;
+    [SerializeField] private float finalHeight = -1f;
+    [SerializeField] private float initialHeight = -10f;
+    [SerializeField] private float riseDuration = -1f;
+    [SerializeField] private float timeElapsed = 0f;
+    [SerializeField] private List<LavaPositions> lavaPositions = new List<LavaPositions>();
+    [SerializeField] private ShakeScriptable shakeProfile;
+
     private bool eventStarted = false;
     private bool eventFinished = false;
-    [SerializeField]
-    private List<LavaPositions> lavaPositions = new List<LavaPositions>();
     public static LavaManager Instance { get; private set; }
 
     private void Awake()
@@ -56,6 +53,7 @@ public class LavaManager : MonoBehaviour
     {
         if (eventStarted) return;
         eventStarted = true;
+        ShakeManager.Instance.CameraShakeWithProfile(shakeProfile);
         if(PlatformManager.Instance) PlatformManager.Instance.StartPlatforms();
     }
 

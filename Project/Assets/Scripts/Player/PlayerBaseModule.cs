@@ -15,7 +15,6 @@ namespace PlayerSystem
         [SerializeField] private FixedJoint2D drillJoint;
         [SerializeField] private PhysicsEventsRelay shieldPhysicsRelay;
         [SerializeField] private InputActionAsset playerInputAsset;
-        [SerializeField] private HealthUIController healthUIController;
         [SerializeField] private GameObject interactSign;
         [SerializeField] private Collider2D dodgeCollider;
         [SerializeField] private Collider2D playerMainCollider;
@@ -44,7 +43,7 @@ namespace PlayerSystem
             movementModule = new Physics2DMovement(eventBus, state, avatarRigidbody2D);
             animationsModule = new PlayerAnimations(eventBus, state, animator);
             powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, shieldPhysicsRelay, dodgeCollider, playerMainCollider, this);
-            healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, healthUIController, this)
+            healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, this)
             ;
             interactionModule = new PlayerInteractionModule(eventBus, gameObject.GetComponent<PhysicsEventsRelay>(), interactSign, state);
 
@@ -52,7 +51,7 @@ namespace PlayerSystem
             avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionStay2DAction.AddListener(OnCollisionStay2D);
             avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionExit2DAction.AddListener(OnCollisionExit2D);
 
-            healthUIController.InitUI(state.currentHealth, state.healthPerBar, state.currentHealthBars);
+            HealthUIController.Instance.InitUI(state.currentHealth, state.healthPerBar, state.currentHealthBars);
             MenuController.Instance?.setEvents(eventBus);
             DialogueController.Instance?.SetEventBus(eventBus);
             animator.GetComponent<PlayerAnimationEvents>()?.SetEventBus(eventBus);
