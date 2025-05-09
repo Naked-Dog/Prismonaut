@@ -19,5 +19,18 @@ namespace PlayerSystem
         public float powerTimeLeft = 0f;
         public bool isOnInteractable = false;
         public bool isParry;
+
+        // Health
+        public readonly int MAX_HEALTH_BARS = 3;
+        public int currentHealthBars = 3;
+        public int healthPerBar = 8;
+        public int currentHealth = 8;
+        public float hpRegenRate = 2f;
+
+        // Power Charges
+        public int maxCharges = 1;
+        public float currentCharges = 1f;
+        public float chargeCooldown = 2f;
+        public bool isRecharging = false;
     }
 }

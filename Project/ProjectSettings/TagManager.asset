@@ -27,6 +27,8 @@ TagManager:
   - CheckPoint
   - Dialogue
   - HeavyTerrain
+  - HUD
+  - Slime
   layers:
   - Default
   - TransparentFX
@@ -42,7 +44,6 @@ TagManager:
   - Dodgeable
   - Dirthole
   - Player
-  - 
   - 
   - 
   - 
