@@ -7,7 +7,7 @@ public class PlatformManager : MonoBehaviour
     public GameObject lavaManager;
 
     public List<PlatformScript> platforms = new List<PlatformScript>();
-    private int platformIndex = -1;
+    [SerializeField] private int platformIndex = -1;
     private float gravityScale = 0.15f;
     private bool playerOnPlatform = false;
     private bool eventStarted = false;

@@ -48,6 +48,10 @@ public abstract class BaseSlime : MonoBehaviour
 
     private IEnumerator HandleBounceOrAttack(BounceValues bv)
     {
+        Debug.Log(bv.bounceOnY);
+        Debug.Log(bv.relativeSpeed);
+        Debug.Log(bv.normal);
+        Debug.Log(bv.bounceImpulse);
         Rigidbody2D rb = bv.rb;
         rb.linearVelocity = Vector2.zero;
         originalType = rb.bodyType;
@@ -58,6 +62,7 @@ public abstract class BaseSlime : MonoBehaviour
         PlayerBaseModule player = rb.GetComponent<PlayerBaseModule>();
         if (player && !bv.bounceOnY)
         {
+            Debug.Log("A");
             player.animationsModule.InvertPlayerFacingDirection();
         }
 
@@ -118,6 +123,7 @@ public abstract class BaseSlime : MonoBehaviour
             );
         }
 
+        bv.rb.linearVelocity = Vector2.zero;
         bv.rb.AddForce(newVel, ForceMode2D.Impulse);
         pendingBounce = null;
     }

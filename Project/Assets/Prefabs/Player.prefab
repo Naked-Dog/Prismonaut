@@ -66,7 +66,6 @@ MonoBehaviour:
   drillJoint: {fileID: 6709985007978781986}
   shieldPhysicsRelay: {fileID: 1218244125048405323}
   playerInputAsset: {fileID: -944628639613478452, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
-  healthUIController: {fileID: 0}
   interactSign: {fileID: 2274050569513530640}
   dodgeCollider: {fileID: 3241963441765974002}
   playerMainCollider: {fileID: 6704855287402592127}
@@ -250,7 +249,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1993005769
+  m_SortingLayerID: 1778953141
   m_SortingLayer: 4
   m_SortingOrder: 2
   m_Sprite: {fileID: -1699354274, guid: f4b4dde8b9da4564c8eb1938cd855088, type: 3}
@@ -902,7 +901,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1993005769
+  m_SortingLayerID: 1778953141
   m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: -104339096, guid: f4b4dde8b9da4564c8eb1938cd855088, type: 3}

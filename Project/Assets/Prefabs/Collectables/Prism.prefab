@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40608e8d79cef0c4f8ad43559f96736a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeProfile: {fileID: 11400000, guid: aee934b9291bf014bb7f7ad252d223f1, type: 2}
 --- !u!1 &8581188222645984392
 GameObject:
   m_ObjectHideFlags: 0

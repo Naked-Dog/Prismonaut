@@ -193,7 +193,7 @@ namespace PlayerSystem
             rb2d.AddForce(Vector2.up * excessVelocity, ForceMode2D.Impulse);
             var fallingCamera = CameraManager.Instance.SearchCamera(CineCameraType.Falling);
             CameraManager.Instance.ChangeCamera(fallingCamera);
-            Debug.Log("Falling");
+            //Debug.Log("Falling");
         }
 
         private void PerformLanding()

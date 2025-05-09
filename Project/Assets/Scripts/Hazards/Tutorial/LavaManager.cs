@@ -53,7 +53,7 @@ public class LavaManager : MonoBehaviour
     {
         if (eventStarted) return;
         eventStarted = true;
-        ShakeManager.Instance.CameraShakeWithProfile(shakeProfile);
+        ShakeManager.Instance.CameraShake(shakeProfile);
         if(PlatformManager.Instance) PlatformManager.Instance.StartPlatforms();
     }
 

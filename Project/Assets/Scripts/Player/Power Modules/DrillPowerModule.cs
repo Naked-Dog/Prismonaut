@@ -339,6 +339,7 @@ namespace PlayerSystem
                 Debug.Log("lighobject");
                 lightObjectRigidBody.transform.SetParent(null, true);
                 lightObjectRigidBody.simulated = true;
+                lightObjectRigidBody.linearVelocity = Vector2.zero;
                 lightObjectRigidBody.AddForce(drillDir * powersConstants.lightObjectExitForce, ForceMode2D.Impulse);
                 rb2d.linearVelocity = Vector2.up * powersConstants.lightPlayerExitForce;
             }
