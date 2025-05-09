@@ -44,14 +44,13 @@ namespace CameraSystem
             StartCoroutine(CameraChangeCheck(camera));
         }
 
-
         private IEnumerator CameraChangeCheck(CinemachineVirtualCamera newCamera)
         {
             float waitingAmount = newCamera.gameObject.GetComponent<CamScript>().waitingAmount;
+            activeCamera = newCamera;
             yield return new WaitForSeconds(waitingAmount);
 
             newCamera.Priority = 10;
-            activeCamera = newCamera;
 
             foreach (CinemachineVirtualCamera cam in cameras) 
             { 

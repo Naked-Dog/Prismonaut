@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using CameraSystem;
+using Cinemachine;
 
 namespace PlayerSystem
 {
@@ -32,7 +34,6 @@ namespace PlayerSystem
 
         readonly float maxJumpCooldown = 0.2f;
         readonly float maxLandingBreakCooldown = 0.1f;
-        readonly float groundedGracePeriod = 0.1f;
         private bool pauseMovement = false;
 
         public Physics2DMovement(
@@ -105,7 +106,7 @@ namespace PlayerSystem
 
             if (hasGroundedContact)
             {
-                groundedGraceTimer = groundedGracePeriod;
+                groundedGraceTimer = movementConstants.groundedGracePeriod;
             }
             else
             {
@@ -142,7 +143,8 @@ namespace PlayerSystem
             if (jumpRequested) PerformJump();
             if (pauseMovement) return;
             if (requestedMovement != 0f) PerformMovement();
-            else PerformBreak();
+            else PerformHorizontalBreak();
+            PerformVerticalBreak();
         }
 
         private void PerformJump()
@@ -172,16 +174,26 @@ namespace PlayerSystem
                 forceToApply = requestedMovement;
             }
             rb2d.AddForce(forceToApply * Vector2.right);
-            if (Mathf.Sign(requestedMovement * rb2d.linearVelocity.x) < 0) PerformBreak();
+            if (Mathf.Sign(requestedMovement * rb2d.linearVelocity.x) < 0) PerformHorizontalBreak();
             eventBus.Publish(new OnHorizontalMovement(requestedMovement));
             requestedMovement = 0f;
         }
 
-        private void PerformBreak()
+        private void PerformHorizontalBreak()
         {
             float breakModifier = playerState.groundState == GroundState.Airborne ? movementConstants.airBreak : movementConstants.groundBreak;
             float breakForce = -rb2d.linearVelocity.x * breakModifier;
             rb2d.AddForce(Vector2.right * breakForce, ForceMode2D.Force);
+        }
+
+        private void PerformVerticalBreak() {
+            float threshold = Mathf.Abs(movementConstants.maxFallingVelocity);
+            float excessVelocity = -rb2d.linearVelocity.y - threshold;
+            if (excessVelocity <= 0) return;
+            rb2d.AddForce(Vector2.up * excessVelocity, ForceMode2D.Impulse);
+            var fallingCamera = CameraManager.Instance.SearchCamera(CineCameraType.Falling);
+            CameraManager.Instance.ChangeCamera(fallingCamera);
+            Debug.Log("Falling");
         }
 
         private void PerformLanding()
@@ -191,6 +203,8 @@ namespace PlayerSystem
             rb2d.AddForce(Vector2.right * -rb2d.linearVelocity.x * 0.75f, ForceMode2D.Impulse);
             landingMoveCooldown = maxLandingBreakCooldown;
             eventBus.Subscribe<OnUpdate>(ReduceLandingMoveCooldown);
+            var standingCamera = CameraManager.Instance.SearchCamera(CineCameraType.Regular);
+            CameraManager.Instance.ChangeCamera(standingCamera);
         }
 
         private void ReduceJumpCooldown(OnUpdate e)
