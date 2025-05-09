@@ -18,20 +18,19 @@ public class ShakeManager : MonoBehaviour
         impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
-    public void CameraShake()
+    public void CameraShake(ShakeScriptable profile = null)
     {
-        impulseSource.GenerateImpulseWithForce(globalShakeForce);
-    }
+        if(profile != null)
+        {
+            impulseDefinition = impulseSource.m_ImpulseDefinition;
 
-    public void CameraShakeWithProfile(ShakeScriptable profile)
-    {
-        impulseDefinition = impulseSource.m_ImpulseDefinition;
+            impulseDefinition.m_ImpulseType = profile.impulseType;
+            impulseDefinition.m_ImpulseShape = profile.impulseShape;
+            impulseDefinition.m_ImpulseDuration = profile.shakeTime;
+            impulseSource.m_DefaultVelocity = profile.Velocity;
 
-        impulseDefinition.m_ImpulseType = profile.impulseType;
-        impulseDefinition.m_ImpulseShape = profile.impulseShape;
-        impulseDefinition.m_ImpulseDuration = profile.shakeTime;
-        impulseSource.m_DefaultVelocity = profile.Velocity;
-
-        impulseSource.GenerateImpulseWithForce(profile.shakeForce);
+            impulseSource.GenerateImpulseWithForce(profile.shakeForce);
+        }
+        else impulseSource.GenerateImpulseWithForce(globalShakeForce);
     }
 }

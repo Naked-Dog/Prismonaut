@@ -16,6 +16,7 @@ namespace CameraSystem
         [SerializeField] private CameraScriptable cameraValues;
 
         [SerializeField] private Transform baseFollowObject;
+        public bool forcedTransition;
 
         public static CameraManager Instance { get; private set; }
 
@@ -43,9 +44,12 @@ namespace CameraSystem
             StopAllCoroutines();
             StartCoroutine(CameraChangeCheck(camera));
         }
-
         private IEnumerator CameraChangeCheck(CinemachineVirtualCamera newCamera)
         {
+            CineCameraType activeCam = activeCamera ? activeCamera.GetComponent<CamScript>().cameraType: CineCameraType.Regular;
+            CineCameraType newCam = newCamera.GetComponent<CamScript>().cameraType;
+            if (activeCam == CineCameraType.Empty && newCam != CineCameraType.Empty && !forcedTransition) yield break;
+
             float waitingAmount = newCamera.gameObject.GetComponent<CamScript>().waitingAmount;
             activeCamera = newCamera;
             yield return new WaitForSeconds(waitingAmount);
@@ -56,6 +60,19 @@ namespace CameraSystem
             { 
                 if(cam != newCamera) cam.Priority = 0; 
             }
+            forcedTransition = false;
+        }
+
+        public void ForceChangeCamera(CinemachineVirtualCamera camera)
+        {
+            StartCoroutine(DoForcedCameraChange(camera));
+        }
+        private IEnumerator DoForcedCameraChange(CinemachineVirtualCamera camera)
+        {
+            forcedTransition = true;
+            ChangeCamera(camera);
+            yield return null;
+            forcedTransition = false;
         }
 
         public void RegisterCamera(CinemachineVirtualCamera camera)
