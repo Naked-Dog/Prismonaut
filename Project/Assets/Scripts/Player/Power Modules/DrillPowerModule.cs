@@ -169,7 +169,7 @@ namespace PlayerSystem
         {
             GameObject go = other.gameObject;
 
-            if (other.GetComponent<TestFly>())
+            if (other.GetComponent<DirtBallScript>())
             {
                 EnterSecondStage(go);
             }

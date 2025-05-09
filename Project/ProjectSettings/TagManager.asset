@@ -28,6 +28,7 @@ TagManager:
   - Dialogue
   - HeavyTerrain
   - HUD
+  - Slime
   layers:
   - Default
   - TransparentFX
@@ -39,7 +40,6 @@ TagManager:
   - HeavyGround
   - Safeplaces
   - Invisiblelayer
-  - 
   - 
   - 
   - 
