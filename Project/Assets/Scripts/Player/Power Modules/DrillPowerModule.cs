@@ -185,6 +185,10 @@ namespace PlayerSystem
             {
                 DrillObstacle();
             }
+            else if(go.CompareTag("Slime"))
+            {
+                Deactivate();
+            }
         }
 
         private void EnterSecondStage(GameObject other)

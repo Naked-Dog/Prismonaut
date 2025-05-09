@@ -13,6 +13,7 @@ namespace PlayerSystem
         private Rigidbody2D rb2d;
         private PlayerPowersScriptable movementValues;
         private Collider2D dodgeCollider;
+        private PhysicsEventsRelay dodgePhysicsRelay;
         private Collider2D playerCollider;
         private PlayerBaseModule baseModule;
         private Vector2 inputDirection = Vector2.zero;
@@ -37,6 +38,7 @@ namespace PlayerSystem
             this.playerCollider = playerCollider;
             this.baseModule = baseModule;
 
+            dodgePhysicsRelay = dodgeCollider.GetComponent<PhysicsEventsRelay>();
             movementValues = GlobalConstants.Get<PlayerPowersScriptable>();
             dodgeCollider.enabled = false;
 
@@ -81,6 +83,15 @@ namespace PlayerSystem
             eventBus.Subscribe<OnFixedUpdate>(FixedImpulse);
             eventBus.Subscribe<OnFixedUpdate>(CheckCancelByShapeCast);
             eventBus.Subscribe<OnFixedUpdate>(CheckEnemyCollision);
+            dodgePhysicsRelay.OnCollisionEnter2DAction.AddListener(CheckCollsion);
+        }
+
+        private void CheckCollsion(Collision2D col)
+        {
+            if(col.gameObject.CompareTag("Slime"))
+            {
+                Deactivate();
+            }
         }
 
         private void FixedImpulse(OnFixedUpdate e)
@@ -95,7 +106,7 @@ namespace PlayerSystem
             }
             else
             {
-                Deactivate(false);
+                Deactivate();
             }
         }
 
@@ -129,7 +140,7 @@ namespace PlayerSystem
             insideEnemy = hits.Any(c => c.CompareTag("Enemy"));
         }
 
-        private void Deactivate(bool force)
+        private void Deactivate(bool force = false)
         {
             if (insideEnemy)
             {
