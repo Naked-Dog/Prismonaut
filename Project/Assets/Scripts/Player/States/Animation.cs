@@ -10,5 +10,6 @@ namespace PlayerSystem
         Land,
         Dodge,
         Shield,
+        Drill
     }
 }

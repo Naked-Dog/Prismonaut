@@ -31,6 +31,7 @@ namespace PlayerSystem
                     return;
                 case Power.Drill:
                     animator.transform.parent.rotation = Quaternion.Euler(0, 0, playerState.rotation);
+                    SetState(AnimationState.Drill);
                     return;
                 case Power.Shield:
                     SetState(AnimationState.Shield);
@@ -86,6 +87,9 @@ namespace PlayerSystem
                     break;
                 case AnimationState.Shield:
                     animator.Play("Shield");
+                    break;
+                case AnimationState.Drill:
+                    animator.Play("Drill");
                     break;
             }
 

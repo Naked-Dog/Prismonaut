@@ -1,0 +1,985 @@
+fileFormatVersion: 2
+guid: ca3768a1a54772b499886041c3a108c1
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_0
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 424
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9540ed64b5e7974fa735c1c7d65b2ad
+      internalID: -1032850669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_1
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 423
+        width: 32
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aae968e30ea91964e86d12fe7cc2e91a
+      internalID: -270577917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_2
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 423
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 640fe7436997faa449db34f351d6619b
+      internalID: -676911959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_3
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 421
+        width: 42
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 202e8c6c6d348774bbec48bda0c018d6
+      internalID: 1341271601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_5
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 421
+        width: 42
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 857766bf766217e4f952c58772b3971c
+      internalID: -950045125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_6
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 421
+        width: 42
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfc70898f2f97f64e890d7e0f3506a67
+      internalID: -437556743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_7
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 368
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d04b5a7478dbba43870558352b2d078
+      internalID: 1553570051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_8
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 368
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cccc8ad54e8766f47a0a1ec0d9a1d33f
+      internalID: -1978704146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_9
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 367
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77b58e5dfe77093448956e34b3d57f2e
+      internalID: 268764267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_10
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 363
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d4aeec7f91c57443a4fb68ee63b660e
+      internalID: 1833639650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_11
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 362
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f9f40e0e08c7e94da639b9622987260
+      internalID: -1057476691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_12
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 362
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37bf0e50aa08f2340a9b40572264fc7e
+      internalID: 1743816711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_13
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 305
+        width: 36
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c478f416aaedd844b2e80fcfbecd15e
+      internalID: 1785448822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_14
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 305
+        width: 36
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8364ce2a5a813194b91cc925d8535593
+      internalID: -52594729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_15
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 304
+        width: 36
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 780cab1ceebf1ae489d368fe671b2c79
+      internalID: 2047142883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_16
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 305
+        width: 36
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bb45bd7d91062d4d8d6fc8fa35643d4
+      internalID: 302547854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_17
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 305
+        width: 36
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6da7a5871b561f4881e8dd0a585dc66
+      internalID: 339154924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_18
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 305
+        width: 36
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cdb8dfd29ee7b84bbdae3779c3f6f66
+      internalID: 854170517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_19
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 260
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34b10626c36f60245b9028273351a3c4
+      internalID: 915740177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_20
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 263
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fef80e276fcd1e147be79e2f4ad880c5
+      internalID: 1201176970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_21
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 260
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b0baefbb5779ca48af39c65c654c01a
+      internalID: -982893350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_22
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 189
+        width: 35
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a72576f64f382a4f8a57a59ef578276
+      internalID: -1491997613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_23
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 188
+        width: 50
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2202b877a1ee2fb4599925e3679b0404
+      internalID: 112318151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_24
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 189
+        width: 47
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23de65350f8c568409786294be799aad
+      internalID: 883194065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_25
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 189
+        width: 50
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 927c3a152a0071140850614aa8095c06
+      internalID: 1272226885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_26
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 189
+        width: 52
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc33ca0b234fa01459a7d9f153d40015
+      internalID: -1783260526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_28
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 138
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e88cd6a23b6f7e14383a62f703fbfbc2
+      internalID: 38507754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_29
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 138
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbae91bae13022b47bdad906b1d06d11
+      internalID: 1794433917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_30
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 138
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b32d024eeb9c4fe43803e356f220935c
+      internalID: -1025832871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_31
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 138
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dabc3fe12c4c2e045a672430f435360d
+      internalID: -791708051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_32
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 138
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a18a823bb02e5f468945584f2b29a44
+      internalID: -1343967681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_33
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 79
+        width: 35
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6de2248d48e590b4d80fd365059a0208
+      internalID: 978341699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_34
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 79
+        width: 35
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae8a15756c60c754d9abedfa5354d55b
+      internalID: -1780163840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_35
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 79
+        width: 35
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14572f2839b94e340994e5f9c1da69e2
+      internalID: -149203390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_37
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 79
+        width: 35
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dfb49041c1c06e44956e1edebee1db4
+      internalID: -1118951458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_39
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 26
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9ef48020b234a14c9e3cd8ceaba174b
+      internalID: -1901120620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prismo_SPRITESHEET_POWERS_40
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 26
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19f0749de6d64c94d94785889aeb3897
+      internalID: -2046968789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 92f001f6cd435ae45a7403bf664ef992
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Prismo_SPRITESHEET_POWERS_0: -1032850669
+      Prismo_SPRITESHEET_POWERS_1: -270577917
+      Prismo_SPRITESHEET_POWERS_10: 1833639650
+      Prismo_SPRITESHEET_POWERS_11: -1057476691
+      Prismo_SPRITESHEET_POWERS_12: 1743816711
+      Prismo_SPRITESHEET_POWERS_13: 1785448822
+      Prismo_SPRITESHEET_POWERS_14: -52594729
+      Prismo_SPRITESHEET_POWERS_15: 2047142883
+      Prismo_SPRITESHEET_POWERS_16: 302547854
+      Prismo_SPRITESHEET_POWERS_17: 339154924
+      Prismo_SPRITESHEET_POWERS_18: 854170517
+      Prismo_SPRITESHEET_POWERS_19: 915740177
+      Prismo_SPRITESHEET_POWERS_2: -676911959
+      Prismo_SPRITESHEET_POWERS_20: 1201176970
+      Prismo_SPRITESHEET_POWERS_21: -982893350
+      Prismo_SPRITESHEET_POWERS_22: -1491997613
+      Prismo_SPRITESHEET_POWERS_23: 112318151
+      Prismo_SPRITESHEET_POWERS_24: 883194065
+      Prismo_SPRITESHEET_POWERS_25: 1272226885
+      Prismo_SPRITESHEET_POWERS_26: -1783260526
+      Prismo_SPRITESHEET_POWERS_27: 4556449
+      Prismo_SPRITESHEET_POWERS_28: 38507754
+      Prismo_SPRITESHEET_POWERS_29: 1794433917
+      Prismo_SPRITESHEET_POWERS_3: 1341271601
+      Prismo_SPRITESHEET_POWERS_30: -1025832871
+      Prismo_SPRITESHEET_POWERS_31: -791708051
+      Prismo_SPRITESHEET_POWERS_32: -1343967681
+      Prismo_SPRITESHEET_POWERS_33: 978341699
+      Prismo_SPRITESHEET_POWERS_34: -1780163840
+      Prismo_SPRITESHEET_POWERS_35: -149203390
+      Prismo_SPRITESHEET_POWERS_36: 1732318283
+      Prismo_SPRITESHEET_POWERS_37: -1118951458
+      Prismo_SPRITESHEET_POWERS_38: 1098097388
+      Prismo_SPRITESHEET_POWERS_39: -1901120620
+      Prismo_SPRITESHEET_POWERS_4: 1646705825
+      Prismo_SPRITESHEET_POWERS_40: -2046968789
+      Prismo_SPRITESHEET_POWERS_5: -950045125
+      Prismo_SPRITESHEET_POWERS_6: -437556743
+      Prismo_SPRITESHEET_POWERS_7: 1553570051
+      Prismo_SPRITESHEET_POWERS_8: -1978704146
+      Prismo_SPRITESHEET_POWERS_9: 268764267
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

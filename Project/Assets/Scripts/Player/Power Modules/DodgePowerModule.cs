@@ -23,6 +23,8 @@ namespace PlayerSystem
         private float dashTimer = 0f;
         private bool insideEnemy = false;
 
+        private float waitAnimationTime = 0.1f;
+
         public DodgePowerModule(
             EventBus eventBus,
             PlayerState playerState,
@@ -112,6 +114,12 @@ namespace PlayerSystem
 
         private void CheckCancelByShapeCast(OnFixedUpdate e)
         {
+            if(waitAnimationTime > 0)
+            {
+                waitAnimationTime -= Time.fixedDeltaTime;
+                return;
+            } 
+
             CircleCollider2D circle = dodgeCollider as CircleCollider2D;
             float radius = circle.radius * dodgeCollider.transform.lossyScale.x;
             Vector2 origin = dodgeCollider.transform.TransformPoint(dodgeCollider.offset);
@@ -156,6 +164,7 @@ namespace PlayerSystem
             }
 
             dashTimer = 0f;
+            waitAnimationTime = 0.1f;
             playerState.activePower = Power.None;
             playerCollider.enabled = true;
             dodgeCollider.enabled = false;
