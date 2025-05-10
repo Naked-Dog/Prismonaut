@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Player Movement
   m_EditorClassIdentifier: 
   horizontalGroundedForce: 150
-  horizontalAirborneForce: 50
+  horizontalAirborneForce: 150
   groundBreak: 20
   airBreak: 2
+  groundedGracePeriod: 0.15
   maxHorizontalVelocity: 8
-  maximumYSpeed: 25
-  minimumYSpeed: -15
+  maxFallingVelocity: 16
   gravityScale: 3
-  jumpForce: 12
+  jumpForce: 13
   jumpTime: 0.25
   gravity: 3
   groundCheckExtraHeight: 0.2
@@ -36,4 +36,3 @@ MonoBehaviour:
   trianglePowerForce: 10
   trianglePowerDuration: 0.8
   trianglePowerCooldown: 1
-  oppositeForce: 5

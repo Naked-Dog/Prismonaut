@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3150086469458089482}
   - component: {fileID: 5429863073379483842}
+  - component: {fileID: 3491633719710339983}
   - component: {fileID: 4772145126873460478}
   - component: {fileID: 7052330939612702966}
-  - component: {fileID: 3491633719710339983}
   m_Layer: 0
   m_Name: RegularSlime
-  m_TagString: Ground
+  m_TagString: Slime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,6 +90,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3491633719710339983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223994291575365540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf52aa8ea0ca3ee4d9c3085569e2de02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ss: {fileID: 11400000, guid: 4f580d7df59adb74bbe9e9a192c3686d, type: 2}
 --- !u!61 &4772145126873460478
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -163,16 +176,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3491633719710339983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1223994291575365540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf52aa8ea0ca3ee4d9c3085569e2de02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ss: {fileID: 11400000, guid: 4f580d7df59adb74bbe9e9a192c3686d, type: 2}

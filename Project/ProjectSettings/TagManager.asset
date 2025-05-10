@@ -27,6 +27,8 @@ TagManager:
   - CheckPoint
   - Dialogue
   - HeavyTerrain
+  - HUD
+  - Slime
   layers:
   - Default
   - TransparentFX
@@ -38,11 +40,10 @@ TagManager:
   - HeavyGround
   - Safeplaces
   - Invisiblelayer
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Spikes
+  - Dodgeable
+  - Dirthole
+  - Player
   - 
   - 
   - 
@@ -74,11 +75,14 @@ TagManager:
   - name: Ground
     uniqueID: 60523281
     locked: 0
-  - name: Foreground
-    uniqueID: 1658981879
-    locked: 0
   - name: GameObjects
     uniqueID: 1993005769
+    locked: 0
+  - name: Player
+    uniqueID: 1778953141
+    locked: 0
+  - name: Foreground
+    uniqueID: 1658981879
     locked: 0
   - name: UI
     uniqueID: 1661393963

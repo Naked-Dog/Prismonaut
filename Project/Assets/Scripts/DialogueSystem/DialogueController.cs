@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CameraSystem;
 using PlayerSystem;
-using UnityEditor;
 using UnityEngine;
-using CameraSystem;
 
 public enum DialogueType
 {
@@ -29,10 +27,8 @@ public class DialogueController : MonoBehaviour
     private List<Choice> currentChoices;
     private int currentDialogueIndex = 0;
     private DialogueType currentType;
-    private AudioSource audioSource;
-    private string[] ignoreChars = { " ", ",", "-", "_", "." };
-
     private EventBus eventBus;
+    private int currentCharactersCount = 0;
 
     public static DialogueController Instance { get; private set; }
 
@@ -46,8 +42,6 @@ public class DialogueController : MonoBehaviour
         {
             Instance = this;
         }
-
-        audioSource = GetComponent<AudioSource>();
     }
 
     public void SetEventBus(EventBus bus)
@@ -58,7 +52,7 @@ public class DialogueController : MonoBehaviour
     public void RunDialogue(Narrative narrative)
     {
         eventBus.Publish(new RequestEnableDialogueInputs());
-        CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Dialogue));
+        //CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Dialogue));
         currentDialogueIndex = 0;
         isDialogueRunning = true;
 
@@ -114,11 +108,11 @@ public class DialogueController : MonoBehaviour
     }
 
 
-    private IEnumerator DialogueSequence(Dialogue dialogue)
+    private IEnumerator DialogueSequence(Dialogue dialogue, bool resume = false)
     {
         currentActor = GetActor(dialogue.actor);
         viewController.SetActor(currentActor);
-        viewController.SetDialoguePanel(currentType);
+        viewController.SetDialoguePanel(currentType, resume);
 
         if (currentDialogueIndex == 0)
         {
@@ -128,7 +122,7 @@ public class DialogueController : MonoBehaviour
         yield return WriteDialogue(dialogue);
 
         viewController.ShowNextSign();
-        audioSource.PlayOneShot(skipSound);
+        AudioManager.Instance.Play2DSound(DialogueSoundsEnum.Skip);
         currentDialogueComplete = true;
 
     }
@@ -141,34 +135,44 @@ public class DialogueController : MonoBehaviour
 
     public IEnumerator WriteCharByChar(string dialogueText, float writeSpeed = 0.1f)
     {
-        foreach (var character in dialogueText)
+        for (int i = currentCharactersCount; i < dialogueText.Length; i++)
         {
+            var character = dialogueText[i];
             playDialogueSFX(character.ToString());
             viewController.dialogueTMPText.text += character;
+            currentCharactersCount++;
             yield return new WaitForSeconds(writeSpeed);
+        }
+        currentCharactersCount = 0;
+    }
+
+    public void PauseDialogue()
+    {
+        if(isDialogueRunning) StopAllCoroutines();
+    }
+
+    public void ResumeDialogue()
+    {
+        if(!currentDialogueComplete)
+        {
+            StartCoroutine(DialogueSequence(currentDialogues[currentDialogueIndex], true));
         }
     }
 
     public void playDialogueSFX(string letter)
     {
-        foreach (string character in ignoreChars)
-        {
-            if (character == letter)
-            {
-                return;
-            }
-        }
+        char c = letter[0];
+        
+        if (!char.IsLetter(c)) return;
 
-        var upper = letter.ToUpper();
+        var upper = char.ToUpper(c);
 
-        foreach (AudioClip clip in currentActor.alphabetSounds)
+        if (Enum.TryParse<AlphabetEnum>(upper.ToString(), out var key))
         {
-            var dialogueLetter = clip.name.Last();
-            if (dialogueLetter.ToString() == upper)
-            {
-                audioSource.PlayOneShot(clip);
-                return;
-            }
+            AudioManager.Instance.Play2DSoundByLibrary(
+                key,
+                currentActor.alphabetSoundsLibrary
+            );
         }
     }
 
@@ -177,8 +181,9 @@ public class DialogueController : MonoBehaviour
         StopAllCoroutines();
         viewController.DisplayFullText(currentDialogueText);
         viewController.ShowNextSign();
-        audioSource.PlayOneShot(skipSound);
+        AudioManager.Instance.Play2DSound(DialogueSoundsEnum.Skip);
         currentDialogueComplete = true;
+        currentCharactersCount = 0;
     }
 
     public void EndDialogue()
@@ -186,7 +191,7 @@ public class DialogueController : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(viewController.CloseDialoguePanel());
         isDialogueRunning = false;
-        CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Regular));
+        //CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Regular));
         eventBus.Publish(new RequestDisableDialogueInputs());
     }
 

@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HUD
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 0ce1f194d6164954f84a669c3f020fb1: 1822244500
+    - 0ce1f194d6164954f84a669c3f020fb1: 918618564
+    - 0ce1f194d6164954f84a669c3f020fb1: -599895938
+    - 0ce1f194d6164954f84a669c3f020fb1: -848458489
+    - 0ce1f194d6164954f84a669c3f020fb1: 1917911009
+    - 0ce1f194d6164954f84a669c3f020fb1: -676376387
+    - 0ce1f194d6164954f84a669c3f020fb1: 868020576
+    - 0ce1f194d6164954f84a669c3f020fb1: -93146697
+    - 0ce1f194d6164954f84a669c3f020fb1: 1824648663
+    - 0ce1f194d6164954f84a669c3f020fb1: 878457770
+    - 0ce1f194d6164954f84a669c3f020fb1: -1667840405
+    - 0ce1f194d6164954f84a669c3f020fb1: 537683552
+    - 0ce1f194d6164954f84a669c3f020fb1: -245044630
+    - 0ce1f194d6164954f84a669c3f020fb1: -210701012
+    - 0ce1f194d6164954f84a669c3f020fb1: 852840958
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 1822244500, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  - {fileID: 918618564, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  - {fileID: -599895938, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  - {fileID: -848458489, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  - {fileID: 1917911009, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  - {fileID: -676376387, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  - {fileID: 868020576, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  - {fileID: -93146697, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  - {fileID: 1824648663, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  - {fileID: 878457770, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  - {fileID: -1667840405, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  - {fileID: 537683552, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  - {fileID: -245044630, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  - {fileID: -210701012, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  - {fileID: 852840958, guid: 0ce1f194d6164954f84a669c3f020fb1, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - HUD_PRISM
+  - HUD_PORTRAIT_FULL
+  - HUD_LIVES
+  - HUD_BASE
+  - HUD_CHARGES_CONTAINER_1
+  - HUD_CHARGES_CONTAINER_3
+  - HUD_CHARGES_CONTAINER_2
+  - HUD_LIVES_3
+  - HUD_LIVES_2
+  - HUD_LIVES_1
+  - HUD_PORTRAIT_DEAD
+  - HUD_CHARGES_FILL_1
+  - HUD_CHARGES_FILL_3
+  - HUD_CHARGES_FILL_2
+  - HUD_PORTRAIT_DAMAGED
+  m_RenderDataMap: {}
+  m_Tag: HUD
+  m_IsVariant: 0

@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -9,6 +8,8 @@ namespace PlayerSystem
         private PlayerState playerState;
         private Rigidbody2D rb2d;
         private PlayerPowersScriptable powersConstants;
+        private PlayerBaseModule baseModule;
+
         private Vector2 savedVelocity;
         private PhysicsEventsRelay shieldPhysicsRelay;
         Collider2D shieldCollider;
@@ -18,7 +19,7 @@ namespace PlayerSystem
             EventBus eventBus,
             PlayerState playerState,
             Rigidbody2D rb2d,
-            PhysicsEventsRelay shieldPhysicsRelay)
+            PhysicsEventsRelay shieldPhysicsRelay, PlayerBaseModule baseModule)
         {
             this.eventBus = eventBus;
             this.playerState = playerState;
@@ -26,6 +27,7 @@ namespace PlayerSystem
             this.shieldPhysicsRelay = shieldPhysicsRelay;
             shieldCollider = shieldPhysicsRelay.GetComponent<Collider2D>();
             shieldCollider.enabled = false;
+            this.baseModule = baseModule;
 
             powersConstants = GlobalConstants.Get<PlayerPowersScriptable>();
 
@@ -40,6 +42,8 @@ namespace PlayerSystem
 
         private void Activate()
         {
+            if (playerState.currentCharges < 1f) return;
+            baseModule.StartChargeRegeneration();
             eventBus.Publish(new RequestMovementPause());
             playerState.activePower = Power.Shield;
             playerState.powerTimeLeft = powersConstants.shieldPowerDuration;
@@ -56,20 +60,20 @@ namespace PlayerSystem
         private void ReduceTimeLeft(OnUpdate e)
         {
             playerState.powerTimeLeft -= Time.deltaTime;
-            if(playerState.powerTimeLeft < parryTime) playerState.isParry = false;
+            if (playerState.powerTimeLeft < parryTime) playerState.isParry = false;
             if (0 < playerState.powerTimeLeft) return;
             Deactivate();
         }
 
         private void ShieldCollision(Collider2D other)
         {
-            if(other.CompareTag("Enemy"))
+            if (other.CompareTag("Enemy"))
             {
-                if(playerState.isParry)
+                if (playerState.isParry)
                 {
                     ReflectDamage();
-                } 
-                else 
+                }
+                else
                 {
                     //get enemy damage
                     //rb2d.gameObject.GetComponent<PlayerBaseModule>().healthModule.Damage(damageAmount)

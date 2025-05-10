@@ -24,13 +24,16 @@ public class DialogueView : MonoBehaviour
 
     private RectTransform panelRecTransform => dialoguePanelContainer.GetComponent<RectTransform>();
 
-    public void SetDialoguePanel(DialogueType type) 
+    public void SetDialoguePanel(DialogueType type, bool resume = false) 
     {
         switch(type)
         {
             case DialogueType.Text:
                 dialogueTMPText.gameObject.SetActive(true);
-                dialogueTMPText.text = "";
+                if(!resume)
+                {
+                    dialogueTMPText.text = "";
+                } 
                 portraitContainer.gameObject.SetActive(true);
                 choisesContainer.SetActive(false);
                 ShowNextSign(false);
@@ -94,7 +97,7 @@ public class DialogueView : MonoBehaviour
         dialoguePanelContainer.SetActive(false);
     }
 
-    public void DisplayFullText(String fullText)
+    public void DisplayFullText(string fullText)
     {
         dialogueTMPText.text = fullText;
     }
