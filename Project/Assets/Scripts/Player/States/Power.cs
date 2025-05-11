@@ -9,5 +9,9 @@ namespace PlayerSystem
         Dodge,
         Shield,
         Drill,
+        LightDrill,
+        HeavyDrill,
+        Parry,
+        Cancel,
     }
 }

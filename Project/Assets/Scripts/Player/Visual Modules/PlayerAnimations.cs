@@ -24,6 +24,27 @@ namespace PlayerSystem
 
         private void OnUpdate(OnUpdate e)
         {
+            if(playerState.healthState == HealthState.Death)
+            {
+                if(playerState.groundState == GroundState.Grounded)
+                {
+                    SetState(AnimationState.Defeat);
+                    return;
+                } 
+                else if(playerState.groundState == GroundState.Airborne) 
+                {
+                    SetState(AnimationState.Explode);
+                    return;
+                }
+            }
+
+            if(playerState.healthState == HealthState.TakingDamage)
+            {
+                SetState(AnimationState.Hurt);
+                return;
+            }
+
+
             switch (playerState.activePower)
             {
                 case Power.Dodge:
@@ -35,6 +56,18 @@ namespace PlayerSystem
                     return;
                 case Power.Shield:
                     SetState(AnimationState.Shield);
+                    return;
+                case Power.LightDrill:
+                    SetState(AnimationState.LightDrill);
+                    return;
+                case Power.HeavyDrill:
+                    SetState(AnimationState.HeavyDrill);
+                    return;
+                case Power.Parry:
+                    SetState(AnimationState.Parry);
+                    return;
+                case Power.Cancel:
+                    SetState(AnimationState.Cancel);
                     return;
                 default:
                     animator.transform.parent.rotation = Quaternion.identity;
@@ -90,6 +123,25 @@ namespace PlayerSystem
                     break;
                 case AnimationState.Drill:
                     animator.Play("Drill");
+                    break;
+                case AnimationState.LightDrill:
+                case AnimationState.HeavyDrill:
+                    animator.Play("Drill2");
+                    break;
+                case AnimationState.Parry:
+                    animator.Play("Parry");
+                    break;
+                case AnimationState.Cancel:
+                    animator.Play("Cancel");
+                    break;
+                case AnimationState.Hurt:
+                    animator.Play("Hurt");
+                    break;
+                case AnimationState.Defeat:
+                    animator.Play("Defeat");
+                    break;
+                case AnimationState.Explode:
+                    animator.Play("Explode");
                     break;
             }
 

@@ -71,6 +71,7 @@ namespace PlayerSystem
             {
                 if (playerState.isParry)
                 {
+                    playerState.activePower = Power.Parry;
                     ReflectDamage();
                 }
                 else
@@ -78,6 +79,14 @@ namespace PlayerSystem
                     //get enemy damage
                     //rb2d.gameObject.GetComponent<PlayerBaseModule>().healthModule.Damage(damageAmount)
                     Deactivate();
+                }
+            }
+
+            if(other.CompareTag("Slime"))
+            {
+                if(playerState.isParry)
+                {
+                    playerState.activePower = Power.Parry;
                 }
             }
         }

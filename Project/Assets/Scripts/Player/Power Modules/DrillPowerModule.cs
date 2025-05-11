@@ -171,14 +171,17 @@ namespace PlayerSystem
 
             if (other.GetComponent<DirtBallScript>())
             {
+                playerState.activePower = Power.LightDrill;
                 EnterSecondStage(go);
             }
             else if (go.CompareTag("Enemy"))
             {
+                playerState.activePower = Power.HeavyDrill;
                 DrillHeavyEnemy(go);
             }
             else if (go.CompareTag("HeavyTerrain"))
             {
+                playerState.activePower = Power.HeavyDrill;
                 DrillHeavyTerrain(go);
             }
             else if (go.CompareTag("Ground") || go.CompareTag("Spike"))
@@ -237,7 +240,8 @@ namespace PlayerSystem
             else
             {
                 eventBus.Publish(new RequestOppositeReaction(drillDir, powersConstants.drillOppositeForce));
-                Deactivate();
+                eventBus.Publish(new OnCancelPower());
+                Deactivate(true);
             }
         }
 
@@ -331,7 +335,7 @@ namespace PlayerSystem
             damageTimer -= Time.deltaTime;
         }
 
-        private void Deactivate()
+        private void Deactivate(bool force = false)
         {
 
             if (lightObjectRigidBody != null)
@@ -345,7 +349,7 @@ namespace PlayerSystem
             }
 
             rb2d.MoveRotation(0f);
-            playerState.activePower = Power.None;
+            if(!force) playerState.activePower = Power.None;
             drillJoint.enabled = false;
             drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, 0);
             currentSpeed = 0f;

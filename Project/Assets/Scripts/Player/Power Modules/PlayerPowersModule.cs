@@ -12,6 +12,7 @@ namespace PlayerSystem
         private ShieldPowerModule squarePower;
         private DrillPowerModule trianglePower;
         private DodgePowerModule circlePower;
+        private CancelPowerModule cancelPower;
         private Rigidbody2D rb2d;
         private PhysicsEventsRelay drillPhysicsRelay;
         private PhysicsEventsRelay drillExitPhysicsRelay;
@@ -47,6 +48,8 @@ namespace PlayerSystem
             squarePower = new ShieldPowerModule(eventBus, playerState, rb2d, shieldPhysicsRelay, baseModule);
             trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, baseModule);
             circlePower = new DodgePowerModule(eventBus, playerState, rb2d, dodgeCollider, playerCollider, baseModule);
+            cancelPower = new CancelPowerModule(eventBus,playerState);
+
         }
 
         public void SetPowerAvailable(Power power, bool isAvailable)
