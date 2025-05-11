@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace PlayerSystem
         private Rigidbody2D rb2d;
         private MonoBehaviour mb;
         private Coroutine hpRegenCoroutine;
+        private PlayerHealthScriptable healthConstans;
+        private float hurtTime = 0f;
 
         public PlayerHealthModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, MonoBehaviour mb)
         {
@@ -19,7 +22,22 @@ namespace PlayerSystem
             this.playerState = playerState;
             this.rb2d = rb2d;
             this.mb = mb;
+
+            healthConstans = GlobalConstants.Get<PlayerHealthScriptable>();
+            SetValues();
+            
             eventBus.Subscribe<RequestRespawn>(Respawn);
+            eventBus.Subscribe<OnDamageReceived>(DamageReceived);
+            eventBus.Subscribe<OnDeath>(Death);
+        }
+
+        private void SetValues()
+        {
+            playerState.maxHealthBars = healthConstans.maxHealthBars;
+            playerState.currentHealthBars = healthConstans.currentHealthBars;
+            playerState.healthPerBar = healthConstans.healthPerBar;
+            playerState.currentHealth = healthConstans.currentHealth;
+            playerState.hpRegenRate = healthConstans.hpRegenRate;
         }
 
         public bool Damage(int damageAmount)
@@ -101,8 +119,8 @@ namespace PlayerSystem
         private void ResetHealthValues()
         {
             playerState.healthState = HealthState.Undefined;
-            playerState.currentHealthBars = playerState.MAX_HEALTH_BARS;
-            playerState.currentHealth = playerState.healthPerBar;
+            playerState.currentHealthBars = healthConstans.maxHealthBars;
+            playerState.currentHealth = healthConstans.healthPerBar;
             HealthUIController.Instance.ResetHealthUI();
         }
 
@@ -149,6 +167,32 @@ namespace PlayerSystem
             {
                 hpRegenCoroutine = null;
             }
+        }
+
+        private void DamageReceived(OnDamageReceived e)
+        {
+            playerState.healthState = HealthState.TakingDamage;
+            hurtTime = healthConstans.hurtTime;
+            eventBus.Subscribe<OnUpdate>(ReduceHurtTimer);
+            eventBus.Publish(new RequestMovementPause());
+        }
+
+        private void ReduceHurtTimer(OnUpdate e)
+        {
+            hurtTime -= Time.deltaTime;
+            if(hurtTime <= 0f)
+            {
+                playerState.healthState = HealthState.Undefined;
+                eventBus.Publish(new RequestMovementPause());
+                eventBus.Unsubscribe<OnUpdate>(ReduceHurtTimer);
+            }
+        }
+
+        private void Death(OnDeath e)
+        {
+            playerState.healthState = HealthState.Death;
+            eventBus.Publish(new RequestMovementPause());
+            eventBus.Publish(new RequestGravityOff());
         }
     }
 }
