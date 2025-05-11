@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: Cherry Pick Studios
+  companyName: Naked Dog
   productName: Prismonaut
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -140,9 +140,10 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.8
+  bundleVersion: 0.3.6
   preloadedAssets:
   - {fileID: -944628639613478452, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
+  - {fileID: 11400000, guid: 6f2089ce6cd18a8488626bbeefa08f9b, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1

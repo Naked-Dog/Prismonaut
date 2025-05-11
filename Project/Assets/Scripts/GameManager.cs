@@ -1,6 +1,4 @@
 using System.Collections;
-using DG.Tweening;
-using PlayerSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -66,6 +64,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
         
         PrismsUIController.Instance.InitUI(collectedPrisms);
     }
