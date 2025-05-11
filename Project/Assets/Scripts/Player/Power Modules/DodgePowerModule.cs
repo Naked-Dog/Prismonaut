@@ -149,14 +149,8 @@ namespace PlayerSystem
                 insideEnemy = false;
             }
 
-            if (force)
-            {
-                rb2d.linearVelocity = Vector2.zero;
-                rb2d.AddForce(Vector2.up * movementValues.forceCancelImpulse, ForceMode2D.Impulse);
-            }
 
             dashTimer = 0f;
-            playerState.activePower = Power.None;
             playerCollider.enabled = true;
             dodgeCollider.enabled = false;
 
@@ -166,6 +160,15 @@ namespace PlayerSystem
             eventBus.Publish(new RequestMovementResume());
             eventBus.Publish(new RequestGravityOn());
 
+            if (force)
+            {
+                rb2d.linearVelocity = Vector2.zero;
+                rb2d.AddForce(Vector2.up * movementValues.forceCancelImpulse, ForceMode2D.Impulse);
+                eventBus.Publish(new OnCancelPower());
+                return;
+            }
+
+            playerState.activePower = Power.None;
         }
     }
 }

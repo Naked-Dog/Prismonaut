@@ -43,4 +43,5 @@ public class PlayerPowersScriptable : ScriptableObject
 
     [Header("General")]
     public float drillOppositeForce = 4f;
+    public float cancelPowerTime = 0.1f;
 }

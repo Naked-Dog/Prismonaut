@@ -5,6 +5,7 @@ namespace PlayerSystem
         Undefined = 0,
         Stagger,
         Invincible,
-        Death
+        Death,
+        TakingDamage,
     }
 }

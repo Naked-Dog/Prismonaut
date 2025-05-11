@@ -10,5 +10,13 @@ namespace PlayerSystem
         Land,
         Dodge,
         Shield,
+        Drill,
+        LightDrill,
+        HeavyDrill,
+        Parry,
+        Cancel,
+        Hurt,
+        Defeat,
+        Explode,
     }
 }

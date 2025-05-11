@@ -41,3 +41,4 @@ MonoBehaviour:
   steerReturnTimer: 0.4
   heavyExitForceImpulse: 16
   drillOppositeForce: 10
+  cancelPowerTime: 0.07
