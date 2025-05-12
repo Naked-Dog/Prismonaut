@@ -1,11 +1,13 @@
 using PlayerSystem;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DialogueRunner : MonoBehaviour, IInteractable
 {
     [SerializeField] private TextAsset narrativeText;
     [SerializeField] private bool interactOnEnter;
     [SerializeField] private bool destroyOnInteract;
+    [SerializeField] private UnityEvent endEvent;
 
     public bool IsInteractable => !DialogueController.Instance.isDialogueRunning;
     public bool InteractOnEnter => interactOnEnter;
@@ -19,7 +21,7 @@ public class DialogueRunner : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        DialogueController.Instance.RunDialogue(ParseNarrative(narrativeText));
+        DialogueController.Instance.RunDialogue(ParseNarrative(narrativeText), endEvent);
         if (destroyOnInteract) Destroy(gameObject);
     }
 }

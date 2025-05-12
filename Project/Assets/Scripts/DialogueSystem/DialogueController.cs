@@ -5,6 +5,7 @@ using System.Linq;
 using CameraSystem;
 using PlayerSystem;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum DialogueType
 {
@@ -29,6 +30,7 @@ public class DialogueController : MonoBehaviour
     private DialogueType currentType;
     private EventBus eventBus;
     private int currentCharactersCount = 0;
+    private UnityEvent endEvent;
 
     public static DialogueController Instance { get; private set; }
 
@@ -49,7 +51,7 @@ public class DialogueController : MonoBehaviour
         eventBus = bus;
     }
 
-    public void RunDialogue(Narrative narrative)
+    public void RunDialogue(Narrative narrative, UnityEvent endEvent = null)
     {
         eventBus.Publish(new RequestEnableDialogueInputs());
         //CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Dialogue));
@@ -61,6 +63,10 @@ public class DialogueController : MonoBehaviour
         currentDialogues = currentConversation.dialogues;
         currentChoices = currentConversation.choices;
 
+        if(endEvent != null)
+        {
+            this.endEvent = endEvent;
+        }
 
         if (currentDialogues.Count != 0)
         {
@@ -193,6 +199,8 @@ public class DialogueController : MonoBehaviour
         isDialogueRunning = false;
         //CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Regular));
         eventBus.Publish(new RequestDisableDialogueInputs());
+        endEvent?.Invoke(); 
+        endEvent = null;
     }
 
     private DialogueActor GetActor(string actorName)
