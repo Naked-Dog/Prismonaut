@@ -17,11 +17,13 @@ public class BullHealth : MonoBehaviour
     public HealthSegment[] segments;
     public Transform target;
 
+    public Animator animator;
     public BehaviorGraphAgent agent;
     private BlackboardVariable<bool> flinchedVar;
     private void Start()
     {
         agent.GetVariable("Flinched", out flinchedVar);
+
         foreach (var seg in segments)
         {
             seg.healthBar.Init();
@@ -65,12 +67,15 @@ public class BullHealth : MonoBehaviour
             }
             else
             {
-                // Start regen if not fully depleted
                 if (seg.regenCoroutine != null)
                     StopCoroutine(seg.regenCoroutine);
 
                 seg.regenCoroutine = StartCoroutine(RegenerateSegment(i));
             }
+        }
+        if (IsDead())
+        {
+            OnDeath();
         }
     }
 
@@ -96,5 +101,12 @@ public class BullHealth : MonoBehaviour
                 return false;
         }
         return true;
+    }
+
+    private void OnDeath()
+    {
+        agent.End();
+        animator.Play("Die");
+        this.gameObject.SetActive(false);
     }
 }

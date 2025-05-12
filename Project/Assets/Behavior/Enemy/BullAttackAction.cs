@@ -12,14 +12,14 @@ public partial class BullAttackAction : Action
     [SerializeReference] public BlackboardVariable<GameObject> Target;
 
     [SerializeReference] public BlackboardVariable<float> Speed = new BlackboardVariable<float>(1.0f);
-    [SerializeReference] public BlackboardVariable<float> RunDirection = new BlackboardVariable<float>(0f);
+    private float RunDirection;
 
     protected override Status OnStart()
     {
-        RunDirection.Value = Mathf.Sign(Target.Value.transform.position.x - Agent.Value.transform.position.x);
+        RunDirection = Mathf.Sign(Target.Value.transform.position.x - Agent.Value.transform.position.x);
 
         Vector3 localScale = Agent.Value.transform.localScale;
-        localScale.x = -RunDirection.Value * Mathf.Abs(localScale.x);
+        localScale.x = -RunDirection * Mathf.Abs(localScale.x);
         Agent.Value.transform.localScale = localScale;
 
         return Status.Running;
@@ -29,11 +29,11 @@ public partial class BullAttackAction : Action
     {
         if (Agent.Value == null || Target.Value == null) return Status.Failure;
         Vector3 position = Agent.Value.transform.position;
-        position.x += RunDirection.Value * Speed.Value * Time.deltaTime;
+        position.x += RunDirection * Speed.Value * Time.deltaTime;
         Agent.Value.transform.position = position;
 
         Vector3 scale = Agent.Value.transform.localScale;
-        scale.x = -RunDirection.Value * Mathf.Abs(scale.x);
+        scale.x = -RunDirection * Mathf.Abs(scale.x);
         Agent.Value.transform.localScale = scale;
 
         return Status.Running;
