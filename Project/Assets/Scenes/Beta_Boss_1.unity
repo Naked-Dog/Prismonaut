@@ -38947,6 +38947,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 574559317}
+    - target: {fileID: 3166850752621410861, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: finalTrigger
+      value: 
+      objectReference: {fileID: 1274768921}
     - target: {fileID: 3678563326016814108, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -77255,6 +77259,7 @@ GameObject:
   - component: {fileID: 1274768924}
   - component: {fileID: 1274768923}
   - component: {fileID: 1274768922}
+  - component: {fileID: 1274768925}
   m_Layer: 6
   m_Name: Square
   m_TagString: Ground
@@ -77378,6 +77383,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1274768925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274768921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95fbfa18a15957c6986d7b5595b8d2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1584031318
 PrefabInstance:
   m_ObjectHideFlags: 0

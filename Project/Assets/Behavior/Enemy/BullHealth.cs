@@ -12,14 +12,16 @@ public class BullHealth : MonoBehaviour
         public Coroutine regenCoroutine;
     }
 
-    public int healthPerBar = 6;
-    public float regenDelay = 1f;
-    public HealthSegment[] segments;
-    public Transform target;
+    [SerializeField] private int healthPerBar = 6;
+    [SerializeField] private float regenDelay = 1f;
+    [SerializeField] private HealthSegment[] segments;
+    [SerializeField] private Transform target;
+    [SerializeField] private Animator animator;
+    [SerializeField] private BehaviorGraphAgent agent;
+    [SerializeField] private GameObject finalTrigger;
 
-    public Animator animator;
-    public BehaviorGraphAgent agent;
     private BlackboardVariable<bool> flinchedVar;
+
     private void Start()
     {
         agent.GetVariable("Flinched", out flinchedVar);
@@ -108,5 +110,6 @@ public class BullHealth : MonoBehaviour
         agent.End();
         animator.Play("Die");
         this.gameObject.SetActive(false);
+        this.finalTrigger.SetActive(false);
     }
 }
