@@ -1,3 +1,4 @@
+using Unity.Behavior;
 using UnityEngine;
 
 public class BullHealth : MonoBehaviour
@@ -16,8 +17,11 @@ public class BullHealth : MonoBehaviour
     public HealthSegment[] segments;
     public Transform target;
 
+    public BehaviorGraphAgent agent;
+    private BlackboardVariable<bool> flinchedVar;
     private void Start()
     {
+        agent.GetVariable("Flinched", out flinchedVar);
         foreach (var seg in segments)
         {
             seg.healthBar.Init();
@@ -29,6 +33,10 @@ public class BullHealth : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            TakeDamage(4);
+        }
         if (target != null)
         {
             transform.position = new Vector3(target.position.x, target.position.y + 1.75f, transform.position.z);
@@ -37,11 +45,13 @@ public class BullHealth : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        if (flinchedVar == null || flinchedVar.Value == false) return;
+
         for (int i = segments.Length - 1; i >= 0 && amount > 0; i--)
         {
             var seg = segments[i];
 
-            if (seg.locked || seg.currentHealth <= 0) continue;
+            if (seg.locked) continue;
 
             float damage = Mathf.Min(amount, seg.currentHealth);
             seg.currentHealth -= damage;
@@ -55,6 +65,7 @@ public class BullHealth : MonoBehaviour
             }
             else
             {
+                // Start regen if not fully depleted
                 if (seg.regenCoroutine != null)
                     StopCoroutine(seg.regenCoroutine);
 

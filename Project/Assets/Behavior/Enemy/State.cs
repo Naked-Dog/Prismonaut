@@ -6,7 +6,9 @@ public enum State
 {
     Idle,
 	Chase,
-	Attack,
-	StopAttack,
-	Flinch
+	Charge,
+	Rush,
+	StopRush,
+	Flinch,
+	Die
 }

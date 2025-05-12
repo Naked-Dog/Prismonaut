@@ -38598,6 +38598,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!95 &574559317 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5058471162287012434, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+  m_PrefabInstance: {fileID: 1079413847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &833331525 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4208075343354509418, guid: 776ef22c79e3a819c9b8315407d31ce1, type: 3}
@@ -38831,6 +38836,43 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1274102660900855485, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1274102660900855485, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435895588498240725, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: 'managedReferences[2911157426667651121]'
+      value: 'Unity.Behavior Unity.Behavior.BlackboardVariable`1[[UnityEngine.Animator,
+        UnityEngine.AnimationModule]]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435895588498240725, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: managedReferences[2911157426667651121].Name
+      value: Animator
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435895588498240725, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: m_BlackboardVariableOverridesList.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435895588498240725, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: managedReferences[2911157426667651121].m_Value
+      value: 
+      objectReference: {fileID: 574559317}
+    - target: {fileID: 2435895588498240725, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: 'm_BlackboardVariableOverridesList.Array.data[6]'
+      value: 2911157426667651121
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435895588498240725, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: managedReferences[2911157426667651121].GUID.m_Value0
+      value: 751276271846302536
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435895588498240725, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: managedReferences[2911157426667651121].GUID.m_Value1
+      value: 4725685623223326077
+      objectReference: {fileID: 0}
     - target: {fileID: 3678563326016814108, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -38890,6 +38932,18 @@ PrefabInstance:
     - target: {fileID: 6259152286382112013, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6310265648792646576, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6310265648792646576, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6310265648792646576, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -76307,6 +76361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e38f7694f60ef54aa3ab9cf47251eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 3
 --- !u!19719996 &1192922415
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -77530,6 +77585,7 @@ MonoBehaviour:
   collectedGems: 0
   collectedPrisms: 0
   endGamePortals: []
+  diegeticInfoTypes: []
 --- !u!1 &1895392905
 GameObject:
   m_ObjectHideFlags: 0
