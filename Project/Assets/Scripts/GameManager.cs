@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using PlayerSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public enum FormState
 {
@@ -47,6 +49,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int levelTargetGems = 3;
     [SerializeField] private int collectedGems = 0;
     [SerializeField] private int collectedPrisms = 0;
+    [SerializeField] private int playerCharges = 1;
 
     [Header("GameWin")]
     [SerializeField] private GameObject[] endGamePortals;
@@ -69,8 +72,13 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
         PrismsUIController.Instance.InitUI(collectedPrisms);
+        PlayerBaseModule.Instance.SetCharges(playerCharges);
     }
 
     public void ShowDiegeticInfoByID(int id)
@@ -94,6 +102,7 @@ public class GameManager : MonoBehaviour
     {
         collectedPrisms++;
         PrismsUIController.Instance.UpdatePrismUI(collectedPrisms);
+        playerCharges = PlayerBaseModule.Instance.state.maxCharges;
     }
 
     private IEnumerator EnableGameEndPortals()
@@ -108,6 +117,10 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2f);
+    }
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
 
