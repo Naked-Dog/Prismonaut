@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3f79524b7aa508440bcae08872119cce
+guid: 86cf08ff075017344977a4948ae02844
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -37,8 +37,8 @@ TextureImporter:
     filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
+    wrapU: 0
+    wrapV: 0
     wrapW: 0
   nPOTScale: 0
   lightmap: 0
@@ -67,12 +67,12 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -80,34 +80,8 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -126,19 +100,20 @@ TextureImporter:
       name: Prop_Cocoon_IDLE_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 6
-        width: 146
-        height: 80
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 6
+        y: 3
+        width: 71
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 508dd70e8b7a0124e97d56b143df29c8
-      internalID: 340529739
+      spriteID: 9f75cd28fdb42ec4daad4f84ce14f27f
+      internalID: 682630911
       vertices: []
       indices: 
       edges: []
@@ -147,19 +122,20 @@ TextureImporter:
       name: Prop_Cocoon_IDLE_1
       rect:
         serializedVersion: 2
-        x: 152
-        y: 6
-        width: 146
-        height: 80
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 86
+        y: 3
+        width: 71
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d40676e0f9ff054491cd9338f23d504
-      internalID: 689029666
+      spriteID: 27220c638e02f9f42919eb678ab9fcce
+      internalID: -607231328
       vertices: []
       indices: 
       edges: []
@@ -168,19 +144,20 @@ TextureImporter:
       name: Prop_Cocoon_IDLE_2
       rect:
         serializedVersion: 2
-        x: 302
-        y: 6
-        width: 146
-        height: 82
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 166
+        y: 3
+        width: 71
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 868876022f733af47ba6d96f87c00f79
-      internalID: 182772217
+      spriteID: 6f6062044c6df434f9b2c043e5d069f5
+      internalID: -5638953
       vertices: []
       indices: 
       edges: []
@@ -189,19 +166,20 @@ TextureImporter:
       name: Prop_Cocoon_IDLE_3
       rect:
         serializedVersion: 2
-        x: 452
-        y: 6
-        width: 146
-        height: 82
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 246
+        y: 3
+        width: 71
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37c2b74db622905488562fbfbacbadf8
-      internalID: 401294367
+      spriteID: 2fda3dbcef3a2234999b0f0c4e8e7b0c
+      internalID: -777893635
       vertices: []
       indices: 
       edges: []
@@ -210,39 +188,89 @@ TextureImporter:
       name: Prop_Cocoon_IDLE_4
       rect:
         serializedVersion: 2
-        x: 602
-        y: 6
-        width: 146
-        height: 86
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 326
+        y: 3
+        width: 71
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99ce9b1699aad49408bf3475a999ae9b
-      internalID: -988070874
+      spriteID: b253d42d31b6c9c439a1fd9af19331ae
+      internalID: 1440334860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prop_Cocoon_IDLE_5
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 3
+        width: 71
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 334c6aa043a30ee4eb795b1cced59062
+      internalID: -1494088759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prop_Cocoon_IDLE_6
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 3
+        width: 71
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 299666ca9de42fb47a63872f2cce6be4
+      internalID: 212470450
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
-    spriteID: 9415cae281be2f44286de35aab7d407c
+    spriteID: dd33cb9e72ca18b4782e98841a82b668
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
-      Prop_Cocoon_IDLE_0: 340529739
-      Prop_Cocoon_IDLE_1: 689029666
-      Prop_Cocoon_IDLE_2: 182772217
-      Prop_Cocoon_IDLE_3: 401294367
-      Prop_Cocoon_IDLE_4: -988070874
+      Prop_Cocoon_IDLE_0: 682630911
+      Prop_Cocoon_IDLE_1: -607231328
+      Prop_Cocoon_IDLE_2: -5638953
+      Prop_Cocoon_IDLE_3: -777893635
+      Prop_Cocoon_IDLE_4: 1440334860
+      Prop_Cocoon_IDLE_5: -1494088759
+      Prop_Cocoon_IDLE_6: 212470450
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
