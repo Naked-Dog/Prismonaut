@@ -179,11 +179,25 @@ public class AudioManager: MonoBehaviour
         return src;
     }
 
-    public void Stop(string name)
+    public void Stop<TEnum>(TEnum key) where TEnum : Enum
     {
+        if (!libraryMap.TryGetValue(typeof(TEnum), out var baseLib))
+        {
+            Debug.LogWarning($"No se encontró la librería de audio para {typeof(TEnum).Name}");
+            return;
+        }
+
+        var lib = baseLib as AudioLibrary<TEnum>;
+        var clip = lib?.GetClip(key);
+        if (clip == null)
+        {
+            Debug.LogWarning($"No se encontró el clip para el enum {key}");
+            return;
+        }
+
         foreach (var src in allSources)
         {
-            if (src.isPlaying && src.clip != null && src.clip.name == name)
+            if (src.isPlaying && src.clip == clip)
             {
                 src.Stop();
             }

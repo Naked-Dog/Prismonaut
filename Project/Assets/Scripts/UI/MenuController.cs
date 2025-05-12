@@ -58,10 +58,12 @@ public class MenuController : MonoBehaviour
         AudioManager.Instance.StopMusic();
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
+        
         setMenuDisplay(sceneName);
         yield return new WaitForSeconds(1);
 
@@ -150,7 +152,8 @@ public class MenuController : MonoBehaviour
         {
             case "Menu":
                 return MusicEnum.Menu;
-            case "Level_1":
+            case "Beta_Level_1":
+            case "Beta_Boss_1":
                 return MusicEnum.Level1;
             default:
                 return MusicEnum.None;

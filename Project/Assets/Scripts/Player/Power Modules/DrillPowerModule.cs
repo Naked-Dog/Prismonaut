@@ -78,6 +78,7 @@ namespace PlayerSystem
             if (playerState.currentCharges < 1f) return;
             baseModule.StartChargeRegeneration();
 
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.DrillTrans, 0.5f, false);
             playerState.activePower = Power.Drill;
             playerState.powerTimeLeft = powersConstants.drillFirstPowerDuration;
             isSecondStage = false;

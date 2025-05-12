@@ -2,10 +2,23 @@ using UnityEngine;
 
 public enum PlayerSoundsEnum
 {
-    Walk,
-    Die,
+    Step1,
+    Step2,
+    Step3,
+    Step4,
+    Explode,
+    Defeat,
     Jump,
-    Interact
+    Interact,
+    DodgeTrans,
+    ShieldTrans,
+    DrillTrans,
+    Parry,
+    HeavyLand,
+    LoopWindFall,
+    Heal,
+    Land,
+    Hurt,
 }
 
 [CreateAssetMenu(menuName = "Audio/Player Sounds Library")]
