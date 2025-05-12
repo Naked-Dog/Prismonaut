@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34f2176663d88c8459fa7307a7612ec7, type: 3}
-  m_Name: Player Library
+  m_Script: {fileID: 11500000, guid: f88f1ea64a749c84dbe6a497bfb33347, type: 3}
+  m_Name: MusicLibrary
   m_EditorClassIdentifier: 
   clips:
     _serializedList:
-    - Key: 3
-      Value: {fileID: 8300000, guid: 3026f31c6eae96346879d2e97ec62a22, type: 3}
+    - Key: 0
+      Value: {fileID: 8300000, guid: b8df3d70e49131f4b8b7de0d0e999cb7, type: 3}
+    - Key: 1
+      Value: {fileID: 8300000, guid: 47f96683344a27a47b41671dc6800ae0, type: 3}

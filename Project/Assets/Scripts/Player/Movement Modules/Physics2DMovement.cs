@@ -193,12 +193,15 @@ namespace PlayerSystem
             rb2d.AddForce(Vector2.up * excessVelocity, ForceMode2D.Impulse);
             var fallingCamera = CameraManager.Instance.SearchCamera(CineCameraType.Falling);
             CameraManager.Instance.ChangeCamera(fallingCamera);
+            //AudioManager.Instance.Play2DSound(PlayerSoundsEnum.LoopWindFall, 1, true);
             //Debug.Log("Falling");
         }
 
         private void PerformLanding()
         {
             playerState.groundState = GroundState.Grounded;
+            AudioManager.Instance.Stop(PlayerSoundsEnum.LoopWindFall);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Land);
             if (0 < requestedMovement * rb2d.linearVelocity.x) return;
             rb2d.AddForce(Vector2.right * -rb2d.linearVelocity.x * 0.75f, ForceMode2D.Impulse);
             landingMoveCooldown = maxLandingBreakCooldown;

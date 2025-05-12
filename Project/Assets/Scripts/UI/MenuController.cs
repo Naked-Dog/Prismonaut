@@ -29,13 +29,11 @@ public class MenuController : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this);
         }
-
-        //musicManager = new AudioManager(gameObject, GetComponent<MusicList>(), null);
     }
 
     private void Start()
     {
-        //musicManager.PlayAudioClip(GetMusicClip(), true, 0.45f);
+        AudioManager.Instance.PlayMusic(GetMusicClip(), 0.75f);
     }
 
     public void ChangeScene(string sceneName)
@@ -57,17 +55,19 @@ public class MenuController : MonoBehaviour
         yield return fadeIn.WaitForCompletion();
 
         if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
-        //musicManager.StopAllAudioClips();
+        AudioManager.Instance.StopMusic();
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
+
         setMenuDisplay(sceneName);
         yield return new WaitForSeconds(1);
 
-        //musicManager.PlayAudioClip(GetMusicClip(), true, 0.45f);
+        AudioManager.Instance.PlayMusic(GetMusicClip(), 0.75f);
 
         Tween fadeOut = backgroundImage.DOFade(0, 0.5f);
         yield return fadeOut.WaitForCompletion();
@@ -146,16 +146,17 @@ public class MenuController : MonoBehaviour
         eventBus.Publish(new OnPauseInput());
     }
 
-    private string GetMusicClip()
+    private MusicEnum GetMusicClip()
     {
         switch (SceneManager.GetActiveScene().name)
         {
             case "Menu":
-                return "MainTitle";
-            case "Level_1":
-                return "Level1";
+                return MusicEnum.Menu;
+            case "Beta_Level_1":
+            case "Beta_Boss_1":
+                return MusicEnum.Level1;
             default:
-                return "";
+                return MusicEnum.None;
         }
     }
 }
