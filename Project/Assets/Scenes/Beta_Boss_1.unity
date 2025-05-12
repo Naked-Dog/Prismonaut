@@ -39018,8 +39018,62 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2406938741347568830, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1079413849}
   m_SourcePrefab: {fileID: 100100000, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+--- !u!1 &1079413848 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2406938741347568830, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+  m_PrefabInstance: {fileID: 1079413847}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1079413849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079413848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a0d7244f310ca747b4aed1fd20a779e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1806861309}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ShowDiegeticInfoByID
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1079413848}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  collisionTag: Player
+  isOneShot: 0
+  alreadyEntered: 0
+  alreadyExited: 0
 --- !u!1 &1151082275
 GameObject:
   m_ObjectHideFlags: 0
@@ -76930,7 +76984,7 @@ Tilemap:
       - {fileID: -1416360968, guid: 16fe1f176e78d874a8ac9161f49f3360, type: 3}
       - {fileID: -223303099, guid: 16fe1f176e78d874a8ac9161f49f3360, type: 3}
       - {fileID: -1342096354, guid: 16fe1f176e78d874a8ac9161f49f3360, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 20, y: 13, z: 0}
