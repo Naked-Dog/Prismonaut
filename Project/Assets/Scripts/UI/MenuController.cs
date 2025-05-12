@@ -33,7 +33,7 @@ public class MenuController : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.Instance.PlayMusic(GetMusicClip());
+        AudioManager.Instance.PlayMusic(GetMusicClip(), 0.75f);
     }
 
     public void ChangeScene(string sceneName)
@@ -63,11 +63,11 @@ public class MenuController : MonoBehaviour
         {
             yield return null;
         }
-        
+
         setMenuDisplay(sceneName);
         yield return new WaitForSeconds(1);
 
-        AudioManager.Instance.PlayMusic(GetMusicClip());
+        AudioManager.Instance.PlayMusic(GetMusicClip(), 0.75f);
 
         Tween fadeOut = backgroundImage.DOFade(0, 0.5f);
         yield return fadeOut.WaitForCompletion();
