@@ -29,7 +29,7 @@ public class CinematicController : MonoBehaviour
 
     private void OnVideoEnd(VideoPlayer vp)
     {
-        MenuController.Instance.ChangeScene("Level_1");
+        MenuController.Instance.ChangeScene("Beta_Level_1");
     }
 
     private void SkipCinematic()
@@ -39,7 +39,7 @@ public class CinematicController : MonoBehaviour
         skipAction.started -= skipActionDelegate;
         skipAction?.Disable();
         cinematicMap.Disable();
-        MenuController.Instance.ChangeScene("Level_1");
+        MenuController.Instance.ChangeScene("Beta_Level_1");
     }
 
     private void Update()
