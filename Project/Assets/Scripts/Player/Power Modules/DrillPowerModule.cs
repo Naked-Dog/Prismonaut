@@ -29,6 +29,7 @@ namespace PlayerSystem
         private Collider2D heavyTilemapCollider;
         private Collider2D heavyCompositeCollider;
         private Rigidbody2D lightObjectRigidBody;
+        private BullHealth enemyHealth;
 
         private bool isFacingRight => playerState.facingDirection == Direction.Right;
 
@@ -209,6 +210,7 @@ namespace PlayerSystem
         private void DrillHeavyEnemy(GameObject other)
         {
             enemyCollider = other.GetComponent<Collider2D>();
+            enemyHealth = other.GetComponent<Bull>().bullHealth;
             Physics2D.IgnoreCollision(playerCollider, enemyCollider, true);
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
             isInside = true;
@@ -239,7 +241,7 @@ namespace PlayerSystem
             }
             else
             {
-                eventBus.Publish(new RequestOppositeReaction(drillDir, powersConstants.drillOppositeForce));
+                eventBus.Publish(new RequestOppositeReaction(-drillDir, powersConstants.drillOppositeForce));
                 eventBus.Publish(new OnCancelPower());
                 Deactivate(true);
             }
@@ -327,8 +329,8 @@ namespace PlayerSystem
         {
             if (damageTimer <= 0)
             {
-                Debug.Log("Damage");
-                //Here, call the method that deals damage to the enemy. The damage value is stored in the scriptable constants. 
+                enemyHealth?.TakeDamage(powersConstants.heavyDrillDamagePerSecond);
+                
                 damageTimer += 1f;
             }
 

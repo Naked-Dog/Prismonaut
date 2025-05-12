@@ -6,7 +6,7 @@ public class BullHealth : MonoBehaviour
     public class HealthSegment
     {
         public HealthBar healthBar;
-        public int currentHealth;
+        public float currentHealth;
         public bool locked;
         public Coroutine regenCoroutine;
     }
@@ -35,7 +35,7 @@ public class BullHealth : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         for (int i = segments.Length - 1; i >= 0 && amount > 0; i--)
         {
@@ -43,7 +43,7 @@ public class BullHealth : MonoBehaviour
 
             if (seg.locked || seg.currentHealth <= 0) continue;
 
-            int damage = Mathf.Min(amount, seg.currentHealth);
+            float damage = Mathf.Min(amount, seg.currentHealth);
             seg.currentHealth -= damage;
             amount -= damage;
 

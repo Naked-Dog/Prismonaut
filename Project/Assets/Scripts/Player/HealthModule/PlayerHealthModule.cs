@@ -173,8 +173,8 @@ namespace PlayerSystem
         {
             playerState.healthState = HealthState.TakingDamage;
             hurtTime = healthConstans.hurtTime;
-            eventBus.Subscribe<OnUpdate>(ReduceHurtTimer);
             eventBus.Publish(new RequestMovementPause());
+            eventBus.Subscribe<OnUpdate>(ReduceHurtTimer);
         }
 
         private void ReduceHurtTimer(OnUpdate e)
@@ -183,7 +183,7 @@ namespace PlayerSystem
             if(hurtTime <= 0f)
             {
                 playerState.healthState = HealthState.Undefined;
-                eventBus.Publish(new RequestMovementPause());
+                eventBus.Publish(new RequestMovementResume());
                 eventBus.Unsubscribe<OnUpdate>(ReduceHurtTimer);
             }
         }

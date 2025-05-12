@@ -230,9 +230,8 @@ namespace PlayerSystem
 
         private void RequestOppositeReaction(RequestOppositeReaction e)
         {
-            Vector2 reactionVector = -e.direction;
-            reactionVector *= e.forceAmount;
-            rb2d.linearVelocity = reactionVector;           
+            rb2d.linearVelocity = Vector2.zero;
+            rb2d.AddForce(e.direction * e.forceAmount, ForceMode2D.Impulse);          
         }
     }
 }
