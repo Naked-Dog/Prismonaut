@@ -128,6 +128,7 @@ namespace PlayerSystem
 
         public void GetCharge()
         {
+            DiegeticInfo.Instance.ShowDiegeticInfo(3f, $"The Prism provided an additional Form Change: {state.maxCharges} => {state.maxCharges + 1}");
             state.maxCharges++;
             state.currentCharges = state.maxCharges;
             chargesUIController.SetChargesContainer(state.maxCharges);
