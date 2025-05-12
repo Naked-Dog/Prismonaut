@@ -30,12 +30,6 @@ public class LavaManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O) && !eventFinished)//temporal
-        {
-            if (eventStarted) moveToLavaGoal(); //temporal
-            else StartLava();
-        }
-
         if (eventStarted)
         {
             RiseLava();

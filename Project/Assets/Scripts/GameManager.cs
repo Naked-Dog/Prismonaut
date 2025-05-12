@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     [Header("GameWin")]
     [SerializeField] private GameObject[] endGamePortals;
+    [SerializeField] private List<DiegeticInfoType> diegeticInfoTypes = new List<DiegeticInfoType>();
 
     public static GameManager Instance;
 
@@ -69,20 +73,9 @@ public class GameManager : MonoBehaviour
         PrismsUIController.Instance.InitUI(collectedPrisms);
     }
 
-    private void Start()
+    public void ShowDiegeticInfoByID(int id)
     {
-        StartCoroutine(StartTutorialDiegeticInfo());
-    }
-
-    private IEnumerator StartTutorialDiegeticInfo()
-    {
-        yield return StartCoroutine(DiegeticInfo.Instance.SetDiegeticInfo(2f, "Move: (A & D keys)", "Move: (Left JoyStick Left/Right)"));
-        yield return StartCoroutine(DiegeticInfo.Instance.SetDiegeticInfo(2f, "Jump: (Space)", "Jump: (South Button)"));
-        yield return StartCoroutine(DiegeticInfo.Instance.SetDiegeticInfo(2f, "Circle: (J Key)", "Circle: (East Button)"));
-        yield return StartCoroutine(DiegeticInfo.Instance.SetDiegeticInfo(2f, "Triangule: (K Key)", "Triangule: (North Button)"));
-        yield return StartCoroutine(DiegeticInfo.Instance.SetDiegeticInfo(2f, "Look Up: (W Key)", "Look Up: (Left JoyStick Up)"));
-        yield return StartCoroutine(DiegeticInfo.Instance.SetDiegeticInfo(2f, "Square: (L Key)", "Square: (West Button)"));
-        yield return StartCoroutine(DiegeticInfo.Instance.SetDiegeticInfo(2f, "Look Down: (S Key)", "Look Down: (Left JoyStick Down)"));
+        DiegeticInfo.Instance.ShowDiegeticInfo(diegeticInfoTypes[id]);
     }
 
     public void GetGem()
@@ -116,7 +109,6 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
     }
-
 }
 
 
