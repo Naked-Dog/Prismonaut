@@ -139,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraValues: {fileID: 11400000, guid: 04e15b7244621c44d85d420a0471b1eb, type: 2}
   baseFollowObject: {fileID: 0}
+  forcedTransition: 0
 --- !u!1 &2170461304594626507
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,6 +589,7 @@ GameObject:
   - component: {fileID: 619606043158659864}
   - component: {fileID: 1237799386214243128}
   - component: {fileID: 3195103318886887853}
+  - component: {fileID: 6982870375032014045}
   m_Layer: 0
   m_Name: RegularCamera
   m_TagString: Untagged
@@ -604,7 +606,7 @@ Transform:
   m_GameObject: {fileID: 4543896281469601641}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -42.85, y: -21.63, z: 0}
+  m_LocalPosition: {x: -42.859997, y: -21.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -664,6 +666,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waitingAmount: 0
   cameraType: 0
+--- !u!114 &6982870375032014045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4543896281469601641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 2
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 0
+  m_UseCameraSpace: 1
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &5258168702574410109
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,7 +891,7 @@ Transform:
   m_GameObject: {fileID: 6843061433841245708}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -43.6, y: -25.8, z: -3}
+  m_LocalPosition: {x: -43.609997, y: -26.07, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -889,7 +914,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 1
+  m_Priority: 0
   m_StandbyUpdate: 0
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}

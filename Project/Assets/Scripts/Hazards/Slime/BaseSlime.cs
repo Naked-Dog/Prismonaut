@@ -13,6 +13,7 @@ public abstract class BaseSlime : MonoBehaviour
     private BounceValues pendingBounce;
     protected RigidbodyType2D originalType;
 
+    [SerializeField] protected Animator anim;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Rigidbody2D rb = collision.rigidbody;
@@ -61,9 +62,10 @@ public abstract class BaseSlime : MonoBehaviour
         PlayerBaseModule player = rb.GetComponent<PlayerBaseModule>();
         if (player && !bv.bounceOnY)
         {
-            Debug.Log("A");
             player.animationsModule.InvertPlayerFacingDirection();
         }
+
+        anim.Play("BounceIn");
 
         while (elapsed < waitTime)
         {
@@ -79,6 +81,8 @@ public abstract class BaseSlime : MonoBehaviour
         }
 
         rb.bodyType = originalType;
+
+        anim.Play("BounceOut");
 
         DoBounce(bv);
         yield return new WaitForSeconds(0.1f);
