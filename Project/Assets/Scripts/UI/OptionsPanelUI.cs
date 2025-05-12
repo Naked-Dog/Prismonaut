@@ -19,11 +19,6 @@ public class OptionsPanelUI : PanelUI
     private MenuController menuController;
     private EventSystem eventSystem;
 
-    private void Awake()
-    {
-        //menuAudio = new AudioManager(gameObject, GetComponent<MenuSoundList>(), GetComponent<AudioSource>());
-    }
-
     private void Start()
     {
         gameDataManager = GameDataManager.Instance;
