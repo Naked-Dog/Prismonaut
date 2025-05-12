@@ -69,12 +69,12 @@ namespace PlayerSystem
             return false;
         }
 
-        public void SpikeDamage()
+        public void SpikeDamage(int spikeDmg = 0)
         {
             if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return;
             if (hpRegenCoroutine != null) mb.StopCoroutine(hpRegenCoroutine);
 
-            playerState.currentHealth -= 1;
+            playerState.currentHealth -= spikeDmg > 0 ? spikeDmg : 1;
 
             HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
 

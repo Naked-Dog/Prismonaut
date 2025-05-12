@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using TMPro;
@@ -64,19 +65,19 @@ public class DiegeticInfo : MonoBehaviour
         }
     }
 
-    public void ShowDiegeticInfo(float time, string keyboardText, string controllerText = null)
+    public void ShowDiegeticInfo(DiegeticInfoType diegeticInfoType)
     {
         if (currentRoutine != null)
         {
             StopCoroutine(currentRoutine);
         }
-        currentRoutine = StartCoroutine(SetDiegeticInfo(time, keyboardText, controllerText));
+        currentRoutine = StartCoroutine(SetDiegeticInfo(diegeticInfoType));
     }
 
-    public IEnumerator SetDiegeticInfo(float time, string keyboardText, string controllerText = null)
+    public IEnumerator SetDiegeticInfo(DiegeticInfoType diegeticInfoType)
     {
-        this.keyboardText = keyboardText;
-        if(controllerText != null)this.controllerText = controllerText;
+        this.keyboardText = diegeticInfoType.keyboardText;
+        if(diegeticInfoType.controllerText != null)this.controllerText = diegeticInfoType.controllerText;
 
         if (backgroundImage == null || textMesh == null)
         {
@@ -95,7 +96,7 @@ public class DiegeticInfo : MonoBehaviour
         fadeIn.Join(textMesh.DOFade(1, 0.5f));
         yield return fadeIn.WaitForCompletion();
 
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(diegeticInfoType.time);
 
         Sequence fadeOut = DOTween.Sequence();
         fadeOut.Join(backgroundImage.DOFade(0, 0.5f));
@@ -116,4 +117,12 @@ public class DiegeticInfo : MonoBehaviour
             textMesh.text = controllerText;
         }
     }
+}
+
+[Serializable]
+public class DiegeticInfoType
+{
+    public float time = 2f;
+    public string keyboardText;
+    public string controllerText = null;
 }
