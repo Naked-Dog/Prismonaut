@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UIElements;
 
 
 public class AudioManager: MonoBehaviour
@@ -25,6 +24,7 @@ public class AudioManager: MonoBehaviour
     public Dictionary<string, AudioClip> clips = new();
     private List<AudioSource> allSources = new();
     private Stack<AudioSource> freeSources = new();
+    private AudioSource musicSource;
 
     protected void Awake()
     {
@@ -44,6 +44,7 @@ public class AudioManager: MonoBehaviour
             freeSources.Push(CreateSource());
         }
 
+        musicSource = CreateMusicSource();
         RegisterAudioLibraries();
     }
 
@@ -62,6 +63,16 @@ public class AudioManager: MonoBehaviour
         var src = go.AddComponent<AudioSource>();
         src.playOnAwake = false;
         allSources.Add(src);
+        return src;
+    }
+
+    private AudioSource CreateMusicSource()
+    {
+        var go = new GameObject("Music Source");
+        go.transform.SetParent(transform);
+        var src = go.AddComponent<AudioSource>();
+        src.playOnAwake = false;
+        src.loop = true;
         return src;
     }
 
@@ -185,5 +196,32 @@ public class AudioManager: MonoBehaviour
         {
             if (src.isPlaying) src.Stop();
         }
+    }
+
+    public void StopMusic()
+    {
+        musicSource.Stop();
+    }
+
+    public AudioSource PlayMusic<TEnum>(TEnum key, float volume = 1) where TEnum : Enum
+    {
+        if (!libraryMap.TryGetValue(typeof(TEnum), out var baseLib))
+        {
+            return null;
+        }
+
+        var lib = baseLib as AudioLibrary<TEnum>;
+        var clip = lib?.GetClip(key);
+
+        if (clip == null){
+            return null;
+        } 
+
+        musicSource.clip = clip;
+        musicSource.volume = volume;
+        musicSource.loop = true;
+        musicSource.spatialBlend = 0f;
+        musicSource.Play();
+        return musicSource;
     }
 }
