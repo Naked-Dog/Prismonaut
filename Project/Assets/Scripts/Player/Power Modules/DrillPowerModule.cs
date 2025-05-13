@@ -29,6 +29,7 @@ namespace PlayerSystem
         private Collider2D heavyTilemapCollider;
         private Collider2D heavyCompositeCollider;
         private Rigidbody2D lightObjectRigidBody;
+        private BullHealth enemyHealth;
 
         private bool isFacingRight => playerState.facingDirection == Direction.Right;
 
@@ -210,6 +211,7 @@ namespace PlayerSystem
         private void DrillHeavyEnemy(GameObject other)
         {
             enemyCollider = other.GetComponent<Collider2D>();
+            enemyHealth = other.GetComponent<Bull>().bullHealth;
             Physics2D.IgnoreCollision(playerCollider, enemyCollider, true);
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
             isInside = true;
@@ -226,6 +228,7 @@ namespace PlayerSystem
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
             isInside = true;
             drillPhysicsRelay.OnTriggerExit2DAction.AddListener(ConfirmDrillExit);
+            AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.EartThrumbling, 1, true);
         }
 
         private void DrillObstacle()
@@ -240,7 +243,7 @@ namespace PlayerSystem
             }
             else
             {
-                eventBus.Publish(new RequestOppositeReaction(drillDir, powersConstants.drillOppositeForce));
+                eventBus.Publish(new RequestOppositeReaction(-drillDir, powersConstants.drillOppositeForce));
                 eventBus.Publish(new OnCancelPower());
                 Deactivate(true);
             }
@@ -280,6 +283,7 @@ namespace PlayerSystem
         private void AttachObjectToDrill(GameObject gameObject)
         {
             Debug.Log("AttachObjectToDrill");
+            AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.EartThrumbling,1 ,true);
             lightObjectRigidBody = gameObject.GetComponent<Rigidbody2D>();
             lightObjectRigidBody.simulated = false;
             Transform lightTransform = gameObject.transform;
@@ -327,8 +331,8 @@ namespace PlayerSystem
         {
             if (damageTimer <= 0)
             {
-                Debug.Log("Damage");
-                //Here, call the method that deals damage to the enemy. The damage value is stored in the scriptable constants. 
+                enemyHealth?.TakeDamage(powersConstants.heavyDrillDamagePerSecond);
+                
                 damageTimer += 1f;
             }
 
@@ -349,6 +353,7 @@ namespace PlayerSystem
             }
 
             AudioManager.Instance.Stop(PlayerSoundsEnum.DrillTrans);
+            AudioManager.Instance.Stop(LevelEventsSoundsEnum.EartThrumbling);
 
             rb2d.MoveRotation(0f);
             if(!force) playerState.activePower = Power.None;

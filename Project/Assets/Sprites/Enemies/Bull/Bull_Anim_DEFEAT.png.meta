@@ -1,0 +1,761 @@
+fileFormatVersion: 2
+guid: 9889ca679f1564e4886ce2a1166893c0
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 180
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcfcafa3efa56fa4bac073a091545cd5
+      internalID: -964935097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_1
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 180
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ef7f16ad340e944aa0dfbebbef35c04
+      internalID: 320484243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_2
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 180
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 961c34f7d356d0543b72c40152feeeed
+      internalID: -66495590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_3
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 180
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2279e2aab8d2d3d44b80b7c80abdde9e
+      internalID: -1693994603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_4
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 180
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56e8b16e2b7295d43ad51a6ecfd07275
+      internalID: 1917579832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_5
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 180
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88f8539b975347444a970cd5715e771d
+      internalID: -912030286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_6
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 180
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d58d3a7c285197b47b846d3f7db1745a
+      internalID: 634651263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 120
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb482871545d73c43ae1b698049d0488
+      internalID: 961400340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_8
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 120
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b80de33417c67c1428b85394c5e6f035
+      internalID: -153584568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_9
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 120
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5230a88da575e984497df52e8953efd2
+      internalID: 2096635127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_10
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 120
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96cb36603b7dc39478369ba162bbd60a
+      internalID: 428907827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_11
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 120
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5503fade65af12049972c5c6c8c153b8
+      internalID: 1516832086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_12
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 120
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17018850d7b806642865a5df9ac3cb21
+      internalID: -1555614349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_13
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 120
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69aedd8739e6eca45b7b02d054f8fe0c
+      internalID: -67810391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 60
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b6911a3444e0d74ab349b45f982253d
+      internalID: -1793733567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_15
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 60
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 836fdf8f3fe48684cb19aa2ee9a8e7e4
+      internalID: -1493183255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_16
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 60
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7409669cac33ad74ea5dd3f8a17b3b44
+      internalID: -979019123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_17
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 60
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a49ca2561b0c3d04fbf3e15f3d70eb26
+      internalID: 1702237723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_18
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 60
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a419b05e3e57124aab34f5d60495189
+      internalID: -2107936966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_19
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 60
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb0575a258d44e446ba9f85884f2058a
+      internalID: 271160239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_20
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 60
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d89a6a947990e4499f88a263f1679f2
+      internalID: -1443673493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fc0186fb302b704b9481ef852b78a6e
+      internalID: -1992668681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_22
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 0
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 585f738575bbf844c8ef27733c094c4d
+      internalID: 821426857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_23
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 1
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ce1a795b5ba36c4b80c64b7c0f01925
+      internalID: 1201520928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_24
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 0
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a195108cfd01154da5808ccece477ee
+      internalID: 354532015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_25
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 0
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d137a01002f6c51498fa6c6536f10a1b
+      internalID: -650311937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_26
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 0
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebc44fafd019de843bfc9b0294ec6c89
+      internalID: 1230322341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bull_Anim_DEFEAT_27
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 0
+        width: 90
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1333333}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5928c48eafc9b84994257ca4d0c4d23
+      internalID: -1467122747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 86cc2b957c7f60241807ea3e9af4d033
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Bull_Anim_DEFEAT_0: -964935097
+      Bull_Anim_DEFEAT_1: 320484243
+      Bull_Anim_DEFEAT_10: 428907827
+      Bull_Anim_DEFEAT_11: 1516832086
+      Bull_Anim_DEFEAT_12: -1555614349
+      Bull_Anim_DEFEAT_13: -67810391
+      Bull_Anim_DEFEAT_14: -1793733567
+      Bull_Anim_DEFEAT_15: -1493183255
+      Bull_Anim_DEFEAT_16: -979019123
+      Bull_Anim_DEFEAT_17: 1702237723
+      Bull_Anim_DEFEAT_18: -2107936966
+      Bull_Anim_DEFEAT_19: 271160239
+      Bull_Anim_DEFEAT_2: -66495590
+      Bull_Anim_DEFEAT_20: -1443673493
+      Bull_Anim_DEFEAT_21: -1992668681
+      Bull_Anim_DEFEAT_22: 821426857
+      Bull_Anim_DEFEAT_23: 1201520928
+      Bull_Anim_DEFEAT_24: 354532015
+      Bull_Anim_DEFEAT_25: -650311937
+      Bull_Anim_DEFEAT_26: 1230322341
+      Bull_Anim_DEFEAT_27: -1467122747
+      Bull_Anim_DEFEAT_3: -1693994603
+      Bull_Anim_DEFEAT_4: 1917579832
+      Bull_Anim_DEFEAT_5: -912030286
+      Bull_Anim_DEFEAT_6: 634651263
+      Bull_Anim_DEFEAT_7: 961400340
+      Bull_Anim_DEFEAT_8: -153584568
+      Bull_Anim_DEFEAT_9: 2096635127
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

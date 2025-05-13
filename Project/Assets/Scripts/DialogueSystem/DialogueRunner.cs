@@ -21,6 +21,7 @@ public class DialogueRunner : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        if(!gameObject) return;
         DialogueController.Instance.RunDialogue(ParseNarrative(narrativeText), endEvent);
         if (destroyOnInteract) Destroy(gameObject);
     }

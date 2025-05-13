@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace PlayerSystem
@@ -109,14 +110,14 @@ namespace PlayerSystem
         private void DisablePlayerInputs()
         {
             playerGameMap.Disable();
-            playerUIMap.Enable();
         }
 
         private void EnablePlayerInputs()
         {
+            Debug.Log("Enable");
             playerGameMap.Enable();
-            playerUIMap.Disable();
         }
+
         private void LookDownInput(InputAction.CallbackContext ctx)
         {
             if (ctx.started)

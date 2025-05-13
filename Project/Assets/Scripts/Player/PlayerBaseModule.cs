@@ -52,8 +52,7 @@ namespace PlayerSystem
             movementModule = new Physics2DMovement(eventBus, state, avatarRigidbody2D);
             animationsModule = new PlayerAnimations(eventBus, state, animator);
             powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, shieldPhysicsRelay, dodgeCollider, playerMainCollider, this);
-            healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, this)
-            ;
+            healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, this);
             interactionModule = new PlayerInteractionModule(eventBus, gameObject.GetComponent<PhysicsEventsRelay>(), interactSign, state);
 
             avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionEnter2DAction.AddListener(OnCollisionEnter2D);
@@ -107,6 +106,12 @@ namespace PlayerSystem
         private void OnCollisionEnter2D(Collision2D collision)
         {
             eventBus.Publish(new OnCollisionEnter2D(collision));
+
+            if(collision.gameObject.CompareTag("Enemy"))
+            {
+                healthModule.Damage(2);
+                eventBus.Publish(new RequestOppositeReaction(Vector2.up, 10f));
+            }
         }
 
         private void OnCollisionStay2D(Collision2D collision)
