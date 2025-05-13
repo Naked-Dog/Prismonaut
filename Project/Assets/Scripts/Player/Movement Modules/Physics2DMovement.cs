@@ -133,6 +133,7 @@ namespace PlayerSystem
             if (jumpRequested) return;
             if (0f < jumpCooldown) return;
             jumpRequested = true;
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Jump);
         }
 
         private void OnFixedUpdate(OnFixedUpdate e)

@@ -43404,6 +43404,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bull
       objectReference: {fileID: 0}
+    - target: {fileID: 4101904601062999238, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5941871471876842594, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
       propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

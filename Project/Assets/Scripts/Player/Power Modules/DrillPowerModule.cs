@@ -228,6 +228,7 @@ namespace PlayerSystem
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
             isInside = true;
             drillPhysicsRelay.OnTriggerExit2DAction.AddListener(ConfirmDrillExit);
+            AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.EartThrumbling, 1, true);
         }
 
         private void DrillObstacle()
@@ -282,6 +283,7 @@ namespace PlayerSystem
         private void AttachObjectToDrill(GameObject gameObject)
         {
             Debug.Log("AttachObjectToDrill");
+            AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.EartThrumbling,1 ,true);
             lightObjectRigidBody = gameObject.GetComponent<Rigidbody2D>();
             lightObjectRigidBody.simulated = false;
             Transform lightTransform = gameObject.transform;
@@ -351,6 +353,7 @@ namespace PlayerSystem
             }
 
             AudioManager.Instance.Stop(PlayerSoundsEnum.DrillTrans);
+            AudioManager.Instance.Stop(LevelEventsSoundsEnum.EartThrumbling);
 
             rb2d.MoveRotation(0f);
             if(!force) playerState.activePower = Power.None;

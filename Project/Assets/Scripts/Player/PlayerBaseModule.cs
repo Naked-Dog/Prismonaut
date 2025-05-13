@@ -110,9 +110,7 @@ namespace PlayerSystem
             if(collision.gameObject.CompareTag("Enemy"))
             {
                 healthModule.Damage(2);
-                ContactPoint2D contact = collision.GetContact(0);
-                Vector2 pushDir = contact.normal; 
-                eventBus.Publish(new RequestOppositeReaction(pushDir, 7f));
+                eventBus.Publish(new RequestOppositeReaction(Vector2.up, 10f));
             }
         }
 
