@@ -113,7 +113,7 @@ namespace PlayerSystem
 
         public void Respawn(RequestRespawn e)
         {
-            mb.StartCoroutine(RespawnSequence());
+            MenuController.Instance?.ResetScene();
         }
 
         private void ResetHealthValues()
