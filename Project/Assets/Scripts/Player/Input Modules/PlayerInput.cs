@@ -66,17 +66,17 @@ namespace PlayerSystem
             playerGameMap.FindAction("LookDown").canceled += LookDownInput;
 
 
-            RegisterCallback(playerGameMap.FindAction("Pause"), ctx =>
-            {
-                eventBus.Publish(new OnPauseInput());
-                eventBus.Publish(new RequestPause());
-            });
+            // RegisterCallback(playerGameMap.FindAction("Pause"), ctx =>
+            // {
+            //     eventBus.Publish(new OnPauseInput());
+            //     eventBus.Publish(new RequestPause());
+            // });
 
-            RegisterCallback(playerUIMap.FindAction("Pause"), ctx =>
-            {
-                eventBus.Publish(new OnPauseInput());
-                eventBus.Publish(new RequestUnpause());
-            });
+            // RegisterCallback(playerUIMap.FindAction("Pause"), ctx =>
+            // {
+            //     eventBus.Publish(new OnPauseInput());
+            //     eventBus.Publish(new RequestUnpause());
+            // });
 
             RegisterCallback(DialogueMap.FindAction("SkipDialogue"), ctx => DialogueController.Instance?.SkipDialogue());
         }
