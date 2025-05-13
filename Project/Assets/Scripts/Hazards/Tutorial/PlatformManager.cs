@@ -49,7 +49,12 @@ public class PlatformManager : MonoBehaviour
     public void StartPlatforms()//temporal
     {
         eventStarted = true;
+        foreach (var platform in platforms)
+        {
+            platform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        }
     }
+
     public void FinishEvent()
     {
         if(platforms.Count != 0)

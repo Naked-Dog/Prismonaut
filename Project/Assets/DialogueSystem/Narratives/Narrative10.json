@@ -1,0 +1,38 @@
+{
+    "conversations": [
+        {
+            "id": "conversation_10",
+            "dialogues": [
+                {
+                    "text": "Processing... Analyzing environment...\n... Analyzing...\nFactors...",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Hey... that thing that just appeared, does it mean\nI now have three charges?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Affirmative.\nThe material that appeared after collecting the prism\ndoes not match any previous records.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "There you go again... We've seen this before. It’s a\nportal. Every time I take a prism, something changes\nin the planet's structure. You notice, right?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "...\nProcessing...",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Don’t overthink it. We’ve done this before, and it\nnever caused any problems.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Let’s cross it already.",
+                    "actor": "Prismonaut"
+                }
+            ],
+            "choices": []
+        }
+    ]
+}

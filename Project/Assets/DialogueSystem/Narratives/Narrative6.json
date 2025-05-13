@@ -1,0 +1,54 @@
+{
+    "conversations": [
+        {
+            "id": "conversation_6",
+            "dialogues": [
+                {
+                    "text": "Analyzing environment...\nThis surface doesn't match the previous ones.\nIt doesn’t seem easily penetrable.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "I see. Any ideas that don’t involve me\ncrashing into it?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Are you not familiar with the abilities integrated\ninto your suit?",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Of course I know them. What I don’t know are the\nrare materials on these planets.\nThat’s where you come in, remember?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "... Record confirmed.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "And to think that, even with blank memory, you\nhaven’t lost that impatience of yours.\nMaybe it's just a matter of time...",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "You’ve currently used two of the three\navailable abilities.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "So... would the shield block be useful to break\nthrough it?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Not to break through it. To break it.\nThe force generated will be released after the impact\nand propel you as the sphere would.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Alright. Let's try it.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "I can't confirm that throwing yourself into the void is\nyour intention, but if you do, check what’s below\nyou before breaking anything.",
+                    "actor": "AI"
+                }
+            ],
+            "choices": []
+        }
+    ]
+}

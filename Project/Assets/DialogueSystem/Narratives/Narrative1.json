@@ -4,71 +4,35 @@
             "id": "conversation_1",
             "dialogues": [
                 {
-                    "text": "...",
+                    "text": "...\nLanding recorded. Current location: unknown.\nRecovering data...",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Definitely K0Z5...\nAnd if that counts as a landing...\nWell, I've had worse.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Booting up        3        2         1",
+                    "text": "Data loaded.\nCold reboot initiated.\nLocation confirmed: K0Z5.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Initialization complete.\nSystems operating at 83.7%.\nExternal connection: failed.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Observation: Transition into the two-dimensional world XR32I has been achieved without failure.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Minor anomalies detected...\nthey seem harmless. For now.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "My database is incomplete.\nMission protocols missing.\nIs this an error? Or... was this intentional?",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Incompleteness seems to be a theme these days.\nLet’s hope that 83.7% can keep us alive.",
+                    "text": "...That shouldn't have happened.\nLoad your previous logs.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Probability of survival...\nacceptable within current conditions.",
+                    "text": "Expedition history: unavailable.\nMain memory damaged or missing.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Critical data is needed to rebuild protocols.\nConfirm mission objective.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Collect prisms. Return. The basics.",
+                    "text": "...Nothing? Not even C9L4?\nWe were there just recently!",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Prisms. Curious.\nMy logs contain no details about their purpose.\nWhy are they important?",
+                    "text": "References not found.",
                     "actor": "AI"
                 },
                 {
-                    "text": "We’re in the same boat, then.\nLet’s focus on the job and figure it out as we go.\nBegin companion mode.",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "Acknowledged. Starting environmental analysis.\nCompanion mode active.\nI’ll do my best to assist... even if I don’t know why we’re here.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Reminder: I can help optimize your movement if needed.\nFor navigation protocols, consult your suit’s internal guide at the pause menu.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Good to know. I’ll keep that in mind.\nHow’s the rest of you holding up? Anything I should worry about?",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "Systems stable. Everything feels... functional.\nBut I wonder—why were my protocols left incomplete?\nIt’s unsettling, isn’t it?",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Let's focus on the task at hand.\nLet me know if something feels off.\nI’d rather not fly alone on this one.",
+                    "text": "Come on, you guided me through all of the...",
                     "actor": "Prismonaut"
                 }
             ],

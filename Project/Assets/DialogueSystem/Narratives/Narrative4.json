@@ -4,27 +4,35 @@
             "id": "conversation_4",
             "dialogues": [
                 {
-                    "text": "Portal exit confirmed: Location updated. Current environment: unfamiliar.",
+                    "text": "Analyzing environment...\nSoft surface detected.\nRecommended ability: Triller.",
                     "actor": "AI"
                 },
                 {
-                    "text": "No surprise there. What do you see ahead?",
+                    "text": "Excuse me? Triller?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Scans indicate multiple lifeforms in the vicinity. Warning: Unidentified species show defensive patterns.",
+                    "text": "The suit has a drilling mode.\nWhen activated, it adapts to the shape of\na rotating cone.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Fantastic. Any advice?",
+                    "text": "Alright... And how is that transformation useful to\nme now exactly?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Recommendation: Approach cautiously. Territorial behavior observed. Animals may attempt to chase you, but will likely tire quickly. Plants are much less forgiving.",
+                    "text": "Impacting soft surfaces with the active ability\nallows partial incorporation.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Great, so just don't get in their way, and I’ll be fine. Got it.",
+                    "text": "Physical evaluation of the environment indicates...\nDirectional manipulation possible when entering\nthese surfaces.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "... Is that... serious? I've never experienced anything\nlike that...",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "I hope you're as skilled at remembering as you are\nat finding rare uses for this suit.",
                     "actor": "Prismonaut"
                 }
             ],

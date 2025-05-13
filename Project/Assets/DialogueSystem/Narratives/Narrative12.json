@@ -1,0 +1,30 @@
+{
+    "conversations": [
+        {
+            "id": "conversation_12",
+            "dialogues": [
+                {
+                    "text": "Alert!",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Biotic factors detected.\nThey are... eggs.\nSpecies: unknown. Proceed with caution.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Thanks for the heart attack.\nSo, they’re eggs?\nAnd how long until they hatch, huh?!",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Processing...\nImpossible to determine precisely. My current records\nlack sufficient data on their gestation cycle.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Well, at least you identified them.",
+                    "actor": "Prismonaut"
+                }
+            ],
+            "choices": []
+        }
+    ]
+}
