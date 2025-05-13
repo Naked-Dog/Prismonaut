@@ -48,10 +48,6 @@ public abstract class BaseSlime : MonoBehaviour
 
     private IEnumerator HandleBounceOrAttack(BounceValues bv)
     {
-        Debug.Log(bv.bounceOnY);
-        Debug.Log(bv.relativeSpeed);
-        Debug.Log(bv.normal);
-        Debug.Log(bv.bounceImpulse);
         Rigidbody2D rb = bv.rb;
         rb.linearVelocity = Vector2.zero;
         originalType = rb.bodyType;
@@ -64,7 +60,7 @@ public abstract class BaseSlime : MonoBehaviour
         {
             player.animationsModule.InvertPlayerFacingDirection();
         }
-
+        AudioManager.Instance.Play2DSound(SlimeSoundsEnum.Hit);
         anim.Play("BounceIn");
 
         while (elapsed < waitTime)
@@ -82,6 +78,7 @@ public abstract class BaseSlime : MonoBehaviour
 
         rb.bodyType = originalType;
 
+        AudioManager.Instance.Play2DSound(SlimeSoundsEnum.Bounce);
         anim.Play("BounceOut");
 
         DoBounce(bv);

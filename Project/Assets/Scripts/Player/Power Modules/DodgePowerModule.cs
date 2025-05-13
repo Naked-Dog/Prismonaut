@@ -165,6 +165,7 @@ namespace PlayerSystem
                 rb2d.linearVelocity = Vector2.zero;
                 rb2d.AddForce(Vector2.up * movementValues.forceCancelImpulse, ForceMode2D.Impulse);
                 eventBus.Publish(new OnCancelPower());
+                AudioManager.Instance.Stop(PlayerSoundsEnum.DodgeTrans);
                 return;
             }
 
