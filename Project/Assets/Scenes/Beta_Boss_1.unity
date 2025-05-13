@@ -41543,6 +41543,18 @@ PrefabInstance:
       propertyPath: m_Interpolate
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5941871471876842594, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: onTriggerExit.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941871471876842594, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1806861309}
+    - target: {fileID: 5941871471876842594, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
+      propertyPath: onTriggerExit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6259152286382112013, guid: a75152be2f360f24a9b4fc41ae562d23, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -41598,9 +41610,9 @@ MonoBehaviour:
   onTriggerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1079413848}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
+        m_MethodName: 
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -84308,7 +84320,9 @@ MonoBehaviour:
   initialPoolSize: 10
   sfxMixer: {fileID: 0}
   musicMixer: {fileID: 0}
-  libraries: []
+  libraries:
+  - {fileID: 11400000, guid: 14ccf2047df047142a88febe869a1e3e, type: 2}
+  - {fileID: 11400000, guid: 123907c595efdf44384223dd6755f25d, type: 2}
 --- !u!4 &1895392907
 Transform:
   m_ObjectHideFlags: 0
