@@ -122,7 +122,7 @@ public class AudioManager: MonoBehaviour
         src.outputAudioMixerGroup = sfxMixer;
         src.spatialBlend = spatialBlend;
         src.spread = 180;
-        src.minDistance = 0.07f;
+        src.minDistance = 10f;
         src.maxDistance = 0.15f;
         src.Play();
         if (!loop) StartCoroutine(RecycleWhenDone(src));
@@ -141,7 +141,7 @@ public class AudioManager: MonoBehaviour
     public AudioSource Play3DSoundAttached<TEnum>(TEnum key, Transform parent, float volume = 1f, bool loop = false) where TEnum : Enum
     {
         var src = PlaySound(key, volume, loop);
-
+        Debug.Log(src);
         if (src != null)
         {
             src.transform.SetParent(parent);

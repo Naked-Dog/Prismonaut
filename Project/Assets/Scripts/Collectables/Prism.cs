@@ -8,10 +8,9 @@ public class Prism : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            PlayerBaseModule playerModule = collision.gameObject.GetComponentInParent<PlayerBaseModule>();
-            playerModule.GetCharge();
-            GameManager.Instance.GetPrism();
+            PlayerBaseModule.Instance.GetPrism();
             ShakeManager.Instance.CameraShake(shakeProfile);
+            AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.Portal);
             gameObject.SetActive(false);
         }
     }

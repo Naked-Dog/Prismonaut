@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Resources;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,8 +18,9 @@ namespace PlayerSystem
         [SerializeField] private GameObject interactSign;
         [SerializeField] private Collider2D dodgeCollider;
         [SerializeField] private Collider2D playerMainCollider;
-        [SerializeField] private ChargesUIController chargesUIController;
-
+        
+        public static PlayerBaseModule Instance;
+        public ChargesUIController chargesUIController;
         public Knockback knockback;
         public PlayerState state;
         private EventBus eventBus;
@@ -31,13 +33,21 @@ namespace PlayerSystem
         public PlayerHealthModule healthModule;
         private PlayerAudioModule audioModule;
         public PlayerInteractionModule interactionModule;
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
 
+            state = new PlayerState();
+            eventBus = new EventBus();
+        }
 
         protected void Start()
         {
-            state = new PlayerState();
-            eventBus = new EventBus();
-
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Physics2DMovement(eventBus, state, avatarRigidbody2D);
             animationsModule = new PlayerAnimations(eventBus, state, animator);
@@ -134,7 +144,7 @@ namespace PlayerSystem
             state.currentCharges -= 1f;
         }
 
-        public void GetCharge()
+        public void GetPrism()
         {
             DiegeticInfoType diegeticInfoType = new()
             {
@@ -144,7 +154,15 @@ namespace PlayerSystem
             DiegeticInfo.Instance.ShowDiegeticInfo(diegeticInfoType);
             state.maxCharges++;
             state.currentCharges = state.maxCharges;
+            GameManager.Instance.GetPrism();
             chargesUIController.SetChargesContainer(state.maxCharges);
+        }
+
+        public void SetCharges(int chargeAmount = 1)
+        {
+            state.maxCharges = chargeAmount;
+            state.currentCharges = state.maxCharges;
+            chargesUIController.SetChargesContainer(state.maxCharges, false);
         }
     }
 }

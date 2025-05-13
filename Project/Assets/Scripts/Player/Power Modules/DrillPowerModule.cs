@@ -79,7 +79,7 @@ namespace PlayerSystem
             if (playerState.currentCharges < 1f) return;
             baseModule.StartChargeRegeneration();
 
-            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.DrillTrans, 1f, false);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.DrillTrans, 1f, true);
             playerState.activePower = Power.Drill;
             playerState.powerTimeLeft = powersConstants.drillFirstPowerDuration;
             isSecondStage = false;
@@ -275,7 +275,6 @@ namespace PlayerSystem
 
                 rb2d.linearVelocity = Vector2.zero;
                 rb2d.AddForce(drillDir * powersConstants.heavyExitForceImpulse, ForceMode2D.Impulse);
-
                 Deactivate();
             }
         }

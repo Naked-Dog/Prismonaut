@@ -19,6 +19,7 @@ public enum PlayerSoundsEnum
     Heal,
     Land,
     Hurt,
+    RegularForm,
 }
 
 [CreateAssetMenu(menuName = "Audio/Player Sounds Library")]

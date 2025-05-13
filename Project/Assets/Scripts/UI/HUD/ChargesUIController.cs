@@ -41,14 +41,14 @@ public class ChargesUIController : MonoBehaviour
         chargesFill.fillAmount = 1f;
     }
 
-    public void SetChargesContainer(int maxCharges)
+    public void SetChargesContainer(int maxCharges, bool showCharges = true)
     {
         setCharge = Array.Find(charges, charge => charge.maxCharges == maxCharges);
         if (setCharge == null) return;
         chargesContainer.sprite = setCharge.chargeContainer;
         chargesFill.sprite = setCharge.chargeFill;
         ResetChargesUI();
-        StartCoroutine(ShowChargesUI());
+        if(showCharges) StartCoroutine(ShowChargesUI());
     }
 
     public IEnumerator ShowChargesUI()

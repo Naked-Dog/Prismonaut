@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eb45ffa940c05d40aa50b0f034625f6, type: 3}
+  m_Name: LevelEventsLibrary
+  m_EditorClassIdentifier: 
+  clips:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 8300000, guid: fc7864c79c8ff2e43bb3ed4624b1aad0, type: 3}
+    - Key: 1
+      Value: {fileID: 8300000, guid: 95d5458336b956049a71cf4f858e5d44, type: 3}
+    - Key: 2
+      Value: {fileID: 8300000, guid: 2e57eab12eed0d348b4a2ffbb6725f39, type: 3}
+    - Key: 3
+      Value: {fileID: 8300000, guid: c4f4671db29eaf744919a88d2f9e7a17, type: 3}

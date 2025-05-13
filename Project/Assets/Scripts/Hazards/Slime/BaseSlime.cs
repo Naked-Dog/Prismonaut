@@ -13,6 +13,7 @@ public abstract class BaseSlime : MonoBehaviour
     private BounceValues pendingBounce;
     protected RigidbodyType2D originalType;
 
+    [SerializeField] protected Animator anim;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Rigidbody2D rb = collision.rigidbody;
@@ -47,10 +48,6 @@ public abstract class BaseSlime : MonoBehaviour
 
     private IEnumerator HandleBounceOrAttack(BounceValues bv)
     {
-        Debug.Log(bv.bounceOnY);
-        Debug.Log(bv.relativeSpeed);
-        Debug.Log(bv.normal);
-        Debug.Log(bv.bounceImpulse);
         Rigidbody2D rb = bv.rb;
         rb.linearVelocity = Vector2.zero;
         originalType = rb.bodyType;
@@ -61,9 +58,10 @@ public abstract class BaseSlime : MonoBehaviour
         PlayerBaseModule player = rb.GetComponent<PlayerBaseModule>();
         if (player && !bv.bounceOnY)
         {
-            Debug.Log("A");
             player.animationsModule.InvertPlayerFacingDirection();
         }
+        AudioManager.Instance.Play2DSound(SlimeSoundsEnum.Hit);
+        anim.Play("BounceIn");
 
         while (elapsed < waitTime)
         {
@@ -79,6 +77,9 @@ public abstract class BaseSlime : MonoBehaviour
         }
 
         rb.bodyType = originalType;
+
+        AudioManager.Instance.Play2DSound(SlimeSoundsEnum.Bounce);
+        anim.Play("BounceOut");
 
         DoBounce(bv);
         yield return new WaitForSeconds(0.1f);

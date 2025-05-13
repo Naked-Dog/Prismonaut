@@ -69,5 +69,10 @@ namespace PlayerSystem
         {
             AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Hurt, 1f, false);
         }
+
+        public void PlayRegularFormSound()
+        {
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.RegularForm, 1f, false);
+        }
     }
 }

@@ -3566,6 +3566,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d2e19dc911188c24ca1e7add759dfa9f, type: 2}
   - {fileID: 11400000, guid: 174baf1519e8c184dad0bd3df177decb, type: 2}
   - {fileID: 11400000, guid: 14ccf2047df047142a88febe869a1e3e, type: 2}
+  - {fileID: 11400000, guid: bad67f55f34ce8d46b2047bdf176fa83, type: 2}
+  - {fileID: 11400000, guid: 123907c595efdf44384223dd6755f25d, type: 2}
+  - {fileID: 11400000, guid: d5571ce0013702f4782c0b06459b2036, type: 2}
 --- !u!4 &966635136
 Transform:
   m_ObjectHideFlags: 0
