@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using PlayerSystem;
 using UnityEngine;
 public class ColliderDetector : MonoBehaviour
 {
-    private Transform target;
+    [SerializeField] private Transform target;
+    [SerializeField] private List<string> tagList = new List<string>();
 
     void Start()
     {
@@ -11,12 +13,25 @@ public class ColliderDetector : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        target = other.transform;
+        foreach (var tag in tagList)
+        {
+            if (other.CompareTag(tag))
+            {
+                target = other.transform;
+                break;
+            }
+        }
     }
-
     void OnTriggerExit2D(Collider2D other)
     {
-        target = null;
+        foreach (var tag in tagList)
+        {
+            if (other.CompareTag(tag) && target.CompareTag(tag))
+            {
+                target = null;
+                break;
+            }
+        }
     }
 
     public Transform GetTarget(string tag)
