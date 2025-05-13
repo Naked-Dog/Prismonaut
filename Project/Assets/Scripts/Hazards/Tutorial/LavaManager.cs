@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class LavaManager : MonoBehaviour
     [SerializeField] private float timeElapsed = 0f;
     [SerializeField] private List<LavaPositions> lavaPositions = new List<LavaPositions>();
     [SerializeField] private ShakeScriptable shakeProfile;
+    [SerializeField] private DialogueRunner dialogueRunner;
 
     private bool eventStarted = false;
     private bool eventFinished = false;
@@ -47,10 +49,14 @@ public class LavaManager : MonoBehaviour
     {
         if (eventStarted) return;
         eventStarted = true;
-        ShakeManager.Instance.CameraShake(shakeProfile);
-        AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.Earthquake);
         AudioManager.Instance.Play3DSoundAttached(LevelEventsSoundsEnum.Lava,lavaTransform,1,true);
         if(PlatformManager.Instance) PlatformManager.Instance.StartPlatforms();
+    }
+
+    public void Shake()
+    {
+        ShakeManager.Instance.CameraShake(shakeProfile);
+        AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.Earthquake);
     }
 
     private void RiseLava()

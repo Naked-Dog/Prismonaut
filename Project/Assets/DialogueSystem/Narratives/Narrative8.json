@@ -1,0 +1,46 @@
+{
+    "conversations": [
+        {
+            "id": "conversation_8",
+            "dialogues": [
+                {
+                    "text": "Processing...\nYou have obtained a second charge.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "What?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Until now, you could only use one ability and wait\nfor it to recharge. Now you can execute two in a row.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "WHAT?\nCan I combine them or just repeat the same one?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Both options are valid.\nHowever, avoid running out of charges in\ncritical situations.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "I know you don't remember anything... but this never\nhappened before. So the suit could always give me\ntwo charges?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Negative... initially.\nMy records indicate that a version of the suit with\nthat feature was in preproduction.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "However, its full implementation was expected\nto take several years.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "So, either we’re in the future... or this planet\nactivated something in the suit. I’ll take it as\nan upgrade for now.",
+                    "actor": "Prismonaut"
+                }
+            ],
+            "choices": []
+        }
+    ]
+}

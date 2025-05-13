@@ -139,16 +139,20 @@ namespace PlayerSystem
 
         public void GetPrism()
         {
-            DiegeticInfoType diegeticInfoType = new()
-            {
-                time = 3f,
-                keyboardText = $"The Prism provided an additional Form Change: {state.maxCharges} => {state.maxCharges + 1}"
-            };
-            DiegeticInfo.Instance.ShowDiegeticInfo(diegeticInfoType);
             state.maxCharges++;
             state.currentCharges = state.maxCharges;
             GameManager.Instance.GetPrism();
             chargesUIController.SetChargesContainer(state.maxCharges);
+        }
+
+        public void ShowDiegeticInfoPrism() 
+        {
+            DiegeticInfoType diegeticInfoType = new()
+            {
+                time = 3f,
+                keyboardText = $"The Prism provided an additional Form Change: {state.maxCharges - 1} => {state.maxCharges}"
+            };
+            DiegeticInfo.Instance.ShowDiegeticInfo(diegeticInfoType);
         }
 
         public void SetCharges(int chargeAmount = 1)

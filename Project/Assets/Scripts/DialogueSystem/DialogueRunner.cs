@@ -22,6 +22,13 @@ public class DialogueRunner : MonoBehaviour, IInteractable
     public void Interact()
     {
         DialogueController.Instance.RunDialogue(ParseNarrative(narrativeText), endEvent);
+        Debug.Log("Dialogue started");
         if (destroyOnInteract) Destroy(gameObject);
+    }
+
+    public void RunDialogue()
+    {        
+        Debug.Log("Run GA");
+        DialogueController.Instance.RunDialogue(ParseNarrative(narrativeText), endEvent);
     }
 }

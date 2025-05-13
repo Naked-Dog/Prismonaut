@@ -1,0 +1,30 @@
+{
+    "conversations": [
+        {
+            "id": "conversation_13",
+            "dialogues": [
+                {
+                    "text": "That... was too much...\nWhat the hell is that sound?\nWhy can't I see anything?!",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Incomplete biometric factor analysis.\nPlease try to keep the beings alive long enough to\ncomplete the analysis.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "I understand. No, thanks.\nWhat should I do now?!",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Anomalous movement detected... It matches the \nocation of the eggs registered in the previous zone.\nThis could be a sign of hatching.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Recommend evacuating the area immediately.\nHead to the tunnel. Run!",
+                    "actor": "AI"
+                }
+            ],
+            "choices": []
+        }
+    ]
+}
