@@ -1,0 +1,46 @@
+{
+    "conversations": [
+        {
+            "id": "conversation_9",
+            "dialogues": [
+                {
+                    "text": "Analyzing environment...",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Please tell me that with these 'charges,'\nI can also jump twice.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Negative. The jump comes from your physiology,\nnot the suit. However, the suit is still functionally\nadvantageous.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "But I have nothing to propel myself up there.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Negative.\nAnalysis concluded: when an ability is used\ncorrectly, the generated momentum can be utilized.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "If you use propulsion and impact a surface that\nhalts your trajectory, the momentum redirects\nupward.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "So you're suggesting I hit the walls so that the\nimpact pushes me higher?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Affirmative.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "...\nI guess no one will see me make a fool of myself\non this planet.",
+                    "actor": "Prismonaut"
+                }
+            ],
+            "choices": []
+        }
+    ]
+}

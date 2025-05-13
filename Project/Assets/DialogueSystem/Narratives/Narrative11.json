@@ -1,0 +1,30 @@
+{
+    "conversations": [
+        {
+            "id": "conversation_11",
+            "dialogues": [
+                {
+                    "text": "Where are we?\nWhat the hell are those things?!\nScan the environment, now.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Analyzing environment...\nBiotic factors...\n...",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Analyzing environment... Such closed spaces with\norganic presence... According to the environmental\ndata, this shouldn't be possible.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Proceed with caution.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "I trust you.",
+                    "actor": "Prismonaut"
+                }
+            ],
+            "choices": []
+        }
+    ]
+}

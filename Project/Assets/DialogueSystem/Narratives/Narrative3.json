@@ -4,59 +4,35 @@
             "id": "conversation_3",
             "dialogues": [
                 {
-                    "text": "Structure detected:\nFloor appears brittle but intact.\nBreaking it is currently beyond your capabilities.",
+                    "text": "Analyzing environment...\nImpact zone: cave network.\nSimilar to rock formations from your planet.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Are you so sure of that?\nMark it. We’ll come back later.",
+                    "text": "Mmm... You have functional logs, but nothing about\nthe expeditions. Something doesn't add up.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Marking location.\nNearby anomaly detected:\nA portal-like phenomenon.\nFunctionality: unknown.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "That’s a tear in space.\nStep in, and it’ll take you somewhere else.\nBasic enough.",
+                    "text": "Go through your initial protocols.\nAnalyze, study, and understand everything you see.\nI need you to be back to full functionality.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Clarification:\nAre you certain this will not result in catastrophic disintegration?",
+                    "text": "Understood. Re-establishing protocols.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Pretty sure. Used these before.\nStill here, aren’t I?\nIt's just a matter of dashing into it with the circle power.",
+                    "text": "Kinetic Sphere handled correctly.\nStrategic use of the ability beyond movement \nis recommended.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "This isn't the first time I've almost been buried alive...\nBelieve me, I know its potential.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Circle power?... \nPlease elaborate. My memory is incomplete.",
+                    "text": "Remember: after using an ability, the system needs\nto recharge before a new use.\nThe suit’s charge status is visible on your interface.",
                     "actor": "AI"
                 },
                 {
-                    "text": "It’s one of the suit’s tricks.\nA quick burst to the side.\nUseful for closing gaps or dodging threats.",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "Interesting. Does it have offensive potential?",
-                    "actor": "AI"
-                },
-                {
-                    "text": "It does.\nTime it right, and you can slam into enemies.\nHits hard enough to handle most threats.",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "So... mobility and offense in one system?\nThat’s efficient design.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Exactly. Only...\nI forgot how to trigger it.",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "Cross-referencing circle power has given a match in the suit's internal guide.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Right, I think I'll have one more look at that guide before continuing.",
+                    "text": "Yeah, that icon. When we get back, I'll ask them to\nchange it. Sometimes, the way it looks, it gives me\nthe impression that I've broken something.",
                     "actor": "Prismonaut"
                 }
             ],

@@ -4,48 +4,12 @@
             "id": "conversation_2",
             "dialogues": [
                 {
-                    "text": "Obstacle detected:\nA pit with hazardous spikes.\nFalling is strongly discouraged.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "I noticed. What’s your plan, genius?",
+                    "text": "!",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Solution: Jump across. Alternative strategies: \n     .      .       .    \nNone.",
+                    "text": "Sismic movement detected.\nCritical conditions detected.\nEvacuation of this area is recommended.",
                     "actor": "AI"
-                },
-                {
-                    "text": "Distance calculated. Probability of success: 92%,\nassuming adequate execution. \nRemaining 8% is... less ideal.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "92%. Practically a guarantee. \n What could possibly go wrong?",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "Statistically speaking:\npoor judgment, miscalculation, or gravity.\nAll fatal.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Important:\nAltering trajectory mid-air can mitigate risk.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Duly noted.\nAny other words of encouragement?",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "Scans indicate similar hazards ahead.\nAdjust jump duration for increased height.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "The longer you hold, the higher you go.\nConsider it... applied physics.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Physics is my favorite subject when my life depends on it.\nWatch and learn.",
-                    "actor": "Prismonaut"
                 }
             ],
             "choices": []

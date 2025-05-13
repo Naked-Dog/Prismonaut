@@ -1,0 +1,38 @@
+{
+    "conversations": [
+        {
+            "id": "conversation_7",
+            "dialogues": [
+                {
+                    "text": "Hey... What am I supposed to do now?\nThere’s no more way forward.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "...\nAnalysis concluded.\nThe surface is similar to the clusters you previously redirected.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "So, I can move this entire surface?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Negative. But given the nature of your ability, you\ncould probably pass through it without destroying it.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Great. I hate these sandy surfaces...\nI end up feeling like I have debris all over me,\neven with the suit on.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "To minimize discomfort after immersion, avoid\nemerging onto surfaces with abrasive or unstable\ncharacteristics.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Right... Jumping straight into spikes or lava isn’t\nwhat I had in mind... Thanks.",
+                    "actor": "Prismonaut"
+                }
+            ],
+            "choices": []
+        }
+    ]
+}

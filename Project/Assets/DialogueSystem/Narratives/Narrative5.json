@@ -4,11 +4,51 @@
             "id": "conversation_5",
             "dialogues": [
                 {
-                    "text": "(This seems to be some sort of checkpoint)",
+                    "text": "What the hell is that in front of me?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "(I'd best interact with it before continuing)",
+                    "text": "Analyzing environment...\nNew surface detected.\nClassification: soft... not penetrable.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "So... what am I supposed to do with this?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "It has properties similar to rebound materials\nknown on your planet. If you impact it from a\ncertain distance, you should...",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Rebound?\nAre you telling me I can rebound?!",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Affirmative. The strength of the rebound will depend\non the height and speed of the impact.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Reminder: abilities have multiple applications.\nDo not limit yourself to a single approach.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "I like how you think... or whatever you do before...\nspeaking?",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "...",
+                    "actor": "AI"
+                },
+                {
+                    "text": "...",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Before initiating the rebound, make sure to check\nwhat's in your trajectory.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Thanks.",
                     "actor": "Prismonaut"
                 }
             ],
