@@ -1,8 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Layouts;
-using UnityEngine.InputSystem.Utilities;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.Video;
 
 public class CinematicController : MonoBehaviour
@@ -13,6 +12,29 @@ public class CinematicController : MonoBehaviour
     InputActionMap cinematicMap;
     private InputAction skipAction;
     private System.Action<InputAction.CallbackContext> skipActionDelegate;
+
+    private void OnEnable()
+    {
+        InputSystem.onEvent += OnInputEvent;
+    }
+
+    private void OnDisable()
+    {
+        InputSystem.onEvent -= OnInputEvent;
+    }
+
+    private void OnInputEvent(InputEventPtr eventPtr, InputDevice device)
+    {
+        if (!eventPtr.IsA<StateEvent>() && !eventPtr.IsA<DeltaStateEvent>())
+            return;
+
+        if (device != currentDevice)
+        {
+            currentDevice = device;
+            TextChange(device);
+        }
+    }
+
     private void Start()
     {
         StartCoroutine(MenuController.Instance.FadeOutSolidPanel());
@@ -42,25 +64,13 @@ public class CinematicController : MonoBehaviour
         MenuController.Instance.ChangeScene("Beta_Level_1");
     }
 
-    private void Update()
-    {
-        var lastDevice = InputSystem.devices[InputSystem.devices.Count - 1];
-
-        if (currentDevice != lastDevice)
-        {
-            currentDevice = lastDevice;
-            TextChange(currentDevice);
-        }
-    }
-
     private void TextChange(InputDevice device)
     {
-        Debug.Log(device);
-        if(device is Keyboard)
+        if (device is Keyboard || device is Mouse)
         {
             skipText.text = "Esc to skip";
         }
-        else 
+        else
         {
             skipText.text = "Start to skip";
         }

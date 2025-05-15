@@ -24,14 +24,7 @@ public class ColliderDetector : MonoBehaviour
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        foreach (var tag in tagList)
-        {
-            if (other.CompareTag(tag) && target.CompareTag(tag))
-            {
-                target = null;
-                break;
-            }
-        }
+        target = null;
     }
 
     public Transform GetTarget(string tag)
