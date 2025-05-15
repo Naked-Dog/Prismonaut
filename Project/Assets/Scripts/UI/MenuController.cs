@@ -65,7 +65,7 @@ public class MenuController : MonoBehaviour
         }
 
         setMenuDisplay(sceneName);
-        yield return new WaitForSeconds(1);
+        // yield return new WaitForSeconds(1);
 
         AudioManager.Instance.PlayMusic(GetMusicClip(), 0.75f);
 
