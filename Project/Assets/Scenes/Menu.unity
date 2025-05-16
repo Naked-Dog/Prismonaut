@@ -1761,7 +1761,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Giannella Llosa - Concept Artist, Illustrator, Animator
+  m_text: Giannella Llosa - Concept Artist, Illustrator, 2D Animator
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
   m_sharedMaterial: {fileID: 372238084780705370, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
