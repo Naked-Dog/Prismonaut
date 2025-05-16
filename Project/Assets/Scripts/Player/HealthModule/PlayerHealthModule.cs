@@ -69,7 +69,7 @@ namespace PlayerSystem
             return false;
         }
 
-        public void SpikeDamage(int spikeDmg = 0)
+        public void SpikeDamage(int spikeDmg = 0, bool willWarp = true)
         {
             if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return;
             if (hpRegenCoroutine != null) mb.StopCoroutine(hpRegenCoroutine);
@@ -95,7 +95,7 @@ namespace PlayerSystem
                 HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
             }
             StartHPRegen();
-            WarpPlayerToSafeGround();
+            if(willWarp) WarpPlayerToSafeGround();
         }
 
         public void WarpPlayerToSafeGround()
