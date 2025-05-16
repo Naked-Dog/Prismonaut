@@ -6,6 +6,7 @@ public class SpikeSpawnerManager : MonoBehaviour
     public static SpikeSpawnerManager Instance;
     [SerializeField] private List<SpikeSpawner> listActivators = new();
     [SerializeField] private List<SpikeSpawner> listFalling = new();
+    private int stage = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -17,7 +18,14 @@ public class SpikeSpawnerManager : MonoBehaviour
         Instance = this;
     }
 
-    public void FirstStage()
+    public void SetNextStage()
+    {
+        stage++;
+        if(stage == 1) FirstStage();
+        if(stage == 2) SecondStage();
+    }
+
+    private void FirstStage()
     {
         if (listActivators.Count == 0) return;
         foreach(SpikeSpawner spawner in listActivators)
@@ -26,7 +34,7 @@ public class SpikeSpawnerManager : MonoBehaviour
         }
         listActivators.Clear();
     }
-    public void SecondStage()
+    private void SecondStage()
     {
         if (listFalling.Count == 0) return;
         foreach (SpikeSpawner spawner in listFalling)

@@ -66,6 +66,7 @@ public class BullHealth : MonoBehaviour
             if (seg.currentHealth <= 0)
             {
                 seg.locked = true;
+                SpikeSpawnerManager.Instance.SetNextStage();
             }
             else
             {
