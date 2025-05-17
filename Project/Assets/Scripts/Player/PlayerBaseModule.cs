@@ -140,6 +140,18 @@ namespace PlayerSystem
             inputModule.Dispose();
         }
 
+        public void StopPlayerActions()
+        {
+            Debug.Log("mobility Stoped");
+            eventBus.Publish(new RequestStopPlayerInputs());
+        }
+
+        public void ResumePlayerActions()
+        {
+            Debug.Log("mobility Resume");
+            eventBus.Publish(new RequestPlayerInputs());
+        }
+
         public void StartFallingCameraTimer()
         {
             if (fallingCamCoroutine != null) return;
