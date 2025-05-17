@@ -8,7 +8,7 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Incomplete biometric factor analysis.\nPlease try to keep the beings alive long enough to\ncomplete the analysis.",
+                    "text": "Incomplete biometric factor analysis.\nPlease try to keep the beings alive long enough\nto complete the analysis.",
                     "actor": "AI"
                 },
                 {
@@ -16,7 +16,7 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Anomalous movement detected... It matches the \nocation of the eggs registered in the previous zone.\nThis could be a sign of hatching.",
+                    "text": "Anomalous movement detected... It matches the\nlocation of the eggs registered in the previous\nzone. This could be a sign of hatching.",
                     "actor": "AI"
                 },
                 {

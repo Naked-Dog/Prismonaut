@@ -8,11 +8,11 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "Mmm... You have functional logs, but nothing about\nthe expeditions. Something doesn't add up.",
+                    "text": "Mmm... You have functional logs, but nothing\nabout the expeditions. Something doesn't add up.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Go through your initial protocols.\nAnalyze, study, and understand everything you see.\nI need you to be back to full functionality.",
+                    "text": "Go through your initial protocols.\nAnalyze, study, and understand everything you\nsee. I need you to be back to full functionality.",
                     "actor": "Prismonaut"
                 },
                 {
@@ -24,15 +24,15 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "This isn't the first time I've almost been buried alive...\nBelieve me, I know its potential.",
+                    "text": "This isn't the first time I've almost been buried\nalive... Believe me, I know its potential.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Remember: after using an ability, the system needs\nto recharge before a new use.\nThe suit’s charge status is visible on your interface.",
+                    "text": "Remember: after using an ability, the system\nneeds to recharge before a new use.\nThe suit’s charge status is visible on your interface.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Yeah, that icon. When we get back, I'll ask them to\nchange it. Sometimes, the way it looks, it gives me\nthe impression that I've broken something.",
+                    "text": "Yeah, that icon. When we get back, I'll ask them\nto change it. Sometimes, the way it looks, it gives\nme the impression that I've broken something.",
                     "actor": "Prismonaut"
                 }
             ],

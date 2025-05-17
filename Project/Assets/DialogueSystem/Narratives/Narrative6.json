@@ -16,7 +16,7 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "Of course I know them. What I don’t know are the\nrare materials on these planets.\nThat’s where you come in, remember?",
+                    "text": "Of course I know them. What I don’t know\nare the rare materials on these planets.\nThat’s where you come in, remember?",
                     "actor": "Prismonaut"
                 },
                 {
@@ -24,7 +24,7 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "And to think that, even with blank memory, you\nhaven’t lost that impatience of yours.\nMaybe it's just a matter of time...",
+                    "text": "And to think that, even with blank memory,\nyou haven’t lost that impatience of yours.\nMaybe it's just a matter of time...",
                     "actor": "Prismonaut"
                 },
                 {
@@ -32,11 +32,11 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "So... would the shield block be useful to break\nthrough it?",
+                    "text": "So... would the shield block be useful to\nbreak through it?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Not to break through it. To break it.\nThe force generated will be released after the impact\nand propel you as the sphere would.",
+                    "text": "Not to break through it. To break it.\nThe force generated will be released after the\nimpact and propel you as the sphere would.",
                     "actor": "AI"
                 },
                 {
@@ -44,7 +44,7 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "I can't confirm that throwing yourself into the void is\nyour intention, but if you do, check what’s below\nyou before breaking anything.",
+                    "text": "I can't confirm that throwing yourself into the void\nis your intention, but if you do, check what’s\nbelow you before breaking anything.",
                     "actor": "AI"
                 }
             ],

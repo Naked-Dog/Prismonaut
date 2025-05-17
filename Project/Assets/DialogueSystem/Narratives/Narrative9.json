@@ -8,7 +8,7 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "Please tell me that with these 'charges,'\nI can also jump twice.",
+                    "text": "Please tell me that with these 'charges'\nI can also jump twice.",
                     "actor": "Prismonaut"
                 },
                 {
@@ -20,11 +20,11 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Negative.\nAnalysis concluded: when an ability is used\ncorrectly, the generated momentum can be utilized.",
+                    "text": "Negative.\nAnalysis concluded: when an ability is performed\ncorrectly, the generated momentum can be used.",
                     "actor": "AI"
                 },
                 {
-                    "text": "If you use propulsion and impact a surface that\nhalts your trajectory, the momentum redirects\nupward.",
+                    "text": "If you use propulsion and impact a surface\nthat halts your trajectory, the momentum\nredirects upward.",
                     "actor": "AI"
                 },
                 {
@@ -36,7 +36,7 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "...\nI guess no one will see me make a fool of myself\non this planet.",
+                    "text": "...\nI guess no one will see me make a fool of\nmyself on this planet.",
                     "actor": "Prismonaut"
                 }
             ],

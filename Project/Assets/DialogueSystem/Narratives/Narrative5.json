@@ -24,7 +24,7 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Affirmative. The strength of the rebound will depend\non the height and speed of the impact.",
+                    "text": "Affirmative. The strength of the rebound will\ndepend on the height and speed of the impact.",
                     "actor": "AI"
                 },
                 {
@@ -44,7 +44,7 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Before initiating the rebound, make sure to check\nwhat's in your trajectory.",
+                    "text": "Before initiating the rebound, make sure to\ncheck what's in your trajectory.",
                     "actor": "AI"
                 },
                 {
