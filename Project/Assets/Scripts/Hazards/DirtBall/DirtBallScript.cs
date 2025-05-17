@@ -37,7 +37,7 @@ public class DirtBallScript : MonoBehaviour
 
     private void CheckVelocity()
     {
-        if (Mathf.Abs(rb.linearVelocityX) + Mathf.Abs(rb.linearVelocityY) > 0.1f)
+        if (Mathf.Abs(rb.linearVelocityX) + Mathf.Abs(rb.linearVelocityY) < 0.1f)
         {
             t -= Time.deltaTime;
             if (t < 0) Death();

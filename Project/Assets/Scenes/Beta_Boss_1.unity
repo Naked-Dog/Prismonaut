@@ -45186,6 +45186,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4900000, guid: d55ba4cbf9adc3546baaa30ab1f508c2, type: 3}
     - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
+      propertyPath: interactOnEnter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1665313687688515693, guid: b235640e6c3e45146aecc9ce56db5efc, type: 3}
       propertyPath: endEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -88026,7 +88030,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b8bd962ebba0f4ebac0bf9b7197abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitingAmount: 0
   cameraType: 5
 --- !u!114 &1623408393
 MonoBehaviour:
