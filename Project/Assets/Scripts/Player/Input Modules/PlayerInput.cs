@@ -31,12 +31,12 @@ namespace PlayerSystem
 
         private void StopPlayerMapInput(RequestStopPlayerInputs e)
         {
-            DisablePlayerInputs();
+            playerGameMap.Disable();
         }
 
         private void EnablePlayerMapInput(RequestPlayerInputs e)
         {
-            EnablePlayerInputs();
+            playerGameMap.Enable();
         }
 
         private void EnableDialogueInputs(RequestEnableDialogueInputs @event)
@@ -64,6 +64,9 @@ namespace PlayerSystem
 
             playerGameMap.FindAction("LookDown").started += LookDownInput;
             playerGameMap.FindAction("LookDown").canceled += LookDownInput;
+
+            playerGameMap.FindAction("LookUp").started += LookUpInput;
+            playerGameMap.FindAction("LookUp").canceled += LookUpInput;
 
 
             // RegisterCallback(playerGameMap.FindAction("Pause"), ctx =>
@@ -109,6 +112,7 @@ namespace PlayerSystem
 
         private void DisablePlayerInputs()
         {
+            Debug.Log("Disable");
             playerGameMap.Disable();
         }
 
@@ -130,6 +134,18 @@ namespace PlayerSystem
             }
         }
 
+        private void LookUpInput(InputAction.CallbackContext ctx)
+        {
+            if (ctx.started)
+            {
+                eventBus.Publish(new OnLookUpInput(true));
+            }
+            else if (ctx.canceled)
+            {
+                eventBus.Publish(new OnLookUpInput(false));
+            }
+        }
+
         public void Dispose()
         {
             eventBus.Unsubscribe<OnFixedUpdate>(PublishInputEvents);
@@ -140,6 +156,9 @@ namespace PlayerSystem
 
             playerGameMap.FindAction("LookDown").started -= LookDownInput;
             playerGameMap.FindAction("LookDown").canceled -= LookDownInput;
+            
+            playerGameMap.FindAction("LookUp").started -= LookUpInput;
+            playerGameMap.FindAction("LookUp").canceled -= LookUpInput;
 
             foreach (var (action, callback) in registeredCallbacks)
             {

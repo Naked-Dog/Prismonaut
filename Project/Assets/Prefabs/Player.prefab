@@ -925,7 +925,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3688910042023364087}
   - component: {fileID: 566693070903497394}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: CameraTrigger
   m_TagString: Player
   m_Icon: {fileID: 0}

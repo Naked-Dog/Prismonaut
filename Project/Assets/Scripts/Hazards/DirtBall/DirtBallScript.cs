@@ -14,6 +14,8 @@ public class DirtBallScript : MonoBehaviour
     private Animator anim;
     private string randomAnim;
     private string currentAnim;
+    const float startTime = 1;
+    private float t = startTime;
     private const float baseDeathTime = 1;
 
     private void Awake()
@@ -27,6 +29,21 @@ public class DirtBallScript : MonoBehaviour
     //{
     //    rb.linearVelocity = direction * speed * Time.fixedDeltaTime * 20;
     //}
+
+    private void Update()
+    {
+        CheckVelocity();
+    }
+
+    private void CheckVelocity()
+    {
+        if (Mathf.Abs(rb.linearVelocityX) + Mathf.Abs(rb.linearVelocityY) > 0.1f)
+        {
+            t -= Time.deltaTime;
+            if (t < 0) Death();
+        }
+        else t = startTime;
+    }
 
     private void LateUpdate()
     {
