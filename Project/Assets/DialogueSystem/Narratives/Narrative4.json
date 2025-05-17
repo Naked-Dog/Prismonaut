@@ -12,7 +12,7 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "The suit has a drilling mode.\nWhen activated, it adapts to the shape of\na rotating cone.",
+                    "text": "The suit has a drilling mode.\nWhen activated, it adapts to the shape\nof a rotating cone.",
                     "actor": "AI"
                 },
                 {
@@ -28,11 +28,11 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "... Is that... serious? I've never experienced anything\nlike that...",
+                    "text": "... Is that... serious? I've never experienced\nanything like that...",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "I hope you're as skilled at remembering as you are\nat finding rare uses for this suit.",
+                    "text": "I hope you're as skilled at remembering as you\nare at finding rare uses for this suit.",
                     "actor": "Prismonaut"
                 }
             ],

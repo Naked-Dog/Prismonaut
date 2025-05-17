@@ -8,7 +8,7 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "...\nAnalysis concluded.\nThe surface is similar to the clusters you previously redirected.",
+                    "text": "...\nAnalysis concluded. The surface is similar to\nthe clusters you previously redirected.",
                     "actor": "AI"
                 },
                 {
@@ -16,19 +16,19 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Negative. But given the nature of your ability, you\ncould probably pass through it without destroying it.",
+                    "text": "Negative. But given the nature of your ability,\nyou could probably pass through it without\ndestroying it.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Great. I hate these sandy surfaces...\nI end up feeling like I have debris all over me,\neven with the suit on.",
+                    "text": "Great. I hate these sandy surfaces...\nI end up feeling like I have debris all over\nme, even with the suit on.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "To minimize discomfort after immersion, avoid\nemerging onto surfaces with abrasive or unstable\ncharacteristics.",
+                    "text": "To minimize discomfort after immersion, avoid\nemerging onto surfaces with abrasive or\nunstable characteristics.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Right... Jumping straight into spikes or lava isn’t\nwhat I had in mind... Thanks.",
+                    "text": "Right... Jumping straight into spikes or lava\nisn’t what I had in mind... Thanks.",
                     "actor": "Prismonaut"
                 }
             ],

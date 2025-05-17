@@ -12,7 +12,7 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Until now, you could only use one ability and wait\nfor it to recharge. Now you can execute two in a row.",
+                    "text": "Until now, you could only use one ability and\nwait for it to recharge. Now you can execute\ntwo in a row.",
                     "actor": "AI"
                 },
                 {
@@ -24,11 +24,11 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "I know you don't remember anything... but this never\nhappened before. So the suit could always give me\ntwo charges?",
+                    "text": "I know you don't remember anything... but\nthis never happened before. So the suit\ncould always give metwo charges?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Negative... initially.\nMy records indicate that a version of the suit with\nthat feature was in preproduction.",
+                    "text": "Negative... initially.\nMy records indicate that a version of the suit\nwith that feature was in preproduction.",
                     "actor": "AI"
                 },
                 {
