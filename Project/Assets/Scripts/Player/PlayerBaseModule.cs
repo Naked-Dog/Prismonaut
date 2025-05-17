@@ -59,8 +59,8 @@ namespace PlayerSystem
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, this);
             interactionModule = new PlayerInteractionModule(eventBus, gameObject.GetComponent<PhysicsEventsRelay>(), interactSign, state);
 
-            eventBus.Subscribe<OnLookUpInput>(OnLookUp);
-            eventBus.Subscribe<OnLookDownInput>(OnLookDown);
+            //eventBus.Subscribe<OnLookUpInput>(OnLookUp);
+            //eventBus.Subscribe<OnLookDownInput>(OnLookDown);
 
             avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionEnter2DAction.AddListener(OnCollisionEnter2D);
             avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionStay2DAction.AddListener(OnCollisionStay2D);
