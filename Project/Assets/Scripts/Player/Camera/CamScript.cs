@@ -6,8 +6,6 @@ namespace CameraSystem
 {
     public class CamScript : MonoBehaviour
     {
-        public float waitingAmount;
-
         public CineCameraType cameraType;
 
         private void Start()

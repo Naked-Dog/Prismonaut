@@ -106,6 +106,11 @@ namespace PlayerSystem
             {
                 Deactivate();
             }
+
+            if(e.collision.gameObject.CompareTag("Enemy"))
+            {
+                Deactivate();
+            }
         }
 
         private void TakeHorizontalInputDirection(OnHorizontalInput e)
@@ -291,7 +296,6 @@ namespace PlayerSystem
 
         private void AttachObjectToDrill(GameObject gameObject)
         {
-            Debug.Log("AttachObjectToDrill");
             AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.EartThrumbling,1 ,true);
             lightObjectRigidBody = gameObject.GetComponent<Rigidbody2D>();
             lightObjectRigidBody.simulated = false;
