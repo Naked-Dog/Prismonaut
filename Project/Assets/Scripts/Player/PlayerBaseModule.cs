@@ -20,6 +20,7 @@ namespace PlayerSystem
         [SerializeField] private GameObject interactSign;
         [SerializeField] private Collider2D dodgeCollider;
         [SerializeField] private Collider2D playerMainCollider;
+        [SerializeField] private bool canMoveAtStart = true;
         
         public static PlayerBaseModule Instance;
         public ChargesUIController chargesUIController;
@@ -58,6 +59,9 @@ namespace PlayerSystem
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, this);
             interactionModule = new PlayerInteractionModule(eventBus, gameObject.GetComponent<PhysicsEventsRelay>(), interactSign, state);
 
+            eventBus.Subscribe<OnLookUpInput>(OnLookUp);
+            eventBus.Subscribe<OnLookDownInput>(OnLookDown);
+
             avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionEnter2DAction.AddListener(OnCollisionEnter2D);
             avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionStay2DAction.AddListener(OnCollisionStay2D);
             avatarRigidbody2D.GetComponent<PhysicsEventsRelay>()?.OnCollisionExit2DAction.AddListener(OnCollisionExit2D);
@@ -70,7 +74,20 @@ namespace PlayerSystem
             GameDataManager.Instance?.SavePlayerPosition(avatarRigidbody2D.position);
             state.lastSafeGroundLocation = avatarRigidbody2D.position;
             chargesUIController.InitChargesUI(state.maxCharges);
+            if (!canMoveAtStart) StopPlayerActions();
         }
+
+        //private void OnLookUp(OnLookUpInput e)
+        //{
+        //    if (e.toggle) CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.LookUp));
+        //    else CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Regular));
+        //}
+        //
+        //private void OnLookDown(OnLookDownInput e)
+        //{
+        //    if (e.toggle) CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.LookDown));
+        //    else CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Regular));
+        //}
 
         protected void Update()
         {
@@ -142,13 +159,11 @@ namespace PlayerSystem
 
         public void StopPlayerActions()
         {
-            Debug.Log("mobility Stoped");
             eventBus.Publish(new RequestStopPlayerInputs());
         }
 
         public void ResumePlayerActions()
         {
-            Debug.Log("mobility Resume");
             eventBus.Publish(new RequestPlayerInputs());
         }
 

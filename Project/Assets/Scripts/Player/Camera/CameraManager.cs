@@ -51,7 +51,7 @@ namespace CameraSystem
 
             if (activeCam == CineCameraType.Empty && newCam != CineCameraType.Empty && !forcedTransition) yield break;
 
-            if (activeCam != CineCameraType.Regular && newCam == CineCameraType.Falling) yield break;
+            if (activeCam != CineCameraType.Regular && (newCam == CineCameraType.Falling || newCam == CineCameraType.LookUp || newCam == CineCameraType.LookDown)) yield break;
 
             activeCamera = newCamera;
 
