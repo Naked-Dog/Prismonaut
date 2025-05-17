@@ -97,6 +97,15 @@ namespace PlayerSystem
             eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Subscribe<OnFixedUpdate>(Steer);
             drillPhysicsRelay.OnTriggerEnter2DAction.AddListener(ConfirmDrillCollision);
+            eventBus.Subscribe<OnCollisionEnter2D>(CheckPlayerCollision);
+        }
+
+        private void CheckPlayerCollision(OnCollisionEnter2D e)
+        {
+            if(e.collision.gameObject.CompareTag("Spike"))
+            {
+                Deactivate();
+            }
         }
 
         private void TakeHorizontalInputDirection(OnHorizontalInput e)
@@ -339,12 +348,11 @@ namespace PlayerSystem
             damageTimer -= Time.deltaTime;
         }
 
-        private void Deactivate(bool force = false)
+        public void Deactivate(bool force = false)
         {
 
             if (lightObjectRigidBody != null)
             {
-                Debug.Log("lighobject");
                 lightObjectRigidBody.transform.SetParent(null, true);
                 lightObjectRigidBody.simulated = true;
                 lightObjectRigidBody.linearVelocity = Vector2.zero;
@@ -369,6 +377,7 @@ namespace PlayerSystem
             drillPhysicsRelay.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
             drillPhysicsRelay.OnTriggerExit2DAction.RemoveListener(ConfirmDrillExit);
             drillExitPhysicsRelay.OnTriggerExit2DAction.RemoveListener(ConfirmPlayerExit);
+            eventBus.Unsubscribe<OnCollisionEnter2D>(CheckPlayerCollision);
         }
     }
 }

@@ -8,15 +8,15 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "Hey... that thing that just appeared, does it mean\nI now have three charges?",
+                    "text": "Hey... that thing that just appeared, does it\nmean I now have three charges?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Affirmative.\nThe material that appeared after collecting the prism\ndoes not match any previous records.",
+                    "text": "Affirmative.\nThe material that appeared after collecting the\nprism does not match any previous records.",
                     "actor": "AI"
                 },
                 {
-                    "text": "There you go again... We've seen this before. It’s a\nportal. Every time I take a prism, something changes\nin the planet's structure. You notice, right?",
+                    "text": "There it is again... We've seen this before.\nIt’s a portal. Each prism I take alters the planet’s\nstructure. You notice, right?",
                     "actor": "Prismonaut"
                 },
                 {
@@ -24,7 +24,7 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "Don’t overthink it. We’ve done this before, and it\nnever caused any problems.",
+                    "text": "Don’t overthink it. We’ve done this before, and\nit never caused any problems.",
                     "actor": "Prismonaut"
                 },
                 {
