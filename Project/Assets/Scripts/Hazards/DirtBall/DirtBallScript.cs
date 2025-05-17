@@ -17,6 +17,7 @@ public class DirtBallScript : MonoBehaviour
     const float startTime = 1;
     private float t = startTime;
     private const float baseDeathTime = 1;
+    public bool check = true;
 
     private void Awake()
     {
@@ -37,6 +38,8 @@ public class DirtBallScript : MonoBehaviour
 
     private void CheckVelocity()
     {
+        if(!check) return;
+        
         if (Mathf.Abs(rb.linearVelocityX) + Mathf.Abs(rb.linearVelocityY) < 0.1f)
         {
             t -= Time.deltaTime;
