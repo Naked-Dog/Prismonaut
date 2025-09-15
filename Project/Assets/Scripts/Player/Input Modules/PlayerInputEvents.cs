@@ -14,8 +14,8 @@ namespace PlayerSystem
     }
     public struct OnJumpInput
     {
-        public InputAction jumpInputAction;
-        public OnJumpInput(InputAction jumpInputAction) { this.jumpInputAction = jumpInputAction; }
+        public InputAction.CallbackContext context;
+        public OnJumpInput(InputAction.CallbackContext context) { this.context = context; }
     }
     public struct OnLookDownInput
     {

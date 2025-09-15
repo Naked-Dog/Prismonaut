@@ -141,7 +141,6 @@ public class AudioManager: MonoBehaviour
     public AudioSource Play3DSoundAttached<TEnum>(TEnum key, Transform parent, float volume = 1f, bool loop = false) where TEnum : Enum
     {
         var src = PlaySound(key, volume, loop);
-        Debug.Log(src);
         if (src != null)
         {
             src.transform.SetParent(parent);

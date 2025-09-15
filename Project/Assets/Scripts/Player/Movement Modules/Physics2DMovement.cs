@@ -28,13 +28,15 @@ namespace PlayerSystem
         private PlayerState playerState;
         private Dictionary<Collider2D, CollisionSnapshot> collisions = new();
         private bool jumpRequested = false;
+        private bool jumpReleased = false;
+        private float jumpForce;
+        private float jumpGravity;
+        private float fallGravity;
+        private float jumpTimer;
         private float requestedMovement = 0f;
-        private float jumpCooldown = 0f;
         private float landingMoveCooldown = 0f;
         private float groundedGraceTimer = 0f;
         private PlayerBaseModule baseModule;
-
-        readonly float maxJumpCooldown = 0.2f;
         readonly float maxLandingBreakCooldown = 0.1f;
         private bool pauseMovement = false;
 
@@ -60,6 +62,8 @@ namespace PlayerSystem
             eventBus.Subscribe<RequestGravityOff>(RequestGravityOff);
             eventBus.Subscribe<RequestGravityOn>(RequestGravityOn);
             eventBus.Subscribe<RequestOppositeReaction>(RequestOppositeReaction);
+
+            SetJumpValues();
         }
 
         private void RequestMovementPause(RequestMovementPause e)
@@ -132,12 +136,20 @@ namespace PlayerSystem
 
         protected override void OnJumpInput(OnJumpInput e)
         {
+            if (e.context.canceled)
+            {
+                jumpReleased = true;
+                Debug.Log("break jump");
+            }
+
             if (!playerState.groundState.Equals(GroundState.Grounded)) return;
             if (isJumpingDisabled) return;
             if (jumpRequested) return;
-            if (0f < jumpCooldown) return;
-            jumpRequested = true;
-            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Jump);
+            if (e.context.started)
+            {
+                jumpRequested = true;
+            }
+
         }
 
         private void OnFixedUpdate(OnFixedUpdate e)
@@ -152,14 +164,66 @@ namespace PlayerSystem
             PerformVerticalBreak();
         }
 
+        private void SetJumpValues()
+        {
+            jumpForce = 2f * movementConstants.JumpHeight / movementConstants.JumpTimeToPeak;
+            jumpGravity = - 2f * movementConstants.JumpHeight / (movementConstants.JumpTimeToPeak * movementConstants.JumpTimeToPeak);
+            fallGravity = - 2f * movementConstants.JumpHeight / (movementConstants.JumpTimeToDescent * movementConstants.JumpTimeToDescent);
+        }
+
         private void PerformJump()
         {
-            Vector2 impulseVector = new Vector2(0, movementConstants.jumpForce - rb2d.linearVelocity.y);
-            rb2d.AddForce(impulseVector, ForceMode2D.Impulse);
+            eventBus.Publish(new RequestGravityOff());
+            rb2d.linearVelocity = new Vector2(rb2d.linearVelocityX, jumpForce);
+            eventBus.Subscribe<OnFixedUpdate>(PerformJumpGravity);
+
+            jumpTimer = 0;
+            eventBus.Subscribe<OnUpdate>(RunJumpTimer);
+            eventBus.Subscribe<OnFixedUpdate>(BreakJump);
+
             playerState.groundState = GroundState.Airborne;
-            jumpCooldown = maxJumpCooldown;
-            eventBus.Subscribe<OnUpdate>(ReduceJumpCooldown);
+            jumpReleased = false;
             jumpRequested = false;
+
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Jump);
+        }
+
+        private void PerformJumpGravity(OnFixedUpdate e)
+        {
+            float finalJumpGravity = rb2d.linearVelocityY > 0f ? jumpGravity : fallGravity;
+            float finalVerticalVelocity = rb2d.linearVelocityY + (finalJumpGravity * Time.fixedDeltaTime);
+            rb2d.linearVelocity = new Vector2(rb2d.linearVelocityX, finalVerticalVelocity);
+
+            if (playerState.groundState.Equals(GroundState.Grounded))
+            {
+                eventBus.Unsubscribe<OnFixedUpdate>(PerformJumpGravity);
+                eventBus.Publish(new RequestGravityOn());
+            }
+        }
+
+        private void RunJumpTimer(OnUpdate e)
+        {
+            jumpTimer += Time.deltaTime;
+            if (jumpTimer > movementConstants.minJumpTime)
+            {
+                eventBus.Unsubscribe<OnUpdate>(RunJumpTimer);
+            }
+        }
+
+        private void BreakJump(OnFixedUpdate e)
+        {
+            if (!jumpReleased) return;
+            if (rb2d.linearVelocityY <= 0f) return;
+            if (jumpTimer < movementConstants.minJumpTime) return;
+            
+            if (!playerState.groundState.Equals(GroundState.Airborne))
+            {
+                eventBus.Unsubscribe<OnFixedUpdate>(BreakJump);
+                return;
+            }
+
+            rb2d.linearVelocity = new Vector2(rb2d.linearVelocityX, 0);
+            eventBus.Unsubscribe<OnFixedUpdate>(BreakJump);
         }
 
         private void PerformMovement()
@@ -197,7 +261,6 @@ namespace PlayerSystem
             if (excessVelocity <= 0) return;
             rb2d.AddForce(Vector2.up * excessVelocity, ForceMode2D.Impulse);
             baseModule.StartFallingCameraTimer();
-            //AudioManager.Instance.Play2DSound(PlayerSoundsEnum.LoopWindFall, 1, true);
         }
 
         private void PerformLanding()
@@ -212,12 +275,6 @@ namespace PlayerSystem
             eventBus.Subscribe<OnUpdate>(ReduceLandingMoveCooldown);
             var standingCamera = CameraManager.Instance.SearchCamera(CineCameraType.Regular);
             CameraManager.Instance.ChangeCamera(standingCamera);
-        }
-
-        private void ReduceJumpCooldown(OnUpdate e)
-        {
-            jumpCooldown -= Time.deltaTime;
-            if (jumpCooldown <= 0f) eventBus.Unsubscribe<OnUpdate>(ReduceJumpCooldown);
         }
 
         private void ReduceLandingMoveCooldown(OnUpdate e)
