@@ -11,6 +11,7 @@ namespace PlayerSystem
         Drill,
         LightDrill,
         HeavyDrill,
+        ReleaseDrill,
         Parry,
         Cancel,
     }

@@ -22,7 +22,7 @@ namespace PlayerSystem
             InitializeActions();
 
             this.eventBus = eventBus;
-            eventBus.Subscribe<OnFixedUpdate>(PublishInputEvents);
+            eventBus.Subscribe<OnUpdate>(PublishInputEvents);
             eventBus.Subscribe<RequestPlayerInputs>(EnablePlayerMapInput);
             eventBus.Subscribe<RequestStopPlayerInputs>(StopPlayerMapInput);
             eventBus.Subscribe<RequestEnableDialogueInputs>(EnableDialogueInputs);
@@ -56,9 +56,10 @@ namespace PlayerSystem
             playerUIMap.Disable();
             DialogueMap.Disable();
 
+            RegisterCallback(playerGameMap.FindAction("Jump"), ctx => eventBus.Publish(new OnJumpInput(ctx)));
             RegisterCallback(playerGameMap.FindAction("TrianglePower"), ctx => eventBus.Publish(new OnTrianglePowerInput()));
             RegisterCallback(playerGameMap.FindAction("CirclePower"), ctx => eventBus.Publish(new OnCirclePowerInput()));
-            RegisterCallback(playerGameMap.FindAction("SquarePower"), ctx => eventBus.Publish(new OnSquarePowerInput()));
+            RegisterCallback(playerGameMap.FindAction("SquarePower"), ctx => eventBus.Publish(new OnSquarePowerInput(ctx)));
 
             RegisterCallback(playerGameMap.FindAction("Interaction"), ctx => eventBus.Publish(new OnInteractionInput()));
 
@@ -84,25 +85,17 @@ namespace PlayerSystem
             RegisterCallback(DialogueMap.FindAction("SkipDialogue"), ctx => DialogueController.Instance?.SkipDialogue());
         }
 
-        private void RegisterCallback(InputAction action, Action<InputAction.CallbackContext> callback, bool started = true, bool canceled = false)
+        private void RegisterCallback(InputAction action, Action<InputAction.CallbackContext> callback)
         {
-            if (started) action.started += callback;
-            if (canceled) action.canceled += callback;
+            action.started += callback;
+            action.performed += callback;
+            action.canceled += callback;
 
             registeredCallbacks.Add((action, callback));
         }
 
-        private void PublishInputEvents(OnFixedUpdate e)
+        private void PublishInputEvents(OnUpdate e)
         {
-            bool playerIsPressingJump = playerGameMap.FindAction("Jump").IsPressed();
-            bool playerIsPressingMove = playerGameMap.FindAction("Move").IsPressed();
-            bool playerIsPressingVertical = playerGameMap.FindAction("Vertical").IsPressed();
-
-            if (playerIsPressingJump)
-            {
-                eventBus.Publish(new OnJumpInput(playerGameMap.FindAction("Jump")));
-            }
-
             float horizontalAxis = playerGameMap.FindAction("Move").ReadValue<float>();
             eventBus.Publish(new OnHorizontalInput(horizontalAxis));
 
@@ -148,7 +141,7 @@ namespace PlayerSystem
 
         public void Dispose()
         {
-            eventBus.Unsubscribe<OnFixedUpdate>(PublishInputEvents);
+            eventBus.Unsubscribe<OnUpdate>(PublishInputEvents);
             eventBus.Unsubscribe<RequestPlayerInputs>(EnablePlayerMapInput);
             eventBus.Unsubscribe<RequestStopPlayerInputs>(StopPlayerMapInput);
             eventBus.Unsubscribe<RequestEnableDialogueInputs>(EnableDialogueInputs);
@@ -163,6 +156,7 @@ namespace PlayerSystem
             foreach (var (action, callback) in registeredCallbacks)
             {
                 action.started -= callback;
+                action.performed -= callback;
                 action.canceled -= callback;
             }
 

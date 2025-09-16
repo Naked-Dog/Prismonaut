@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class AudioLibraryBase : ScriptableObject
 {
     public abstract Type EnumType { get; }
-    public abstract AudioClip GetClip(Enum key);
+    public abstract CustomAudioClip GetClip(Enum key);
 }
 
 
@@ -13,11 +13,11 @@ public abstract class AudioLibrary<TEnum> : AudioLibraryBase where TEnum : Enum
 {
     [Tooltip("Map each enum value to an AudioClip.")]
     [SerializedDictionary("Key", "Clip")]
-    public SerializedDictionary<TEnum, AudioClip> clips;
+    public SerializedDictionary<TEnum, CustomAudioClip> clips;
 
     public override Type EnumType => typeof(TEnum);
 
-    public override AudioClip GetClip(Enum key)
+    public override CustomAudioClip GetClip(Enum key)
     {
         if (key is TEnum tkey && clips.TryGetValue(tkey, out var clip))
         {
@@ -27,8 +27,17 @@ public abstract class AudioLibrary<TEnum> : AudioLibraryBase where TEnum : Enum
         return null;
     }
 
-    public AudioClip GetClip(TEnum key)
+    public CustomAudioClip GetClip(TEnum key)
         => clips.TryGetValue(key, out var clip) ? clip : null;
 }
 
+
+[Serializable]
+public class CustomAudioClip
+{
+    public AudioClip clip;
+
+    [Range(0.1f, 1f)]
+    public float volume = 1f;
+}
 
