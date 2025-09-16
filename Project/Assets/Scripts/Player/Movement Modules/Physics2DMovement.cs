@@ -31,7 +31,6 @@ namespace PlayerSystem
         private bool jumpReleased = false;
         private float jumpForce;
         private float jumpGravity;
-        private float fallGravity;
         private float jumpTimer;
         private float requestedMovement = 0f;
         private float landingMoveCooldown = 0f;
@@ -166,7 +165,6 @@ namespace PlayerSystem
         {
             jumpForce = 2f * movementConstants.JumpHeight / movementConstants.JumpTimeToPeak;
             jumpGravity = -2f * movementConstants.JumpHeight / (movementConstants.JumpTimeToPeak * movementConstants.JumpTimeToPeak);
-            fallGravity = -2f * movementConstants.JumpHeight / (movementConstants.JumpTimeToDescent * movementConstants.JumpTimeToDescent);
         }
 
         private void PerformJump()
@@ -188,15 +186,14 @@ namespace PlayerSystem
 
         private void PerformJumpGravity(OnFixedUpdate e)
         {
-            float finalJumpGravity = rb2d.linearVelocityY > 0f ? jumpGravity : fallGravity;
-            float finalVerticalVelocity = rb2d.linearVelocityY + (finalJumpGravity * Time.fixedDeltaTime);
-            rb2d.linearVelocity = new Vector2(rb2d.linearVelocityX, finalVerticalVelocity);
-
-            if (playerState.groundState.Equals(GroundState.Grounded))
-            {
-                eventBus.Unsubscribe<OnFixedUpdate>(PerformJumpGravity);
+            if (rb2d.linearVelocityY < 0)
+            { 
                 eventBus.Publish(new RequestGravityOn());
+                eventBus.Unsubscribe<OnFixedUpdate>(PerformJumpGravity);
             }
+            
+            float finalVerticalVelocity = rb2d.linearVelocityY + (jumpGravity * Time.fixedDeltaTime);
+            rb2d.linearVelocity = new Vector2(rb2d.linearVelocityX, finalVerticalVelocity);
         }
 
         private void RunJumpTimer(OnUpdate e)

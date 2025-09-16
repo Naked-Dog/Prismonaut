@@ -16,7 +16,6 @@ public class PlayerMovementScriptable : ScriptableObject
     [Header("Jump")]
     public float JumpHeight = 10f;
     public float JumpTimeToPeak = 0.5f;
-    public float JumpTimeToDescent = 0.5f;
     public float minJumpTime = 0.1f;
     public float groundCheckExtraHeight = 0.25f;
     public LayerMask groundLayerMask;

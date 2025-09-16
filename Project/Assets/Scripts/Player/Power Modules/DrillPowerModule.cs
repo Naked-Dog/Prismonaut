@@ -144,6 +144,7 @@ namespace PlayerSystem
             {
                 drillDir = inputDirection.normalized;
             }
+
             float targetAngle = Mathf.Atan2(drillDir.y, drillDir.x) * Mathf.Rad2Deg - 90f;
             float smoothTime = powersConstants.drillFirstSmoothTime;
             float newAngle = Mathf.SmoothDampAngle(
@@ -281,6 +282,8 @@ namespace PlayerSystem
         {
             if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("HeavyTerrain"))
             {
+                rb2d.AddForce(drillDir * powersConstants.heavyExitForceImpulse, ForceMode2D.Impulse);
+
                 if (enemyCollider != null)
                 {
                     eventBus.Subscribe<OnUpdate>(RunExitTimer);
@@ -292,7 +295,6 @@ namespace PlayerSystem
                     Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, false);
                 }
 
-                rb2d.AddForce(drillDir * powersConstants.heavyExitForceImpulse, ForceMode2D.Impulse);
                 Deactivate();
             }
         }
@@ -360,32 +362,57 @@ namespace PlayerSystem
 
             if (lightObjectRigidBody != null)
             {
-                lightObjectRigidBody.transform.SetParent(null, true);
-                lightObjectRigidBody.simulated = true;
-                lightObjectRigidBody.linearVelocity = Vector2.zero;
-                lightObjectRigidBody.AddForce(drillDir * powersConstants.lightObjectExitForce, ForceMode2D.Impulse);
-                rb2d.linearVelocity = Vector2.up * powersConstants.lightPlayerExitForce;
-                lightObjectRigidBody.GetComponent<DirtBallScript>().check = true;
+                ReleaseLightObject();
             }
 
-            AudioManager.Instance.Stop(PlayerSoundsEnum.DrillTrans);
-            AudioManager.Instance.Stop(LevelEventsSoundsEnum.EartThrumbling);
+            AudioManager.Instance?.Stop(LevelEventsSoundsEnum.EartThrumbling);
 
-            rb2d.MoveRotation(0f);
-            if (!force) playerState.activePower = Power.None;
             drillJoint.enabled = false;
             drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, 0);
+
             currentSpeed = 0f;
             damageTimer = 0f;
             isInside = false;
-            lightObjectRigidBody = null;
-            eventBus.Publish(new RequestMovementResume());
-            eventBus.Publish(new RequestGravityOn());
-            eventBus.Unsubscribe<OnFixedUpdate>(Steer);
+
             drillPhysicsRelay.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
             drillPhysicsRelay.OnTriggerExit2DAction.RemoveListener(ConfirmDrillExit);
             drillExitPhysicsRelay.OnTriggerExit2DAction.RemoveListener(ConfirmPlayerExit);
+            eventBus.Unsubscribe<OnFixedUpdate>(Steer);
             eventBus.Unsubscribe<OnCollisionEnter2D>(CheckPlayerCollision);
+
+            eventBus.Subscribe<OnUpdate>(ReleaseDrill);
+        }
+
+        private void ReleaseLightObject()
+        {
+            lightObjectRigidBody.transform.SetParent(null, true);
+            lightObjectRigidBody.simulated = true;
+            lightObjectRigidBody.linearVelocity = Vector2.zero;
+            lightObjectRigidBody.AddForce(drillDir * powersConstants.lightObjectExitForce, ForceMode2D.Impulse);
+            rb2d.linearVelocity = Vector2.up * powersConstants.lightPlayerExitForce;
+            lightObjectRigidBody.GetComponent<DirtBallScript>().check = true;
+            lightObjectRigidBody = null;
+        }
+
+        private void ReleaseDrill(OnUpdate e)
+        {
+            playerState.activePower = Power.ReleaseDrill;
+
+            float step = 360f * 3.5f * Time.deltaTime;
+            float newAngle = Mathf.MoveTowardsAngle(rb2d.rotation, 0f, step);
+
+            rb2d.MoveRotation(newAngle);
+
+            if (Mathf.Approximately(newAngle, 0f))
+            {
+                rb2d.MoveRotation(0f);
+                playerState.activePower = Power.None;
+                eventBus.Publish(new RequestMovementResume());
+                eventBus.Publish(new RequestGravityOn());
+                AudioManager.Instance?.Stop(PlayerSoundsEnum.DrillTrans);
+                eventBus.Unsubscribe<OnUpdate>(ReleaseDrill);
+
+            }
         }
 
         private void RunExitTimer(OnUpdate e)

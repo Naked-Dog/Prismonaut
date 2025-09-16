@@ -14,6 +14,7 @@ public abstract class AudioLibrary<TEnum> : AudioLibraryBase where TEnum : Enum
     [Tooltip("Map each enum value to an AudioClip.")]
     [SerializedDictionary("Key", "Clip")]
     public SerializedDictionary<TEnum, AudioClip> clips;
+    public SerializedDictionary<TEnum, CustomAudioClip> newclips;
 
     public override Type EnumType => typeof(TEnum);
 
@@ -31,4 +32,13 @@ public abstract class AudioLibrary<TEnum> : AudioLibraryBase where TEnum : Enum
         => clips.TryGetValue(key, out var clip) ? clip : null;
 }
 
+
+[Serializable]
+public class CustomAudioClip
+{
+    public AudioClip clip;
+
+    [Range(0.1f,1f)]
+    public float volume;
+}
 
