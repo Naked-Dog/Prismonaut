@@ -12,17 +12,17 @@ public class BullAnimationEvents : MonoBehaviour
     public void PlayStepSound()
     {
         var randomSound = stepSounds[Random.Range(0, stepSounds.Length)];
-        AudioManager.Instance.Play2DSound(randomSound, 0.5f, false);
+        AudioManager.Instance.Play2DSound(randomSound, false);
     }
 
     public void PlayRushChargeSound()
     {
-        AudioManager.Instance.Play2DSound(BullSoundsEnum.RushCharge, 0.5f, false);
+        AudioManager.Instance.Play2DSound(BullSoundsEnum.RushCharge, false);
     }
 
     public void PlayRushLoopSound()
     {
-        AudioManager.Instance.Play2DSound(BullSoundsEnum.LoopRush, 0.5f, false);
+        AudioManager.Instance.Play2DSound(BullSoundsEnum.LoopRush, false);
     }
 
     public void StopRushLoopSound()
@@ -32,16 +32,16 @@ public class BullAnimationEvents : MonoBehaviour
 
     public void PlayDetectedSound()
     {
-        AudioManager.Instance.Play2DSound(BullSoundsEnum.Detected, 0.5f, false);
+        AudioManager.Instance.Play2DSound(BullSoundsEnum.Detected, false);
     }
 
     public void PlayHurtSound()
     {
-        AudioManager.Instance.Play2DSound(BullSoundsEnum.Hurt, 0.5f, false);
+        AudioManager.Instance.Play2DSound(BullSoundsEnum.Hurt, false);
     }
 
     public void PlayDeathSound()
     {
-        AudioManager.Instance.Play2DSound(BullSoundsEnum.Death, 0.5f, false);
+        AudioManager.Instance.Play2DSound(BullSoundsEnum.Death, false);
     }
 }

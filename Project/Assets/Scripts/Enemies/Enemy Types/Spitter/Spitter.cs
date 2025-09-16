@@ -10,7 +10,7 @@ public class Spitter : Enemy, IPlayerPowerInteractable
 
     private void OnEnable()
     {
-        AudioManager.Instance?.Play3DSoundAttached(EnemySpitterSoundsEnum.Idle, transform, 1f, true);
+        AudioManager.Instance?.Play3DSoundAttached(EnemySpitterSoundsEnum.Idle, transform, true);
     }
 
     public void PlayerPowerInteraction(PlayerSystem.PlayerState playerState)

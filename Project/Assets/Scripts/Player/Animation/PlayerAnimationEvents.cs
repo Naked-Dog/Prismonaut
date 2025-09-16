@@ -26,27 +26,27 @@ namespace PlayerSystem
         public void PlayStepSound()
         {
             var randomSound = stepSounds[Random.Range(0, stepSounds.Length)];
-            AudioManager.Instance.Play2DSound(randomSound, 1f, false);
+            AudioManager.Instance.Play2DSound(randomSound, false);
         }
         public void PlayJumpSound()
         {
-            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Jump, 1f, false);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Jump, false);
         }
         public void PlayDefeatSound()
         {
-            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Defeat, 1f, false);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Defeat, false);
         }
         public void PlayExplodeSound()
         {
-            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Explode, 1f, false);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Explode, false);
         }
         public void PlayLandSound()
         {
-            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Land, 1f, false);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Land, false);
         }
         public void PlayHeavyLandSound()
         {
-            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.HeavyLand, 1f, false);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.HeavyLand, false);
         }
         public void PlayWindFallSound()
         {
@@ -54,25 +54,25 @@ namespace PlayerSystem
         }
         public void PlayDodgeSound()
         {
-            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.DodgeTrans, 1f, false);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.DodgeTrans, false);
         }
         public void PlayShieldSound()
         {
-            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.ShieldTrans, 1f, false);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.ShieldTrans, false);
         }
         public void PlayParrySound()
         {
             AudioManager.Instance?.Stop(PlayerSoundsEnum.ShieldTrans);
-            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Parry, 1f, false);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Parry, false);
         }
         public void PlayHurtSound()
         {
-            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Hurt, 1f, false);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Hurt, false);
         }
 
         public void PlayRegularFormSound()
         {
-            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.RegularForm, 1f, false);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.RegularForm, false);
         }
     }
 }

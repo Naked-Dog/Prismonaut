@@ -11,11 +11,9 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject gameMenuPanel;
     [SerializeField] private GameObject losePanel;
 
-    private AudioManager musicManager;
     public static MenuController Instance { get; private set; }
 
     public EventBus eventBus;
-    private PlayerInput input;
 
 
     private void Awake()
@@ -33,7 +31,7 @@ public class MenuController : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.Instance.PlayMusic(GetMusicClip(), 0.75f);
+        AudioManager.Instance.PlayMusic(GetMusicClip());
     }
 
     public void ChangeScene(string sceneName)
@@ -67,7 +65,7 @@ public class MenuController : MonoBehaviour
         setMenuDisplay(sceneName);
         // yield return new WaitForSeconds(1);
 
-        AudioManager.Instance.PlayMusic(GetMusicClip(), 0.75f);
+        AudioManager.Instance.PlayMusic(GetMusicClip());
 
         Tween fadeOut = backgroundImage.DOFade(0, 0.5f);
         yield return fadeOut.WaitForCompletion();
@@ -127,7 +125,7 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    public void setEvents(EventBus bus)
+    public void SetEvents(EventBus bus)
     {
         eventBus = bus;
         eventBus.Subscribe<OnPauseInput>(DisplayGamePanel);

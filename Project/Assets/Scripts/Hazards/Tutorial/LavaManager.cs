@@ -51,7 +51,7 @@ public class LavaManager : MonoBehaviour
     {
         if (eventStarted) return;
         eventStarted = true;
-        AudioManager.Instance.Play3DSoundAttached(LevelEventsSoundsEnum.Lava,lavaTransform,1,true);
+        AudioManager.Instance.Play3DSoundAttached(LevelEventsSoundsEnum.Lava,lavaTransform,true);
         if(PlatformManager.Instance) PlatformManager.Instance.StartPlatforms();
     }
 
