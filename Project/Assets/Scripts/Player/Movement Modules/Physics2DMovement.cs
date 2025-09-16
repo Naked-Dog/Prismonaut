@@ -175,7 +175,7 @@ namespace PlayerSystem
 
             jumpTimer = 0;
             eventBus.Subscribe<OnUpdate>(RunJumpTimer);
-            eventBus.Subscribe<OnFixedUpdate>(BreakJump);
+            eventBus.Subscribe<OnFixedUpdate>(ReleaseJump);
 
             playerState.groundState = GroundState.Airborne;
             jumpReleased = false;
@@ -186,7 +186,7 @@ namespace PlayerSystem
 
         private void PerformJumpGravity(OnFixedUpdate e)
         {
-            if (rb2d.linearVelocityY < 0)
+            if (rb2d.linearVelocityY <= 0)
             { 
                 eventBus.Publish(new RequestGravityOn());
                 eventBus.Unsubscribe<OnFixedUpdate>(PerformJumpGravity);
@@ -205,20 +205,25 @@ namespace PlayerSystem
             }
         }
 
-        private void BreakJump(OnFixedUpdate e)
+        private void ReleaseJump(OnFixedUpdate e)
         {
             if (!jumpReleased) return;
-            if (rb2d.linearVelocityY <= 0f) return;
             if (jumpTimer < movementConstants.minJumpTime) return;
 
             if (!playerState.groundState.Equals(GroundState.Airborne))
             {
-                eventBus.Unsubscribe<OnFixedUpdate>(BreakJump);
+                eventBus.Unsubscribe<OnFixedUpdate>(ReleaseJump);
                 return;
             }
 
+            CutJump();
+        }
+
+        private void CutJump()
+        { 
+            if (rb2d.linearVelocityY <= 0f) return;
             rb2d.linearVelocity = new Vector2(rb2d.linearVelocityX, 0);
-            eventBus.Unsubscribe<OnFixedUpdate>(BreakJump);
+            eventBus.Unsubscribe<OnFixedUpdate>(ReleaseJump);
         }
 
         private void PerformMovement()
@@ -281,6 +286,8 @@ namespace PlayerSystem
 
         private void RequestGravityOff(RequestGravityOff e)
         {
+            eventBus.Unsubscribe<OnFixedUpdate>(PerformJumpGravity);
+            CutJump();
             rb2d.gravityScale = 0f;
         }
         private void RequestGravityOn(RequestGravityOn e)

@@ -27,7 +27,11 @@ namespace PlayerSystem
         public bool toggle;
         public OnLookUpInput(bool toggle) { this.toggle = toggle; }
     }
-    public struct OnSquarePowerInput { }
+    public struct OnSquarePowerInput
+    {
+        public InputAction.CallbackContext context;
+        public OnSquarePowerInput(InputAction.CallbackContext context) { this.context = context; }        
+    }
     public struct OnTrianglePowerInput { }
     public struct OnCirclePowerInput { }
     public struct OnPauseInput { }
