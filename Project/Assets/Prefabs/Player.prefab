@@ -69,6 +69,7 @@ MonoBehaviour:
   interactSign: {fileID: 2274050569513530640}
   dodgeCollider: {fileID: 3241963441765974002}
   playerMainCollider: {fileID: 6704855287402592127}
+  canMoveAtStart: 1
   chargesUIController: {fileID: 8387167286953854183}
   knockback: {fileID: 660891374109999405}
 --- !u!50 &5905121191740833872
@@ -1052,7 +1053,7 @@ Transform:
   m_GameObject: {fileID: 9144292154430305585}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.112, y: 0.225, z: 0}
+  m_LocalPosition: {x: -0.13, y: 0.197, z: 0}
   m_LocalScale: {x: 1.495, y: 1.495, z: 1.495}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1092,7 +1093,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.066092625, y: -0.1311006}
+  m_Offset: {x: 0.07639122, y: -0.15581727}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1102,7 +1103,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.336513, y: 0.33205897}
+  m_Size: {x: 0.46009612, y: 0.38149232}
   m_EdgeRadius: 0
 --- !u!114 &6176227844422185520
 MonoBehaviour:

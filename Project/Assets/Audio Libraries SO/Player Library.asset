@@ -15,38 +15,74 @@ MonoBehaviour:
   clips:
     _serializedList:
     - Key: 0
-      Value: {fileID: 8300000, guid: 64ef3482de06fb04b97ea80ad631751e, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 1
-      Value: {fileID: 8300000, guid: 32d1f1d6bd83599458104d764f4fe64b, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 2
-      Value: {fileID: 8300000, guid: c4f05b846461faa40a264dcc2c42a118, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 3
-      Value: {fileID: 8300000, guid: c4c107c5daebf4c4587a079e3fab5494, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 4
-      Value: {fileID: 8300000, guid: d10b4d9361778ec4a9168d2934a23838, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 5
-      Value: {fileID: 8300000, guid: 61ddb794a856667488319c14ae04d50d, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 6
-      Value: {fileID: 8300000, guid: 8a8b473420f197748b65442767ca37a6, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 7
-      Value: {fileID: 8300000, guid: 3026f31c6eae96346879d2e97ec62a22, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 8
-      Value: {fileID: 8300000, guid: 03b1c2dcaa354044dbc10d02852a65d7, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 9
-      Value: {fileID: 8300000, guid: 475812f3be249c44eb7ce732ba17959a, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 1
     - Key: 10
-      Value: {fileID: 8300000, guid: ed62fc6acd54e104eadb3f7323bf5ddd, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 17
-      Value: {fileID: 8300000, guid: 28a4fc8ca5ec2d04aa3ba4b48f8f9437, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 11
-      Value: {fileID: 8300000, guid: 2170e261793d128488922ffe9b7519ae, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 12
-      Value: {fileID: 8300000, guid: d9f6a6d94453fcc4db6f4abaf56134b9, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 13
-      Value: {fileID: 8300000, guid: 383668d52d36c5b4a89e700d2f39766d, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 14
-      Value: {fileID: 8300000, guid: d8c0cb3b6b7dafe49924de81b4507d4a, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 15
-      Value: {fileID: 8300000, guid: ff41c796c393922469e2f4c7ec2243d2, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0
     - Key: 16
-      Value: {fileID: 8300000, guid: 8fb48ecac19fcaa459a59b90e69d89e2, type: 3}
+      Value:
+        clip: {fileID: 0}
+        volume: 0

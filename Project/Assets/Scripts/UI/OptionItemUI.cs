@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class OptionItemUI : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    [SerializeField] private OptionsPanelUI soundPlayer;
     [SerializeField] private GameObject selectorObject;
     [SerializeField] private TextMeshProUGUI label;
     [SerializeField] private Color selectedColor;
@@ -33,12 +32,13 @@ public class OptionItemUI : MonoBehaviour, ISelectHandler, IDeselectHandler
     }
 
     private void DisplaySelectorObject(bool active){
-        if(!selectorObject) return;
-        selectorObject.SetActive(active);
         if(selectedColor != null){
             if(active == true) label.color = selectedColor;
             else label.color = Color.white;
         } 
+        
+        if (!selectorObject) return;
+        selectorObject.SetActive(active);
     }
 
     public void ResetOptionItem(){
@@ -46,6 +46,6 @@ public class OptionItemUI : MonoBehaviour, ISelectHandler, IDeselectHandler
     }
 
     public void playSelectSound(){
-        AudioManager.Instance.Play2DSound(MenuSoundsEnum.Select);
+        AudioManager.Instance?.Play2DSound(MenuSoundsEnum.Select);
     }
 }
