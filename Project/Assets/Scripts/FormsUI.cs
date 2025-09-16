@@ -26,12 +26,6 @@ public class FormsUI : MonoBehaviour
         {
             Player2DController.OnFormChangedEvent += formChange;
         }
-
-        if (Player3DController.Instance != null)
-        {
-            Player3DController.OnFormChangedEvent += formChange;
-        }
-
     }
 
     private void formChange(FormState newForm, bool isAnimated = true)
