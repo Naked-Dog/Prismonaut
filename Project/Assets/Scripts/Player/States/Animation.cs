@@ -11,6 +11,7 @@ namespace PlayerSystem
         Dodge,
         Shield,
         Drill,
+        ReleaseDrill,
         LightDrill,
         HeavyDrill,
         Parry,

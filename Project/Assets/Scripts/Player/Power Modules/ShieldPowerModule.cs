@@ -37,7 +37,11 @@ namespace PlayerSystem
         private void OnSquarePowerInput(OnSquarePowerInput e)
         {
             if (playerState.activePower != Power.None) return;
-            Activate();
+
+            if (e.context.performed)
+            { 
+                Activate();
+            }
         }
 
         private void Activate()

@@ -69,6 +69,9 @@ namespace PlayerSystem
                 case Power.Cancel:
                     SetState(AnimationState.Cancel);
                     return;
+                case Power.ReleaseDrill:
+                    SetState(AnimationState.ReleaseDrill);
+                    return;
                 default:
                     animator.transform.parent.rotation = Quaternion.identity;
                     break;
@@ -127,6 +130,9 @@ namespace PlayerSystem
                 case AnimationState.LightDrill:
                 case AnimationState.HeavyDrill:
                     animator.Play("Drill2");
+                    break;
+                case AnimationState.ReleaseDrill:
+                    animator.Play("Reverse_Drill");
                     break;
                 case AnimationState.Parry:
                     animator.Play("Parry");

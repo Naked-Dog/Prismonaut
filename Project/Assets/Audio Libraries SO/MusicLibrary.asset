@@ -15,6 +15,10 @@ MonoBehaviour:
   clips:
     _serializedList:
     - Key: 0
-      Value: {fileID: 8300000, guid: b8df3d70e49131f4b8b7de0d0e999cb7, type: 3}
+      Value:
+        clip: {fileID: 8300000, guid: 73f7efe4075238d45845b3789bdce858, type: 3}
+        volume: 1
     - Key: 1
-      Value: {fileID: 8300000, guid: 47f96683344a27a47b41671dc6800ae0, type: 3}
+      Value:
+        clip: {fileID: 8300000, guid: 5f5e26e1fd231e6448bb7abed26f31c0, type: 3}
+        volume: 1
