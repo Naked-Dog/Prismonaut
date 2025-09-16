@@ -5,21 +5,31 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 
-public class AudioManager: MonoBehaviour
+public enum SoundsType
 {
-    public static AudioManager Instance {get; private set;}
+    Music,
+    Sfxs,
+}
+
+
+public class AudioManager : MonoBehaviour
+{
+    public static AudioManager Instance { get; private set; }
 
     [Header("Pool settings")]
     [SerializeField] private int initialPoolSize = 10;
 
     [Header("Mixer Groups")]
-    [SerializeField] private AudioMixerGroup sfxMixer;   
-    [SerializeField] private AudioMixerGroup musicMixer;   
+    [SerializeField] private AudioMixerGroup sfxMixer;
+    [SerializeField] private AudioMixerGroup musicMixer;
 
     [Header("Audio Libraries")]
     [SerializeField] private AudioLibraryBase[] libraries;
     private Dictionary<Type, AudioLibraryBase> libraryMap = new();
 
+    [Header("Audio Settings")]
+    [SerializeField, Range(0f, 1f)] private float musicVolume = 0.5f;
+    [SerializeField, Range(0f, 1f)] private float SoundEffectsVolume = 0.8f;
 
     public Dictionary<string, AudioClip> clips = new();
     private List<AudioSource> allSources = new();
@@ -28,18 +38,18 @@ public class AudioManager: MonoBehaviour
 
     protected void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject);
+            if (!(Instance == this)) Destroy(gameObject);
             return;
         }
 
-        for(int i = 0; i < initialPoolSize; i++)
+        for (int i = 0; i < initialPoolSize; i++)
         {
             freeSources.Push(CreateSource());
         }
@@ -101,7 +111,7 @@ public class AudioManager: MonoBehaviour
         clips[name] = clip;
     }
 
-    public AudioSource PlaySound<TEnum>(TEnum key, float volume = 1f, bool loop = false, float spatialBlend = 1) where TEnum : Enum
+    public AudioSource PlaySound<TEnum>(TEnum key, bool loop = false, float spatialBlend = 1) where TEnum : Enum
     {
         if (!libraryMap.TryGetValue(typeof(TEnum), out var baseLib))
         {
@@ -109,15 +119,16 @@ public class AudioManager: MonoBehaviour
         }
 
         var lib = baseLib as AudioLibrary<TEnum>;
-        var clip = lib?.GetClip(key);
+        var customClip = lib?.GetClip(key);
 
-        if (clip == null){
+        if (customClip == null)
+        {
             return null;
-        } 
+        }
 
         var src = GetSource();
-        src.clip = clip;
-        src.volume = volume;
+        src.clip = customClip.clip;
+        src.volume = SoundEffectsVolume * customClip.volume;
         src.loop = loop;
         src.outputAudioMixerGroup = sfxMixer;
         src.spatialBlend = spatialBlend;
@@ -131,46 +142,44 @@ public class AudioManager: MonoBehaviour
 
 
 
-    public AudioSource Play3DSountAtPosition<TEnum>(TEnum key, Vector3 position, float volume = 1f, bool loop = false) where TEnum : Enum
+    public AudioSource Play3DSountAtPosition<TEnum>(TEnum key, Vector3 position, bool loop = false) where TEnum : Enum
     {
-        var src = PlaySound(key, volume, loop);
+        var src = PlaySound(key, loop);
         if (src != null) src.transform.position = position;
         return src;
     }
 
-    public AudioSource Play3DSoundAttached<TEnum>(TEnum key, Transform parent, float volume = 1f, bool loop = false) where TEnum : Enum
+    public AudioSource Play3DSoundAttached<TEnum>(TEnum key, Transform parent, bool loop = false) where TEnum : Enum
     {
-        var src = PlaySound(key, volume, loop);
-        Debug.Log(src);
+        var src = PlaySound(key, loop);
         if (src != null)
         {
             src.transform.SetParent(parent);
             src.transform.localPosition = Vector3.zero;
         }
-        
+
         return src;
     }
 
-    public AudioSource Play2DSound<TEnum>(TEnum key, float volume = 1, bool loop = false) where TEnum : Enum
+    public AudioSource Play2DSound<TEnum>(TEnum key, bool loop = false) where TEnum : Enum
     {
-        var src = PlaySound(key, volume, loop, 0);
+        var src = PlaySound(key, loop, 0);
         return src;
     }
 
     public AudioSource Play2DSoundByLibrary<TEnum>(
         TEnum key,
         AudioLibrary<TEnum> library,
-        float volume = 1f,
         bool loop = false
     ) where TEnum : Enum
     {
         if (library == null) return null;
-        var clip = library.GetClip(key);
-        if (clip == null) return null;
+        var customClip = library.GetClip(key);
+        if (customClip == null) return null;
 
         var src = GetSource();
-        src.clip = clip;
-        src.volume = volume;
+        src.clip = customClip.clip;
+        src.volume = SoundEffectsVolume * customClip.volume;
         src.loop = loop;
         src.outputAudioMixerGroup = sfxMixer;
         src.spatialBlend = 0f;
@@ -188,8 +197,8 @@ public class AudioManager: MonoBehaviour
         }
 
         var lib = baseLib as AudioLibrary<TEnum>;
-        var clip = lib?.GetClip(key);
-        if (clip == null)
+        var customClip = lib?.GetClip(key);
+        if (customClip == null)
         {
             Debug.LogWarning($"No se encontró el clip para el enum {key}");
             return;
@@ -197,7 +206,7 @@ public class AudioManager: MonoBehaviour
 
         foreach (var src in allSources)
         {
-            if (src.isPlaying && src.clip == clip)
+            if (src.isPlaying && src.clip == customClip.clip)
             {
                 src.Stop();
             }
@@ -217,7 +226,7 @@ public class AudioManager: MonoBehaviour
         musicSource.Stop();
     }
 
-    public AudioSource PlayMusic<TEnum>(TEnum key, float volume = 1) where TEnum : Enum
+    public AudioSource PlayMusic<TEnum>(TEnum key) where TEnum : Enum
     {
         if (!libraryMap.TryGetValue(typeof(TEnum), out var baseLib))
         {
@@ -225,17 +234,36 @@ public class AudioManager: MonoBehaviour
         }
 
         var lib = baseLib as AudioLibrary<TEnum>;
-        var clip = lib?.GetClip(key);
+        var customClip = lib?.GetClip(key);
 
-        if (clip == null){
+        if (customClip == null)
+        {
             return null;
-        } 
+        }
 
-        musicSource.clip = clip;
-        musicSource.volume = volume;
+        musicSource.clip = customClip.clip;
+        musicSource.volume = musicVolume * customClip.volume;
         musicSource.loop = true;
         musicSource.spatialBlend = 0f;
         musicSource.Play();
         return musicSource;
     }
+
+    public void ChangeVolume(SoundsType type, float value)
+    {
+        switch (type)
+        {
+            case SoundsType.Music:
+                musicVolume = value;
+                break;
+            case SoundsType.Sfxs:
+                SoundEffectsVolume = value;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public float GetMusicVolume() { return musicVolume; }
+    public float GetSFXsVolume() { return SoundEffectsVolume; }
 }

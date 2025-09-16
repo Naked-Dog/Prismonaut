@@ -18,7 +18,7 @@ public class DirtSpawner : MonoBehaviour
     public float startReload = 0;
 
     [SerializeField] private Animator anim;
-    [SerializeField] private ParticleSystem particleSystem;
+    [SerializeField] private new ParticleSystem particleSystem;
     [SerializeField] private List<GameObject> rocksPrefabs;
     [SerializeField] private List<GameObject> rocksDestroying;
     public Coroutine spawnRoutine;
@@ -28,7 +28,8 @@ public class DirtSpawner : MonoBehaviour
 
     private List<GameObject> rocks = new List<GameObject>();
 
-    private const int maxRocksAmount = 12;
+    private const int rocksSpeed = 1;
+    private const int maxRocksAmount = 3;
 
     private void Start()
     {
@@ -69,12 +70,15 @@ public class DirtSpawner : MonoBehaviour
 
     private IEnumerator ThrowRocks()
     {
-        int randomAmount = Random.Range(2, 5);
+        int randomAmount = Random.Range(1, 4);
         List<GameObject> rocksList = new List<GameObject>();
         for (int i = 0; i < randomAmount; i++)
         {
             GameObject obj = Instantiate(GetRandomPrefab());
             obj.transform.position = new Vector3(spawnPoint.position.x + Random.Range(-0.4f, 0.5f), spawnPoint.position.y);
+            float verticalForce = Mathf.Abs(direction.x) > 0 ? Random.Range(0.25f, 0.751f) : 0;
+            Vector2 forceDir = new Vector2(direction.x, verticalForce) * rocksSpeed;
+            obj.GetComponent<Rigidbody2D>().AddForce(forceDir, ForceMode2D.Impulse);
             rocksList.Add(obj);
             yield return new WaitForSeconds(Random.Range(0, 0.2f));
         }

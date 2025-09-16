@@ -20,9 +20,10 @@ MonoBehaviour:
   maxHorizontalVelocity: 8
   maxFallingVelocity: 16
   gravityScale: 3
-  jumpForce: 13
-  jumpTime: 0.25
-  gravity: 3
+  JumpHeight: 3
+  JumpTimeToPeak: 0.5
+  JumpTimeToDescent: 0.5
+  minJumpTime: 0.1
   groundCheckExtraHeight: 0.2
   groundLayerMask:
     serializedVersion: 2
