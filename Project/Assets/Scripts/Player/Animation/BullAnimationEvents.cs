@@ -27,7 +27,7 @@ public class BullAnimationEvents : MonoBehaviour
 
     public void StopRushLoopSound()
     {
-        AudioManager.Instance.Stop(BullSoundsEnum.LoopRush);
+        AudioManager.Instance?.Stop(BullSoundsEnum.LoopRush);
     }
 
     public void PlayDetectedSound()

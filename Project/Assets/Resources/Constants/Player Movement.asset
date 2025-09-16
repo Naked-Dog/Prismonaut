@@ -23,7 +23,7 @@ MonoBehaviour:
   JumpHeight: 3
   JumpTimeToPeak: 0.5
   JumpTimeToDescent: 0.5
-  minJumpTime: 0.15
+  minJumpTime: 0.1
   groundCheckExtraHeight: 0.2
   groundLayerMask:
     serializedVersion: 2

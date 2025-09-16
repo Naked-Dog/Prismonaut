@@ -89,7 +89,7 @@ public class LavaManager : MonoBehaviour
         {
             eventStarted = false;
             eventFinished = true;
-            AudioManager.Instance.Stop(LevelEventsSoundsEnum.Lava);
+            AudioManager.Instance?.Stop(LevelEventsSoundsEnum.Lava);
             return;
         }
     }

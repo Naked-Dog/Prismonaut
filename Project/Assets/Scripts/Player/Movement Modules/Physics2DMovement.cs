@@ -139,13 +139,11 @@ namespace PlayerSystem
             if (e.context.canceled)
             {
                 jumpReleased = true;
-                Debug.Log("break jump");
             }
 
-            if (!playerState.groundState.Equals(GroundState.Grounded)) return;
-            if (isJumpingDisabled) return;
-            if (jumpRequested) return;
-            if (e.context.started)
+            if (!CanJump()) return;
+
+            if (e.context.performed)
             {
                 jumpRequested = true;
             }
@@ -167,8 +165,8 @@ namespace PlayerSystem
         private void SetJumpValues()
         {
             jumpForce = 2f * movementConstants.JumpHeight / movementConstants.JumpTimeToPeak;
-            jumpGravity = - 2f * movementConstants.JumpHeight / (movementConstants.JumpTimeToPeak * movementConstants.JumpTimeToPeak);
-            fallGravity = - 2f * movementConstants.JumpHeight / (movementConstants.JumpTimeToDescent * movementConstants.JumpTimeToDescent);
+            jumpGravity = -2f * movementConstants.JumpHeight / (movementConstants.JumpTimeToPeak * movementConstants.JumpTimeToPeak);
+            fallGravity = -2f * movementConstants.JumpHeight / (movementConstants.JumpTimeToDescent * movementConstants.JumpTimeToDescent);
         }
 
         private void PerformJump()
@@ -215,7 +213,7 @@ namespace PlayerSystem
             if (!jumpReleased) return;
             if (rb2d.linearVelocityY <= 0f) return;
             if (jumpTimer < movementConstants.minJumpTime) return;
-            
+
             if (!playerState.groundState.Equals(GroundState.Airborne))
             {
                 eventBus.Unsubscribe<OnFixedUpdate>(BreakJump);
@@ -255,7 +253,8 @@ namespace PlayerSystem
             rb2d.AddForce(Vector2.right * breakForce, ForceMode2D.Force);
         }
 
-        private void PerformVerticalBreak() {
+        private void PerformVerticalBreak()
+        {
             float threshold = Mathf.Abs(movementConstants.maxFallingVelocity);
             float excessVelocity = -rb2d.linearVelocity.y - threshold;
             if (excessVelocity <= 0) return;
@@ -267,7 +266,7 @@ namespace PlayerSystem
         {
             playerState.groundState = GroundState.Grounded;
             baseModule.StopFallingCameraTimer();
-            AudioManager.Instance.Stop(PlayerSoundsEnum.LoopWindFall);
+            AudioManager.Instance?.Stop(PlayerSoundsEnum.LoopWindFall);
             AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Land);
             if (0 < requestedMovement * rb2d.linearVelocity.x) return;
             rb2d.AddForce(Vector2.right * -rb2d.linearVelocity.x * 0.75f, ForceMode2D.Impulse);
@@ -295,7 +294,16 @@ namespace PlayerSystem
         private void RequestOppositeReaction(RequestOppositeReaction e)
         {
             rb2d.linearVelocity = Vector2.zero;
-            rb2d.AddForce(e.direction * e.forceAmount, ForceMode2D.Impulse);          
+            rb2d.AddForce(e.direction * e.forceAmount, ForceMode2D.Impulse);
+        }
+
+        private bool CanJump()
+        {
+            if (!playerState.groundState.Equals(GroundState.Grounded)) return false;
+            if (isJumpingDisabled) return false;
+            if (jumpRequested) return false;
+
+            return true;
         }
     }
 }

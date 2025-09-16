@@ -88,6 +88,7 @@ namespace PlayerSystem
         private void RegisterCallback(InputAction action, Action<InputAction.CallbackContext> callback)
         {
             action.started += callback;
+            action.performed += callback;
             action.canceled += callback;
 
             registeredCallbacks.Add((action, callback));
@@ -155,6 +156,7 @@ namespace PlayerSystem
             foreach (var (action, callback) in registeredCallbacks)
             {
                 action.started -= callback;
+                action.performed -= callback;
                 action.canceled -= callback;
             }
 

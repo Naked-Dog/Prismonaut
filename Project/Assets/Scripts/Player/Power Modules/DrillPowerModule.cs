@@ -11,7 +11,7 @@ namespace PlayerSystem
         private Rigidbody2D rb2d;
         private PhysicsEventsRelay drillPhysicsRelay;
         private PhysicsEventsRelay drillExitPhysicsRelay;
-        FixedJoint2D drillJoint;
+        private FixedJoint2D drillJoint;
         private PlayerPowersScriptable powersConstants;
         private PlayerBaseModule baseModule;
 
@@ -31,7 +31,10 @@ namespace PlayerSystem
         private Rigidbody2D lightObjectRigidBody;
         private BullHealth enemyHealth;
 
-        private bool isFacingRight => playerState.facingDirection == Direction.Right;
+        readonly private float exitTime = 0.02f;
+        private float exitTimer = 0f;
+
+        private bool IsFacingRight => playerState.facingDirection == Direction.Right;
 
         public DrillPowerModule(
             EventBus eventBus,
@@ -87,7 +90,7 @@ namespace PlayerSystem
 
             drillDir = inputDirection.sqrMagnitude > 0.1f
                 ? inputDirection.normalized
-                : (isFacingRight ? Vector2.right : Vector2.left);
+                : (IsFacingRight ? Vector2.right : Vector2.left);
 
             currentSpeed = powersConstants.drillMinimalFirstVelocity;
             rb2d.linearVelocity = drillDir * currentSpeed;
@@ -102,12 +105,12 @@ namespace PlayerSystem
 
         private void CheckPlayerCollision(OnCollisionEnter2D e)
         {
-            if(e.collision.gameObject.CompareTag("Spike"))
+            if (e.collision.gameObject.CompareTag("Spike"))
             {
                 Deactivate();
             }
 
-            if(e.collision.gameObject.CompareTag("Enemy"))
+            if (e.collision.gameObject.CompareTag("Enemy"))
             {
                 Deactivate();
             }
@@ -205,7 +208,7 @@ namespace PlayerSystem
             {
                 DrillObstacle();
             }
-            else if(go.CompareTag("Slime"))
+            else if (go.CompareTag("Slime"))
             {
                 Deactivate();
             }
@@ -280,7 +283,7 @@ namespace PlayerSystem
             {
                 if (enemyCollider != null)
                 {
-                    Physics2D.IgnoreCollision(playerCollider, enemyCollider, false);
+                    eventBus.Subscribe<OnUpdate>(RunExitTimer);
                 }
 
                 if (heavyCompositeCollider != null && heavyTilemapCollider != null)
@@ -289,7 +292,6 @@ namespace PlayerSystem
                     Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, false);
                 }
 
-                rb2d.linearVelocity = Vector2.zero;
                 rb2d.AddForce(drillDir * powersConstants.heavyExitForceImpulse, ForceMode2D.Impulse);
                 Deactivate();
             }
@@ -297,7 +299,7 @@ namespace PlayerSystem
 
         private void AttachObjectToDrill(GameObject gameObject)
         {
-            AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.EartThrumbling,1 ,true);
+            AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.EartThrumbling, 1, true);
             lightObjectRigidBody = gameObject.GetComponent<Rigidbody2D>();
             lightObjectRigidBody.simulated = false;
             Transform lightTransform = gameObject.transform;
@@ -346,7 +348,7 @@ namespace PlayerSystem
             if (damageTimer <= 0)
             {
                 enemyHealth?.TakeDamage(powersConstants.heavyDrillDamagePerSecond);
-                
+
                 damageTimer += 1f;
             }
 
@@ -370,7 +372,7 @@ namespace PlayerSystem
             AudioManager.Instance.Stop(LevelEventsSoundsEnum.EartThrumbling);
 
             rb2d.MoveRotation(0f);
-            if(!force) playerState.activePower = Power.None;
+            if (!force) playerState.activePower = Power.None;
             drillJoint.enabled = false;
             drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, 0);
             currentSpeed = 0f;
@@ -385,5 +387,16 @@ namespace PlayerSystem
             drillExitPhysicsRelay.OnTriggerExit2DAction.RemoveListener(ConfirmPlayerExit);
             eventBus.Unsubscribe<OnCollisionEnter2D>(CheckPlayerCollision);
         }
+
+        private void RunExitTimer(OnUpdate e)
+        {
+            exitTimer += Time.deltaTime;
+            if (exitTimer > exitTime)
+            {
+                Physics2D.IgnoreCollision(playerCollider, enemyCollider, false);
+                exitTimer = 0f;
+                eventBus.Unsubscribe<OnUpdate>(RunExitTimer);
+            }
+        } 
     }
 }

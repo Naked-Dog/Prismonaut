@@ -62,7 +62,7 @@ namespace PlayerSystem
         }
         public void PlayParrySound()
         {
-            AudioManager.Instance.Stop(PlayerSoundsEnum.ShieldTrans);
+            AudioManager.Instance?.Stop(PlayerSoundsEnum.ShieldTrans);
             AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Parry, 1f, false);
         }
         public void PlayHurtSound()
