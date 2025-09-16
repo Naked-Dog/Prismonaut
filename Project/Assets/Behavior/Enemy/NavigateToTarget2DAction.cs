@@ -26,7 +26,6 @@ namespace Unity.Behavior
         [SerializeReference] public BlackboardVariable<GameObject> Target;
         [SerializeReference] public BlackboardVariable<float> Speed = new BlackboardVariable<float>(1.0f);
         [SerializeReference] public BlackboardVariable<float> DistanceThreshold = new BlackboardVariable<float>(0.2f);
-        [SerializeReference] public BlackboardVariable<string> AnimatorSpeedParam = new BlackboardVariable<string>("SpeedMagnitude");
 
         // This will only be used in movement without a navigation agent.
         [SerializeReference] public BlackboardVariable<float> SlowDownDistance = new BlackboardVariable<float>(1.0f);
@@ -120,11 +119,6 @@ namespace Unity.Behavior
 
         protected override void OnEnd()
         {
-            if (m_Animator != null)
-            {
-                m_Animator.SetFloat(AnimatorSpeedParam, 0);
-            }
-
             if (m_NavMeshAgent != null)
             {
                 if (m_NavMeshAgent.isOnNavMesh)
@@ -164,10 +158,6 @@ namespace Unity.Behavior
 
             // If using animator, set speed parameter.
             m_Animator = Agent.Value.GetComponentInChildren<Animator>();
-            if (m_Animator != null)
-            {
-                m_Animator.SetFloat(AnimatorSpeedParam, Speed);
-            }
 
             // If using a navigation mesh, set target position for navigation mesh agent.
             m_NavMeshAgent = Agent.Value.GetComponentInChildren<NavMeshAgent>();

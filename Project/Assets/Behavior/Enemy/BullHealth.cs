@@ -43,7 +43,7 @@ public class BullHealth : MonoBehaviour
         }
         if (target != null)
         {
-            transform.position = new Vector3(target.position.x, target.position.y + 1.75f, transform.position.z);
+            transform.position = new Vector3(target.position.x, target.position.y + 2.5f, transform.position.z);
         }
     }
 
