@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using PlayerSystem;
@@ -9,6 +10,7 @@ public class DirtBallScript : MonoBehaviour
 {
     [SerializeField] private float impulseLimit;
     [SerializeField]  private float maxSpeed = 10;
+    [SerializeField]  private List<GameObject> rocks = new List<GameObject>();
     private Rigidbody2D rb;
     public DirtSpawner spawner;
     private Animator anim;
@@ -85,13 +87,34 @@ public class DirtBallScript : MonoBehaviour
     IEnumerator DieAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
-
         Death();
     }
 
     private void Death()
     {
         spawner.SpawnDirtBall(spawner.reloadTime);
+
+        int maxAmountRocks = Random.Range(2, 6);
+
+        List<GameObject> rocksList = new List<GameObject>();
+
+        for (int i = 0; i < rocks.Count; i++)
+        {
+            bool shouldBeUsed = true;
+
+            if (Random.value > 0.5f || rocksList.Count > maxAmountRocks)
+                shouldBeUsed = false;
+
+            if (shouldBeUsed)
+            {
+                rocks[i].transform.parent = null;
+                rocks[i].SetActive(true);
+                rocksList.Add(rocks[i]);
+            }
+        }
+
+        spawner.AddRocksToTheList(rocksList);
+        
         Destroy(gameObject, 0.1f);//animation later
     }
 
