@@ -15,15 +15,14 @@ MonoBehaviour:
   horizontalGroundedForce: 150
   horizontalAirborneForce: 150
   groundBreak: 20
-  airBreak: 2
+  airBreak: 10
   groundedGracePeriod: 0.15
   maxHorizontalVelocity: 8
   maxFallingVelocity: 16
   gravityScale: 3
   JumpHeight: 3
   JumpTimeToPeak: 0.5
-  JumpTimeToDescent: 0.5
-  minJumpTime: 0.1
+  minJumpTime: 0.15
   groundCheckExtraHeight: 0.2
   groundLayerMask:
     serializedVersion: 2
