@@ -24,11 +24,6 @@ public class StatsUI : MonoBehaviour
             Player2DController.OnLifesChangedEvent += SetLifes;
             Player2DController.OnPrismsChangedEvent += SetPrisms;
         }
-
-        if (Player3DController.Instance != null)
-        {
-            Player3DController.OnLifesChangedEvent += SetLifes;
-        }
     }
 
     public void SetLifes(FormState form, int lifes)
