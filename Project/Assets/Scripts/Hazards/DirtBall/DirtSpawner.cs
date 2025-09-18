@@ -23,6 +23,7 @@ public class DirtSpawner : MonoBehaviour
     [SerializeField] private List<GameObject> rocksDestroying;
     public Coroutine spawnRoutine;
     public bool start;
+    [SerializeField] private bool startOnEnable;
 
     private const float spawnTime = 1;
 
@@ -34,8 +35,15 @@ public class DirtSpawner : MonoBehaviour
     private void Start()
     {
         if (start) return;
-        float startTime = startReload != 0 ? startReload : Random.Range(0.5f, 2.5f);
-        SpawnDirtBall(startTime);
+        StartSpawn();
+    }
+
+    public void ActivateStartOnEnable() => startOnEnable = true;
+
+    void OnEnable()
+    {
+        if (startOnEnable)
+            StartSpawn();
     }
 
     public void StartSpawn()
