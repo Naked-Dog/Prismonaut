@@ -181,7 +181,7 @@ namespace PlayerSystem
             jumpReleased = false;
             jumpRequested = false;
 
-            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Jump);
+            AudioManager.Instance?.Play2DSound(PlayerSoundsEnum.Jump);
         }
 
         private void PerformJumpGravity(OnFixedUpdate e)
@@ -269,7 +269,7 @@ namespace PlayerSystem
             playerState.groundState = GroundState.Grounded;
             baseModule.StopFallingCameraTimer();
             AudioManager.Instance?.Stop(PlayerSoundsEnum.LoopWindFall);
-            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Land);
+            AudioManager.Instance?.Play2DSound(PlayerSoundsEnum.Land);
             if (0 < requestedMovement * rb2d.linearVelocity.x) return;
             rb2d.AddForce(Vector2.right * -rb2d.linearVelocity.x * 0.75f, ForceMode2D.Impulse);
             landingMoveCooldown = maxLandingBreakCooldown;
