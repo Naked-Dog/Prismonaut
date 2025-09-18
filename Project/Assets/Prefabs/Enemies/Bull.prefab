@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1274102660900855485}
-  - component: {fileID: 8673812709454344176}
+  - component: {fileID: 6621141113495115193}
   - component: {fileID: 8515350811615160316}
   m_Layer: 0
   m_Name: Wall
@@ -27,14 +27,14 @@ Transform:
   m_GameObject: {fileID: 877461423025921474}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.61, y: 0.385, z: 0}
+  m_LocalPosition: {x: -1.25, y: 0.385, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3719190897029907088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &8673812709454344176
-CircleCollider2D:
+--- !u!61 &6621141113495115193
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -68,7 +68,17 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.5}
-  m_Radius: 0.75
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &8515350811615160316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +124,7 @@ Transform:
   m_GameObject: {fileID: 2406938741347568830}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.5, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -157,14 +167,26 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   onTriggerExit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1318315196577863380}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   collisionTag: Player
   isOneShot: 0
   alreadyEntered: 0
@@ -258,7 +280,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   collisionTag: Player
-  isOneShot: 0
+  isOneShot: 1
   alreadyEntered: 0
   alreadyExited: 0
 --- !u!1 &2508579167337817757
@@ -500,7 +522,7 @@ RectTransform:
   m_GameObject: {fileID: 3850897329946968171}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2135727490908474717}
@@ -509,7 +531,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.75}
+  m_AnchoredPosition: {x: 0, y: 2.5}
   m_SizeDelta: {x: 3.075, y: 0.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8415752673930197661
@@ -612,8 +634,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4678884642972952388}
-  - component: {fileID: 3498144267919158801}
   - component: {fileID: 5466822333895051018}
+  - component: {fileID: 6921165363923545257}
   m_Layer: 0
   m_Name: Detection
   m_TagString: Untagged
@@ -636,8 +658,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3719190897029907088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &3498144267919158801
-CircleCollider2D:
+--- !u!114 &5466822333895051018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4030955384036039060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd41caeee7f73cf4ea8008cf20ef60a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  tagList:
+  - Player
+--- !u!70 &6921165363923545257
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -670,23 +707,9 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.5}
-  m_Radius: 17.4
---- !u!114 &5466822333895051018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4030955384036039060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd41caeee7f73cf4ea8008cf20ef60a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  tagList:
-  - Player
+  m_Offset: {x: 0, y: 2}
+  m_Size: {x: 15, y: 8.5}
+  m_Direction: 1
 --- !u!1 &4101904601062999238
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,7 +721,7 @@ GameObject:
   - component: {fileID: 3858412749367677839}
   m_Layer: 0
   m_Name: Bull
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -919,7 +942,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1409806187552303825}
@@ -1004,7 +1027,7 @@ Transform:
   m_GameObject: {fileID: 5845556760662495153}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.67, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1079,7 +1102,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.5}
-  m_Radius: 4
+  m_Radius: 5
 --- !u!114 &4964750072970721374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1439,7 +1462,7 @@ Transform:
   m_GameObject: {fileID: 7807357651213217731}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.18, y: 0, z: 0}
+  m_LocalPosition: {x: 14.18, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1470,7 +1493,7 @@ Transform:
   m_GameObject: {fileID: 7811795363778909420}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1725,13 +1748,13 @@ Rigidbody2D:
   m_GameObject: {fileID: 8949457902602156806}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c454553def854474193a2d83bd550ac0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1752,7 +1775,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c454553def854474193a2d83bd550ac0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1776,7 +1799,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.57}
+  m_Offset: {x: 0, y: 0.75}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1786,7 +1809,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.73, y: 1.16}
+  m_Size: {x: 2.75, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &1070124111976929781
 MonoBehaviour:

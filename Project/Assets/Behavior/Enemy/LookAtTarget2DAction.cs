@@ -11,7 +11,7 @@ public partial class LookAtTarget2DAction : Action
     [SerializeReference] public BlackboardVariable<GameObject> Self;
     [SerializeReference] public BlackboardVariable<GameObject> Target;
 
-    private float RunDirection; 
+    private float RunDirection;
 
     protected override Status OnStart()
     {
@@ -19,7 +19,7 @@ public partial class LookAtTarget2DAction : Action
 
         Vector3 localScale = Self.Value.transform.localScale;
         localScale.x = -RunDirection * Mathf.Abs(localScale.x);
-        Self.Value.transform.localScale = localScale; // ✅ Apply the change
+        Self.Value.transform.localScale = localScale;
 
         return Status.Success;
     }

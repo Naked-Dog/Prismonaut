@@ -1,9 +1,10 @@
+using System.Collections;
 using Unity.Behavior;
 using UnityEngine;
 
 public class BullHealth : MonoBehaviour
 {
-        [System.Serializable]
+    [System.Serializable]
     public class HealthSegment
     {
         public HealthBar healthBar;
@@ -37,7 +38,7 @@ public class BullHealth : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             TakeDamage(4);
         }
@@ -49,12 +50,11 @@ public class BullHealth : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        if (flinchedVar == null || flinchedVar.Value == false) return;
+        if (flinchedVar == null || !flinchedVar.Value) return;
 
         for (int i = segments.Length - 1; i >= 0 && amount > 0; i--)
         {
             var seg = segments[i];
-
             if (seg.locked) continue;
 
             float damage = Mathf.Min(amount, seg.currentHealth);
@@ -62,6 +62,8 @@ public class BullHealth : MonoBehaviour
             amount -= damage;
 
             seg.healthBar.SetHealth(seg.currentHealth);
+
+            animator.SetTrigger("Hurt");
 
             if (seg.currentHealth <= 0)
             {
@@ -76,13 +78,25 @@ public class BullHealth : MonoBehaviour
                 seg.regenCoroutine = StartCoroutine(RegenerateSegment(i));
             }
         }
+
         if (IsDead())
         {
-            OnDeath();
+            StartCoroutine(HandleDeath());
         }
     }
 
-    private System.Collections.IEnumerator RegenerateSegment(int index)
+    private IEnumerator HandleDeath()
+    {
+        animator.SetTrigger("Die");
+        agent.End();
+
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        this.gameObject.SetActive(false);
+        this.finalTrigger.SetActive(false);
+    }
+
+    private IEnumerator RegenerateSegment(int index)
     {
         var seg = segments[index];
 
@@ -104,13 +118,5 @@ public class BullHealth : MonoBehaviour
                 return false;
         }
         return true;
-    }
-
-    private void OnDeath()
-    {
-        agent.End();
-        animator.Play("Die");
-        this.gameObject.SetActive(false);
-        this.finalTrigger.SetActive(false);
     }
 }

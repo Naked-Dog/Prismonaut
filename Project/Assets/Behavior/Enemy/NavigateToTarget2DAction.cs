@@ -17,9 +17,9 @@ namespace Unity.Behavior
     {
         public enum TargetPositionMode
         {
-            ClosestPointOnAnyCollider,      // Use the closest point on any collider, including child objects
-            ClosestPointOnTargetCollider,   // Use the closest point on the target's own collider only
-            ExactTargetPosition             // Use the exact position of the target, ignoring colliders
+            ClosestPointOnAnyCollider,
+            ClosestPointOnTargetCollider,
+            ExactTargetPosition
         }
 
         [SerializeReference] public BlackboardVariable<GameObject> Agent;
@@ -27,7 +27,6 @@ namespace Unity.Behavior
         [SerializeReference] public BlackboardVariable<float> Speed = new BlackboardVariable<float>(1.0f);
         [SerializeReference] public BlackboardVariable<float> DistanceThreshold = new BlackboardVariable<float>(0.2f);
 
-        // This will only be used in movement without a navigation agent.
         [SerializeReference] public BlackboardVariable<float> SlowDownDistance = new BlackboardVariable<float>(1.0f);
         [Tooltip("Defines how the target position is determined for navigation:" +
             "\n- ClosestPointOnAnyCollider: Use the closest point on any collider, including child objects" +
@@ -59,9 +58,8 @@ namespace Unity.Behavior
                 return Status.Failure;
             }
 
-            // Check if the target position has changed.
-            bool boolUpdateTargetPosition = !Mathf.Approximately(m_LastTargetPosition.x, Target.Value.transform.position.x) 
-                || !Mathf.Approximately(m_LastTargetPosition.y, Target.Value.transform.position.y) 
+            bool boolUpdateTargetPosition = !Mathf.Approximately(m_LastTargetPosition.x, Target.Value.transform.position.x)
+                || !Mathf.Approximately(m_LastTargetPosition.y, Target.Value.transform.position.y)
                 || !Mathf.Approximately(m_LastTargetPosition.z, Target.Value.transform.position.z);
 
             if (boolUpdateTargetPosition)
@@ -73,7 +71,7 @@ namespace Unity.Behavior
             float distance = Vector2.Distance(
                 new Vector2(Agent.Value.transform.position.x, Agent.Value.transform.position.y),
                 new Vector2(m_ColliderAdjustedTargetPosition.x, m_ColliderAdjustedTargetPosition.y));
-                
+
             if (distance <= (DistanceThreshold + m_ColliderOffset))
             {
                 return Status.Success;
@@ -111,7 +109,7 @@ namespace Unity.Behavior
                         localScale.x = -Mathf.Sign(toDestination.x) * Mathf.Abs(localScale.x);
                         Agent.Value.transform.localScale = localScale;
                     }
-                }   
+                }
             }
 
             return Status.Running;
@@ -142,7 +140,6 @@ namespace Unity.Behavior
             m_LastTargetPosition = Target.Value.transform.position;
             m_ColliderAdjustedTargetPosition = GetPositionColliderAdjusted();
 
-            // Add the extents of the colliders to the stopping distance.
             m_ColliderOffset = 0.0f;
             Collider agentCollider = Agent.Value.GetComponentInChildren<Collider>();
             if (agentCollider != null)
@@ -156,10 +153,8 @@ namespace Unity.Behavior
                 return Status.Success;
             }
 
-            // If using animator, set speed parameter.
             m_Animator = Agent.Value.GetComponentInChildren<Animator>();
 
-            // If using a navigation mesh, set target position for navigation mesh agent.
             m_NavMeshAgent = Agent.Value.GetComponentInChildren<NavMeshAgent>();
             if (m_NavMeshAgent != null)
             {
@@ -183,17 +178,16 @@ namespace Unity.Behavior
             {
                 case TargetPositionMode.ClosestPointOnAnyCollider:
                     Collider anyCollider = Target.Value.GetComponentInChildren<Collider>(includeInactive: false);
-                    if (anyCollider == null || anyCollider.enabled == false) 
+                    if (anyCollider == null || anyCollider.enabled == false)
                         break;
                     return anyCollider.ClosestPoint(Agent.Value.transform.position);
                 case TargetPositionMode.ClosestPointOnTargetCollider:
                     Collider targetCollider = Target.Value.GetComponent<Collider>();
-                    if (targetCollider == null || targetCollider.enabled == false) 
+                    if (targetCollider == null || targetCollider.enabled == false)
                         break;
                     return targetCollider.ClosestPoint(Agent.Value.transform.position);
             }
 
-            // Default to target position.
             return Target.Value.transform.position;
         }
 
