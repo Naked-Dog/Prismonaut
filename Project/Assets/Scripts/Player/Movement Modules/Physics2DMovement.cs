@@ -298,7 +298,7 @@ namespace PlayerSystem
         private void RequestOppositeReaction(RequestOppositeReaction e)
         {
             rb2d.linearVelocity = Vector2.zero;
-            rb2d.AddForce(e.direction * e.forceAmount, ForceMode2D.Impulse);
+            rb2d.AddForce(e.direction.normalized * e.forceAmount, ForceMode2D.Impulse);
         }
 
         private bool CanJump()
