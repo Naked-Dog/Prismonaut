@@ -104,7 +104,16 @@ public class MenuController : MonoBehaviour
 
     public void DisplayGamePanel(OnPauseInput e)
     {
-        DisplayPanel(gameMenuPanel);
+        bool isActive = !gameMenuPanel.activeSelf;
+        gameMenuPanel.SetActive(isActive);
+        if (isActive)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
     }
 
     private void setMenuDisplay(string sceneName)
@@ -133,6 +142,7 @@ public class MenuController : MonoBehaviour
 
     public void ResetGame()
     {
+        Time.timeScale = 1f;
         eventBus.Publish(new RequestRespawn());
         eventBus.Publish(new OnPauseInput());
     }
@@ -140,6 +150,7 @@ public class MenuController : MonoBehaviour
     public void ResumeGame()
     {
         Debug.Log("Resuming game");
+        Time.timeScale = 1f;
         eventBus.Publish(new RequestUnpause());
         eventBus.Publish(new OnPauseInput());
     }
