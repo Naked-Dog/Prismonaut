@@ -133,8 +133,8 @@ public class AudioManager : MonoBehaviour
         src.outputAudioMixerGroup = sfxMixer;
         src.spatialBlend = spatialBlend;
         src.spread = 180;
-        src.minDistance = 10f;
-        src.maxDistance = 0.15f;
+        src.minDistance = 1f;
+        src.maxDistance = 10f;
         src.Play();
         if (!loop) StartCoroutine(RecycleWhenDone(src));
         return src;

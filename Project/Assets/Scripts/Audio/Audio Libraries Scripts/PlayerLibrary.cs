@@ -13,6 +13,7 @@ public enum PlayerSoundsEnum
     DodgeTrans,
     ShieldTrans,
     DrillTrans,
+    DrillDig,
     Parry,
     HeavyLand,
     LoopWindFall,

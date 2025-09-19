@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Diagnostics;
 using UnityEngine.Tilemaps;
 
 namespace PlayerSystem
@@ -20,7 +21,8 @@ namespace PlayerSystem
         private float currentSpeed = 0f;
         private float rotationVelocity;
         private bool isSecondStage;
-        private bool isInside = false;
+        private bool isDrillInside = false;
+        private bool isBodyInside = false;
         private float damageTimer = 0f;
         private float steerReturnTimer;
 
@@ -60,8 +62,6 @@ namespace PlayerSystem
             this.drillJoint.autoConfigureConnectedAnchor = false;
 
             eventBus.Subscribe<OnTrianglePowerInput>(OnTrianglePowerInput);
-            eventBus.Subscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
-            eventBus.Subscribe<OnVerticalInput>(TakeVerticalInputDirection);
         }
 
         private void OnTrianglePowerInput(OnTrianglePowerInput e)
@@ -99,20 +99,23 @@ namespace PlayerSystem
             eventBus.Publish(new RequestGravityOff());
             eventBus.Subscribe<OnUpdate>(ReduceTimeLeft);
             eventBus.Subscribe<OnFixedUpdate>(Steer);
-            drillPhysicsRelay.OnTriggerEnter2DAction.AddListener(ConfirmDrillCollision);
             eventBus.Subscribe<OnCollisionEnter2D>(CheckPlayerCollision);
+            eventBus.Subscribe<OnDamageReceived>(ForceDeactivate);
+            eventBus.Subscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
+            eventBus.Subscribe<OnVerticalInput>(TakeVerticalInputDirection);
+            drillPhysicsRelay.OnTriggerEnter2DAction.AddListener(ConfirmDrillCollision);
         }
 
         private void CheckPlayerCollision(OnCollisionEnter2D e)
         {
-            if (e.collision.gameObject.CompareTag("Spike"))
+            if (e.collision.gameObject.CompareTag("Spike") || e.collision.gameObject.CompareTag("SpikeD"))
             {
-                Deactivate();
+                Deactivate(true);
             }
 
             if (e.collision.gameObject.CompareTag("Enemy"))
             {
-                Deactivate();
+                Deactivate(true);
             }
         }
 
@@ -205,13 +208,21 @@ namespace PlayerSystem
                 playerState.activePower = Power.HeavyDrill;
                 DrillHeavyTerrain(go);
             }
-            else if (go.CompareTag("Ground") || go.CompareTag("Spike"))
+            else if (go.CompareTag("Ground") || go.CompareTag("Spike") || go.CompareTag("SpikeD"))
             {
                 DrillObstacle();
             }
             else if (go.CompareTag("Slime"))
             {
-                Deactivate();
+                Deactivate(true);
+            }
+        }
+
+        private void ConfirmPlayerEnter(Collider2D other)
+        { 
+            if (other.CompareTag("Enemy") || other.CompareTag("HeavyTerrain") )
+            {
+                isBodyInside = true;
             }
         }
 
@@ -233,8 +244,10 @@ namespace PlayerSystem
             enemyHealth = other.GetComponent<Bull>().bullHealth;
             Physics2D.IgnoreCollision(playerCollider, enemyCollider, true);
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
-            isInside = true;
+            isDrillInside = true;
             drillPhysicsRelay.OnTriggerExit2DAction.AddListener(ConfirmDrillExit);
+            drillExitPhysicsRelay.OnTriggerEnter2DAction.AddListener(ConfirmPlayerEnter);
+            drillExitPhysicsRelay.OnTriggerExit2DAction.AddListener(ConfirmPlayerExit);
             eventBus.Subscribe<OnUpdate>(DamageTimer);
         }
 
@@ -245,15 +258,22 @@ namespace PlayerSystem
             Physics2D.IgnoreCollision(playerCollider, heavyTilemapCollider, true);
             Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, true);
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
-            isInside = true;
+            isDrillInside = true;
             drillPhysicsRelay.OnTriggerExit2DAction.AddListener(ConfirmDrillExit);
-            AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.EartThrumbling, true);
+            drillExitPhysicsRelay.OnTriggerEnter2DAction.AddListener(ConfirmPlayerEnter);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.DrillDig, true);
         }
 
         private void DrillObstacle()
         {
-            if (isInside)
+            if (isDrillInside)
             {
+                if (!isBodyInside)
+                {
+                    Deactivate(true);
+                    return;
+                }
+
                 eventBus.Unsubscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
                 eventBus.Unsubscribe<OnVerticalInput>(TakeVerticalInputDirection);
                 eventBus.Subscribe<OnUpdate>(SteerControlReturn);
@@ -262,7 +282,7 @@ namespace PlayerSystem
             }
             else
             {
-                eventBus.Publish(new RequestOppositeReaction(-drillDir, powersConstants.drillOppositeForce));
+                eventBus.Publish(new RequestOppositeReaction(drillDir, powersConstants.drillOppositeForce));
                 eventBus.Publish(new OnCancelPower());
                 Deactivate(true);
             }
@@ -274,12 +294,26 @@ namespace PlayerSystem
             {
                 eventBus.Unsubscribe<OnFixedUpdate>(Steer);
                 eventBus.Unsubscribe<OnUpdate>(DamageTimer);
-                drillExitPhysicsRelay.OnTriggerExit2DAction.AddListener(ConfirmPlayerExit);
+                isDrillInside = false;
+                if (!isBodyInside)
+                {
+                    Deactivate(true);
+                }
+                else
+                { 
+                    drillExitPhysicsRelay.OnTriggerExit2DAction.AddListener(ConfirmPlayerExit);
+                }
             }
         }
 
         private void ConfirmPlayerExit(Collider2D other)
         {
+            if (!isBodyInside)
+            {
+                Deactivate(true);
+                return;
+            }
+
             if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("HeavyTerrain"))
             {
                 rb2d.AddForce(drillDir * powersConstants.heavyExitForceImpulse, ForceMode2D.Impulse);
@@ -301,7 +335,7 @@ namespace PlayerSystem
 
         private void AttachObjectToDrill(GameObject gameObject)
         {
-            AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.EartThrumbling, true);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.DrillDig, true);
             lightObjectRigidBody = gameObject.GetComponent<Rigidbody2D>();
             lightObjectRigidBody.simulated = false;
             Transform lightTransform = gameObject.transform;
@@ -325,7 +359,6 @@ namespace PlayerSystem
 
             isSecondStage = true;
         }
-
 
         private void ReduceTimeLeft(OnUpdate e)
         {
@@ -357,22 +390,27 @@ namespace PlayerSystem
             damageTimer -= Time.deltaTime;
         }
 
+        private void ForceDeactivate(OnDamageReceived e)
+        {
+            Deactivate(true);
+        }
+
         public void Deactivate(bool force = false)
         {
-
             if (lightObjectRigidBody != null)
             {
                 ReleaseLightObject();
             }
 
-            AudioManager.Instance?.Stop(LevelEventsSoundsEnum.EartThrumbling);
+            AudioManager.Instance?.Stop(PlayerSoundsEnum.DrillDig);
 
             drillJoint.enabled = false;
             drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, 0);
 
             currentSpeed = 0f;
             damageTimer = 0f;
-            isInside = false;
+            isDrillInside = false;
+            isBodyInside = false;
 
             drillPhysicsRelay.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
             drillPhysicsRelay.OnTriggerExit2DAction.RemoveListener(ConfirmDrillExit);
@@ -380,7 +418,44 @@ namespace PlayerSystem
             eventBus.Unsubscribe<OnFixedUpdate>(Steer);
             eventBus.Unsubscribe<OnCollisionEnter2D>(CheckPlayerCollision);
 
+            if (force)
+            {
+                ReleaseInstantaneous();
+                return;
+            }
+
             eventBus.Subscribe<OnUpdate>(ReleaseDrill);
+        }
+
+        private void ReleaseInstantaneous()
+        { 
+            rb2d.MoveRotation(0f);
+                AudioManager.Instance?.Stop(PlayerSoundsEnum.DrillTrans);
+
+                eventBus.Unsubscribe<OnUpdate>(ReleaseDrill);
+                eventBus.Unsubscribe<OnUpdate>(RunExitTimer);
+                eventBus.Unsubscribe<OnFixedUpdate>(Steer);
+                eventBus.Unsubscribe<OnUpdate>(DamageTimer);
+                eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
+                eventBus.Unsubscribe<OnUpdate>(SteerControlReturn);
+                eventBus.Unsubscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
+                eventBus.Unsubscribe<OnVerticalInput>(TakeVerticalInputDirection);
+                eventBus.Unsubscribe<OnDamageReceived>(ForceDeactivate);
+
+                if (heavyCompositeCollider != null && heavyTilemapCollider != null)
+            {
+                Physics2D.IgnoreCollision(playerCollider, heavyTilemapCollider, false);
+                Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, false);
+            }
+
+                if (enemyCollider != null)
+                {
+                    Physics2D.IgnoreCollision(playerCollider, enemyCollider, false);
+                }    
+
+                eventBus.Publish(new RequestMovementResume());
+                eventBus.Publish(new RequestGravityOn());
+                playerState.activePower = Power.None;
         }
 
         private void ReleaseLightObject()

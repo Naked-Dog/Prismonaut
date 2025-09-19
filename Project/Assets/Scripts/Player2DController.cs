@@ -400,7 +400,6 @@ public class Player2DController : MonoBehaviour
         else
         {
             isDead = true;
-            MenuController.Instance.DisplayLosePanel();
             rb2d.linearVelocity = Vector2.zero;
             this.enabled = false;
         }
