@@ -15,6 +15,7 @@ namespace PlayerSystem
         private Coroutine hpRegenCoroutine;
         private PlayerHealthScriptable healthConstans;
         private float hurtTime = 0f;
+        private bool willWarp = false;
 
         public PlayerHealthModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, MonoBehaviour mb)
         {
@@ -25,7 +26,7 @@ namespace PlayerSystem
 
             healthConstans = GlobalConstants.Get<PlayerHealthScriptable>();
             SetValues();
-            
+
             eventBus.Subscribe<RequestRespawn>(Respawn);
             eventBus.Subscribe<OnDamageReceived>(DamageReceived);
             eventBus.Subscribe<OnDeath>(Death);
@@ -74,6 +75,7 @@ namespace PlayerSystem
             if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return;
             if (hpRegenCoroutine != null) mb.StopCoroutine(hpRegenCoroutine);
 
+            this.willWarp = false;
             playerState.currentHealth -= spikeDmg > 0 ? spikeDmg : 1;
 
             HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
@@ -94,8 +96,9 @@ namespace PlayerSystem
                 }
                 HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
             }
+            eventBus.Publish(new OnDamageReceived());
             StartHPRegen();
-            if(willWarp) WarpPlayerToSafeGround();
+            this.willWarp = willWarp;
         }
 
         public void WarpPlayerToSafeGround()
@@ -174,25 +177,42 @@ namespace PlayerSystem
             playerState.healthState = HealthState.TakingDamage;
             hurtTime = healthConstans.hurtTime;
             eventBus.Publish(new RequestMovementPause());
+            eventBus.Publish(new RequestGravityOff());
             eventBus.Subscribe<OnUpdate>(ReduceHurtTimer);
         }
 
         private void ReduceHurtTimer(OnUpdate e)
         {
             hurtTime -= Time.deltaTime;
-            if(hurtTime <= 0f)
+            if (hurtTime <= 0f)
             {
                 playerState.healthState = HealthState.Undefined;
-                eventBus.Publish(new RequestMovementResume());
                 eventBus.Unsubscribe<OnUpdate>(ReduceHurtTimer);
+                eventBus.Publish(new RequestMovementResume());
+                eventBus.Publish(new RequestGravityOn());
+
+                if (playerState.healthState.Equals(HealthState.Death))
+                {
+                    eventBus.Publish(new RequestRespawn());
+                    return;       
+                }
+
+                if (willWarp)
+                {
+                    willWarp = false;
+                    WarpPlayerToSafeGround();
+                }
             }
         }
 
         private void Death(OnDeath e)
         {
             playerState.healthState = HealthState.Death;
+            hurtTime = healthConstans.deathTime;
+
             eventBus.Publish(new RequestMovementPause());
             eventBus.Publish(new RequestGravityOff());
+            eventBus.Subscribe<OnUpdate>(ReduceHurtTimer);
         }
     }
 }
