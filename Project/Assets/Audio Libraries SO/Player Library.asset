@@ -33,23 +33,23 @@ MonoBehaviour:
     - Key: 4
       Value:
         clip: {fileID: 8300000, guid: d10b4d9361778ec4a9168d2934a23838, type: 3}
-        volume: 0
+        volume: 1
     - Key: 5
       Value:
         clip: {fileID: 8300000, guid: 61ddb794a856667488319c14ae04d50d, type: 3}
-        volume: 0
+        volume: 1
     - Key: 6
       Value:
         clip: {fileID: 8300000, guid: 8a8b473420f197748b65442767ca37a6, type: 3}
-        volume: 0
+        volume: 1
     - Key: 7
       Value:
         clip: {fileID: 0}
-        volume: 0
+        volume: 1
     - Key: 8
       Value:
         clip: {fileID: 8300000, guid: 03b1c2dcaa354044dbc10d02852a65d7, type: 3}
-        volume: 0
+        volume: 1
     - Key: 9
       Value:
         clip: {fileID: 8300000, guid: 2170e261793d128488922ffe9b7519ae, type: 3}
