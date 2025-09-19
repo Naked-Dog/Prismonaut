@@ -34,5 +34,5 @@ MonoBehaviour:
   squarePowerCooldown: 1
   spikeKnockbackForce: 1.5
   trianglePowerForce: 10
-  trianglePowerDuration: 0.8
+  trianglePowerDuration: 1.5
   trianglePowerCooldown: 1

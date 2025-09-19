@@ -70,7 +70,7 @@ namespace PlayerSystem
                 if (other.gameObject.GetComponent<IPlatform>().PlatformType == PlatformType.CrumblingPlatform) eventBus.Publish(new PlayPlayerSounEffect("SquareBlock"));
             }
             other.gameObject.GetComponent<IPlayerPowerInteractable>()?.PlayerPowerInteraction(playerState);
-            if (other.gameObject.CompareTag("Spike"))
+            if (other.gameObject.CompareTag("Spike") || other.gameObject.CompareTag("SpikeD"))
             {
                 knockback.CallKnockback(Vector2.zero, Vector2.up * movementValues.spikeKnockbackForce, Input.GetAxisRaw("Horizontal"));
                 eventBus.Publish(new PlayPlayerSounEffect("SquareBlockSpikes"));

@@ -16,7 +16,7 @@ public class Spikes : MonoBehaviour
         {
             collision.gameObject.GetComponent<PlayerBaseModule>()?.healthModule.SpikeDamage(damage, willWarp);
         }
-        if (willDestroy && !collision.gameObject.CompareTag("Spike")) DestroySpike();
+        if (willDestroy && !collision.gameObject.CompareTag("SpikeD")) DestroySpike();
     }
     public void DestroySpike()
     {

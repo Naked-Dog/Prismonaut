@@ -29,6 +29,7 @@ TagManager:
   - HeavyTerrain
   - HUD
   - Slime
+  - SpikeD
   layers:
   - Default
   - TransparentFX
@@ -63,14 +64,17 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Bg Parallax
+    uniqueID: 1554593207
+    locked: 0
   - name: Background details
     uniqueID: 2820515045
     locked: 0
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Background
     uniqueID: 822766415
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
   - name: Ground
     uniqueID: 60523281

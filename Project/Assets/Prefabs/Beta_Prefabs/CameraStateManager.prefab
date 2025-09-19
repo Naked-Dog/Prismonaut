@@ -286,7 +286,7 @@ MonoBehaviour:
     FieldOfView: 60
     OrthographicSize: 2.5
     NearClipPlane: 6.5
-    FarClipPlane: 14.6
+    FarClipPlane: 180
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -313,7 +313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b8bd962ebba0f4ebac0bf9b7197abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitingAmount: 0
   cameraType: 2
 --- !u!1 &3119108271869539695
 GameObject:
@@ -373,7 +372,7 @@ MonoBehaviour:
     FieldOfView: 60
     OrthographicSize: 6
     NearClipPlane: 6.5
-    FarClipPlane: 14.6
+    FarClipPlane: 180
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -400,7 +399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b8bd962ebba0f4ebac0bf9b7197abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitingAmount: 0.25
   cameraType: 4
 --- !u!1 &4186705396317459584
 GameObject:
@@ -637,7 +635,7 @@ MonoBehaviour:
     FieldOfView: 60
     OrthographicSize: 6
     NearClipPlane: 6.5
-    FarClipPlane: 14.6
+    FarClipPlane: 180
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -664,7 +662,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b8bd962ebba0f4ebac0bf9b7197abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitingAmount: 0
   cameraType: 0
 --- !u!114 &6982870375032014045
 MonoBehaviour:
@@ -835,7 +832,7 @@ MonoBehaviour:
     FieldOfView: 60
     OrthographicSize: 6
     NearClipPlane: 6.5
-    FarClipPlane: 14.6
+    FarClipPlane: 180
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -862,7 +859,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b8bd962ebba0f4ebac0bf9b7197abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitingAmount: 0.25
   cameraType: 3
 --- !u!1 &6843061433841245708
 GameObject:
@@ -922,7 +918,7 @@ MonoBehaviour:
     FieldOfView: 60
     OrthographicSize: 8
     NearClipPlane: 6.5
-    FarClipPlane: 14.6
+    FarClipPlane: 180
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -949,5 +945,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b8bd962ebba0f4ebac0bf9b7197abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitingAmount: 0.75
   cameraType: 1
