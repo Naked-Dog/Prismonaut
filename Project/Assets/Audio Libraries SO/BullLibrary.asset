@@ -16,15 +16,15 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value:
-        clip: {fileID: 8300000, guid: 1d5a3b781a17bf94bb9224cc459f995e, type: 3}
+        clip: {fileID: 8300000, guid: c6786c129793e5a41a2104ab590bda61, type: 3}
         volume: 1
     - Key: 1
       Value:
-        clip: {fileID: 8300000, guid: 1a13a61f89e95ad4bb9d6c28b3cc7601, type: 3}
+        clip: {fileID: 8300000, guid: aaa69465a1d319448a09742a0a493b43, type: 3}
         volume: 1
     - Key: 2
       Value:
-        clip: {fileID: 8300000, guid: 227e3740448c94644b7f5dafa9029762, type: 3}
+        clip: {fileID: 8300000, guid: 56eb40c8b7144c34ab87b3633335aeaa, type: 3}
         volume: 1
     - Key: 3
       Value:
@@ -32,8 +32,8 @@ MonoBehaviour:
         volume: 1
     - Key: 4
       Value:
-        clip: {fileID: 8300000, guid: 7c2a4d5369993a343b1d009214e1d192, type: 3}
-        volume: 1
+        clip: {fileID: 8300000, guid: 4c5ae3625e5351340bd1ee05bbae54a5, type: 3}
+        volume: 0.5
     - Key: 5
       Value:
         clip: {fileID: 8300000, guid: 4f0c2c9dacef1c9478531a04aef72505, type: 3}
