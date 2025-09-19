@@ -261,7 +261,7 @@ namespace PlayerSystem
             isDrillInside = true;
             drillPhysicsRelay.OnTriggerExit2DAction.AddListener(ConfirmDrillExit);
             drillExitPhysicsRelay.OnTriggerEnter2DAction.AddListener(ConfirmPlayerEnter);
-            AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.EartThrumbling, true);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.DrillDig, true);
         }
 
         private void DrillObstacle()
@@ -335,7 +335,7 @@ namespace PlayerSystem
 
         private void AttachObjectToDrill(GameObject gameObject)
         {
-            AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.EartThrumbling, true);
+            AudioManager.Instance.Play2DSound(PlayerSoundsEnum.DrillDig, true);
             lightObjectRigidBody = gameObject.GetComponent<Rigidbody2D>();
             lightObjectRigidBody.simulated = false;
             Transform lightTransform = gameObject.transform;
@@ -402,7 +402,7 @@ namespace PlayerSystem
                 ReleaseLightObject();
             }
 
-            AudioManager.Instance?.Stop(LevelEventsSoundsEnum.EartThrumbling);
+            AudioManager.Instance?.Stop(PlayerSoundsEnum.DrillDig);
 
             drillJoint.enabled = false;
             drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, 0);
