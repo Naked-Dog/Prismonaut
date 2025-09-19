@@ -68,6 +68,7 @@ namespace PlayerSystem
 
             HealthUIController.Instance.InitUI(state.currentHealth, state.healthPerBar, state.currentHealthBars);
             MenuController.Instance?.SetEvents(eventBus);
+            AudioManager.Instance?.SetEvents(eventBus);
             DialogueController.Instance?.SetEventBus(eventBus);
             animator.GetComponent<PlayerAnimationEvents>()?.SetEventBus(eventBus);
 

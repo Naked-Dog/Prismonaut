@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PlayerSystem;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -35,6 +36,7 @@ public class AudioManager : MonoBehaviour
     private List<AudioSource> allSources = new();
     private Stack<AudioSource> freeSources = new();
     private AudioSource musicSource;
+    private EventBus eventBus;
 
     protected void Awake()
     {
@@ -303,4 +305,33 @@ public class AudioManager : MonoBehaviour
 
     public float GetMusicVolume() { return musicVolume; }
     public float GetSFXsVolume() { return SoundEffectsVolume; }
+
+    public void SetEvents(EventBus bus)
+    {
+        eventBus = bus;
+        eventBus.Subscribe<RequestPause>(PauseSounds);
+        eventBus.Subscribe<RequestUnpause>(ResumeSounds);
+    }
+
+    private void PauseSounds(RequestPause e)
+    {
+        foreach (var src in allSources)
+        {
+            if (src.isPlaying && src.outputAudioMixerGroup == sfxMixer)
+            {
+                src.Pause();
+            }
+        }
+    }
+
+    private void ResumeSounds(RequestUnpause e)
+    { 
+        foreach (var src in allSources)
+        {
+            if (src.clip != null && src.outputAudioMixerGroup == sfxMixer)
+            {
+                src.UnPause();
+            }
+        }
+    }
 }

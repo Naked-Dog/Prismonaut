@@ -28,6 +28,8 @@ namespace PlayerSystem
             eventBus.Subscribe<RequestStopPlayerInputs>(StopPlayerMapInput);
             eventBus.Subscribe<RequestEnableDialogueInputs>(EnableDialogueInputs);
             eventBus.Subscribe<RequestDisableDialogueInputs>(DiableDialogueInputs);
+            eventBus.Subscribe<RequestPause>(OnGamePause);
+            eventBus.Subscribe<RequestUnpause>(OnGameUnpause);
         }
 
         private void StopPlayerMapInput(RequestStopPlayerInputs e)
@@ -73,20 +75,24 @@ namespace PlayerSystem
 
             RegisterCallback(playerGameMap.FindAction("Pause"), ctx =>
             {
-                eventBus.Publish(new OnPauseInput());
-                eventBus.Publish(new RequestPause());
+                if (ctx.canceled)
+                {
+                    eventBus.Publish(new RequestPause());
+                }
             });
 
-            RegisterCallback(playerUIMap.FindAction("Pause"), ctx =>
+            RegisterCallback(DialogueMap.FindAction("Pause"), ctx =>
             {
-                eventBus.Publish(new OnPauseInput());
-                eventBus.Publish(new RequestUnpause());
+                if (ctx.canceled)
+                {
+                    eventBus.Publish(new RequestPause());
+                }
             });
 
             RegisterCallback(DialogueMap.FindAction("SkipDialogue"), ctx =>
             {
                 if (ctx.canceled)
-                { 
+                {
                     DialogueController.Instance?.SkipDialogue();
                 }
             });
@@ -156,7 +162,7 @@ namespace PlayerSystem
 
             playerGameMap.FindAction("LookDown").started -= LookDownInput;
             playerGameMap.FindAction("LookDown").canceled -= LookDownInput;
-            
+
             playerGameMap.FindAction("LookUp").started -= LookUpInput;
             playerGameMap.FindAction("LookUp").canceled -= LookUpInput;
 
@@ -171,6 +177,31 @@ namespace PlayerSystem
 
             playerActions = null;
             eventBus = null;
+        }
+
+        private void OnGameUnpause(RequestUnpause e)
+        {
+            playerUIMap.Disable();
+            if (DialogueController.Instance)
+            {
+                if (DialogueController.Instance.isDialogueRunning)
+                {
+                    DialogueMap.Enable();
+                }
+                else
+                {
+                    playerGameMap.Enable();
+                }
+                return;
+            }
+
+            playerGameMap.Enable();
+        }
+
+        private void OnGamePause(RequestPause e)
+        { 
+            playerUIMap.Enable();
+            playerGameMap.Disable();
         }
     }
 }

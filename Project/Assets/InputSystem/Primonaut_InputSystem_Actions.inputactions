@@ -637,15 +637,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "027d1554-14f3-4566-b925-814f27935ceb",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "SkipCinematic",
                     "type": "Button",
                     "id": "225fb8db-3ab7-45f3-b682-bbc9612b1b6b",
@@ -999,39 +990,6 @@
                 },
                 {
                     "name": "",
-                    "id": "b99f182e-7b35-4f82-bc8c-0a49d46afb46",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c0768342-4bf5-49f6-9cce-f3653025460d",
-                    "path": "<Gamepad>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1fc1b273-cc23-43ed-b6d1-eb9f3c24d3a9",
-                    "path": "<HID::DragonRise Inc.   Generic   USB  Joystick  >/button10",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "503b6f12-d547-40da-84cd-92b2e54218da",
                     "path": "",
                     "interactions": "",
@@ -1051,6 +1009,15 @@
                     "name": "SkipDialogue",
                     "type": "Button",
                     "id": "03b4647e-b22d-4aca-8716-69b0897fa918",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "c5247b36-8e7b-4464-a120-d62c8e5914a3",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1088,6 +1055,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "SkipDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c29339e2-0231-4317-9f3b-5a922162b6e2",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f845409a-cedc-465e-9065-50b1f1cb108a",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

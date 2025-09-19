@@ -96,18 +96,16 @@ public class MenuController : MonoBehaviour
         panel.SetActive(!panel.activeSelf);
     }
 
-    public void DisplayGamePanel(OnPauseInput e)
+    public void ShowPausePanel(RequestPause e)
     {
-        bool isActive = !gameMenuPanel.activeSelf;
-        gameMenuPanel.SetActive(isActive);
-        if (isActive)
-        {
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-        }
+        gameMenuPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void HidePausePanel(RequestUnpause e)
+    { 
+        Time.timeScale = 1f;
+        gameMenuPanel.SetActive(false);
     }
 
     private void setMenuDisplay(string sceneName)
@@ -129,22 +127,19 @@ public class MenuController : MonoBehaviour
     public void SetEvents(EventBus bus)
     {
         eventBus = bus;
-        eventBus.Subscribe<OnPauseInput>(DisplayGamePanel);
+        eventBus.Subscribe<RequestPause>(ShowPausePanel);
+        eventBus.Subscribe<RequestUnpause>(HidePausePanel);
     }
 
     public void ResetGame()
     {
         Time.timeScale = 1f;
         eventBus.Publish(new RequestRespawn());
-        eventBus.Publish(new OnPauseInput());
     }
 
     public void ResumeGame()
     {
-        Debug.Log("Resuming game");
-        Time.timeScale = 1f;
         eventBus.Publish(new RequestUnpause());
-        eventBus.Publish(new OnPauseInput());
     }
 
     private MusicEnum GetMusicClip()

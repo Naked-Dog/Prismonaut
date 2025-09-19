@@ -111,7 +111,6 @@ namespace PlayerSystem
             HealthUIController.Instance.SetDeadPortraitImage();
             playerState.healthState = HealthState.Death;
             eventBus.Publish(new OnDeath());
-            eventBus.Publish(new RequestPause());
         }
 
         public void Respawn(RequestRespawn e)
