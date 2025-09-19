@@ -141,11 +141,15 @@ public class DialogueController : MonoBehaviour
 
     public IEnumerator WriteCharByChar(string dialogueText, float writeSpeed = 0.1f)
     {
-        for (int i = currentCharactersCount; i < dialogueText.Length; i++)
+        viewController.dialogueTMPText.text = dialogueText;
+        viewController.dialogueTMPText.maxVisibleCharacters = 0;
+        int totalChars = dialogueText.Length;
+
+        for (int i = currentCharactersCount; i < totalChars; i++)
         {
-            var character = dialogueText[i];
+            char character = dialogueText[i];
             playDialogueSFX(character.ToString());
-            viewController.dialogueTMPText.text += character;
+            viewController.dialogueTMPText.maxVisibleCharacters = i + 1;
             currentCharactersCount++;
             yield return new WaitForSeconds(writeSpeed);
         }
@@ -161,7 +165,7 @@ public class DialogueController : MonoBehaviour
     {
         if(!currentDialogueComplete)
         {
-            StartCoroutine(DialogueSequence(currentDialogues[currentDialogueIndex], true));
+            StartCoroutine(WriteCharByChar(currentDialogues[currentDialogueIndex].text, writeSpeed));
         }
     }
 
@@ -185,7 +189,7 @@ public class DialogueController : MonoBehaviour
     private void CompleteDialogue()
     {
         StopAllCoroutines();
-        viewController.DisplayFullText(currentDialogueText);
+        viewController.dialogueTMPText.maxVisibleCharacters = viewController.dialogueTMPText.text.Length;
         viewController.ShowNextSign();
         AudioManager.Instance.Play2DSound(DialogueSoundsEnum.Skip);
         currentDialogueComplete = true;
