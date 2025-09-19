@@ -63,6 +63,7 @@ public class DirtSpawner : MonoBehaviour
 
         anim?.SetTrigger("Activate");
         particleSystem?.Play();
+        AudioManager.Instance?.Play3DSountAtPosition(RocksSounds.PrepareThrow, transform.position);
         StartCoroutine(ThrowRocks());
 
         yield return new WaitForSeconds(spawnTime);
@@ -74,6 +75,7 @@ public class DirtSpawner : MonoBehaviour
         DirtBallScript dbScript = dirtball.GetComponent<DirtBallScript>();
         dbScript.spawner = this;
         dbScript.setInitialSpeed(direction, speed);
+        AudioManager.Instance?.Play3DSountAtPosition(RocksSounds.ThrowRock, transform.position);
     }
 
     private IEnumerator ThrowRocks()

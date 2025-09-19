@@ -115,6 +115,7 @@ public class DirtBallScript : MonoBehaviour
 
         spawner.AddRocksToTheList(rocksList);
         
+        AudioManager.Instance?.Play3DSountAtPosition(RocksSounds.Destroy, transform.position);
         Destroy(gameObject, 0.1f);//animation later
     }
 
