@@ -56,65 +56,65 @@ MonoBehaviour:
         volume: 0.4
     - Key: 10
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: 11709efbf35a66c41817a96cb05300c1, type: 3}
         volume: 1
     - Key: 11
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: b1f95fbfeeb4d5a44b23105dff73844a, type: 3}
         volume: 1
     - Key: 12
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: 2c3b5e042f7e9594082c19b5fb89f918, type: 3}
         volume: 1
     - Key: 13
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: a06b01110a6a3e840ae5996b2eb81592, type: 3}
         volume: 1
     - Key: 14
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: c81dc93d1f1688b4b87d6f6139f33141, type: 3}
         volume: 1
     - Key: 15
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: cc96d9d827979594484e36e3c80d7fec, type: 3}
         volume: 1
     - Key: 16
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: dfd5afaa1264c3643b65aa76427bd470, type: 3}
         volume: 1
     - Key: 17
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: 3ce215959746f0d4f8fdecdb0fed7379, type: 3}
         volume: 1
     - Key: 18
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: e1d70856d5800474ca5bd7b5c93ae8c6, type: 3}
         volume: 1
     - Key: 19
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: de824dd8a09d6ca43b4b57be507ebc16, type: 3}
         volume: 1
     - Key: 20
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: 8c9c8923e333f3b4787bdb183a2ddde4, type: 3}
         volume: 1
     - Key: 21
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: 46de1ef6534c2b24e90d65442e1b1d84, type: 3}
         volume: 1
     - Key: 22
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: e9964a1ebe3bc774b9e2237a295b3ef9, type: 3}
         volume: 1
     - Key: 23
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: 761ae749e22718749b93758ea0d193a7, type: 3}
         volume: 1
     - Key: 24
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: 4497773cd3f435e43b5ffbea88e39cdd, type: 3}
         volume: 1
     - Key: 25
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: eb3cc92273f97a04fb7978ba9dea3fa3, type: 3}
         volume: 1
