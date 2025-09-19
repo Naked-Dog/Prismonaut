@@ -81,19 +81,11 @@ public class BullHealth : MonoBehaviour
 
         if (IsDead())
         {
-            StartCoroutine(HandleDeath());
+            animator.Play("Die");
+            agent.End();
+            this.gameObject.SetActive(false);
+            this.finalTrigger.SetActive(false);
         }
-    }
-
-    private IEnumerator HandleDeath()
-    {
-        animator.SetTrigger("Die");
-        agent.End();
-
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-
-        this.gameObject.SetActive(false);
-        this.finalTrigger.SetActive(false);
     }
 
     private IEnumerator RegenerateSegment(int index)

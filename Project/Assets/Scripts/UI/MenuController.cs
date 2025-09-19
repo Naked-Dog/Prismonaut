@@ -2,6 +2,7 @@ using System.Collections;
 using DG.Tweening;
 using PlayerSystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class MenuController : MonoBehaviour
@@ -9,12 +10,10 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject solidBG;
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject gameMenuPanel;
-    [SerializeField] private GameObject losePanel;
 
     public static MenuController Instance { get; private set; }
 
     public EventBus eventBus;
-
 
     private void Awake()
     {
@@ -97,13 +96,9 @@ public class MenuController : MonoBehaviour
         panel.SetActive(!panel.activeSelf);
     }
 
-    public void DisplayLosePanel()
-    {
-        DisplayPanel(losePanel);
-    }
-
     public void DisplayGamePanel(OnPauseInput e)
     {
+        Debug.Log("Toggling Game Panel");
         DisplayPanel(gameMenuPanel);
     }
 
@@ -115,12 +110,10 @@ public class MenuController : MonoBehaviour
                 if (mainMenuPanel == null) mainMenuPanel = GameObject.Find("MainMenuPanel");
                 mainMenuPanel.SetActive(true);
                 gameMenuPanel.SetActive(false);
-                losePanel.SetActive(false);
                 break;
             default:
                 if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
                 gameMenuPanel.SetActive(false);
-                losePanel.SetActive(false);
                 break;
         }
     }

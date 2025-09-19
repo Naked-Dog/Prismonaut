@@ -187,11 +187,11 @@ namespace PlayerSystem
         private void PerformJumpGravity(OnFixedUpdate e)
         {
             if (rb2d.linearVelocityY <= 0)
-            { 
+            {
                 eventBus.Publish(new RequestGravityOn());
                 eventBus.Unsubscribe<OnFixedUpdate>(PerformJumpGravity);
             }
-            
+
             float finalVerticalVelocity = rb2d.linearVelocityY + (jumpGravity * Time.fixedDeltaTime);
             rb2d.linearVelocity = new Vector2(rb2d.linearVelocityX, finalVerticalVelocity);
         }
@@ -220,7 +220,7 @@ namespace PlayerSystem
         }
 
         private void CutJump()
-        { 
+        {
             if (rb2d.linearVelocityY <= 0f) return;
             rb2d.linearVelocity = new Vector2(rb2d.linearVelocityX, 0);
             eventBus.Unsubscribe<OnFixedUpdate>(ReleaseJump);
