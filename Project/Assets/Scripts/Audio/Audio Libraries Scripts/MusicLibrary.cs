@@ -4,6 +4,7 @@ public enum MusicEnum
 {
     Menu,
     Level1,
+    BossRoom,
     None,
 }
 
