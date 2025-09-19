@@ -440,7 +440,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enviroment_32
+      name: G_A1
       rect:
         serializedVersion: 2
         x: 0
@@ -462,7 +462,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enviroment_33
+      name: G_A2
       rect:
         serializedVersion: 2
         x: 32
@@ -484,7 +484,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enviroment_34
+      name: G_A3
       rect:
         serializedVersion: 2
         x: 64
@@ -506,7 +506,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enviroment_35
+      name: G_A4
       rect:
         serializedVersion: 2
         x: 96
@@ -528,7 +528,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enviroment_36
+      name: G_A5
       rect:
         serializedVersion: 2
         x: 128
@@ -594,7 +594,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enviroment_48
+      name: G_D
       rect:
         serializedVersion: 2
         x: 29
@@ -616,7 +616,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enviroment_51
+      name: G_C
       rect:
         serializedVersion: 2
         x: 92
@@ -638,7 +638,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enviroment_53
+      name: G_B1
       rect:
         serializedVersion: 2
         x: 160
@@ -660,7 +660,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enviroment_54
+      name: G_B2
       rect:
         serializedVersion: 2
         x: 192
@@ -682,7 +682,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enviroment_55
+      name: G_B3
       rect:
         serializedVersion: 2
         x: 224
@@ -744,11 +744,6 @@ TextureImporter:
       Enviroment_3: 1445745995
       Enviroment_30: 2014725462
       Enviroment_31: 1856914568
-      Enviroment_32: -750521977
-      Enviroment_33: -189292575
-      Enviroment_34: -362671858
-      Enviroment_35: 594878605
-      Enviroment_36: -922532296
       Enviroment_37: 508038267
       Enviroment_38: 523598980
       Enviroment_39: -2003966419
@@ -761,18 +756,23 @@ TextureImporter:
       Enviroment_45: 1314244383
       Enviroment_46: 1126425318
       Enviroment_47: -49817007
-      Enviroment_48: -1270309187
       Enviroment_49: -220597775
       Enviroment_5: 331111076
       Enviroment_50: 127079758
-      Enviroment_51: -53483565
       Enviroment_52: 1152378438
-      Enviroment_53: 1321724451
-      Enviroment_54: -828667707
-      Enviroment_55: -240304564
       Enviroment_6: 891237306
       Enviroment_7: -2011683448
       Enviroment_9: -962262241
+      G_A1: -750521977
+      G_A2: -189292575
+      G_A3: -362671858
+      G_A4: 594878605
+      G_A5: -922532296
+      G_B1: 1321724451
+      G_B2: -828667707
+      G_B3: -240304564
+      G_C: -53483565
+      G_D: -1270309187
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
