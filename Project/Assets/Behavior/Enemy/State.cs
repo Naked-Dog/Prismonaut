@@ -5,10 +5,11 @@ using Unity.Behavior;
 public enum State
 {
 	Awake,
-    Walk,
+	Walk,
 	Chase,
 	Charge,
 	Rush,
 	StopRush,
-	Flinch
+	Flinch,
+	Restore
 }

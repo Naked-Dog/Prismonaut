@@ -398,7 +398,7 @@ namespace PlayerSystem
         {
             playerState.activePower = Power.ReleaseDrill;
 
-            float step = 360f * 3.5f * Time.deltaTime;
+            float step = 360f * powersConstants.recoverRotationSpeed * Time.deltaTime;
             float newAngle = Mathf.MoveTowardsAngle(rb2d.rotation, 0f, step);
 
             rb2d.MoveRotation(newAngle);
