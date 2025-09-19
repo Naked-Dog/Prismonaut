@@ -63,7 +63,7 @@ public class DialogueController : MonoBehaviour
         currentDialogues = currentConversation.dialogues;
         currentChoices = currentConversation.choices;
 
-        if(endEvent != null)
+        if (endEvent != null)
         {
             this.endEvent = endEvent;
         }
@@ -130,7 +130,6 @@ public class DialogueController : MonoBehaviour
         viewController.ShowNextSign();
         AudioManager.Instance.Play2DSound(DialogueSoundsEnum.Skip);
         currentDialogueComplete = true;
-
     }
 
     private IEnumerator WriteDialogue(Dialogue dialogue)
@@ -158,12 +157,12 @@ public class DialogueController : MonoBehaviour
 
     public void PauseDialogue()
     {
-        if(isDialogueRunning) StopAllCoroutines();
+        if (isDialogueRunning) StopAllCoroutines();
     }
 
     public void ResumeDialogue()
     {
-        if(!currentDialogueComplete)
+        if (!currentDialogueComplete)
         {
             StartCoroutine(WriteCharByChar(currentDialogues[currentDialogueIndex].text, writeSpeed));
         }
@@ -172,7 +171,7 @@ public class DialogueController : MonoBehaviour
     public void playDialogueSFX(string letter)
     {
         char c = letter[0];
-        
+
         if (!char.IsLetter(c)) return;
 
         var upper = char.ToUpper(c);
@@ -203,7 +202,7 @@ public class DialogueController : MonoBehaviour
         isDialogueRunning = false;
         //CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Regular));
         eventBus.Publish(new RequestDisableDialogueInputs());
-        endEvent?.Invoke(); 
+        endEvent?.Invoke();
         endEvent = null;
     }
 
