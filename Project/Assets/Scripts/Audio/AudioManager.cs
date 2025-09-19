@@ -255,9 +255,46 @@ public class AudioManager : MonoBehaviour
         {
             case SoundsType.Music:
                 musicVolume = value;
+
+                if (musicSource != null && musicSource.isPlaying)
+                {
+                    var clipVol = 1f;
+                    if (musicSource.clip != null)
+                    {
+                        foreach (var lib in libraryMap.Values)
+                        {
+                            var customClip = lib.GetCustomClipByAudioClip(musicSource.clip);
+                            if (customClip != null)
+                            {
+                                clipVol = customClip.volume;
+                                break;
+                            }
+                        }
+                    }
+                    musicSource.volume = musicVolume * clipVol;
+                }
+
                 break;
             case SoundsType.Sfxs:
                 SoundEffectsVolume = value;
+
+                foreach (var src in allSources)
+                {
+                    if (src.isPlaying && src.outputAudioMixerGroup == sfxMixer)
+                    {
+                        var clipVol = 1f;
+                        foreach (var lib in libraryMap.Values)
+                        {
+                            var customClip = lib.GetCustomClipByAudioClip(src.clip);
+                            if (customClip != null)
+                            {
+                                src.volume = SoundEffectsVolume * customClip.volume;
+                                break;
+                            }
+                        }
+                        src.volume = SoundEffectsVolume * clipVol;
+                    }
+                }
                 break;
             default:
                 break;

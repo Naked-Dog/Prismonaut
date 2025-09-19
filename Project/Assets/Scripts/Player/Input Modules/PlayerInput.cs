@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -82,7 +83,13 @@ namespace PlayerSystem
             //     eventBus.Publish(new RequestUnpause());
             // });
 
-            RegisterCallback(DialogueMap.FindAction("SkipDialogue"), ctx => DialogueController.Instance?.SkipDialogue());
+            RegisterCallback(DialogueMap.FindAction("SkipDialogue"), ctx =>
+            {
+                if (ctx.canceled)
+                { 
+                    DialogueController.Instance?.SkipDialogue();
+                }
+            });
         }
 
         private void RegisterCallback(InputAction action, Action<InputAction.CallbackContext> callback)
