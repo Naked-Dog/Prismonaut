@@ -144,8 +144,11 @@ public class MenuController : MonoBehaviour
             case "Menu":
                 return MusicEnum.Menu;
             case "Beta_Level_1":
-            case "Beta_Boss_1":
                 return MusicEnum.Level1;
+            case "Beta_Boss_1":
+                return MusicEnum.None;
+            case "FinalScene":
+                return MusicEnum.FinalCinematic;
             default:
                 return MusicEnum.None;
         }

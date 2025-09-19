@@ -5,6 +5,7 @@ public enum MusicEnum
     Menu,
     Level1,
     BossRoom,
+    FinalCinematic,
     None,
 }
 
