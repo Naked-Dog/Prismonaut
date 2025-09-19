@@ -105,7 +105,7 @@ namespace PlayerSystem
 
         private void CheckPlayerCollision(OnCollisionEnter2D e)
         {
-            if (e.collision.gameObject.CompareTag("Spike"))
+            if (e.collision.gameObject.CompareTag("Spike") || e.collision.gameObject.CompareTag("SpikeD"))
             {
                 Deactivate();
             }
@@ -205,7 +205,7 @@ namespace PlayerSystem
                 playerState.activePower = Power.HeavyDrill;
                 DrillHeavyTerrain(go);
             }
-            else if (go.CompareTag("Ground") || go.CompareTag("Spike"))
+            else if (go.CompareTag("Ground") || go.CompareTag("Spike") || go.CompareTag("SpikeD"))
             {
                 DrillObstacle();
             }

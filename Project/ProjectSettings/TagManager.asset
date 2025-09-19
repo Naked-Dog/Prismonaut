@@ -29,6 +29,7 @@ TagManager:
   - HeavyTerrain
   - HUD
   - Slime
+  - SpikeD
   layers:
   - Default
   - TransparentFX
