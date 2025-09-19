@@ -9,7 +9,6 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject solidBG;
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject gameMenuPanel;
-    [SerializeField] private GameObject losePanel;
 
     public static MenuController Instance { get; private set; }
 
@@ -97,11 +96,6 @@ public class MenuController : MonoBehaviour
         panel.SetActive(!panel.activeSelf);
     }
 
-    public void DisplayLosePanel()
-    {
-        DisplayPanel(losePanel);
-    }
-
     public void DisplayGamePanel(OnPauseInput e)
     {
         bool isActive = !gameMenuPanel.activeSelf;
@@ -124,12 +118,10 @@ public class MenuController : MonoBehaviour
                 if (mainMenuPanel == null) mainMenuPanel = GameObject.Find("MainMenuPanel");
                 mainMenuPanel.SetActive(true);
                 gameMenuPanel.SetActive(false);
-                losePanel.SetActive(false);
                 break;
             default:
                 if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
                 gameMenuPanel.SetActive(false);
-                losePanel.SetActive(false);
                 break;
         }
     }
