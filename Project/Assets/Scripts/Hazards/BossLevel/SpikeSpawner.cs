@@ -8,6 +8,7 @@ public class SpikeSpawner : MonoBehaviour
     [SerializeField] private Transform goalPos;
     [SerializeField] private float timeToPrepare;
     [SerializeField] private bool runAtStart;
+    [SerializeField] private bool runOnEnable;
     [SerializeField] private bool willFall;
     [SerializeField] private float minTimeToFall;
     [SerializeField] private float maxTimeToFall;
@@ -18,6 +19,11 @@ public class SpikeSpawner : MonoBehaviour
         if(runAtStart) HandlePrepareSpike();
     }
 
+    void OnEnable()
+    {
+        if(runOnEnable) HandlePrepareSpike();
+    }
+
     private IEnumerator PrepareSpike(float startLoadTime = 0)
     {
         yield return new WaitForSeconds(startLoadTime);
@@ -25,7 +31,7 @@ public class SpikeSpawner : MonoBehaviour
 
         if (currentSpike == null) yield break;
 
-        for(float t = 0; t < timeToPrepare; t += Time.deltaTime)
+        for (float t = 0; t < timeToPrepare; t += Time.deltaTime)
         {
             Vector2 cSpikePos = currentSpike.transform.position;
             currentSpike.transform.position = new Vector2(cSpikePos.x, Mathf.Lerp(cSpikePos.y, goalPos.position.y, t));
