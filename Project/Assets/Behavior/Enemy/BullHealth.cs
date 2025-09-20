@@ -21,7 +21,7 @@ public class BullHealth : MonoBehaviour
     [SerializeField] private BehaviorGraphAgent agent;
     [SerializeField] private GameObject finalTrigger;
 
-    private BlackboardVariable<bool> flinchedVar;
+    public BlackboardVariable<bool> flinchedVar;
 
     private void Start()
     {
@@ -81,6 +81,7 @@ public class BullHealth : MonoBehaviour
 
         if (IsDead())
         {
+            SpikeSpawnerManager.Instance.SetNextStage();
             animator.Play("Die");
             agent.End();
             this.gameObject.SetActive(false);
