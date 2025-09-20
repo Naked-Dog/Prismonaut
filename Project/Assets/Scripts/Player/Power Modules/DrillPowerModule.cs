@@ -62,6 +62,7 @@ namespace PlayerSystem
             this.drillJoint.autoConfigureConnectedAnchor = false;
 
             eventBus.Subscribe<OnTrianglePowerInput>(OnTrianglePowerInput);
+            eventBus.Subscribe<ForceRespawn>(OnForceRespawn);
         }
 
         private void OnTrianglePowerInput(OnTrianglePowerInput e)
@@ -219,8 +220,8 @@ namespace PlayerSystem
         }
 
         private void ConfirmPlayerEnter(Collider2D other)
-        { 
-            if (other.CompareTag("Enemy") || other.CompareTag("HeavyTerrain") )
+        {
+            if (other.CompareTag("Enemy") || other.CompareTag("HeavyTerrain"))
             {
                 isBodyInside = true;
             }
@@ -300,7 +301,7 @@ namespace PlayerSystem
                     Deactivate(true);
                 }
                 else
-                { 
+                {
                     drillExitPhysicsRelay.OnTriggerExit2DAction.AddListener(ConfirmPlayerExit);
                 }
             }
@@ -428,34 +429,34 @@ namespace PlayerSystem
         }
 
         private void ReleaseInstantaneous()
-        { 
+        {
             rb2d.MoveRotation(0f);
-                AudioManager.Instance?.Stop(PlayerSoundsEnum.DrillTrans);
+            AudioManager.Instance?.Stop(PlayerSoundsEnum.DrillTrans);
 
-                eventBus.Unsubscribe<OnUpdate>(ReleaseDrill);
-                eventBus.Unsubscribe<OnUpdate>(RunExitTimer);
-                eventBus.Unsubscribe<OnFixedUpdate>(Steer);
-                eventBus.Unsubscribe<OnUpdate>(DamageTimer);
-                eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
-                eventBus.Unsubscribe<OnUpdate>(SteerControlReturn);
-                eventBus.Unsubscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
-                eventBus.Unsubscribe<OnVerticalInput>(TakeVerticalInputDirection);
-                eventBus.Unsubscribe<OnDamageReceived>(ForceDeactivate);
+            eventBus.Unsubscribe<OnUpdate>(ReleaseDrill);
+            eventBus.Unsubscribe<OnUpdate>(RunExitTimer);
+            eventBus.Unsubscribe<OnFixedUpdate>(Steer);
+            eventBus.Unsubscribe<OnUpdate>(DamageTimer);
+            eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
+            eventBus.Unsubscribe<OnUpdate>(SteerControlReturn);
+            eventBus.Unsubscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
+            eventBus.Unsubscribe<OnVerticalInput>(TakeVerticalInputDirection);
+            eventBus.Unsubscribe<OnDamageReceived>(ForceDeactivate);
 
-                if (heavyCompositeCollider != null && heavyTilemapCollider != null)
+            if (heavyCompositeCollider != null && heavyTilemapCollider != null)
             {
                 Physics2D.IgnoreCollision(playerCollider, heavyTilemapCollider, false);
                 Physics2D.IgnoreCollision(playerCollider, heavyCompositeCollider, false);
             }
 
-                if (enemyCollider != null)
-                {
-                    Physics2D.IgnoreCollision(playerCollider, enemyCollider, false);
-                }    
+            if (enemyCollider != null)
+            {
+                Physics2D.IgnoreCollision(playerCollider, enemyCollider, false);
+            }
 
-                eventBus.Publish(new RequestMovementResume());
-                eventBus.Publish(new RequestGravityOn());
-                playerState.activePower = Power.None;
+            eventBus.Publish(new RequestMovementResume());
+            eventBus.Publish(new RequestGravityOn());
+            playerState.activePower = Power.None;
         }
 
         private void ReleaseLightObject()
@@ -499,6 +500,11 @@ namespace PlayerSystem
                 exitTimer = 0f;
                 eventBus.Unsubscribe<OnUpdate>(RunExitTimer);
             }
+        }
+
+        private void OnForceRespawn(ForceRespawn e)
+        {
+            Deactivate(true);
         } 
     }
 }

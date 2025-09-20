@@ -5,4 +5,5 @@ namespace PlayerSystem
     public struct OnDamageReceived { }
     public struct OnDeath { }
     public struct RequestRespawn { }
+    public struct ForceRespawn { }
 }

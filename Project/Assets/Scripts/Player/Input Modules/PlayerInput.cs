@@ -96,6 +96,14 @@ namespace PlayerSystem
                     DialogueController.Instance?.SkipDialogue();
                 }
             });
+
+            RegisterCallback(playerGameMap.FindAction("ForceRespawn"), ctx =>
+            {
+                if (ctx.canceled)
+                {
+                    eventBus.Publish(new ForceRespawn());
+                }
+            });
         }
 
         private void RegisterCallback(InputAction action, Action<InputAction.CallbackContext> callback)

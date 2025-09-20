@@ -30,6 +30,7 @@ namespace PlayerSystem
             eventBus.Subscribe<RequestRespawn>(Respawn);
             eventBus.Subscribe<OnDamageReceived>(DamageReceived);
             eventBus.Subscribe<OnDeath>(Death);
+            eventBus.Subscribe<ForceRespawn>(OnForceRespawn);
         }
 
         private void SetValues()
@@ -44,7 +45,6 @@ namespace PlayerSystem
         public bool Damage(int damageAmount)
         {
             if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return false;
-            Debug.Log("Damage Enemy");
 
             if (hpRegenCoroutine != null) mb.StopCoroutine(hpRegenCoroutine);
             playerState.currentHealth -= damageAmount;
@@ -73,7 +73,6 @@ namespace PlayerSystem
         public void SpikeDamage(int spikeDmg = 0, bool willWarp = true)
         {
             if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return;
-            Debug.Log("Damage Enemy");
             if (hpRegenCoroutine != null) mb.StopCoroutine(hpRegenCoroutine);
 
             this.willWarp = false;
@@ -117,7 +116,6 @@ namespace PlayerSystem
         public void Respawn(RequestRespawn e)
         {
             //MenuController.Instance?.ResetScene();
-            Debug.Log("Respawn");
             ResetHealthValues();
             WarpPlayerToSafeGround();
             eventBus.Publish(new RequestMovementResume());
@@ -194,7 +192,6 @@ namespace PlayerSystem
             {
                 eventBus.Unsubscribe<OnUpdate>(ReduceHurtTimer);
 
-                Debug.Log("End Hurt");
                 if (playerState.healthState.Equals(HealthState.Death))
                 {
                     eventBus.Publish(new RequestRespawn());
@@ -219,10 +216,18 @@ namespace PlayerSystem
             hurtTime = healthConstans.deathTime;
             eventBus.Unsubscribe<OnDamageReceived>(DamageReceived);
 
-            Debug.Log("Death");
             eventBus.Publish(new RequestMovementPause());
             eventBus.Publish(new RequestGravityOff());
             eventBus.Subscribe<OnUpdate>(ReduceHurtTimer);
+        }
+
+        private void OnForceRespawn(ForceRespawn e)
+        {
+            ResetHealthValues();
+            WarpPlayerToSafeGround();
+            eventBus.Publish(new RequestMovementResume());
+            eventBus.Publish(new RequestGravityOn());
+            eventBus.Subscribe<OnDamageReceived>(DamageReceived);
         }
     }
 }

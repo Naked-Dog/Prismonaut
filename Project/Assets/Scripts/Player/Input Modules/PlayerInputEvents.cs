@@ -30,7 +30,7 @@ namespace PlayerSystem
     public struct OnSquarePowerInput
     {
         public InputAction.CallbackContext context;
-        public OnSquarePowerInput(InputAction.CallbackContext context) { this.context = context; }        
+        public OnSquarePowerInput(InputAction.CallbackContext context) { this.context = context; }
     }
     public struct OnTrianglePowerInput { }
     public struct OnCirclePowerInput { }
