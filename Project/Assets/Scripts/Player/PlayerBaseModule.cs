@@ -127,6 +127,8 @@ namespace PlayerSystem
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            if(state.healthState.Equals(HealthState.Death)) return;
+            
             eventBus.Publish(new OnCollisionEnter2D(collision));
 
             if (collision.gameObject.CompareTag("Enemy"))

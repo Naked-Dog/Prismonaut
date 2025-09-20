@@ -44,28 +44,28 @@ namespace PlayerSystem
         public bool Damage(int damageAmount)
         {
             if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return false;
-            if (playerState.activePower != Power.Square)
+            Debug.Log("Damage Enemy");
+
+            if (hpRegenCoroutine != null) mb.StopCoroutine(hpRegenCoroutine);
+            playerState.currentHealth -= damageAmount;
+            if (playerState.currentHealth <= 0)
             {
-                if (hpRegenCoroutine != null) mb.StopCoroutine(hpRegenCoroutine);
-                playerState.currentHealth -= damageAmount;
-                if (playerState.currentHealth <= 0)
+                if (playerState.currentHealthBars == 1)
                 {
-                    if (playerState.currentHealthBars == 1)
-                    {
-                        HealthUIController.Instance.UpdateHealthUI(0, playerState.healthPerBar, 1);
-                        Die();
-                        return true;
-                    }
-                    else
-                    {
-                        playerState.currentHealthBars--;
-                        playerState.currentHealth = playerState.healthPerBar;
-                        HealthUIController.Instance.UpdateCurrentHealthBar(playerState.currentHealthBars);
-                    }
+                    HealthUIController.Instance.UpdateHealthUI(0, playerState.healthPerBar, 1);
+                    Die();
+                    return true;
                 }
-                HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
-                eventBus.Publish(new OnDamageReceived());
+                else
+                {
+                    playerState.currentHealthBars--;
+                    playerState.currentHealth = playerState.healthPerBar;
+                    HealthUIController.Instance.UpdateCurrentHealthBar(playerState.currentHealthBars);
+                }
             }
+            HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
+            eventBus.Publish(new OnDamageReceived());
+
             StartHPRegen();
             return false;
         }
@@ -73,6 +73,7 @@ namespace PlayerSystem
         public void SpikeDamage(int spikeDmg = 0, bool willWarp = true)
         {
             if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return;
+            Debug.Log("Damage Enemy");
             if (hpRegenCoroutine != null) mb.StopCoroutine(hpRegenCoroutine);
 
             this.willWarp = false;
@@ -115,7 +116,13 @@ namespace PlayerSystem
 
         public void Respawn(RequestRespawn e)
         {
-            MenuController.Instance?.ResetScene();
+            //MenuController.Instance?.ResetScene();
+            Debug.Log("Respawn");
+            ResetHealthValues();
+            WarpPlayerToSafeGround();
+            eventBus.Publish(new RequestMovementResume());
+            eventBus.Publish(new RequestGravityOn());
+            eventBus.Subscribe<OnDamageReceived>(DamageReceived);
         }
 
         private void ResetHealthValues()
@@ -185,16 +192,18 @@ namespace PlayerSystem
             hurtTime -= Time.deltaTime;
             if (hurtTime <= 0f)
             {
-                playerState.healthState = HealthState.Undefined;
                 eventBus.Unsubscribe<OnUpdate>(ReduceHurtTimer);
-                eventBus.Publish(new RequestMovementResume());
-                eventBus.Publish(new RequestGravityOn());
 
+                Debug.Log("End Hurt");
                 if (playerState.healthState.Equals(HealthState.Death))
                 {
                     eventBus.Publish(new RequestRespawn());
-                    return;       
+                    return;
                 }
+
+                playerState.healthState = HealthState.Undefined;
+                eventBus.Publish(new RequestMovementResume());
+                eventBus.Publish(new RequestGravityOn());
 
                 if (willWarp)
                 {
@@ -208,7 +217,9 @@ namespace PlayerSystem
         {
             playerState.healthState = HealthState.Death;
             hurtTime = healthConstans.deathTime;
+            eventBus.Unsubscribe<OnDamageReceived>(DamageReceived);
 
+            Debug.Log("Death");
             eventBus.Publish(new RequestMovementPause());
             eventBus.Publish(new RequestGravityOff());
             eventBus.Subscribe<OnUpdate>(ReduceHurtTimer);

@@ -71,6 +71,7 @@ public class AudioManager : MonoBehaviour
     private AudioSource CreateSource()
     {
         var go = new GameObject("PooledAudio");
+        DontDestroyOnLoad(go);
         go.transform.SetParent(transform);
         var src = go.AddComponent<AudioSource>();
         src.playOnAwake = false;
@@ -81,6 +82,7 @@ public class AudioManager : MonoBehaviour
     private AudioSource CreateMusicSource()
     {
         var go = new GameObject("Music Source");
+        DontDestroyOnLoad(go);
         go.transform.SetParent(transform);
         var src = go.AddComponent<AudioSource>();
         src.playOnAwake = false;
@@ -206,6 +208,8 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        allSources.RemoveAll(src => src == null);
+
         foreach (var src in allSources)
         {
             if (src.isPlaying && src.clip == customClip.clip)
@@ -217,6 +221,7 @@ public class AudioManager : MonoBehaviour
 
     public void StopAll()
     {
+        allSources.RemoveAll(src => src == null);
         foreach (var src in allSources)
         {
             if (src.isPlaying) src.Stop();
@@ -315,6 +320,8 @@ public class AudioManager : MonoBehaviour
 
     private void PauseSounds(RequestPause e)
     {
+        allSources.RemoveAll(src => src == null);
+
         foreach (var src in allSources)
         {
             if (src.isPlaying && src.outputAudioMixerGroup == sfxMixer)
@@ -325,7 +332,9 @@ public class AudioManager : MonoBehaviour
     }
 
     private void ResumeSounds(RequestUnpause e)
-    { 
+    {
+        allSources.RemoveAll(src => src == null);
+
         foreach (var src in allSources)
         {
             if (src.clip != null && src.outputAudioMixerGroup == sfxMixer)
