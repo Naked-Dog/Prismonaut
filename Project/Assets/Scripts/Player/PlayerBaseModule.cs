@@ -69,6 +69,7 @@ namespace PlayerSystem
 
             HealthUIController.Instance.InitUI(state.currentHealth, state.healthPerBar, state.currentHealthBars);
             MenuController.Instance?.SetEvents(eventBus);
+            AudioManager.Instance?.SetEvents(eventBus);
             DialogueController.Instance?.SetEventBus(eventBus);
             animator.GetComponent<PlayerAnimationEvents>()?.SetEventBus(eventBus);
 
@@ -126,6 +127,8 @@ namespace PlayerSystem
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            if(state.healthState.Equals(HealthState.Death)) return;
+            
             eventBus.Publish(new OnCollisionEnter2D(collision));
 
             if (collision.gameObject.CompareTag("Enemy"))

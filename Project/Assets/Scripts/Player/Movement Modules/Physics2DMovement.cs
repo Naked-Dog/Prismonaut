@@ -268,8 +268,11 @@ namespace PlayerSystem
         {
             playerState.groundState = GroundState.Grounded;
             baseModule.StopFallingCameraTimer();
-            AudioManager.Instance?.Stop(PlayerSoundsEnum.LoopWindFall);
-            AudioManager.Instance?.Play2DSound(PlayerSoundsEnum.Land);
+            if (AudioManager.Instance)
+            { 
+                AudioManager.Instance.Stop(PlayerSoundsEnum.LoopWindFall);
+                AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Land);
+            }
             if (0 < requestedMovement * rb2d.linearVelocity.x) return;
             rb2d.AddForce(Vector2.right * -rb2d.linearVelocity.x * 0.75f, ForceMode2D.Impulse);
             landingMoveCooldown = maxLandingBreakCooldown;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PlayerSystem;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -35,6 +36,7 @@ public class AudioManager : MonoBehaviour
     private List<AudioSource> allSources = new();
     private Stack<AudioSource> freeSources = new();
     private AudioSource musicSource;
+    private EventBus eventBus;
 
     protected void Awake()
     {
@@ -69,6 +71,7 @@ public class AudioManager : MonoBehaviour
     private AudioSource CreateSource()
     {
         var go = new GameObject("PooledAudio");
+        DontDestroyOnLoad(go);
         go.transform.SetParent(transform);
         var src = go.AddComponent<AudioSource>();
         src.playOnAwake = false;
@@ -79,6 +82,7 @@ public class AudioManager : MonoBehaviour
     private AudioSource CreateMusicSource()
     {
         var go = new GameObject("Music Source");
+        DontDestroyOnLoad(go);
         go.transform.SetParent(transform);
         var src = go.AddComponent<AudioSource>();
         src.playOnAwake = false;
@@ -204,6 +208,8 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        allSources.RemoveAll(src => src == null);
+
         foreach (var src in allSources)
         {
             if (src.isPlaying && src.clip == customClip.clip)
@@ -215,6 +221,7 @@ public class AudioManager : MonoBehaviour
 
     public void StopAll()
     {
+        allSources.RemoveAll(src => src == null);
         foreach (var src in allSources)
         {
             if (src.isPlaying) src.Stop();
@@ -303,4 +310,37 @@ public class AudioManager : MonoBehaviour
 
     public float GetMusicVolume() { return musicVolume; }
     public float GetSFXsVolume() { return SoundEffectsVolume; }
+
+    public void SetEvents(EventBus bus)
+    {
+        eventBus = bus;
+        eventBus.Subscribe<RequestPause>(PauseSounds);
+        eventBus.Subscribe<RequestUnpause>(ResumeSounds);
+    }
+
+    private void PauseSounds(RequestPause e)
+    {
+        allSources.RemoveAll(src => src == null);
+
+        foreach (var src in allSources)
+        {
+            if (src.isPlaying && src.outputAudioMixerGroup == sfxMixer)
+            {
+                src.Pause();
+            }
+        }
+    }
+
+    private void ResumeSounds(RequestUnpause e)
+    {
+        allSources.RemoveAll(src => src == null);
+
+        foreach (var src in allSources)
+        {
+            if (src.clip != null && src.outputAudioMixerGroup == sfxMixer)
+            {
+                src.UnPause();
+            }
+        }
+    }
 }

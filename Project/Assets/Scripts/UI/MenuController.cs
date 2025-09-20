@@ -2,7 +2,6 @@ using System.Collections;
 using DG.Tweening;
 using PlayerSystem;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class MenuController : MonoBehaviour
@@ -14,6 +13,7 @@ public class MenuController : MonoBehaviour
     public static MenuController Instance { get; private set; }
 
     public EventBus eventBus;
+
 
     private void Awake()
     {
@@ -96,10 +96,16 @@ public class MenuController : MonoBehaviour
         panel.SetActive(!panel.activeSelf);
     }
 
-    public void DisplayGamePanel(OnPauseInput e)
+    public void ShowPausePanel(RequestPause e)
     {
-        Debug.Log("Toggling Game Panel");
-        DisplayPanel(gameMenuPanel);
+        gameMenuPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void HidePausePanel(RequestUnpause e)
+    { 
+        Time.timeScale = 1f;
+        gameMenuPanel.SetActive(false);
     }
 
     private void setMenuDisplay(string sceneName)
@@ -121,20 +127,19 @@ public class MenuController : MonoBehaviour
     public void SetEvents(EventBus bus)
     {
         eventBus = bus;
-        eventBus.Subscribe<OnPauseInput>(DisplayGamePanel);
+        eventBus.Subscribe<RequestPause>(ShowPausePanel);
+        eventBus.Subscribe<RequestUnpause>(HidePausePanel);
     }
 
     public void ResetGame()
     {
+        Time.timeScale = 1f;
         eventBus.Publish(new RequestRespawn());
-        eventBus.Publish(new OnPauseInput());
     }
 
     public void ResumeGame()
     {
-        Debug.Log("Resuming game");
         eventBus.Publish(new RequestUnpause());
-        eventBus.Publish(new OnPauseInput());
     }
 
     private MusicEnum GetMusicClip()
@@ -144,11 +149,8 @@ public class MenuController : MonoBehaviour
             case "Menu":
                 return MusicEnum.Menu;
             case "Beta_Level_1":
-                return MusicEnum.Level1;
             case "Beta_Boss_1":
-                return MusicEnum.None;
-            case "FinalScene":
-                return MusicEnum.FinalCinematic;
+                return MusicEnum.Level1;
             default:
                 return MusicEnum.None;
         }
