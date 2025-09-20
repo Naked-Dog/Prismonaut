@@ -21,13 +21,14 @@ public class DialogueRunner : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if(!gameObject) return;
+        if (this == null) return;
+        if (DialogueController.Instance == null) return;
         DialogueController.Instance.RunDialogue(ParseNarrative(narrativeText), endEvent);
         if (destroyOnInteract) Destroy(gameObject);
     }
 
     public void RunDialogue()
-    {        
+    {
         DialogueController.Instance.RunDialogue(ParseNarrative(narrativeText), endEvent);
     }
 }

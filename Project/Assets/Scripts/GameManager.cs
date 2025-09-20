@@ -77,8 +77,9 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        PrismsUIController.Instance.InitUI(collectedPrisms);
-        PlayerBaseModule.Instance.SetCharges(playerCharges);
+        if (SceneManager.GetActiveScene().name == "Menu" || SceneManager.GetActiveScene().name == "FinalScene") return;
+        PrismsUIController.Instance?.InitUI(collectedPrisms);
+        PlayerBaseModule.Instance?.SetCharges(playerCharges);
     }
 
     public void ShowDiegeticInfoByID(int id)

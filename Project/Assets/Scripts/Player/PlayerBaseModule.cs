@@ -127,16 +127,7 @@ namespace PlayerSystem
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if(state.healthState.Equals(HealthState.Death)) return;
-            
             eventBus.Publish(new OnCollisionEnter2D(collision));
-
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                if (collision.gameObject.transform.parent.GetComponentInChildren<BullHealth>()?.flinchedVar.Value == true) return;
-                healthModule.Damage(2);
-                eventBus.Publish(new RequestOppositeReaction(Vector2.up, 10f));
-            }
         }
 
         private void OnCollisionStay2D(Collision2D collision)
@@ -151,9 +142,18 @@ namespace PlayerSystem
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (state.healthState.Equals(HealthState.Death)) return;
+
             if (collision.gameObject.layer == 8)
             {
                 state.lastSafeGroundLocation = avatarRigidbody2D.position;
+            }
+
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                if (collision.gameObject.transform.parent.GetComponentInChildren<BullHealth>()?.flinchedVar.Value == true) return;
+                healthModule.Damage(2);
+                eventBus.Publish(new RequestOppositeReaction(Vector2.up, 10f));
             }
         }
 

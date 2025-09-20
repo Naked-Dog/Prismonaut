@@ -20,8 +20,9 @@ public class BullHealth : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private BehaviorGraphAgent agent;
     [SerializeField] private GameObject finalTrigger;
+    [SerializeField] private BoxCollider2D bullCollider;
 
-    public BlackboardVariable<bool> flinchedVar;
+    [HideInInspector] public BlackboardVariable<bool> flinchedVar;
 
     private void Start()
     {
@@ -81,6 +82,7 @@ public class BullHealth : MonoBehaviour
 
         if (IsDead())
         {
+            bullCollider.enabled = false;
             SpikeSpawnerManager.Instance.SetNextStage();
             animator.Play("Die");
             agent.End();

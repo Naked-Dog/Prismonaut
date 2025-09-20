@@ -103,7 +103,7 @@ public class MenuController : MonoBehaviour
     }
 
     public void HidePausePanel(RequestUnpause e)
-    { 
+    {
         Time.timeScale = 1f;
         gameMenuPanel.SetActive(false);
     }
@@ -151,6 +151,8 @@ public class MenuController : MonoBehaviour
             case "Beta_Level_1":
             case "Beta_Boss_1":
                 return MusicEnum.Level1;
+            case "FinalScene":
+                return MusicEnum.FinalCinematic;
             default:
                 return MusicEnum.None;
         }

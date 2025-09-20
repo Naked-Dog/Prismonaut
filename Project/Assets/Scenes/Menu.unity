@@ -7776,15 +7776,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d529cbe309fc3e541a63a15694cf4ece, type: 3}
       propertyPath: m_LocalScale.x
-      value: 40
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d529cbe309fc3e541a63a15694cf4ece, type: 3}
       propertyPath: m_LocalScale.y
-      value: 40
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d529cbe309fc3e541a63a15694cf4ece, type: 3}
       propertyPath: m_LocalScale.z
-      value: 40
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d529cbe309fc3e541a63a15694cf4ece, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7796,7 +7796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d529cbe309fc3e541a63a15694cf4ece, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 119
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d529cbe309fc3e541a63a15694cf4ece, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12150,8 +12150,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '*You may experiencie bugs while playing
 
-    please keep in mind this
-    is a demo!'
+    press F5 or SELECT to force
+    respawn!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
   m_sharedMaterial: {fileID: 372238084780705370, guid: c123155b2a2752a46baddf4b264680fa, type: 2}
