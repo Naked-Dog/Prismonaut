@@ -16,20 +16,20 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value:
-        clip: {fileID: 8300000, guid: 49627f71cb33b4448940c6f892f06fee, type: 3}
-        volume: 0.8
+        clip: {fileID: 8300000, guid: 784a83882f551e74fb6c09d2b816a628, type: 3}
+        volume: 0.7
     - Key: 1
       Value:
-        clip: {fileID: 8300000, guid: 1576e21580b09bc45a827841a1f1f7c5, type: 3}
-        volume: 0.8
+        clip: {fileID: 8300000, guid: 2449e044add46c945b483ddede0411d7, type: 3}
+        volume: 0.7
     - Key: 2
       Value:
-        clip: {fileID: 8300000, guid: e90c05f487d89e24aa79026fb48b0e0d, type: 3}
-        volume: 0.8
+        clip: {fileID: 8300000, guid: a1349177d17e663429929a8353806728, type: 3}
+        volume: 0.7
     - Key: 3
       Value:
-        clip: {fileID: 8300000, guid: 210679d011199b04fb629e08afc0d1aa, type: 3}
-        volume: 0.8
+        clip: {fileID: 8300000, guid: d8e1dc30e8f7a8d44bb6ac69d2b0e030, type: 3}
+        volume: 0.7
     - Key: 4
       Value:
         clip: {fileID: 8300000, guid: d10b4d9361778ec4a9168d2934a23838, type: 3}
@@ -48,16 +48,16 @@ MonoBehaviour:
         volume: 1
     - Key: 8
       Value:
-        clip: {fileID: 8300000, guid: 03b1c2dcaa354044dbc10d02852a65d7, type: 3}
-        volume: 0.74
+        clip: {fileID: 8300000, guid: 4b02a01044437a849ab32549e25588f9, type: 3}
+        volume: 0.8
     - Key: 9
       Value:
-        clip: {fileID: 8300000, guid: 475812f3be249c44eb7ce732ba17959a, type: 3}
-        volume: 0.358
+        clip: {fileID: 8300000, guid: 0b23905f0d9ef1540b6a64b5c378608e, type: 3}
+        volume: 0.5
     - Key: 10
       Value:
-        clip: {fileID: 8300000, guid: ed62fc6acd54e104eadb3f7323bf5ddd, type: 3}
-        volume: 0.5
+        clip: {fileID: 8300000, guid: c74244685d68a8e46aa6b4c45e095428, type: 3}
+        volume: 0.8
     - Key: 17
       Value:
         clip: {fileID: 8300000, guid: 8fb48ecac19fcaa459a59b90e69d89e2, type: 3}
@@ -72,8 +72,8 @@ MonoBehaviour:
         volume: 0.3
     - Key: 13
       Value:
-        clip: {fileID: 8300000, guid: 210679d011199b04fb629e08afc0d1aa, type: 3}
-        volume: 1
+        clip: {fileID: 0}
+        volume: 0.7
     - Key: 14
       Value:
         clip: {fileID: 0}
@@ -84,5 +84,5 @@ MonoBehaviour:
         volume: 1
     - Key: 16
       Value:
-        clip: {fileID: 8300000, guid: 49627f71cb33b4448940c6f892f06fee, type: 3}
-        volume: 1
+        clip: {fileID: 8300000, guid: 5517be3a48f28c74492dfaf469680b80, type: 3}
+        volume: 0.7
