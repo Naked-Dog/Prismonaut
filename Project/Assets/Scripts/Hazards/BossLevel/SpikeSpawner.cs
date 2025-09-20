@@ -12,16 +12,17 @@ public class SpikeSpawner : MonoBehaviour
     [SerializeField] private bool willFall;
     [SerializeField] private float minTimeToFall;
     [SerializeField] private float maxTimeToFall;
+    [SerializeField] private float gravityScaleOnFall = 1.5f;
     private GameObject currentSpike;
 
     private void Start()
     {
-        if(runAtStart) HandlePrepareSpike();
+        if (runAtStart) HandlePrepareSpike();
     }
 
     void OnEnable()
     {
-        if(runOnEnable) HandlePrepareSpike();
+        if (runOnEnable) HandlePrepareSpike();
     }
 
     private IEnumerator PrepareSpike(float startLoadTime = 0)
@@ -63,6 +64,18 @@ public class SpikeSpawner : MonoBehaviour
         if (currentSpike == null) return;
         Rigidbody2D rb = currentSpike.GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Dynamic;
-        rb.gravityScale = 1.5f;
+        rb.gravityScale = gravityScaleOnFall;
+    }
+
+    public void HandleHideSpike()
+    {
+        currentSpike.GetComponent<Collider2D>().enabled = false;
+        StartCoroutine(DeactivateAfterFall());
+    }
+
+    private IEnumerator DeactivateAfterFall()
+    {
+        yield return new WaitForSeconds(1.5f);
+        gameObject.SetActive(false);
     }
 }

@@ -21,7 +21,7 @@ namespace PlayerSystem
         public float forceAmount;
         public RequestOppositeReaction(Vector2 direction, float forceAmount)
         {
-            this.direction = direction; 
+            this.direction = direction;
             this.forceAmount = forceAmount;
         }
     }

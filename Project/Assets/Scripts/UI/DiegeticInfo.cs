@@ -77,7 +77,7 @@ public class DiegeticInfo : MonoBehaviour
     public IEnumerator SetDiegeticInfo(DiegeticInfoType diegeticInfoType)
     {
         this.keyboardText = diegeticInfoType.keyboardText;
-        if(diegeticInfoType.controllerText != null)this.controllerText = diegeticInfoType.controllerText;
+        if (diegeticInfoType.controllerText != null) this.controllerText = diegeticInfoType.controllerText;
 
         if (backgroundImage == null || textMesh == null)
         {

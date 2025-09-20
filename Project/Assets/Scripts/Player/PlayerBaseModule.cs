@@ -5,6 +5,7 @@ using CameraSystem;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Behavior;
 
 namespace PlayerSystem
 {
@@ -21,7 +22,7 @@ namespace PlayerSystem
         [SerializeField] private Collider2D dodgeCollider;
         [SerializeField] private Collider2D playerMainCollider;
         [SerializeField] private bool canMoveAtStart = true;
-        
+
         public static PlayerBaseModule Instance;
         public ChargesUIController chargesUIController;
         public Knockback knockback;
@@ -127,8 +128,9 @@ namespace PlayerSystem
         {
             eventBus.Publish(new OnCollisionEnter2D(collision));
 
-            if(collision.gameObject.CompareTag("Enemy"))
+            if (collision.gameObject.CompareTag("Enemy"))
             {
+                if (collision.gameObject.transform.parent.GetComponentInChildren<BullHealth>()?.flinchedVar.Value == true) return;
                 healthModule.Damage(2);
                 eventBus.Publish(new RequestOppositeReaction(Vector2.up, 10f));
             }
@@ -194,14 +196,14 @@ namespace PlayerSystem
         }
 
         public void GetPrism()
-        { 
+        {
             state.maxCharges++;
             state.currentCharges = state.maxCharges;
             GameManager.Instance.GetPrism();
             chargesUIController.SetChargesContainer(state.maxCharges);
         }
 
-        public void ShowDiegeticInfoPrism() 
+        public void ShowDiegeticInfoPrism()
         {
             DiegeticInfoType diegeticInfoType = new()
             {
