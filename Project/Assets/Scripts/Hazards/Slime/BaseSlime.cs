@@ -65,7 +65,7 @@ public abstract class BaseSlime : MonoBehaviour
 
         while (elapsed < waitTime)
         {
-            if (attackReceived)
+            if (attackReceived && rb)
             {
                 rb.bodyType = originalType;
                 DoOnReflect(bv);

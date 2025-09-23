@@ -8,7 +8,7 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Analyzing environment...\nNew surface detected.\nClassification: soft... not penetrable.",
+                    "text": "New surface detected.\nClassification: soft... not penetrable.",
                     "actor": "AI"
                 },
                 {
@@ -20,15 +20,11 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "Rebound?\nAre you telling me I can rebound?!",
+                    "text": "Bounce?\nAre you telling me I can bounce?!",
                     "actor": "Prismonaut"
                 },
                 {
                     "text": "Affirmative. The strength of the rebound will\ndepend on the height and speed of the impact.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Reminder: abilities have multiple applications.\nDo not limit yourself to a single approach.",
                     "actor": "AI"
                 },
                 {

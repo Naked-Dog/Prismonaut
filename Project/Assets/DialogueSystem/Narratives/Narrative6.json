@@ -4,48 +4,24 @@
             "id": "conversation_6",
             "dialogues": [
                 {
-                    "text": "Analyzing environment...\nThis surface doesn't match the previous ones.\nIt doesn’t seem easily penetrable.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "I see. Any ideas that don’t involve me\ncrashing into it?",
+                    "text": "This is the same as the other ones, right?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Are you not familiar with the abilities integrated\ninto your suit?",
+                    "text": "Incorrect.\nThis one is slightly penetrable",
                     "actor": "AI"
                 },
                 {
-                    "text": "Of course I know them. What I don’t know\nare the rare materials on these planets.\nThat’s where you come in, remember?",
+                    "text": "Oh, so I can pass through?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "... Record confirmed.",
+                    "text": "But strong force is required...\nTutorial information!\nThe shield block can repel attacks \nand reflect any object that you touc-",
                     "actor": "AI"
                 },
                 {
-                    "text": "And to think that, even with blank memory,\nyou haven’t lost that impatience of yours.\nMaybe it's just a matter of time...",
+                    "text": "Yeah yeah I know how it works..\nOkay I'll try that",
                     "actor": "Prismonaut"
-                },
-                {
-                    "text": "You’ve currently used two of the three\navailable abilities.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "So... would the shield block be useful to\nbreak through it?",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "Not to break through it. To break it.\nThe force generated will be released after the\nimpact and propel you as the sphere would.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Alright. Let's try it.",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "I can't confirm that throwing yourself into the void\nis your intention, but if you do, check what’s\nbelow you before breaking anything.",
-                    "actor": "AI"
                 }
             ],
             "choices": []

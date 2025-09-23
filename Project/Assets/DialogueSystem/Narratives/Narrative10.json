@@ -28,7 +28,15 @@
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Let’s cross it already.",
+                    "text": "After all I've seen here I know what to do..\nGo through your initial protocols.\nAnalyze, study, and understand everything you\nsee. I need you to be back to full functionality.",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Understood. Re-establishing protocols.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Let’s cross it then.",
                     "actor": "Prismonaut"
                 }
             ],

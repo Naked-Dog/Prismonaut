@@ -4,27 +4,19 @@
             "id": "conversation_3",
             "dialogues": [
                 {
-                    "text": "Analyzing environment...\nImpact zone: cave network.\nSimilar to rock formations from your planet.",
+                    "text": "Analyzing environment...\nImpact zone: cave network.\nDo you want me to save this new environment data?",
                     "actor": "AI"
                 },
                 {
-                    "text": "Mmm... You have functional logs, but nothing\nabout the expeditions. Something doesn't add up.",
+                    "text": "Yeah.. I can't believe you have lost all your previous data..\n",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Go through your initial protocols.\nAnalyze, study, and understand everything you\nsee. I need you to be back to full functionality.",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "Understood. Re-establishing protocols.",
+                    "text": "Tutorial information!\nThe suit is capable to keep you away from damage and increase your kinetic energy \nis recommended to pass through this cave environment.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Kinetic Sphere handled correctly.\nStrategic use of the ability beyond movement \nis recommended.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "This isn't the first time I've almost been buried\nalive... Believe me, I know its potential.",
+                    "text": "Oh, great.. now is giving me tips like\nI was a rookie...",
                     "actor": "Prismonaut"
                 },
                 {
@@ -32,7 +24,7 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "Yeah, that icon. When we get back, I'll ask them\nto change it. Sometimes, the way it looks, it gives\nme the impression that I've broken something.",
+                    "text": "Yeah, I know, thanks.",
                     "actor": "Prismonaut"
                 }
             ],

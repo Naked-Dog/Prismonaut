@@ -8,31 +8,23 @@
                     "actor": "AI"
                 },
                 {
-                    "text": "Definitely K0Z5...\nAnd if that counts as a landing...\nWell, I've had worse.",
+                    "text": "That was a terrible landing... \nI have never seen anything like this place before...",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Data loaded.\nCold reboot initiated.\nLocation confirmed: K0Z5.",
+                    "text": "...",
                     "actor": "AI"
                 },
                 {
-                    "text": "...That shouldn't have happened.\nLoad your previous logs.",
+                    "text": "I need all the data you can gather from here. \nLoad your previous logs and compare",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Expedition history: unavailable.\nMain memory damaged or missing.",
+                    "text": "Expedition history: cleared.\nThis is your first mission.",
                     "actor": "AI"
                 },
                 {
-                    "text": "...Nothing? Not even C9L4?\nWe were there just recently!",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "References not found.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Come on, you guided me through all of the...",
+                    "text": "What do you mean?! We've been doing this for year-",
                     "actor": "Prismonaut"
                 }
             ],
