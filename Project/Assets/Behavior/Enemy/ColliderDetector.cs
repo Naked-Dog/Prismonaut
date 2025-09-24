@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using PlayerSystem;
 using UnityEngine;
 public class ColliderDetector : MonoBehaviour
 {

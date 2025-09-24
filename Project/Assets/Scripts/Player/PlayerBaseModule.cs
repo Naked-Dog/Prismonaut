@@ -151,7 +151,7 @@ namespace PlayerSystem
 
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                if (collision.gameObject.transform.parent.GetComponentInChildren<BullHealth>()?.flinchedVar.Value == true) return;
+                if (collision.GetComponent<Bull>()?.bullHealth.flinchedVar.Value == true) return;
                 healthModule.Damage(2);
                 eventBus.Publish(new RequestOppositeReaction(Vector2.up, 10f));
             }

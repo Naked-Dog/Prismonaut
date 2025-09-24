@@ -8,4 +8,4 @@ public enum EnemySpitterSoundsEnum
 }
 
 [CreateAssetMenu(menuName = "Audio/Spitter Sounds Library")]
-public class EnemySpitterLibrary : AudioLibrary<EnemySpitterSoundsEnum>{}
+public class EnemySpitterLibrary : AudioLibrary<EnemySpitterSoundsEnum> { }

@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using CameraSystem;
 using PlayerSystem;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,7 +15,6 @@ public class DialogueController : MonoBehaviour
 {
     [SerializeField] private float writeSpeed = 0.1f;
     [SerializeField] private DialogueView viewController;
-    [SerializeField] private AudioClip skipSound;
     [HideInInspector] public bool isDialogueRunning;
 
     private DialogueActor currentActor;
@@ -54,7 +51,6 @@ public class DialogueController : MonoBehaviour
     public void RunDialogue(Narrative narrative, UnityEvent endEvent = null)
     {
         eventBus.Publish(new RequestEnableDialogueInputs());
-        //CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Dialogue));
         currentDialogueIndex = 0;
         isDialogueRunning = true;
 
@@ -200,7 +196,6 @@ public class DialogueController : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(viewController.CloseDialoguePanel());
         isDialogueRunning = false;
-        //CameraManager.Instance.ChangeCamera(CameraManager.Instance.SearchCamera(CineCameraType.Regular));
         eventBus.Publish(new RequestDisableDialogueInputs());
         endEvent?.Invoke();
         endEvent = null;

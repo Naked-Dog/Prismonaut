@@ -1,5 +1,4 @@
-    
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -24,20 +23,20 @@ public class DialogueView : MonoBehaviour
 
     private RectTransform panelRecTransform => dialoguePanelContainer.GetComponent<RectTransform>();
 
-    public void SetDialoguePanel(DialogueType type, bool resume = false) 
+    public void SetDialoguePanel(DialogueType type, bool resume = false)
     {
-        switch(type)
+        switch (type)
         {
             case DialogueType.Text:
                 dialogueTMPText.gameObject.SetActive(true);
-                if(!resume)
+                if (!resume)
                 {
                     dialogueTMPText.text = "";
-                } 
+                }
                 portraitContainer.gameObject.SetActive(true);
                 choisesContainer.SetActive(false);
                 ShowNextSign(false);
-                foreach(Transform child in choisesContainer.transform)
+                foreach (Transform child in choisesContainer.transform)
                 {
                     Destroy(child.gameObject);
                 }
@@ -57,7 +56,7 @@ public class DialogueView : MonoBehaviour
     }
 
     public void SetActor(DialogueActor actor)
-    {   
+    {
         portraitImage.sprite = actor.portrait;
         dialogueTMPText.font = actor.dialogueFont;
         dialogueTMPText.color = actor.fontColor;
@@ -65,7 +64,7 @@ public class DialogueView : MonoBehaviour
 
     public void DisplayChoices(List<Choice> choices)
     {
-        foreach(Choice choise in choices)
+        foreach (Choice choise in choices)
         {
             GameObject choiseObject = Instantiate(choisesPrefab);
             var parentRecTransform = choisesContainer.GetComponent<RectTransform>();

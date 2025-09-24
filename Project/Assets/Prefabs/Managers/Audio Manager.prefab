@@ -55,5 +55,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 123907c595efdf44384223dd6755f25d, type: 2}
   - {fileID: 11400000, guid: d5571ce0013702f4782c0b06459b2036, type: 2}
   - {fileID: 11400000, guid: 3a69e1cce89b28e4a906d99ccc8e6580, type: 2}
+  - {fileID: 11400000, guid: fabc6d6b003253342befd5ddb838059a, type: 2}
   musicVolume: 0.5
   SoundEffectsVolume: 0.8

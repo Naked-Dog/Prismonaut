@@ -107,7 +107,6 @@ GameObject:
   - component: {fileID: 6904225850297229162}
   - component: {fileID: 5941871471876842594}
   - component: {fileID: 1318315196577863380}
-  - component: {fileID: 7654537348145465871}
   m_Layer: 0
   m_Name: Awake
   m_TagString: Untagged
@@ -237,52 +236,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 18.979252, y: 2.5108337}
   m_EdgeRadius: 0
---- !u!114 &7654537348145465871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2406938741347568830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a0d7244f310ca747b4aed1fd20a779e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onTriggerEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ShowDiegeticInfoByID
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onTriggerExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  collisionTag: Player
-  isOneShot: 1
-  alreadyEntered: 0
-  alreadyExited: 0
 --- !u!1 &2508579167337817757
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,10 +269,10 @@ RectTransform:
   - {fileID: 766077903617601432}
   m_Father: {fileID: 1417716111567416261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1.5375001, y: -0.125}
-  m_SizeDelta: {x: 0.9999999, y: 0.25}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1, y: 0.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1994976264659398897
 MonoBehaviour:
@@ -334,7 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -360,7 +313,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 766077903617601432}
   m_HandleRect: {fileID: 0}
@@ -532,7 +485,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 2.5}
-  m_SizeDelta: {x: 3.075, y: 0.25}
+  m_SizeDelta: {x: 3.2, y: 0.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8415752673930197661
 Canvas:
@@ -551,7 +504,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 1661393963
@@ -625,6 +578,13 @@ MonoBehaviour:
   animator: {fileID: 5058471162287012434}
   agent: {fileID: 2435895588498240725}
   finalTrigger: {fileID: 0}
+  bullCollider: {fileID: 9208868712649040530}
+  flinchedVar:
+    GUID:
+      m_Value0: 0
+      m_Value1: 0
+    Name: 
+    m_Value: 0
 --- !u!1 &4030955384036039060
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,10 +776,10 @@ RectTransform:
   - {fileID: 6259152286382112013}
   m_Father: {fileID: 1417716111567416261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 3.0749998, y: -0.125}
-  m_SizeDelta: {x: 0.99999976, y: 0.25}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -0.049999952, y: 0}
+  m_SizeDelta: {x: 1, y: 0.25}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &199445692188572448
 MonoBehaviour:
@@ -834,7 +794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -860,7 +820,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 6259152286382112013}
   m_HandleRect: {fileID: 0}
@@ -989,7 +949,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1993005769
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -708424971, guid: e14204df146afe94ea1487455271d89b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1369,9 +1329,9 @@ RectTransform:
   - {fileID: 3678563326016814108}
   m_Father: {fileID: 1417716111567416261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.00000023841858, y: -0.125}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0.049999952, y: 0}
   m_SizeDelta: {x: 1, y: 0.25}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &3176596864296955246
@@ -1387,7 +1347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1413,7 +1373,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 3678563326016814108}
   m_HandleRect: {fileID: 0}
@@ -1748,12 +1708,12 @@ Rigidbody2D:
   m_GameObject: {fileID: 8949457902602156806}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 1
+  m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: c454553def854474193a2d83bd550ac0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1795,11 +1755,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.75}
+  m_Offset: {x: 0.35, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1809,7 +1769,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.75, y: 1.5}
+  m_Size: {x: 2.5, y: 1.75}
   m_EdgeRadius: 0
 --- !u!114 &1070124111976929781
 MonoBehaviour:
