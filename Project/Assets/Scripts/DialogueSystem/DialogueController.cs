@@ -87,6 +87,7 @@ public class DialogueController : MonoBehaviour
     private void RunNextDialogue()
     {
         currentDialogueIndex++;
+        AudioManager.Instance.Play2DSound(DialogueSoundsEnum.Skip);
 
         if (currentDialogueIndex < currentDialogues.Count)
         {
@@ -124,7 +125,6 @@ public class DialogueController : MonoBehaviour
         yield return WriteDialogue(dialogue);
 
         viewController.ShowNextSign();
-        AudioManager.Instance.Play2DSound(DialogueSoundsEnum.Skip);
         currentDialogueComplete = true;
     }
 
@@ -186,7 +186,6 @@ public class DialogueController : MonoBehaviour
         StopAllCoroutines();
         viewController.dialogueTMPText.maxVisibleCharacters = viewController.dialogueTMPText.text.Length;
         viewController.ShowNextSign();
-        AudioManager.Instance.Play2DSound(DialogueSoundsEnum.Skip);
         currentDialogueComplete = true;
         currentCharactersCount = 0;
     }
