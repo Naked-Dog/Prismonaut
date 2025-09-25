@@ -10,7 +10,7 @@ public class Prism : MonoBehaviour
         {
             PlayerBaseModule.Instance.GetPrism();
             ShakeManager.Instance.CameraShake(shakeProfile);
-            AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.Portal);
+            AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.Prism);
             gameObject.SetActive(false);
         }
     }

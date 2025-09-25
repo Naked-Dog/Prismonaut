@@ -7,7 +7,8 @@ public enum LevelEventsSoundsEnum
     EartThrumbling,
     Portal,
     BossStartZone,
+    Prism
 }
 
 [CreateAssetMenu(menuName = "Audio/Level Events Sounds Library")]
-public class LevelEventsSoundsLibrary : AudioLibrary<LevelEventsSoundsEnum>{}
+public class LevelEventsSoundsLibrary : AudioLibrary<LevelEventsSoundsEnum> { }
