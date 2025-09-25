@@ -41,7 +41,7 @@ MonoBehaviour:
     - Key: 6
       Value:
         clip: {fileID: 8300000, guid: 8a8b473420f197748b65442767ca37a6, type: 3}
-        volume: 1
+        volume: 0.8
     - Key: 7
       Value:
         clip: {fileID: 0}
@@ -57,7 +57,7 @@ MonoBehaviour:
     - Key: 10
       Value:
         clip: {fileID: 8300000, guid: 635563a33fb453c4da9a35be5d5aec43, type: 3}
-        volume: 0.6
+        volume: 0.8
     - Key: 17
       Value:
         clip: {fileID: 8300000, guid: 8fb48ecac19fcaa459a59b90e69d89e2, type: 3}

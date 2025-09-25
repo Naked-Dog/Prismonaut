@@ -21,11 +21,11 @@ MonoBehaviour:
     - Key: 1
       Value:
         clip: {fileID: 8300000, guid: 95d5458336b956049a71cf4f858e5d44, type: 3}
-        volume: 1
+        volume: 0.7
     - Key: 2
       Value:
         clip: {fileID: 8300000, guid: 2e57eab12eed0d348b4a2ffbb6725f39, type: 3}
-        volume: 1
+        volume: 0.7
     - Key: 3
       Value:
         clip: {fileID: 8300000, guid: c4f4671db29eaf744919a88d2f9e7a17, type: 3}

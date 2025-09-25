@@ -17,4 +17,4 @@ MonoBehaviour:
     - Key: 0
       Value:
         clip: {fileID: 8300000, guid: 0a9b9158c4688474b832422705d61345, type: 3}
-        volume: 1
+        volume: 0.4
