@@ -39,7 +39,7 @@ namespace PlayerSystem
             if (playerState.activePower != Power.None) return;
 
             if (e.context.performed)
-            { 
+            {
                 Activate();
             }
         }
@@ -71,7 +71,7 @@ namespace PlayerSystem
 
         private void ShieldCollision(Collider2D other)
         {
-            if (other.CompareTag("Enemy"))
+            if (other.CompareTag("BullHorns"))
             {
                 if (playerState.isParry)
                 {
@@ -86,9 +86,9 @@ namespace PlayerSystem
                 }
             }
 
-            if(other.CompareTag("Slime"))
+            if (other.CompareTag("Slime"))
             {
-                if(playerState.isParry)
+                if (playerState.isParry)
                 {
                     playerState.activePower = Power.Parry;
                 }

@@ -30,6 +30,7 @@ TagManager:
   - HUD
   - Slime
   - SpikeD
+  - BullHorns
   layers:
   - Default
   - TransparentFX

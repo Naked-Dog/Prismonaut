@@ -32,6 +32,12 @@ public class LavaManager : MonoBehaviour
         initialHeight = lavaTransform.transform.position.y;
     }
 
+    private void Start()
+    {
+        Debug.Log("Lava Manager Started");
+        AudioManager.Instance.Play3DSoundAttached(LevelEventsSoundsEnum.Lava, lavaTransform, true);
+    }
+
     void Update()
     {
         if (eventStarted)
@@ -51,8 +57,7 @@ public class LavaManager : MonoBehaviour
     {
         if (eventStarted) return;
         eventStarted = true;
-        AudioManager.Instance.Play3DSoundAttached(LevelEventsSoundsEnum.Lava,lavaTransform,true);
-        if(PlatformManager.Instance) PlatformManager.Instance.StartPlatforms();
+        if (PlatformManager.Instance) PlatformManager.Instance.StartPlatforms();
     }
 
     public void Shake()

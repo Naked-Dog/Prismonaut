@@ -89,13 +89,7 @@ public class DialogueController : MonoBehaviour
         currentDialogueIndex++;
         AudioManager.Instance.Play2DSound(DialogueSoundsEnum.Skip);
 
-        if (currentDialogueIndex < currentDialogues.Count)
-        {
-            currentDialogueComplete = false;
-            currentType = DialogueType.Text;
-            StartCoroutine(DialogueSequence(currentDialogues[currentDialogueIndex]));
-        }
-        else
+        if (currentDialogueIndex >= currentDialogues.Count)
         {
             if (currentConversation.choices.Count != 0)
             {
@@ -107,7 +101,12 @@ public class DialogueController : MonoBehaviour
             {
                 EndDialogue();
             }
+            return;
         }
+
+        currentDialogueComplete = false;
+        currentType = DialogueType.Text;
+        StartCoroutine(DialogueSequence(currentDialogues[currentDialogueIndex]));
     }
 
 
@@ -216,7 +215,14 @@ public class DialogueController : MonoBehaviour
             {
                 if (currentDialogueComplete)
                 {
-                    RunNextDialogue();
+                    if (currentDialogueIndex + 1 < currentDialogues.Count || currentConversation.choices.Count > 0)
+                    {
+                        RunNextDialogue();
+                    }
+                    else
+                    {
+                        EndDialogue();
+                    }
                     return;
                 }
 

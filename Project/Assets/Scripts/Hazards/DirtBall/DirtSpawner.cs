@@ -54,19 +54,26 @@ public class DirtSpawner : MonoBehaviour
 
     public void SpawnDirtBall(float time)
     {
+        if (!isActiveAndEnabled) return;
         if (spawnRoutine != null) StopCoroutine(spawnRoutine);
         spawnRoutine = StartCoroutine(GenerateDirtBall(time));
     }
+
     public IEnumerator GenerateDirtBall(float time)
     {
         yield return new WaitForSeconds(time);
 
+        if (!isActiveAndEnabled) yield break;
+
         anim?.SetTrigger("Activate");
         particleSystem?.Play();
         AudioManager.Instance?.Play3DSountAtPosition(RocksSounds.PrepareThrow, transform.position);
-        StartCoroutine(ThrowRocks());
+
+        if (isActiveAndEnabled) StartCoroutine(ThrowRocks());
 
         yield return new WaitForSeconds(spawnTime);
+
+        if (!isActiveAndEnabled) yield break;
 
         GameObject dirtball = Instantiate(dirtBallPrefab);
         dirtball.transform.SetParent(transform);
@@ -119,7 +126,15 @@ public class DirtSpawner : MonoBehaviour
         while (rocks.Count > maxRocksAmount)
         {
             GameObject rockToRemove = rocks[0];
-            StartCoroutine(FadeAndDestroy(rockToRemove));
+            if (!isActiveAndEnabled)
+            {
+                Destroy(rockToRemove);
+            }
+            else
+            {
+                StartCoroutine(FadeAndDestroy(rockToRemove));
+            }
+
             rocks.RemoveAt(0);
         }
     }

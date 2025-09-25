@@ -17,7 +17,6 @@ public partial class ColliderTagDetectorAction : Action
 
     protected override Status OnStart()
     {
-        // Ensure Collider is not null and has the required component
         if (Collider?.Value == null)
         {
             Debug.LogError("Collider is null or not assigned.");
@@ -42,11 +41,9 @@ public partial class ColliderTagDetectorAction : Action
             return Status.Failure;
         }
 
-        // Get the target object based on the specified tag
         var target = detectionCollider.GetTarget(Tag?.Value);
         if (target == null) return Status.Running;
 
-        // Check if the target is the player and if ReactToParry is enabled
         if (target.CompareTag("Player") && ReactToParry?.Value == true)
         {
             var player = target.GetComponentInParent<PlayerBaseModule>();
@@ -60,10 +57,5 @@ public partial class ColliderTagDetectorAction : Action
         }
 
         return Status.Success;
-    }
-
-    protected override void OnEnd()
-    {
-        // Cleanup logic if needed
     }
 }

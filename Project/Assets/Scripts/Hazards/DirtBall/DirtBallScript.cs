@@ -1,16 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Xml;
 using PlayerSystem;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DirtBallScript : MonoBehaviour
 {
     [SerializeField] private float impulseLimit;
-    [SerializeField]  private float maxSpeed = 10;
-    [SerializeField]  private List<GameObject> rocks = new List<GameObject>();
+    [SerializeField] private float maxSpeed = 10;
+    [SerializeField] private List<GameObject> rocks = new List<GameObject>();
     private Rigidbody2D rb;
     public DirtSpawner spawner;
     private Animator anim;
@@ -20,6 +17,7 @@ public class DirtBallScript : MonoBehaviour
     private float t = startTime;
     private const float baseDeathTime = 1;
     public bool check = true;
+    private bool isDead;
 
     private void Awake()
     {
@@ -28,11 +26,6 @@ public class DirtBallScript : MonoBehaviour
         randomAnim = Random.Range(0, 2) == 0 ? "RollingRight" : "RollingLeft";
     }
 
-    //private void FixedUpdate()
-    //{
-    //    rb.linearVelocity = direction * speed * Time.fixedDeltaTime * 20;
-    //}
-
     private void Update()
     {
         CheckVelocity();
@@ -40,8 +33,8 @@ public class DirtBallScript : MonoBehaviour
 
     private void CheckVelocity()
     {
-        if(!check) return;
-        
+        if (!check) return;
+
         if (Mathf.Abs(rb.linearVelocityX) + Mathf.Abs(rb.linearVelocityY) < 0.1f)
         {
             t -= Time.deltaTime;
@@ -92,10 +85,15 @@ public class DirtBallScript : MonoBehaviour
 
     private void Death()
     {
-        spawner.SpawnDirtBall(spawner.reloadTime);
+        if (isDead) return;
+        isDead = true;
+
+        if (spawner != null)
+        {
+            spawner.SpawnDirtBall(spawner.reloadTime);
+        }
 
         int maxAmountRocks = Random.Range(2, 6);
-
         List<GameObject> rocksList = new List<GameObject>();
 
         for (int i = 0; i < rocks.Count; i++)
@@ -105,7 +103,7 @@ public class DirtBallScript : MonoBehaviour
             if (Random.value > 0.5f || rocksList.Count > maxAmountRocks)
                 shouldBeUsed = false;
 
-            if (shouldBeUsed)
+            if (shouldBeUsed && rocks[i] != null)
             {
                 rocks[i].transform.parent = null;
                 rocks[i].SetActive(true);
@@ -113,11 +111,17 @@ public class DirtBallScript : MonoBehaviour
             }
         }
 
-        spawner.AddRocksToTheList(rocksList);
-        
-        AudioManager.Instance?.Play3DSountAtPosition(RocksSounds.Destroy, transform.position);
-        Destroy(gameObject, 0.1f);//animation later
+        if (spawner != null)
+        {
+            spawner.AddRocksToTheList(rocksList);
+        }
+
+        Vector3 deathPos = transform.position;
+        AudioManager.Instance?.Play3DSountAtPosition(RocksSounds.Destroy, deathPos);
+
+        Destroy(gameObject, 0.1f);
     }
+
 
     private void ControlRollingAnim()
     {
@@ -135,7 +139,7 @@ public class DirtBallScript : MonoBehaviour
             animClip = randomAnim;
         }
 
-        if(currentAnim != animClip)
+        if (currentAnim != animClip)
         {
             currentAnim = animClip;
             anim.Play(animClip);

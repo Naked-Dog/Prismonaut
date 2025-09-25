@@ -91,7 +91,9 @@ namespace PlayerSystem
 
             RegisterCallback(DialogueMap.FindAction("SkipDialogue"), ctx =>
             {
-                if (ctx.canceled)
+                if (!DialogueMap.enabled) return;
+
+                if (ctx.performed)
                 {
                     DialogueController.Instance?.SkipDialogue();
                 }
@@ -207,7 +209,7 @@ namespace PlayerSystem
         }
 
         private void OnGamePause(RequestPause e)
-        { 
+        {
             playerUIMap.Enable();
             playerGameMap.Disable();
         }

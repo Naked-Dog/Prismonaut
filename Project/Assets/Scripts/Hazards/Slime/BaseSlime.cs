@@ -49,6 +49,9 @@ public abstract class BaseSlime : MonoBehaviour
     private IEnumerator HandleBounceOrAttack(BounceValues bv)
     {
         Rigidbody2D rb = bv.rb;
+
+        if (rb == null || rb.Equals(null)) yield break;
+
         rb.linearVelocity = Vector2.zero;
         originalType = rb.bodyType;
         rb.bodyType = RigidbodyType2D.Kinematic;
@@ -65,7 +68,7 @@ public abstract class BaseSlime : MonoBehaviour
 
         while (elapsed < waitTime)
         {
-            if (attackReceived && rb)
+            if (attackReceived && rb != null && !rb.Equals(null))
             {
                 rb.bodyType = originalType;
                 DoOnReflect(bv);
@@ -76,14 +79,16 @@ public abstract class BaseSlime : MonoBehaviour
             yield return null;
         }
 
-        rb.bodyType = originalType;
+        if (rb != null && !rb.Equals(null))
+        {
+            rb.bodyType = originalType;
+            AudioManager.Instance.Play2DSound(SlimeSoundsEnum.Bounce);
+            anim.Play("BounceOut");
 
-        AudioManager.Instance.Play2DSound(SlimeSoundsEnum.Bounce);
-        anim.Play("BounceOut");
-
-        DoBounce(bv);
-        yield return new WaitForSeconds(0.1f);
-        busy.Remove(rb);
+            DoBounce(bv);
+            yield return new WaitForSeconds(0.1f);
+            busy.Remove(rb);
+        }
     }
 
     public void ReceiveReflect()
@@ -125,6 +130,17 @@ public abstract class BaseSlime : MonoBehaviour
 
         bv.rb.linearVelocity = Vector2.zero;
         bv.rb.AddForce(newVel, ForceMode2D.Impulse);
+        pendingBounce = null;
+    }
+
+    private void OnDisable()
+    {
+        if (currentRoutine != null)
+        {
+            StopCoroutine(currentRoutine);
+            currentRoutine = null;
+        }
+        busy.Clear();
         pendingBounce = null;
     }
 

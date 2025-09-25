@@ -208,12 +208,11 @@ namespace PlayerSystem
 
         public void ShowDiegeticInfoPrism()
         {
-            DiegeticInfoType diegeticInfoType = new()
+            string typeName = "Charges" + state.maxCharges;
+            if (System.Enum.TryParse(typeName, out HintType type))
             {
-                time = 3f,
-                keyboardText = $"The Prism provided an additional Form Change: {state.maxCharges - 1} => {state.maxCharges}"
-            };
-            DiegeticInfo.Instance.ShowDiegeticInfo(diegeticInfoType);
+                HintsManager.Instance.ShowHint(type);
+            }
         }
 
         public void SetCharges(int chargeAmount = 1)
