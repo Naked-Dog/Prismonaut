@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using PlayerSystem;
@@ -16,7 +17,7 @@ public class DirtBallScript : MonoBehaviour
     const float startTime = 1;
     private float t = startTime;
     private const float baseDeathTime = 1;
-    public bool check = true;
+    [System.NonSerialized] public bool isBeingDrilled = false;
     private bool isDead;
 
     private void Awake()
@@ -33,8 +34,8 @@ public class DirtBallScript : MonoBehaviour
 
     private void CheckVelocity()
     {
-        if (!check) return;
-
+        if(isBeingDrilled) return;
+        
         if (Mathf.Abs(rb.linearVelocityX) + Mathf.Abs(rb.linearVelocityY) < 0.1f)
         {
             t -= Time.deltaTime;
@@ -56,13 +57,20 @@ public class DirtBallScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        float normalImpulse = collision.contacts[0].normalImpulse;
-        PlayerBaseModule player = collision.gameObject.GetComponent<PlayerBaseModule>();
-        if (player && player.state.activePower == PlayerSystem.Power.Drill) return;
-        if (normalImpulse > impulseLimit)
+        if (collision.gameObject.tag == "Spike" || collision.gameObject.tag == "SpikeD")
         {
             Death();
+            return;
         }
+
+        PlayerBaseModule player = collision.gameObject.GetComponent<PlayerBaseModule>();
+
+        if (player && player.state.activePower == PlayerSystem.Power.Drill)
+            return;
+        
+        float normalImpulse = collision.contacts[0].normalImpulse;
+        if (normalImpulse > impulseLimit)
+            Death();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -88,10 +96,10 @@ public class DirtBallScript : MonoBehaviour
         if (isDead) return;
         isDead = true;
 
-        if (spawner != null)
-        {
-            spawner.SpawnDirtBall(spawner.reloadTime);
-        }
+        // if (spawner != null)
+        // {
+        //     spawner.SpawnDirtBall(spawner.reloadTime);
+        // }
 
         int maxAmountRocks = Random.Range(2, 6);
         List<GameObject> rocksList = new List<GameObject>();

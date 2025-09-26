@@ -83,6 +83,7 @@ public class DirtSpawner : MonoBehaviour
         dbScript.spawner = this;
         dbScript.setInitialSpeed(direction, speed);
         AudioManager.Instance?.Play3DSountAtPosition(RocksSounds.ThrowRock, transform.position);
+        SpawnDirtBall(time);
     }
 
     private IEnumerator ThrowRocks()

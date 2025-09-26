@@ -195,7 +195,7 @@ namespace PlayerSystem
 
             if (other.GetComponent<DirtBallScript>())
             {
-                other.GetComponent<DirtBallScript>().check = false;
+                other.GetComponent<DirtBallScript>().isBeingDrilled = true;
                 playerState.activePower = Power.LightDrill;
                 EnterSecondStage(go);
             }
@@ -466,7 +466,7 @@ namespace PlayerSystem
             lightObjectRigidBody.linearVelocity = Vector2.zero;
             lightObjectRigidBody.AddForce(drillDir * powersConstants.lightObjectExitForce, ForceMode2D.Impulse);
             rb2d.linearVelocity = Vector2.up * powersConstants.lightPlayerExitForce;
-            lightObjectRigidBody.GetComponent<DirtBallScript>().check = true;
+            lightObjectRigidBody.GetComponent<DirtBallScript>().isBeingDrilled = false;
             lightObjectRigidBody = null;
         }
 
