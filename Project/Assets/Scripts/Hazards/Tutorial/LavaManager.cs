@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
-using PlayerSystem;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class LavaManager : MonoBehaviour
@@ -34,7 +30,6 @@ public class LavaManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Lava Manager Started");
         AudioManager.Instance.Play3DSoundAttached(LevelEventsSoundsEnum.Lava, lavaTransform, true);
     }
 
