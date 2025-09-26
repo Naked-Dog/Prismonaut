@@ -32,11 +32,11 @@ MonoBehaviour:
         volume: 0.7
     - Key: 4
       Value:
-        clip: {fileID: 8300000, guid: d10b4d9361778ec4a9168d2934a23838, type: 3}
-        volume: 0
+        clip: {fileID: 8300000, guid: e6bfb0677b119bd49992fabf40434165, type: 3}
+        volume: 1
     - Key: 5
       Value:
-        clip: {fileID: 8300000, guid: d10b4d9361778ec4a9168d2934a23838, type: 3}
+        clip: {fileID: 8300000, guid: e6bfb0677b119bd49992fabf40434165, type: 3}
         volume: 1
     - Key: 6
       Value:
@@ -48,7 +48,7 @@ MonoBehaviour:
         volume: 1
     - Key: 8
       Value:
-        clip: {fileID: 8300000, guid: 4b02a01044437a849ab32549e25588f9, type: 3}
+        clip: {fileID: 8300000, guid: dd84d6e4afcc49b429e09cf8773a9c6b, type: 3}
         volume: 0.8
     - Key: 9
       Value:
@@ -61,7 +61,7 @@ MonoBehaviour:
     - Key: 17
       Value:
         clip: {fileID: 8300000, guid: 8510eb655a448de4493cfb3785a88f5d, type: 3}
-        volume: 0.9
+        volume: 0.7
     - Key: 11
       Value:
         clip: {fileID: 0}
