@@ -21,7 +21,7 @@ MonoBehaviour:
     - Key: 1
       Value:
         clip: {fileID: 8300000, guid: aaa69465a1d319448a09742a0a493b43, type: 3}
-        volume: 0.4
+        volume: 0.3
     - Key: 2
       Value:
         clip: {fileID: 8300000, guid: 56eb40c8b7144c34ab87b3633335aeaa, type: 3}
@@ -29,11 +29,11 @@ MonoBehaviour:
     - Key: 3
       Value:
         clip: {fileID: 8300000, guid: 555bfe4e37761d94095e2e9d3eb3b2cf, type: 3}
-        volume: 0.5
+        volume: 1
     - Key: 4
       Value:
         clip: {fileID: 8300000, guid: 4c5ae3625e5351340bd1ee05bbae54a5, type: 3}
-        volume: 0.5
+        volume: 1
     - Key: 5
       Value:
         clip: {fileID: 8300000, guid: 4f0c2c9dacef1c9478531a04aef72505, type: 3}
