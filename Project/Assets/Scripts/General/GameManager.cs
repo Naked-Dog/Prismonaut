@@ -57,6 +57,9 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
+    public bool ShieldUnlocked {get; private set; }
+    public bool DrillUnlocked {get; private set; }
+    public bool DodgeUnlocked {get; private set; }
 
     #region Old Code
     public static int maxLifes = 3;
@@ -93,7 +96,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("Current Gems: " + collectedGems);
         if (collectedGems == levelTargetGems)
         {
-            //clear level
             Debug.Log("Game Cleared");
             StartCoroutine(EnableGameEndPortals());
         }
@@ -122,6 +124,25 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // This sucks, but just for hint trigger events. I hate this.
+    public void UnlockShieldPower()
+    {
+        ShieldUnlocked = true;
+        PlayerBaseModule.Instance?.powersModule.SetPowerAvailable(PlayerSystem.Power.Shield);
+    }
+
+    public void UnlockDrillPower()
+    {
+        DrillUnlocked = true;
+        PlayerBaseModule.Instance?.powersModule.SetPowerAvailable(PlayerSystem.Power.Drill);
+    }
+
+    public void UnlockDodgePower()
+    {
+        DodgeUnlocked = true;
+        PlayerBaseModule.Instance?.powersModule.SetPowerAvailable(PlayerSystem.Power.Dodge);
     }
 }
 

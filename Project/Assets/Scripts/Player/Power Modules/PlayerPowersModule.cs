@@ -45,29 +45,54 @@ namespace PlayerSystem
             this.playerCollider = playerCollider;
             this.baseModule = baseModule;
 
-            squarePower = new ShieldPowerModule(eventBus, playerState, rb2d, shieldPhysicsRelay, baseModule);
-            trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, baseModule);
-            circlePower = new DodgePowerModule(eventBus, playerState, rb2d, dodgeCollider, playerCollider, baseModule);
-            cancelPower = new CancelPowerModule(eventBus,playerState);
-
+            //squarePower = new ShieldPowerModule(eventBus, playerState, rb2d, shieldPhysicsRelay, baseModule);
+            //trianglePower = new DrillPowerModule(eventBus, playerState, rb2d, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, baseModule);
+            //circlePower = new DodgePowerModule(eventBus, playerState, rb2d, dodgeCollider, playerCollider, baseModule);
+            cancelPower = new CancelPowerModule(eventBus, playerState);
+            SetPowers();
         }
 
-        public void SetPowerAvailable(Power power, bool isAvailable)
+        public void SetPowerAvailable(Power power)
         {
             switch (power)
             {
-                case Power.Square:
-                    playerState.isSquarePowerAvailable = isAvailable;
+                case Power.Shield:
                     squarePower ??= new ShieldPowerModule(eventBus, playerState, rb2d, shieldPhysicsRelay, baseModule);
                     break;
-                case Power.Triangle:
-                    playerState.isTrianglePowerAvailable = isAvailable;
+                case Power.Drill:
                     trianglePower ??= new DrillPowerModule(eventBus, playerState, rb2d, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, baseModule);
                     break;
-                case Power.Circle:
-                    playerState.isCirclePowerAvailable = isAvailable;
+                case Power.Dodge:
                     circlePower ??= new DodgePowerModule(eventBus, playerState, rb2d, dodgeCollider, playerCollider, baseModule);
                     break;
+            }
+        }
+
+        // ** IMPORTANT **
+        //
+        // If you're reading this, it means we're wrong. 
+        // For the future of the Naked Dog team, please refactor everything. 
+        // If you do, delete this comment, push to the main (ignore all the rules) and go claim your bonus (if you have a salary, of course...).
+        //
+        // ** THE FIRST TA **
+
+        private void SetPowers()
+        {
+            if (!GameManager.Instance) return;
+
+            if (GameManager.Instance.ShieldUnlocked)
+            {
+                SetPowerAvailable(Power.Shield);
+            }
+
+            if (GameManager.Instance.DrillUnlocked)
+            {
+                SetPowerAvailable(Power.Drill);
+            }
+
+            if (GameManager.Instance.DodgeUnlocked)
+            {
+                SetPowerAvailable(Power.Dodge);
             }
         }
     }
