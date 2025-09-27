@@ -23,6 +23,7 @@ namespace PlayerSystem
         private bool isSecondStage;
         private bool isDrillInside = false;
         private bool isBodyInside = false;
+        private bool hitObstacle = false;
         private float damageTimer = 0f;
         private float steerReturnTimer;
 
@@ -105,6 +106,7 @@ namespace PlayerSystem
             eventBus.Subscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
             eventBus.Subscribe<OnVerticalInput>(TakeVerticalInputDirection);
             drillPhysicsRelay.OnTriggerEnter2DAction.AddListener(ConfirmDrillCollision);
+            drillPhysicsRelay.gameObject.SetActive(true);
         }
 
         private void CheckPlayerCollision(OnCollisionEnter2D e)
@@ -275,6 +277,8 @@ namespace PlayerSystem
                     return;
                 }
 
+                if (hitObstacle) return;
+                hitObstacle = true;
                 eventBus.Unsubscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
                 eventBus.Unsubscribe<OnVerticalInput>(TakeVerticalInputDirection);
                 eventBus.Subscribe<OnUpdate>(SteerControlReturn);
@@ -377,6 +381,7 @@ namespace PlayerSystem
             eventBus.Subscribe<OnVerticalInput>(TakeVerticalInputDirection);
             eventBus.Unsubscribe<OnUpdate>(SteerControlReturn);
             steerReturnTimer = 0.4f;
+            hitObstacle = false;
         }
 
         private void DamageTimer(OnUpdate e)
@@ -406,12 +411,12 @@ namespace PlayerSystem
             AudioManager.Instance?.Stop(PlayerSoundsEnum.DrillDig);
 
             drillJoint.enabled = false;
-            drillPhysicsRelay.transform.rotation = Quaternion.Euler(0, 0, 0);
 
             currentSpeed = 0f;
             damageTimer = 0f;
             isDrillInside = false;
             isBodyInside = false;
+            hitObstacle = false;
 
             drillPhysicsRelay.OnTriggerEnter2DAction.RemoveListener(ConfirmDrillCollision);
             drillPhysicsRelay.OnTriggerExit2DAction.RemoveListener(ConfirmDrillExit);
@@ -431,6 +436,7 @@ namespace PlayerSystem
         private void ReleaseInstantaneous()
         {
             rb2d.MoveRotation(0f);
+            drillPhysicsRelay.transform.localRotation = Quaternion.identity;
             AudioManager.Instance?.Stop(PlayerSoundsEnum.DrillTrans);
 
             eventBus.Unsubscribe<OnUpdate>(ReleaseDrill);
@@ -457,6 +463,7 @@ namespace PlayerSystem
             eventBus.Publish(new RequestMovementResume());
             eventBus.Publish(new RequestGravityOn());
             playerState.activePower = Power.None;
+            drillPhysicsRelay.gameObject.SetActive(false);
         }
 
         private void ReleaseLightObject()
@@ -482,12 +489,13 @@ namespace PlayerSystem
             if (Mathf.Approximately(newAngle, 0f))
             {
                 rb2d.MoveRotation(0f);
+                drillPhysicsRelay.transform.localRotation = Quaternion.identity;
                 playerState.activePower = Power.None;
                 eventBus.Publish(new RequestMovementResume());
                 eventBus.Publish(new RequestGravityOn());
                 AudioManager.Instance?.Stop(PlayerSoundsEnum.DrillTrans);
                 eventBus.Unsubscribe<OnUpdate>(ReleaseDrill);
-
+                drillPhysicsRelay.gameObject.SetActive(false);
             }
         }
 
