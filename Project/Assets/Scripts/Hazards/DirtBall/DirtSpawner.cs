@@ -4,46 +4,45 @@ using UnityEngine;
 
 public class DirtSpawner : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject dirtBallPrefab;
-    [SerializeField]
-    private Transform spawnPoint;
-    [SerializeField]
-    private Vector2 direction;
-    [SerializeField]
-    private float speed;
-    [SerializeField]
-    public float reloadTime;
-    [SerializeField]
-    public float startReload = 0;
-
+    [SerializeField] private bool startOnStart;
+    [SerializeField] private bool startOnEnable;
+    [SerializeField] public float startReload = 0;
+    [SerializeField] private float speed;
+    [SerializeField] public float reloadTime;
     [SerializeField] private Animator anim;
     [SerializeField] private new ParticleSystem particleSystem;
-    [SerializeField] private List<GameObject> rocksPrefabs;
-    [SerializeField] private List<GameObject> rocksDestroying;
-    public Coroutine spawnRoutine;
-    public bool start;
-    [SerializeField] private bool startOnEnable;
+    [SerializeField] private GameObject dirtBallPrefab;
+    [SerializeField] private Vector2 direction;
+    [SerializeField] private Transform spawnPoint;
+    private Coroutine spawnRoutine;
+
+    [SerializeField] private List<GameObject> rocksParticlePrefabs;
+    [SerializeField] private List<GameObject> rocksParticlesPool;
+    [SerializeField] private List<GameObject> currentRocksParticles = new();
+    private List<GameObject> rocksParticlesToBeDestroyed = new();
 
     private const float spawnTime = 1;
-
-    private List<GameObject> rocks = new List<GameObject>();
-
-    private const int rocksSpeed = 1;
-    private const int maxRocksAmount = 3;
+    private const float rocksSpeed = 0.125f;
+    private const int maxRocksParticlesAmount = 6;
 
     private void Start()
     {
-        if (start) return;
+        SetPool();
+        
+        if (!startOnStart) return;
+
         StartSpawn();
     }
+
+
+    #region RocksPrefabs
 
     public void ActivateStartOnEnable() => startOnEnable = true;
 
     void OnEnable()
     {
-        if (startOnEnable)
-            StartSpawn();
+        if (!startOnEnable) return;
+        StartSpawn();
     }
 
     public void StartSpawn()
@@ -83,40 +82,83 @@ public class DirtSpawner : MonoBehaviour
         dbScript.spawner = this;
         dbScript.setInitialSpeed(direction, speed);
         AudioManager.Instance?.Play3DSountAtPosition(RocksSounds.ThrowRock, transform.position);
-        SpawnDirtBall(time);
+        SpawnDirtBall(reloadTime);
+    }
+    #endregion
+
+    #region RocksParticles
+
+    private void SetPool()
+    {
+        for(int i = 0; i < rocksParticlePrefabs.Count; i++)
+        {
+            GameObject newRock = Instantiate(rocksParticlePrefabs[i]);
+            newRock.transform.position = transform.position;
+            newRock.transform.SetParent(transform);
+            newRock.SetActive(false);
+            rocksParticlesPool.Add(newRock);
+        }
     }
 
     private IEnumerator ThrowRocks()
     {
         int randomAmount = Random.Range(1, 4);
-        List<GameObject> rocksList = new List<GameObject>();
+        List<GameObject> rocksList = new();
+
         for (int i = 0; i < randomAmount; i++)
         {
-            GameObject obj = Instantiate(GetRandomPrefab());
-            obj.transform.position = new Vector3(spawnPoint.position.x + Random.Range(-0.4f, 0.5f), spawnPoint.position.y);
-            float verticalForce = Mathf.Abs(direction.x) > 0 ? Random.Range(0.25f, 0.751f) : 0;
-            Vector2 forceDir = new Vector2(direction.x, verticalForce) * rocksSpeed;
-            obj.GetComponent<Rigidbody2D>().AddForce(forceDir, ForceMode2D.Impulse);
-            rocksList.Add(obj);
+            GameObject rock = GetRockAvailable();
+
+            rock.transform.position = new Vector3(spawnPoint.position.x + Random.Range(-0.4f, 0.5f), spawnPoint.position.y);
+
+            float gravityModifier = direction.y > 0 ? 1 : 0f;
+            float verticalForce = Mathf.Abs(direction.x) > 0 ? Random.Range(0.25f, 0.751f) : direction.y * gravityModifier;
+            float horizontalForce = direction.x;
+            Vector2 forceDir = new Vector2(horizontalForce, verticalForce) * rocksSpeed;
+
+            rock.GetComponent<Rigidbody2D>().AddForce(forceDir, ForceMode2D.Impulse);
+
+            rocksList.Add(rock);
+
             yield return new WaitForSeconds(Random.Range(0, 0.2f));
         }
-        AddRocksToTheList(rocksList);
+
+        AddRocksParticlesToCurrentList(rocksList);
+    }
+
+    public GameObject GetRockAvailable()
+    {
+        foreach (GameObject rock in rocksParticlesPool)
+        {
+            if (!rock.activeSelf)
+            {
+                rock.SetActive(true);
+                return rock;
+            }
+        }
+        GameObject newRock = GetRandomPrefab();
+        newRock.transform.SetParent(transform);
+        rocksParticlesPool.Add(newRock);
+        return newRock;
+        //CAMBIAR
     }
 
     private GameObject GetRandomPrefab()
     {
-        int randomId = Random.Range(0, rocksPrefabs.Count);
-        return rocksPrefabs[randomId];
+        int randomId = Random.Range(0, rocksParticlePrefabs.Count);
+        GameObject newRock = Instantiate(rocksParticlePrefabs[randomId]);
+        return newRock;
     }
 
-    public void AddRocksToTheList(List<GameObject> newRocks)
+    public void AddRocksParticlesToCurrentList(List<GameObject> newRocks)
     {
+        if (newRocks.Count == 0) return;
         foreach (GameObject newRock in newRocks)
         {
-            rocks.Add(newRock);
+            currentRocksParticles.Add(newRock);
         }
 
-        if (rocks.Count > maxRocksAmount)
+        if (currentRocksParticles.Count > maxRocksParticlesAmount)
         {
             RemoveRockFromList();
         }
@@ -124,29 +166,30 @@ public class DirtSpawner : MonoBehaviour
 
     private void RemoveRockFromList()
     {
-        while (rocks.Count > maxRocksAmount)
+        while (currentRocksParticles.Count > maxRocksParticlesAmount)
         {
-            GameObject rockToRemove = rocks[0];
-            if (!isActiveAndEnabled)
+            GameObject rockToReset = currentRocksParticles[0];
+            if (isActiveAndEnabled)
             {
-                Destroy(rockToRemove);
+                StartCoroutine(FadeAndReset(rockToReset));
             }
             else
             {
-                StartCoroutine(FadeAndDestroy(rockToRemove));
+                rockToReset.SetActive(false);
+                rockToReset.transform.position = transform.position;
             }
 
-            rocks.RemoveAt(0);
+            currentRocksParticles.Remove(rockToReset);
         }
     }
 
-    private IEnumerator FadeAndDestroy(GameObject objToBeDestroyed)
+    private IEnumerator FadeAndReset(GameObject objToBeReset)
     {
-        if (objToBeDestroyed == null || rocksDestroying.Contains(objToBeDestroyed)) yield break;
+        if (objToBeReset == null || rocksParticlesToBeDestroyed.Contains(objToBeReset)) yield break;
 
-        rocksDestroying.Add(objToBeDestroyed);
+        rocksParticlesToBeDestroyed.Add(objToBeReset);
 
-        SpriteRenderer sr = objToBeDestroyed?.GetComponent<SpriteRenderer>();
+        SpriteRenderer sr = objToBeReset?.GetComponent<SpriteRenderer>();
 
         if (sr != null)
         {
@@ -162,12 +205,14 @@ public class DirtSpawner : MonoBehaviour
                 yield return null;
             }
 
-            Color finalColor = sr.color;
-            finalColor.a = 0;
-            sr.color = finalColor;
+            objToBeReset.SetActive(false);
+            objToBeReset.transform.position = transform.position;
+            rocksParticlesToBeDestroyed.Remove(objToBeReset);
 
-            rocksDestroying.Remove(objToBeDestroyed);
-            Destroy(objToBeDestroyed);
+            Color finalColor = sr.color;
+            finalColor.a = 1;
+            sr.color = finalColor;
         }
     }
+    #endregion
 }

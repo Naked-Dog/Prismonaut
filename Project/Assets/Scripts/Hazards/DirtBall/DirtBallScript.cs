@@ -15,6 +15,7 @@ public class DirtBallScript : MonoBehaviour
     private string randomAnim;
     private string currentAnim;
     const float startTime = 1;
+    const float maxVerticalSpeed = 18;
     private float t = startTime;
     private const float baseDeathTime = 1;
     [System.NonSerialized] public bool isBeingDrilled = false;
@@ -42,6 +43,9 @@ public class DirtBallScript : MonoBehaviour
             if (t < 0) Death();
         }
         else t = startTime;
+
+        if (Mathf.Abs(rb.linearVelocityY) > maxVerticalSpeed)
+            rb.linearVelocityY = maxVerticalSpeed * Mathf.Sign(rb.linearVelocityY);
     }
 
     private void LateUpdate()
@@ -93,7 +97,7 @@ public class DirtBallScript : MonoBehaviour
 
     private void Death()
     {
-        if (isDead) return;
+        if (isDead || spawner == null) return;
         isDead = true;
 
         // if (spawner != null)
@@ -104,24 +108,28 @@ public class DirtBallScript : MonoBehaviour
         int maxAmountRocks = Random.Range(2, 6);
         List<GameObject> rocksList = new List<GameObject>();
 
-        for (int i = 0; i < rocks.Count; i++)
+        for (int i = 0; i < maxAmountRocks; i++)
         {
-            bool shouldBeUsed = true;
+            GameObject rock = spawner.GetRockAvailable();
+            rock.transform.position = transform.position;
+            rock.SetActive(true);
+            rocksList.Add(rock);
+            // bool shouldBeUsed = true;
 
-            if (Random.value > 0.5f || rocksList.Count > maxAmountRocks)
-                shouldBeUsed = false;
+            // if (Random.value > 0.5f || rocksList.Count > maxAmountRocks)
+            //     shouldBeUsed = false;
 
-            if (shouldBeUsed && rocks[i] != null)
-            {
-                rocks[i].transform.parent = null;
-                rocks[i].SetActive(true);
-                rocksList.Add(rocks[i]);
-            }
+            // if (shouldBeUsed && rocks[i] != null)
+            // {
+            //     rocks[i].transform.parent = null;
+            //     rocks[i].SetActive(true);
+            //     rocksList.Add(rocks[i]);
+            // }
         }
 
         if (spawner != null)
         {
-            spawner.AddRocksToTheList(rocksList);
+            spawner.AddRocksParticlesToCurrentList(rocksList);
         }
 
         Vector3 deathPos = transform.position;
@@ -154,7 +162,7 @@ public class DirtBallScript : MonoBehaviour
         }
 
         float minSpeed = Mathf.Abs(rb.linearVelocityY) > 0 ? 0.3f : 0;
-        float LerpSpeed = Mathf.InverseLerp(0, maxSpeed, Mathf.Abs(rb.linearVelocityX));
+        float LerpSpeed = Mathf.InverseLerp(0, maxVerticalSpeed, Mathf.Abs(rb.linearVelocityX));
         float animationSpeed = Mathf.Max(LerpSpeed, minSpeed);
         anim.speed = animationSpeed;
     }
