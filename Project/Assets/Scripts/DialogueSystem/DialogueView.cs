@@ -85,17 +85,17 @@ public class DialogueView : MonoBehaviour
 
     public IEnumerator OpenDialoguePanel()
     {
-        HUDCanvas = GameObject.FindWithTag("HUD");
-        HUDCanvas.SetActive(false);
+        RefreshHUD();
         dialoguePanelContainer.gameObject.SetActive(true);
         Tween openTween = panelRecTransform.DOScale(Vector3.one, 0.3f);
+        HUDCanvas?.SetActive(false);
         yield return openTween.WaitForCompletion();
     }
 
     public IEnumerator CloseDialoguePanel()
     {
-        HUDCanvas.SetActive(true);
         Tween closeTween = panelRecTransform.DOScale(Vector3.zero, 0.3f);
+        HUDCanvas?.SetActive(true);
         yield return closeTween.WaitForCompletion();
 
         dialoguePanelContainer.SetActive(false);
@@ -104,5 +104,13 @@ public class DialogueView : MonoBehaviour
     public void DisplayFullText(string fullText)
     {
         dialogueTMPText.text = fullText;
+    }
+
+    private void RefreshHUD()
+    {
+        if (HUDCanvas == null)
+        {
+            HUDCanvas = GameObject.FindWithTag("HUD");
+        }
     }
 }
