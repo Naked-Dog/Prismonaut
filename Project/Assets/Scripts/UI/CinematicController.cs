@@ -56,6 +56,7 @@ public class CinematicController : MonoBehaviour
 
     private void SkipCinematic()
     {
+        AudioManager.Instance.Play2DSound(DialogueSoundsEnum.Skip);
         videoPlayer.Stop();
         EnableInputs();
         skipAction.started -= skipActionDelegate;

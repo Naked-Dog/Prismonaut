@@ -31,12 +31,12 @@ public class PlayerPowersScriptable : ScriptableObject
     public float drillSecondSteeringAmount = 4f;
 
     [Header("Light")]
-    public float lightDrillDamagePerSecond = 2f;
+    public float lightDrillDamagePerSecond = 1f;
     public float lightObjectExitForce = 2f;
     public float lightPlayerExitForce = 2f;
 
     [Header("Heavy")]
-    public float heavyDrillDamagePerSecond = 4f;
+    public float heavyDrillDamagePerSecond = 2f;
     public float heavyDrillSpeed = 2f;
     public float steerReturnTimer = 0.4f;
     public float heavyExitForceImpulse = 2f;

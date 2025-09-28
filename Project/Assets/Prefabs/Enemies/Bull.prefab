@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8515350811615160316}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: BullHorns
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,13 +160,25 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ShowDiegeticInfoByID
+        m_TargetAssemblyTypeName: HintsManager, Assembly-CSharp
+        m_MethodName: ShowHintByIndex
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 7
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AudioEvents, Assembly-CSharp
+        m_MethodName: PlayBossRoomMusic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -562,7 +574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce1b18641954aa44ea6faf6ac8bc6f42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPerBar: 6
+  healthPerBar: 10
   regenDelay: 2
   segments:
   - healthBar: {fileID: 6868068996885618026}
