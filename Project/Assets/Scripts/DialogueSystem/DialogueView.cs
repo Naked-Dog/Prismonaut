@@ -21,6 +21,8 @@ public class DialogueView : MonoBehaviour
     [SerializeField] private GameObject choisesContainer;
     [SerializeField] private GameObject choisesPrefab;
 
+    private GameObject HUDCanvas;
+
     private RectTransform panelRecTransform => dialoguePanelContainer.GetComponent<RectTransform>();
 
     public void SetDialoguePanel(DialogueType type, bool resume = false)
@@ -83,6 +85,8 @@ public class DialogueView : MonoBehaviour
 
     public IEnumerator OpenDialoguePanel()
     {
+        HUDCanvas = GameObject.FindWithTag("HUD");
+        HUDCanvas.SetActive(false);
         dialoguePanelContainer.gameObject.SetActive(true);
         Tween openTween = panelRecTransform.DOScale(Vector3.one, 0.3f);
         yield return openTween.WaitForCompletion();
@@ -90,6 +94,7 @@ public class DialogueView : MonoBehaviour
 
     public IEnumerator CloseDialoguePanel()
     {
+        HUDCanvas.SetActive(true);
         Tween closeTween = panelRecTransform.DOScale(Vector3.zero, 0.3f);
         yield return closeTween.WaitForCompletion();
 
