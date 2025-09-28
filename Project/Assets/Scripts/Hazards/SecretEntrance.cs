@@ -32,6 +32,8 @@ public class SecretEntrance : MonoBehaviour
     {
         parentObject.GetComponent<Collider2D>().enabled = false;
 
+        AudioManager.Instance.Play2DSound(PlayerSoundsEnum.Heal);
+
         if (fakeTileMap != null)
         {
             float fadeSpeed = 1f;

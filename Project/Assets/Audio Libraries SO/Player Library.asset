@@ -80,7 +80,7 @@ MonoBehaviour:
         volume: 1
     - Key: 15
       Value:
-        clip: {fileID: 0}
+        clip: {fileID: 8300000, guid: d8c0cb3b6b7dafe49924de81b4507d4a, type: 3}
         volume: 1
     - Key: 16
       Value:
