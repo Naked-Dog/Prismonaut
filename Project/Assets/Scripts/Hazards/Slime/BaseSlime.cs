@@ -65,6 +65,7 @@ public abstract class BaseSlime : MonoBehaviour
         }
         AudioManager.Instance.Play2DSound(SlimeSoundsEnum.Hit);
         anim.Play("BounceIn");
+        //!DeactivatePowersBesideSquare
 
         while (elapsed < waitTime)
         {
@@ -88,6 +89,16 @@ public abstract class BaseSlime : MonoBehaviour
             DoBounce(bv);
             yield return new WaitForSeconds(0.1f);
             busy.Remove(rb);
+
+            //THIS NEEDS TO BE IMPROVED, THIS IS SHIT
+            // if (player)
+            // {
+            //     player.StopPlayerActions();
+
+            //     yield return new WaitForSeconds(0.35f);
+
+            //     player.ResumePlayerActions();
+            // }
         }
     }
 
@@ -107,29 +118,29 @@ public abstract class BaseSlime : MonoBehaviour
         }
     }
 
-    protected virtual void DoBounce(BounceValues bv)
+    protected virtual void DoBounce(BounceValues bValues)
     {
         Vector2 newVel;
-        if (bv.bounceOnY)
+        if (bValues.bounceOnY)
         {
-            float dirY = -Mathf.Sign(bv.normal.y);
+            float dirY = -Mathf.Sign(bValues.normal.y);
             newVel = new Vector2(
-                bv.relativeSpeed.x * (1 + Mathf.Clamp(bv.bounceImpulse, 0, bv.oppositeDirMult)),
-                bv.bounceImpulse * dirY
+                bValues.relativeSpeed.x * (1 + Mathf.Clamp(bValues.bounceImpulse, 0, bValues.oppositeDirMult)),
+                bValues.bounceImpulse * dirY
             );
         }
         else
         {
-            float dirX = -Mathf.Sign(bv.normal.x);
-            float oppMult = bv.relativeSpeed.y > 0 ? bv.oppositeDirMult : 0;
+            float dirX = -Mathf.Sign(bValues.normal.x);
+            float oppMult = bValues.relativeSpeed.y > 0 ? bValues.oppositeDirMult : 0;
             newVel = new Vector2(
-                bv.bounceImpulse * dirX,
-                bv.relativeSpeed.y * (1 + Mathf.Clamp(bv.bounceImpulse, 0, oppMult))
+                bValues.bounceImpulse * dirX,
+                bValues.relativeSpeed.y * (1 + Mathf.Clamp(bValues.bounceImpulse, 0, oppMult))
             );
         }
 
-        bv.rb.linearVelocity = Vector2.zero;
-        bv.rb.AddForce(newVel, ForceMode2D.Impulse);
+        bValues.rb.linearVelocity = Vector2.zero;
+        bValues.rb.AddForce(newVel, ForceMode2D.Impulse);
         pendingBounce = null;
     }
 
@@ -144,7 +155,10 @@ public abstract class BaseSlime : MonoBehaviour
         pendingBounce = null;
     }
 
-    protected abstract void DoOnReflect(BounceValues bv);
+    protected virtual void DoOnReflect(BounceValues bv)
+    {
+        bv.bounceImpulse = ss.maxBounceSpeed;
+    }
 
     [ContextMenu("Test ReceiveAttack")]
     private void TestAttack() => ReceiveReflect();

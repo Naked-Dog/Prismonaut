@@ -38,6 +38,7 @@ namespace PlayerSystem
         private PlayerBaseModule baseModule;
         readonly float maxLandingBreakCooldown = 0.1f;
         private bool pauseMovement = false;
+        private bool willDoBreak = true;
 
         public Physics2DMovement(
             EventBus eventBus,

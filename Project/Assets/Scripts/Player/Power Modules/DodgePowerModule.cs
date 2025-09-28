@@ -49,12 +49,18 @@ namespace PlayerSystem
 
         private void OnHorizontaInput(OnHorizontalInput e)
         {
-            inputDirection.x = e.amount;
+            if (Mathf.Abs(e.amount) < 0.25f)
+                inputDirection.x = 0;
+            else
+                inputDirection.x = Mathf.Sign(e.amount);
         }
 
         private void OnVerticalInput(OnVerticalInput e)
         {
-            inputDirection.y = e.amount;
+            if (Mathf.Abs(e.amount) < 0.25f)
+                inputDirection.y = 0;
+            else
+                inputDirection.y = e.amount;
         }
 
         private void OnCirclePowerInput(OnCirclePowerInput e)
