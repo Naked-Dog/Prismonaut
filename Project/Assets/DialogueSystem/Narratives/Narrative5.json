@@ -4,48 +4,24 @@
             "id": "conversation_5",
             "dialogues": [
                 {
-                    "text": "What the hell is that in front of me?",
+                    "text": "Esa cosa verde debería preocuparme?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "New surface detected.\nClassification: soft... not penetrable.",
+                    "text": "ANALIZANDO...\nResultados: superficie suave\nNo penetrable.",
                     "actor": "AI"
                 },
                 {
-                    "text": "So... what am I supposed to do with this?",
+                    "text": "Entonces...como procedo?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "It has properties similar to rebound materials\nknown on your planet. If you impact it from a\ncertain distance, you should...",
+                    "text": "Interactuar para un impulso adicional\nConocido en tu especie como: REBOTAR",
                     "actor": "AI"
                 },
                 {
-                    "text": "Bounce?\nAre you telling me I can bounce?!",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "Affirmative. The strength of the rebound will\ndepend on the height and speed of the impact.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "I like how you think... or whatever you do before...\nspeaking?",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "...",
-                    "actor": "AI"
-                },
-                {
-                    "text": "...",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "Before initiating the rebound, make sure to\ncheck what's in your trajectory.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Thanks.",
-                    "actor": "Prismonaut"
+                    "text": "Rebotar?\nEsto no podría ponerse más extraño...",
+                    "actor": "Prismonaut"               
                 }
             ],
             "choices": []

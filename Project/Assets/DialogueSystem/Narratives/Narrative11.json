@@ -4,23 +4,23 @@
             "id": "conversation_11",
             "dialogues": [
                 {
-                    "text": "Where are we?\nWhat the hell are those things?!\nScan the environment, now.",
+                    "text": "Dónde estamos?\nQué diablos son esas cosas?!\nEscanea ahora.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Analyzing environment...\nBiotic factors...\n...",
+                    "text": "...RESULTADOS:\nSeñal biológica detectada.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Analyzing environment... Such closed spaces\nwith organic presence... According to the\nenvironmental data, this shouldn't be possible.",
+                    "text": "Eso no me gusta nada.\nEstas cosas están latiendo!\n(respiración agitada)",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "Procede con cautela.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Proceed with caution.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "I trust you.",
+                    "text": "...",
                     "actor": "Prismonaut"
                 }
             ],

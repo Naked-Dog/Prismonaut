@@ -4,27 +4,19 @@
             "id": "conversation_1",
             "dialogues": [
                 {
-                    "text": "...\nLanding recorded. Current location: unknown.\nRecovering data...",
+                    "text": "\nIngreso abrupto del vórtice.\nLocalización: DESCONOCIDA \nRecuperando información...",
                     "actor": "AI"
                 },
                 {
-                    "text": "That was a terrible landing... \nI have never seen anything like this place before...",
+                    "text": "Ese fue un aterrizaje terrible, \nnunca vi un lugar como este...",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "...",
+                    "text": "SISTEMAS DAÑADOS\nreintentando...",
                     "actor": "AI"
                 },
                 {
-                    "text": "I need all the data you can gather from here. \nLoad your previous logs and compare",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "Expedition history: cleared.\nThis is your first mission.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "What do you mean?! We've been doing this for year-",
+                    "text": "Necesito toda la información que puedas recopilar. \nCarga tus anteriores registros y comprueba",
                     "actor": "Prismonaut"
                 }
             ],

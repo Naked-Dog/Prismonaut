@@ -4,24 +4,24 @@
             "id": "conversation_13",
             "dialogues": [
                 {
-                    "text": "That... was too much...\nWhat the hell is that sound?\nWhy can't I see anything?!",
+                    "text": "Esa criatura fue demasiado...\nAhora que rayos es ese ruido!?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Incomplete biometric factor analysis.\nPlease try to keep the beings alive long enough\nto complete the analysis.",
+                    "text": "Movimiento detectado, nula visibilidad\nIntenta mantenerte vivo lo suficiente\npara completar el análisis...",
                     "actor": "AI"
                 },
                 {
-                    "text": "I understand. No, thanks.\nWhat should I do now?!",
+                    "text": "QUÉ QUIERES DECIR CON ESO!?\nQUÉ SE SUPONE QUE HAGA AHORA!?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Anomalous movement detected... It matches the\nlocation of the eggs registered in the previous\nzone. This could be a sign of hatching.",
+                    "text": "Pulsaciones incrementadas...\nColisión inminente....\nPrepárarse para... ESTAMPIDA",
                     "actor": "AI"
                 },
                 {
-                    "text": "Recommend evacuating the area immediately.\nHead to the tunnel. Run!",
-                    "actor": "AI"
+                    "text": "QUEEEEEEEEEEEEEEE!!",
+                    "actor": "Prismonaut"
                 }
             ],
             "choices": []

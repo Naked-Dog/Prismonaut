@@ -4,40 +4,32 @@
             "id": "conversation_10",
             "dialogues": [
                 {
-                    "text": "Processing... Analyzing environment...\n... Analyzing...\nFactors...",
+                    "text": "Procesando...\nELEMENTO INTEGRADO CON ÉXITO.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Hey... that thing that just appeared, does it\nmean I now have three charges?",
+                    "text": "Hey...\nentonces contamos con 3 cargas ahora?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Affirmative.\nThe material that appeared after collecting the\nprism does not match any previous records.",
+                    "text": "Afirmativo.\nAnalizando trayectoria PORTAL próximo.",
                     "actor": "AI"
                 },
                 {
-                    "text": "There it is again... We've seen this before.\nIt’s a portal. Each prism I take alters the planet’s\nstructure. You notice, right?",
+                    "text": "Es idéntico al que nos condujo a este lugar,\npero...a dónde lleva?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "...\nProcessing...",
+                    "text": "...\nPROCESANDO...",
                     "actor": "AI"
                 },
                 {
-                    "text": "Don’t overthink it. We’ve done this before, and\nit never caused any problems.",
+                    "text": "No vale la pena analizarlo,\nsolo nos queda seguir adelante...",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "After all I've seen here I know what to do..\nGo through your initial protocols.\nAnalyze, study, and understand everything you\nsee. I need you to be back to full functionality.",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "Understood. Re-establishing protocols.",
+                    "text": "Afirmativo, confía en tus habilidades\ny todo lo aprendido.",
                     "actor": "AI"
-                },
-                {
-                    "text": "Let’s cross it then.",
-                    "actor": "Prismonaut"
                 }
             ],
             "choices": []

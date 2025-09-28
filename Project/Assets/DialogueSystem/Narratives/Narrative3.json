@@ -4,27 +4,27 @@
             "id": "conversation_3",
             "dialogues": [
                 {
-                    "text": "Analyzing environment...\nImpact zone: cave network.\nDo you want me to save this new environment data?",
+                    "text": "Entorno: CAVERNA HOSTIL\nAnalizando elementos cercanos...",
                     "actor": "AI"
                 },
                 {
-                    "text": "Yeah.. I can't believe you have lost all your previous data..\n",
+                    "text": "Si...esas cosas se ven peligrosas\n",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Tutorial information!\nThe suit is capable to keep you away from damage and increase your kinetic energy \nis recommended to pass through this cave environment.",
+                    "text": "DATOS ENCONTRADOS\nEn modo DASH, el traje te otorga invulnerabilidad.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Oh, great.. now is giving me tips like\nI was a rookie...",
+                    "text": "Entendido, espero funcione...\n(suspiro)",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Remember: after using an ability, the system\nneeds to recharge before a new use.\nThe suit’s charge status is visible on your interface.",
+                    "text": "Recuerda, después de usar una habilidad\nel traje necesita recargar.\nAtento al icono circular proyectado.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Yeah, I know, thanks.",
+                    "text": "Lo sé, intentemoslo.",
                     "actor": "Prismonaut"
                 }
             ],

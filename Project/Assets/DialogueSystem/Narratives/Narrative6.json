@@ -4,23 +4,23 @@
             "id": "conversation_6",
             "dialogues": [
                 {
-                    "text": "This is the same as the other ones, right?",
+                    "text": "Estos muros también me impulsarán, verdad?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Incorrect.\nThis one is slightly penetrable",
+                    "text": "Incorrecto.\nDetectando propiedades dispares.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Oh, so I can pass through?",
+                    "text": "Tal vez una nueva habili...",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "But strong force is required...\nTutorial information!\nThe shield block can repel attacks \nand reflect any object that you touc-",
+                    "text": "DATOS ENCONTRADOS\nHabilidad recomendada: BLOQUEO\nRepele fuerzas o impactos contrarios.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Yeah yeah I know how it works..\nOkay I'll try that",
+                    "text": "Ha-ha, justo a tiempo.\nLo intentaré.",
                     "actor": "Prismonaut"
                 }
             ],

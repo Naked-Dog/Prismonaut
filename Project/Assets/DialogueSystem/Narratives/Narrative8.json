@@ -4,39 +4,27 @@
             "id": "conversation_8",
             "dialogues": [
                 {
-                    "text": "Processing...\nYou have obtained a second charge.",
+                    "text": "Procesando...\nElemento PRISMA reconocido\nApto para integrarse al traje.",
                     "actor": "AI"
                 },
                 {
-                    "text": "What?",
+                    "text": "Qué!?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Until now, you could only use one ability and\nwait for it to recharge. Now you can execute\ntwo in a row.",
+                    "text": "Configuración actual limitada a una carga.\nEste nuevo elemento permite al traje\nadaptarse a dos formas seguidas.",
                     "actor": "AI"
                 },
                 {
-                    "text": "WHAT?\nCan I combine them or just repeat the same one?",
+                    "text": "Eso sí suena útil.",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Both options are valid.\nHowever, avoid running out of charges in\ncritical situations.",
+                    "text": "Afirmativo.\nSin embargo, atento al indicador\nadaptando su uso a tu entorno.",
                     "actor": "AI"
                 },
                 {
-                    "text": "I know you don't remember anything... but\nthis never happened before. So the suit\ncould always give metwo charges?",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "Negative... initially.\nMy records indicate that a version of the suit\nwith that feature was in preproduction.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "However, its full implementation was expected\nto take several years.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "So, either we’re in the future... or this planet\nactivated something in the suit. I’ll take it as\nan upgrade for now.",
+                    "text": "Adaptarme al entorno, entendido.",
                     "actor": "Prismonaut"
                 }
             ],

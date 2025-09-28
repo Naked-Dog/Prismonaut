@@ -4,23 +4,27 @@
             "id": "conversation_12",
             "dialogues": [
                 {
-                    "text": "Alert!",
+                    "text": "ALERTA",
                     "actor": "AI"
                 },
                 {
-                    "text": "Biotic factors detected.\nThey are... eggs.\nSpecies: unknown. Proceed with caution.",
-                    "actor": "AI"
-                },
-                {
-                    "text": "Thanks for the heart attack.\nSo, they’re eggs?\nAnd how long until they hatch, huh?!",
+                    "text": "!!!",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Processing...\nImpossible to determine precisely. My current\nrecords lack sufficient data on their gestation cycle.",
+                    "text": "Coincidencias detectadas:\nHuevos de especie insectoide.\nEclosión pronta en base a pulsaciones",
                     "actor": "AI"
                 },
                 {
-                    "text": "Well, at least you identified them.",
+                    "text": "Es lo peor que podrías decirme, definitivamente estamos en una colmena!",
+                    "actor": "Prismonaut"
+                },
+                {
+                    "text": "EVACUACIÓN INMEDIATA, razas similares usan\nESPECIMENES ADULTOS AGRESIVOS\nal cuidado del enjambre.",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Eso no suena nada alentador!",
                     "actor": "Prismonaut"
                 }
             ],
