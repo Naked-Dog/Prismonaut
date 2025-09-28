@@ -8300,6 +8300,7 @@ MonoBehaviour:
   solidBG: {fileID: 2026040841}
   mainMenuPanel: {fileID: 378858578}
   gameMenuPanel: {fileID: 400564318}
+  playerActions: {fileID: -944628639613478452, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
 --- !u!114 &737934808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8603,21 +8604,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 737934807}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: ChangeScene
-        m_Mode: 5
+      - m_Target: {fileID: 859271254}
+        m_TargetAssemblyTypeName: OptionItemUI, Assembly-CSharp
+        m_MethodName: playSelectSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Menu
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 859271254}
-        m_TargetAssemblyTypeName: OptionItemUI, Assembly-CSharp
-        m_MethodName: playSelectSound
+      - m_Target: {fileID: 737934807}
+        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
+        m_MethodName: GameReturnToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12652,7 +12653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 178160748}
+  m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1900413659

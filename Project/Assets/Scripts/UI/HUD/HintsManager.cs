@@ -95,6 +95,24 @@ public class HintsManager : MonoBehaviour
         });
 
         currentTween = seq;
+
+        if (GameManager.Instance)
+        {
+            if (type == HintType.Dash)
+            {
+                GameManager.Instance.UnlockDodgePower();
+            }
+
+            if (type == HintType.Drill)
+            {
+                GameManager.Instance.UnlockDrillPower();
+            }
+
+            if (type == HintType.Parry)
+            {
+                GameManager.Instance.UnlockShieldPower();
+            }
+        }
     }
 
     private void OnDestroy()

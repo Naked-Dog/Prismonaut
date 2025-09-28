@@ -10,7 +10,6 @@ public class GameDataManager : MonoBehaviour
     {
         if(Instance != null)
         {
-            Debug.LogWarning("Game Data Manager alredy exists");
             Destroy(gameObject);
             return;
         }

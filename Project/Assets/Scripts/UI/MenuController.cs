@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using PlayerSystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class MenuController : MonoBehaviour
@@ -9,6 +11,8 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject solidBG;
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject gameMenuPanel;
+    [SerializeField] private InputActionAsset playerActions;
+    private InputActionMap playerUIMap => playerActions.FindActionMap("UI");
 
     public static MenuController Instance { get; private set; }
 
@@ -61,7 +65,7 @@ public class MenuController : MonoBehaviour
             yield return null;
         }
 
-        setMenuDisplay(sceneName);
+        SetMenuDisplay(sceneName);
         // yield return new WaitForSeconds(1);
 
         AudioManager.Instance.PlayMusic(GetMusicClip());
@@ -108,7 +112,7 @@ public class MenuController : MonoBehaviour
         gameMenuPanel.SetActive(false);
     }
 
-    private void setMenuDisplay(string sceneName)
+    private void SetMenuDisplay(string sceneName)
     {
         switch (sceneName)
         {
@@ -116,6 +120,7 @@ public class MenuController : MonoBehaviour
                 if (mainMenuPanel == null) mainMenuPanel = GameObject.Find("MainMenuPanel");
                 mainMenuPanel.SetActive(true);
                 gameMenuPanel.SetActive(false);
+                playerUIMap.Enable();
                 break;
             default:
                 if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
@@ -156,5 +161,11 @@ public class MenuController : MonoBehaviour
             default:
                 return MusicEnum.None;
         }
+    }
+
+    public void GameReturnToMenu()
+    {
+        eventBus.Publish(new RequestUnpause());
+        ChangeScene("Menu");
     }
 }
