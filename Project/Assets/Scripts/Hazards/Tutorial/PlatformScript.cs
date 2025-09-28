@@ -30,7 +30,7 @@ public class PlatformScript : MonoBehaviour
     {
         if(transform.position.y + topPlatformHeight < lavaTransform.position.y + lavaHeightDiff && !isPlatformDead)
         {
-            PlatformManager.Instance.RemovePlatform(this);
+            // PlatformManager.Instance.RemovePlatform(this);
             isPlatformDead = true;
             Destroy(gameObject, timeToDie);
         }
@@ -46,7 +46,7 @@ public class PlatformScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            platformManager.PlayerSteppedOnPlatform(this);
+            // platformManager.PlayerSteppedOnPlatform(this);
         }
     }
 }

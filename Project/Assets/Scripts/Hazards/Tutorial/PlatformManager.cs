@@ -6,7 +6,7 @@ public class PlatformManager : MonoBehaviour
     public static PlatformManager Instance { get; private set; }
     public GameObject lavaManager;
 
-    public List<PlatformScript> platforms = new List<PlatformScript>();
+    public List<LavaPlatform> lavaPlatforms = new();
     [SerializeField] private int platformIndex = -1;
     private float gravityScale = 0.15f;
     private bool playerOnPlatform = false;
@@ -23,53 +23,39 @@ public class PlatformManager : MonoBehaviour
         Instance = this;
     }
 
-    void Update()
+    void Start()
     {
-        if(platforms.Count >= 1 && eventStarted && !eventFinished) MakePlatformsFall();//temporal
-    }
-
-    public void PlayerSteppedOnPlatform(PlatformScript platform)
-    {
-        if (!playerOnPlatform)
+        foreach (LavaPlatform lPlatform in lavaPlatforms)
         {
-            platformIndex = platforms.IndexOf(platform);
-            playerOnPlatform = true;
+            lPlatform.InitPlatform(this, lavaPlatforms.Count);
         }
     }
 
-    private void MakePlatformsFall()
+    public void PlayerSteppedOnPlatform(LavaPlatform platform)
     {
-        if (platforms.Count > 0 && platforms[0] != platforms[platformIndex] && platformIndex != -1)
+        if (platformIndex == platform.GetPlatformIndex()) return;
+
+        platformIndex = platform.GetPlatformIndex();
+        foreach (LavaPlatform lPlatform in lavaPlatforms)
         {
-            float gravityMultiplier = (platformIndex - platforms.IndexOf(platforms[0])) * 2;
-            platforms[0].StartFalling(gravityScale * gravityMultiplier);
+            lPlatform.UpdateMovement(platformIndex);
         }
     }
 
-    public void StartPlatforms()//temporal
+    public void StartSequence()
     {
-        eventStarted = true;
-        foreach (var platform in platforms)
+        foreach (LavaPlatform lPlatform in lavaPlatforms)
         {
-            platform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            lPlatform.ResetTimeToMove(lavaPlatforms.Count);
+            lPlatform.SetPlatformStart();
         }
     }
 
-    public void FinishEvent()
+    public void FinishSequence()
     {
-        if(platforms.Count != 0)
+        foreach (LavaPlatform lPlatform in lavaPlatforms)
         {
-            foreach (var platform in platforms)
-            {
-                platform.StartFalling(gravityScale * 4);
-                Destroy(platform.gameObject, 4);
-            }
+            lPlatform.UpdateMovement(lavaPlatforms.Count + 3);
         }
-    }
-
-    public void RemovePlatform(PlatformScript platform)
-    {
-        platforms.Remove(platform);
-        if(platforms.Count == 0) eventFinished = true;
     }
 }
