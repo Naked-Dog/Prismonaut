@@ -48,8 +48,8 @@ public class GameManager : MonoBehaviour
     [Header("Collectables")]
     [SerializeField] private int levelTargetGems = 3;
     [SerializeField] private int collectedGems = 0;
-    [SerializeField] private int collectedPrisms = 0;
-    [SerializeField] private int playerCharges = 1;
+    [SerializeField] private int collectedPrisms;
+    [SerializeField] private int playerCharges;
 
     [Header("GameWin")]
     [SerializeField] private GameObject[] endGamePortals;
@@ -59,7 +59,10 @@ public class GameManager : MonoBehaviour
 
     public bool ShieldUnlocked {get; private set; }
     public bool DrillUnlocked {get; private set; }
-    public bool DodgeUnlocked {get; private set; }
+    public bool DodgeUnlocked { get; private set; }
+
+    const int initialPlayerCharges = 1;
+    const int initialPlayerCollectedPrism = 0;
 
     #region Old Code
     public static int maxLifes = 3;
@@ -92,6 +95,8 @@ public class GameManager : MonoBehaviour
             ShieldUnlocked = false;
             DrillUnlocked = false;
             DodgeUnlocked = false;
+            collectedPrisms = initialPlayerCollectedPrism;
+            playerCharges = initialPlayerCharges;
         }
 
         PrismsUIController.Instance?.InitUI(collectedPrisms);

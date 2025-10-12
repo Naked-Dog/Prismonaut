@@ -343,4 +343,29 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
+    public bool IsSameMusicPlaying<TEnum>(TEnum key) where TEnum : Enum
+    {
+        if (!musicSource.isPlaying) return false;
+
+        if (!libraryMap.TryGetValue(typeof(TEnum), out var baseLib))
+        {
+            return false;
+        }
+
+        var lib = baseLib as AudioLibrary<TEnum>;
+        var customClip = lib?.GetClip(key);
+
+        if (customClip == null)
+        {
+            return false;
+        }
+
+        if (musicSource.clip == customClip.clip)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }
