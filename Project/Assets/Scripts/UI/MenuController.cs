@@ -34,7 +34,7 @@ public class MenuController : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.Instance.PlayMusic(GetMusicClip());
+        AudioManager.Instance.PlayMusic(GetMusicClipByCurrentActiveScene());
     }
 
     public void ChangeScene(string sceneName)
@@ -56,7 +56,14 @@ public class MenuController : MonoBehaviour
         yield return fadeIn.WaitForCompletion();
 
         if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
-        AudioManager.Instance.StopMusic();
+
+        MusicEnum nextSceneMusic = GetMusicClipByScene(sceneName);
+        bool IsNextSceneMusicActuallyPlaying = AudioManager.Instance.IsSameMusicPlaying(nextSceneMusic);
+
+        if (nextSceneMusic == MusicEnum.None || !IsNextSceneMusicActuallyPlaying)
+        {
+            AudioManager.Instance.StopMusic();
+        }
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
 
@@ -68,7 +75,10 @@ public class MenuController : MonoBehaviour
         SetMenuDisplay(sceneName);
         // yield return new WaitForSeconds(1);
 
-        AudioManager.Instance.PlayMusic(GetMusicClip());
+        if(!IsNextSceneMusicActuallyPlaying)
+        {
+            AudioManager.Instance.PlayMusic(GetMusicClipByCurrentActiveScene());
+        }
 
         Tween fadeOut = backgroundImage.DOFade(0, 0.5f);
         yield return fadeOut.WaitForCompletion();
@@ -147,9 +157,14 @@ public class MenuController : MonoBehaviour
         eventBus.Publish(new RequestUnpause());
     }
 
-    private MusicEnum GetMusicClip()
+    private MusicEnum GetMusicClipByCurrentActiveScene()
     {
-        switch (SceneManager.GetActiveScene().name)
+        return GetMusicClipByScene(SceneManager.GetActiveScene().name);
+    }
+
+    private MusicEnum GetMusicClipByScene(string sceneName)
+    {
+        switch (sceneName)
         {
             case "Menu":
                 return MusicEnum.Menu;
