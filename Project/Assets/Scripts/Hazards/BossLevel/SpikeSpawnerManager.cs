@@ -31,7 +31,6 @@ public class SpikeSpawnerManager : MonoBehaviour
         if (listActivators.Count == 0) return;
         foreach (SpikeSpawner spawner in listActivators)
         {
-            spawner.HandlePrepareSpike();
         }
     }
     private void SecondStage()
@@ -39,7 +38,6 @@ public class SpikeSpawnerManager : MonoBehaviour
         if (listFalling.Count == 0) return;
         foreach (SpikeSpawner spawner in listFalling)
         {
-            spawner.HandlePrepareSpike();
         }
     }
 
@@ -47,12 +45,10 @@ public class SpikeSpawnerManager : MonoBehaviour
     {
         foreach (var spawner in listActivators)
         {
-            spawner.HandleHideSpike();
         }
 
         foreach (var spawner in listFalling)
         {
-            spawner.HandleHideSpike();
         }
         stage = 0;
     }

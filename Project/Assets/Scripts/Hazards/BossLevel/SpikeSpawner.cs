@@ -1,123 +1,52 @@
 using System.Collections;
 using UnityEngine;
 
-public class SpikeSpawner : MonoBehaviour
+public class SpikeSpawner : MonoBehaviour, ICullable
 {
-    [SerializeField] private GameObject spikePrefab;
-    [SerializeField] private Transform startPos;
-    [SerializeField] private Transform goalPos;
-    [SerializeField] private float timeToPrepare;
-    [SerializeField] private bool runAtStart;
-    [SerializeField] private bool runOnEnable;
-    [SerializeField] private bool willFall;
-    [SerializeField] private float minTimeToFall;
-    [SerializeField] private float maxTimeToFall;
-    [SerializeField] private float gravityScaleOnFall = 1.5f;
+    [Header("Spike Prefab")]
+    [SerializeField] private GameObject fallingSpikePrefab;
 
-    private GameObject currentSpike;
-    private Coroutine prepareRoutine;
+    [Header("Spawn Timing")]
+    [SerializeField] private float minSpawnTime = 1f;
+    [SerializeField] private float maxSpawnTime = 3f;
 
-    private void Start()
-    {
-        if (runAtStart) HandlePrepareSpike();
-    }
+    [SerializeField] private bool enableCulling = false;
+    public bool ShouldBeCameraCulled => true;
+
+    private Coroutine spawnRoutine;
 
     private void OnEnable()
     {
-        if (runOnEnable) HandlePrepareSpike();
+        if (spawnRoutine == null)
+            spawnRoutine = StartCoroutine(SpawnLoop());
     }
 
     private void OnDisable()
     {
-        if (prepareRoutine != null)
+        if (spawnRoutine != null)
         {
-            StopCoroutine(prepareRoutine);
-            prepareRoutine = null;
+            StopCoroutine(spawnRoutine);
+            spawnRoutine = null;
         }
     }
 
-    private IEnumerator PrepareSpike(float startLoadTime = 0)
+    private IEnumerator SpawnLoop()
     {
-        yield return new WaitForSeconds(startLoadTime);
-
-        if (currentSpike == null) yield break;
-
-        Animator anim = currentSpike.GetComponent<Animator>();
-        if (anim != null) anim.speed = 1;
-
-        for (float t = 0; t < timeToPrepare; t += Time.deltaTime)
+        while (true)
         {
-            if (currentSpike == null) yield break;
-
-            Vector2 cSpikePos = currentSpike.transform.position;
-            currentSpike.transform.position = new Vector2(
-                cSpikePos.x,
-                Mathf.Lerp(cSpikePos.y, goalPos.position.y, t)
-            );
-            yield return null;
-        }
-
-        Collider2D col = currentSpike.GetComponent<Collider2D>();
-        if (col != null) col.enabled = true;
-
-        if (willFall)
-        {
-            yield return new WaitForSeconds(Random.Range(minTimeToFall, maxTimeToFall));
-            ThrowSpike();
+            yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
+            SpawnSpike();
         }
     }
 
-    public void HandlePrepareSpike()
+    private void SpawnSpike()
     {
-        if (!gameObject.activeInHierarchy) return;
+        if (fallingSpikePrefab == null) return;
 
-        currentSpike = Instantiate(spikePrefab, transform.position, transform.rotation);
-        currentSpike.GetComponent<Collider2D>().enabled = false;
-        currentSpike.transform.SetParent(transform);
-        currentSpike.transform.position = startPos.position;
-
-        Animator anim = currentSpike.GetComponent<Animator>();
-        if (anim != null) anim.speed = 0;
-
-        Spikes spikeComp = currentSpike.GetComponent<Spikes>();
-        if (spikeComp != null)
-        {
-            spikeComp.onSpikeDestroy += () =>
-            {
-                if (gameObject.activeInHierarchy)
-                    HandlePrepareSpike();
-            };
-        }
-
-        prepareRoutine = StartCoroutine(PrepareSpike(Random.Range(0.5f, 1.5f)));
-    }
-
-    private void ThrowSpike()
-    {
-        if (currentSpike == null) return;
-
-        Rigidbody2D rb = currentSpike.GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.bodyType = RigidbodyType2D.Dynamic;
-            rb.gravityScale = gravityScaleOnFall;
-        }
-    }
-
-    public void HandleHideSpike()
-    {
-        if (currentSpike == null) return;
-
-        Collider2D col = currentSpike.GetComponent<Collider2D>();
-        if (col != null) col.enabled = false;
-
-        if (gameObject.activeInHierarchy)
-            StartCoroutine(DeactivateAfterFall());
-    }
-
-    private IEnumerator DeactivateAfterFall()
-    {
-        yield return new WaitForSeconds(1.5f);
-        if (gameObject != null) gameObject.SetActive(false);
+        Instantiate(
+            fallingSpikePrefab,
+            transform.position,
+            transform.rotation
+        );
     }
 }

@@ -42,12 +42,11 @@ namespace PlayerSystem
             playerState.hpRegenRate = healthConstans.hpRegenRate;
         }
 
-        public bool Damage(int damageAmount)
+        private bool ApplyDamage(int amount)
         {
-            if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return false;
+            playerState.currentHealth -= amount;
+            HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
 
-            if (hpRegenCoroutine != null) mb.StopCoroutine(hpRegenCoroutine);
-            playerState.currentHealth -= damageAmount;
             if (playerState.currentHealth <= 0)
             {
                 if (playerState.currentHealthBars == 1)
@@ -61,44 +60,46 @@ namespace PlayerSystem
                     playerState.currentHealthBars--;
                     playerState.currentHealth = playerState.healthPerBar;
                     HealthUIController.Instance.UpdateCurrentHealthBar(playerState.currentHealthBars);
+                    HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
                 }
             }
-            HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
-            eventBus.Publish(new OnDamageReceived());
 
-            StartHPRegen();
+            eventBus.Publish(new OnDamageReceived());
             return false;
         }
 
-        public void SpikeDamage(int spikeDmg = 0, bool willWarp = true)
+        public bool Damage(int damageAmount)
         {
-            if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return;
-            if (hpRegenCoroutine != null) mb.StopCoroutine(hpRegenCoroutine);
+            if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death)
+                return false;
+
+            if (hpRegenCoroutine != null)
+                mb.StopCoroutine(hpRegenCoroutine);
 
             this.willWarp = false;
-            playerState.currentHealth -= spikeDmg > 0 ? spikeDmg : 1;
 
-            HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
+            bool died = ApplyDamage(damageAmount);
 
-            if (playerState.currentHealth <= 0)
-            {
-                if (playerState.currentHealthBars == 1)
-                {
-                    HealthUIController.Instance.UpdateHealthUI(0, playerState.healthPerBar, 1);
-                    Die();
-                    return;
-                }
-                else
-                {
-                    playerState.currentHealthBars--;
-                    playerState.currentHealth = playerState.healthPerBar;
-                    HealthUIController.Instance.UpdateCurrentHealthBar(playerState.currentHealthBars);
-                }
-                HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
-            }
-            eventBus.Publish(new OnDamageReceived());
-            StartHPRegen();
-            this.willWarp = willWarp;
+            if (!died)
+                StartHPRegen();
+
+            return died;
+        }
+
+        public void HazardDamage(int damageAmount = 1, bool warpPlayer = true)
+        {
+            if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death)
+                return;
+
+            if (hpRegenCoroutine != null)
+                mb.StopCoroutine(hpRegenCoroutine);
+
+            this.willWarp = warpPlayer;
+
+            bool died = ApplyDamage(damageAmount);
+
+            if (!died)
+                StartHPRegen();
         }
 
         public void WarpPlayerToSafeGround()

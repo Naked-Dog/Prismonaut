@@ -16,7 +16,7 @@ public class Spikes : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerBaseModule>()?.healthModule.SpikeDamage(damage, willWarp);
+            collision.gameObject.GetComponent<PlayerBaseModule>()?.healthModule.HazardDamage(damage, willWarp);
             if (isLava)
             {
                 DOVirtual.DelayedCall(0.25f, () =>
