@@ -1,15 +1,15 @@
-using System;
 using Unity.Behavior;
 
 [BlackboardEnum]
 public enum State
 {
 	Awake,
-	Walk,
+	ChoosingNextAttack,
 	Chase,
 	Charge,
 	Rush,
 	StopRush,
 	Flinch,
-	Restore
+	Shockwave,
+	RockSlide
 }

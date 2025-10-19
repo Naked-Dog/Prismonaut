@@ -38,6 +38,10 @@ namespace PlayerSystem
         public PlayerHealthModule healthModule;
         private PlayerAudioModule audioModule;
         public PlayerInteractionModule interactionModule;
+
+        private bool recentlyDamaged = false;
+        private float damageCooldown = 0.2f; // ej: 0.2s
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -151,10 +155,20 @@ namespace PlayerSystem
 
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                if (collision.GetComponent<Bull>()?.bullHealth.flinchedVar.Value == true) return;
-                healthModule.Damage(2);
+                if (recentlyDamaged) return;
+                if (collision.GetComponentInParent<Bull>()?.bullHealth.flinchedVar.Value == true) return;
+                healthModule.Damage(collision.GetComponentInParent<Bull>().dmgToPlayer);
                 eventBus.Publish(new RequestOppositeReaction(Vector2.up, 10f));
+
+                StartCoroutine(DamageCooldown());
             }
+        }
+
+        private IEnumerator DamageCooldown()
+        {
+            recentlyDamaged = true;
+            yield return new WaitForSeconds(damageCooldown);
+            recentlyDamaged = false;
         }
 
         private void OnDestroy()

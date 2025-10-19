@@ -31,6 +31,7 @@ TagManager:
   - Slime
   - SpikeD
   - BullHorns
+  - Hazard
   layers:
   - Default
   - TransparentFX
@@ -49,7 +50,7 @@ TagManager:
   - CameraLayer
   - Objects1
   - Objects2
-  - 
+  - PlayerOnly
   - 
   - 
   - 

@@ -13,7 +13,7 @@ GameObject:
   m_Layer: 0
   m_Name: FallingSpikeSpawner
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -47,3 +47,7 @@ MonoBehaviour:
   fallingSpikePrefab: {fileID: 485782803701707891, guid: 42c38a204d040d14b89541cd812c14e5, type: 3}
   minSpawnTime: 1
   maxSpawnTime: 3
+  loopAutomatic: 1
+  randomDelay: 1
+  fixedDelay: 1
+  enableCulling: 0

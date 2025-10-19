@@ -31,7 +31,7 @@ public class HazardBase : MonoBehaviour, ICullable
     {
         if (other.CompareTag("Player"))
         {
-            var health = other.GetComponent<PlayerBaseModule>()?.healthModule;
+            var health = other.GetComponentInParent<PlayerBaseModule>()?.healthModule;
             if (health == null) return;
 
             health.HazardDamage(damage, warpPlayer);

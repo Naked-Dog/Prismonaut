@@ -11,5 +11,6 @@ public class PlayerHealthScriptable : ScriptableObject
 
     [Header("Damage")]
     public float hurtTime;
+    public float warpTime;
     public float deathTime = 1.5f;
 }

@@ -23,10 +23,12 @@ public class BullHealth : MonoBehaviour
     [SerializeField] private BoxCollider2D bullCollider;
 
     [HideInInspector] public BlackboardVariable<bool> flinchedVar;
+    [HideInInspector] public BlackboardVariable<int> currentStageVar;
 
     private void Start()
     {
         agent.GetVariable("Flinched", out flinchedVar);
+        agent.GetVariable("CurrentStage", out currentStageVar);
 
         foreach (var seg in segments)
         {
@@ -51,7 +53,7 @@ public class BullHealth : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        if (flinchedVar == null || !flinchedVar.Value) return;
+        // if (flinchedVar == null || !flinchedVar.Value) return;
 
         for (int i = segments.Length - 1; i >= 0 && amount > 0; i--)
         {
@@ -69,7 +71,7 @@ public class BullHealth : MonoBehaviour
             if (seg.currentHealth <= 0)
             {
                 seg.locked = true;
-                SpikeSpawnerManager.Instance.SetNextStage();
+                currentStageVar.Value++;
             }
             else
             {

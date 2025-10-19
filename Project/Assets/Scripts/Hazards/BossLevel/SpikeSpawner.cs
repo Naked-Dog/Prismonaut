@@ -10,18 +10,40 @@ public class SpikeSpawner : MonoBehaviour, ICullable
     [SerializeField] private float minSpawnTime = 1f;
     [SerializeField] private float maxSpawnTime = 3f;
 
+    [Header("Spawner Settings")]
+    [SerializeField] private bool loopAutomatic = false;
+    [SerializeField] private bool randomDelay = false;
+    [SerializeField] private float fixedDelay = 1f;
+
     [SerializeField] private bool enableCulling = false;
-    public bool ShouldBeCameraCulled => true;
+    public bool ShouldBeCameraCulled => enableCulling;
 
     private Coroutine spawnRoutine;
 
     private void OnEnable()
     {
+        if (loopAutomatic)
+            StartSpawnLoop();
+    }
+
+    private void OnDisable()
+    {
+        StopSpawnLoop();
+    }
+
+    public void TriggerSpawn()
+    {
+        if (spawnRoutine == null)
+            spawnRoutine = StartCoroutine(SpawnOnce());
+    }
+
+    private void StartSpawnLoop()
+    {
         if (spawnRoutine == null)
             spawnRoutine = StartCoroutine(SpawnLoop());
     }
 
-    private void OnDisable()
+    private void StopSpawnLoop()
     {
         if (spawnRoutine != null)
         {
@@ -30,11 +52,22 @@ public class SpikeSpawner : MonoBehaviour, ICullable
         }
     }
 
+    private IEnumerator SpawnOnce()
+    {
+        float delay = randomDelay ? Random.Range(minSpawnTime, maxSpawnTime) : fixedDelay;
+        yield return new WaitForSeconds(delay);
+
+        SpawnSpike();
+        spawnRoutine = null;
+    }
+
     private IEnumerator SpawnLoop()
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
+            float delay = randomDelay ? Random.Range(minSpawnTime, maxSpawnTime) : fixedDelay;
+            yield return new WaitForSeconds(delay);
+
             SpawnSpike();
         }
     }
@@ -42,11 +75,6 @@ public class SpikeSpawner : MonoBehaviour, ICullable
     private void SpawnSpike()
     {
         if (fallingSpikePrefab == null) return;
-
-        Instantiate(
-            fallingSpikePrefab,
-            transform.position,
-            transform.rotation
-        );
+        Instantiate(fallingSpikePrefab, transform.position, transform.rotation);
     }
 }

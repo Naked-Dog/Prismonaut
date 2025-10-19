@@ -15,6 +15,7 @@ namespace PlayerSystem
         private Coroutine hpRegenCoroutine;
         private PlayerHealthScriptable healthConstans;
         private float hurtTime = 0f;
+        private float warpTime = 0f;
         private bool willWarp = false;
 
         public PlayerHealthModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, MonoBehaviour mb)
@@ -181,6 +182,7 @@ namespace PlayerSystem
         {
             playerState.healthState = HealthState.TakingDamage;
             hurtTime = healthConstans.hurtTime;
+            warpTime = healthConstans.warpTime;
             eventBus.Publish(new RequestMovementPause());
             eventBus.Publish(new RequestGravityOff());
             eventBus.Subscribe<OnUpdate>(ReduceHurtTimer);
@@ -199,16 +201,31 @@ namespace PlayerSystem
                     return;
                 }
 
-                playerState.healthState = HealthState.Undefined;
-                eventBus.Publish(new RequestMovementResume());
-                eventBus.Publish(new RequestGravityOn());
 
                 if (willWarp)
                 {
                     willWarp = false;
+                    eventBus.Publish(new RequestMovementPause());
+                    eventBus.Publish(new RequestGravityOff());
                     WarpPlayerToSafeGround();
+
+                    mb.StartCoroutine(ResumeAfterSafeWarp());
+                }
+                else
+                {
+                    playerState.healthState = HealthState.Undefined;
+                    eventBus.Publish(new RequestMovementResume());
+                    eventBus.Publish(new RequestGravityOn());
                 }
             }
+        }
+
+        private IEnumerator ResumeAfterSafeWarp()
+        {
+            yield return new WaitForSeconds(warpTime);
+            playerState.healthState = HealthState.Undefined;
+            eventBus.Publish(new RequestGravityOn());
+            eventBus.Publish(new RequestMovementResume());
         }
 
         private void Death(OnDeath e)
