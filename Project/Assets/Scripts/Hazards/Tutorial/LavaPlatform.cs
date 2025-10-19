@@ -12,7 +12,6 @@ public class LavaPlatform : MonoBehaviour
     private Coroutine timeCoroutine = null;
     private PlatformManager platformManager;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void InitPlatform(PlatformManager platformManager, int amountOfPlatforms)
     {
         this.platformManager = platformManager;
@@ -51,7 +50,6 @@ public class LavaPlatform : MonoBehaviour
 
     public void UpdateMovement(int currentPlatform)
     {
-        //Has To Fall Quickly
         if (currentPlatform > platformIndex) return;
 
         if (timeCoroutine != null)

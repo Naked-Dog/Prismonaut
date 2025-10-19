@@ -53,7 +53,7 @@ public class BullHealth : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        // if (flinchedVar == null || !flinchedVar.Value) return;
+        if (flinchedVar == null || !flinchedVar.Value) return;
 
         for (int i = segments.Length - 1; i >= 0 && amount > 0; i--)
         {
