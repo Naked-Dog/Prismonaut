@@ -84,12 +84,23 @@ public class BullHealth : MonoBehaviour
 
         if (IsDead())
         {
-            hazardCollider.enabled = false;
-            SpikeSpawnerManager.Instance.SetNextStage();
-            animator.Play("Die");
-            agent.End();
-            this.gameObject.SetActive(false);
-            this.finalTrigger.SetActive(false);
+            if (hazardCollider != null)
+                hazardCollider.enabled = false;
+
+            if (SpikeSpawnerManager.Instance != null)
+                SpikeSpawnerManager.Instance.SetNextStage();
+
+            if (animator != null)
+                animator.Play("Die");
+
+            if (agent != null)
+                agent.End();
+
+            if (gameObject != null)
+                gameObject.SetActive(false);
+
+            if (finalTrigger != null)
+                finalTrigger.SetActive(false);
         }
     }
 
