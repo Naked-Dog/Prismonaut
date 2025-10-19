@@ -18,7 +18,7 @@ jobs:
           lfs: true
       - uses: actions/cache@v3
         with:
-          path: Library
+          path: Project/Library
           key: Library-${{ matrix.targetPlatform }}
           restore-keys: Library-
       - if: matrix.targetPlatform == 'Android'
