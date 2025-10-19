@@ -83,7 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HazardBase
   damage: 2
   warpPlayer: 0
-  destroyOnHit: 1
+  destroyOnHit: 0
   useTrigger: 1
   enableCulling: 0
 --- !u!1 &2320199419084812702
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 8226755941762109160}
   m_Layer: 3
   m_Name: Rock
-  m_TagString: Untagged
+  m_TagString: Hazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192,11 +192,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5092e9b3d6ea7784085ce214b62c8164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RockProjectile
-  forwardForce: 6
+  forwardForce: 8
   verticalForce: 8
-  lifeTime: 3
-  forwardRandomness: 1
-  verticalRandomness: 1
+  forwardRandomness: 3
+  verticalRandomness: 3
 --- !u!50 &2977633931263704529
 Rigidbody2D:
   serializedVersion: 5

@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   initialSpeed: 5
-  acceleration: 15
+  acceleration: 25
 --- !u!50 &-3652241567077712745
 Rigidbody2D:
   serializedVersion: 5
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82a0c0a0f76f9d41a4b27dc358f7e30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HazardBase
-  damage: 4
+  damage: 6
   warpPlayer: 0
   destroyOnHit: 0
   useTrigger: 1

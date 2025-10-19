@@ -87,9 +87,6 @@ public class BullHealth : MonoBehaviour
             if (hazardCollider != null)
                 hazardCollider.enabled = false;
 
-            if (SpikeSpawnerManager.Instance != null)
-                SpikeSpawnerManager.Instance.SetNextStage();
-
             if (animator != null)
                 animator.Play("Die");
 

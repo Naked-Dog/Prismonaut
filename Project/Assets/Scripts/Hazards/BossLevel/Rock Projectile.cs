@@ -4,7 +4,6 @@ public class RockProjectile : MonoBehaviour
 {
     [SerializeField] private float forwardForce = 6f;
     [SerializeField] private float verticalForce = 10f;
-    [SerializeField] private float lifeTime = 3f;
 
     [Header("Variación de la roca")]
     [SerializeField] private float forwardRandomness = 2f;
@@ -29,7 +28,11 @@ public class RockProjectile : MonoBehaviour
 
         Vector2 force = new Vector2(direction * randomForward, randomVertical);
         rb.AddForce(force, ForceMode2D.Impulse);
+    }
 
-        Destroy(gameObject, lifeTime);
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Hazard")) return;
+        Destroy(gameObject);
     }
 }
