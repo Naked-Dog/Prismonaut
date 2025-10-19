@@ -7,8 +7,6 @@ using UnityEngine;
 public class DirtBallScript : MonoBehaviour
 {
     [SerializeField] private float impulseLimit;
-    [SerializeField] private float maxSpeed = 10;
-    [SerializeField] private List<GameObject> rocks = new List<GameObject>();
     private Rigidbody2D rb;
     public DirtSpawner spawner;
     private Animator anim;
@@ -35,8 +33,8 @@ public class DirtBallScript : MonoBehaviour
 
     private void CheckVelocity()
     {
-        if(isBeingDrilled) return;
-        
+        if (isBeingDrilled) return;
+
         if (Mathf.Abs(rb.linearVelocityX) + Mathf.Abs(rb.linearVelocityY) < 0.1f)
         {
             t -= Time.deltaTime;
@@ -71,7 +69,7 @@ public class DirtBallScript : MonoBehaviour
 
         if (player && player.state.activePower == PlayerSystem.Power.Drill)
             return;
-        
+
         float normalImpulse = collision.contacts[0].normalImpulse;
         if (normalImpulse > impulseLimit)
             Death();
@@ -100,11 +98,6 @@ public class DirtBallScript : MonoBehaviour
         if (isDead || spawner == null) return;
         isDead = true;
 
-        // if (spawner != null)
-        // {
-        //     spawner.SpawnDirtBall(spawner.reloadTime);
-        // }
-
         int maxAmountRocks = Random.Range(2, 6);
         List<GameObject> rocksList = new List<GameObject>();
 
@@ -114,17 +107,6 @@ public class DirtBallScript : MonoBehaviour
             rock.transform.position = transform.position;
             rock.SetActive(true);
             rocksList.Add(rock);
-            // bool shouldBeUsed = true;
-
-            // if (Random.value > 0.5f || rocksList.Count > maxAmountRocks)
-            //     shouldBeUsed = false;
-
-            // if (shouldBeUsed && rocks[i] != null)
-            // {
-            //     rocks[i].transform.parent = null;
-            //     rocks[i].SetActive(true);
-            //     rocksList.Add(rocks[i]);
-            // }
         }
 
         if (spawner != null)

@@ -20,13 +20,15 @@ public class BullHealth : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private BehaviorGraphAgent agent;
     [SerializeField] private GameObject finalTrigger;
-    [SerializeField] private BoxCollider2D bullCollider;
+    [SerializeField] private BoxCollider2D hazardCollider;
 
     [HideInInspector] public BlackboardVariable<bool> flinchedVar;
+    [HideInInspector] public BlackboardVariable<int> currentStageVar;
 
     private void Start()
     {
         agent.GetVariable("Flinched", out flinchedVar);
+        agent.GetVariable("CurrentStage", out currentStageVar);
 
         foreach (var seg in segments)
         {
@@ -69,7 +71,7 @@ public class BullHealth : MonoBehaviour
             if (seg.currentHealth <= 0)
             {
                 seg.locked = true;
-                SpikeSpawnerManager.Instance.SetNextStage();
+                currentStageVar.Value++;
             }
             else
             {
@@ -82,7 +84,7 @@ public class BullHealth : MonoBehaviour
 
         if (IsDead())
         {
-            bullCollider.enabled = false;
+            hazardCollider.enabled = false;
             SpikeSpawnerManager.Instance.SetNextStage();
             animator.Play("Die");
             agent.End();

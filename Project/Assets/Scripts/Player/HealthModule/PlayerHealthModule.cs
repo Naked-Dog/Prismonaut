@@ -15,6 +15,7 @@ namespace PlayerSystem
         private Coroutine hpRegenCoroutine;
         private PlayerHealthScriptable healthConstans;
         private float hurtTime = 0f;
+        private float warpTime = 0f;
         private bool willWarp = false;
 
         public PlayerHealthModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, MonoBehaviour mb)
@@ -42,12 +43,11 @@ namespace PlayerSystem
             playerState.hpRegenRate = healthConstans.hpRegenRate;
         }
 
-        public bool Damage(int damageAmount)
+        private bool ApplyDamage(int amount)
         {
-            if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return false;
+            playerState.currentHealth -= amount;
+            HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
 
-            if (hpRegenCoroutine != null) mb.StopCoroutine(hpRegenCoroutine);
-            playerState.currentHealth -= damageAmount;
             if (playerState.currentHealth <= 0)
             {
                 if (playerState.currentHealthBars == 1)
@@ -61,44 +61,46 @@ namespace PlayerSystem
                     playerState.currentHealthBars--;
                     playerState.currentHealth = playerState.healthPerBar;
                     HealthUIController.Instance.UpdateCurrentHealthBar(playerState.currentHealthBars);
+                    HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
                 }
             }
-            HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
-            eventBus.Publish(new OnDamageReceived());
 
-            StartHPRegen();
+            eventBus.Publish(new OnDamageReceived());
             return false;
         }
 
-        public void SpikeDamage(int spikeDmg = 0, bool willWarp = true)
+        public bool Damage(int damageAmount)
         {
-            if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death) return;
-            if (hpRegenCoroutine != null) mb.StopCoroutine(hpRegenCoroutine);
+            if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death)
+                return false;
+
+            if (hpRegenCoroutine != null)
+                mb.StopCoroutine(hpRegenCoroutine);
 
             this.willWarp = false;
-            playerState.currentHealth -= spikeDmg > 0 ? spikeDmg : 1;
 
-            HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
+            bool died = ApplyDamage(damageAmount);
 
-            if (playerState.currentHealth <= 0)
-            {
-                if (playerState.currentHealthBars == 1)
-                {
-                    HealthUIController.Instance.UpdateHealthUI(0, playerState.healthPerBar, 1);
-                    Die();
-                    return;
-                }
-                else
-                {
-                    playerState.currentHealthBars--;
-                    playerState.currentHealth = playerState.healthPerBar;
-                    HealthUIController.Instance.UpdateCurrentHealthBar(playerState.currentHealthBars);
-                }
-                HealthUIController.Instance.UpdateHealthUI(playerState.currentHealth, playerState.healthPerBar, playerState.currentHealthBars);
-            }
-            eventBus.Publish(new OnDamageReceived());
-            StartHPRegen();
-            this.willWarp = willWarp;
+            if (!died)
+                StartHPRegen();
+
+            return died;
+        }
+
+        public void HazardDamage(int damageAmount = 1, bool warpPlayer = true)
+        {
+            if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death)
+                return;
+
+            if (hpRegenCoroutine != null)
+                mb.StopCoroutine(hpRegenCoroutine);
+
+            this.willWarp = warpPlayer;
+
+            bool died = ApplyDamage(damageAmount);
+
+            if (!died)
+                StartHPRegen();
         }
 
         public void WarpPlayerToSafeGround()
@@ -180,6 +182,7 @@ namespace PlayerSystem
         {
             playerState.healthState = HealthState.TakingDamage;
             hurtTime = healthConstans.hurtTime;
+            warpTime = healthConstans.warpTime;
             eventBus.Publish(new RequestMovementPause());
             eventBus.Publish(new RequestGravityOff());
             eventBus.Subscribe<OnUpdate>(ReduceHurtTimer);
@@ -198,16 +201,31 @@ namespace PlayerSystem
                     return;
                 }
 
-                playerState.healthState = HealthState.Undefined;
-                eventBus.Publish(new RequestMovementResume());
-                eventBus.Publish(new RequestGravityOn());
 
                 if (willWarp)
                 {
                     willWarp = false;
+                    eventBus.Publish(new RequestMovementPause());
+                    eventBus.Publish(new RequestGravityOff());
                     WarpPlayerToSafeGround();
+
+                    mb.StartCoroutine(ResumeAfterSafeWarp());
+                }
+                else
+                {
+                    playerState.healthState = HealthState.Undefined;
+                    eventBus.Publish(new RequestMovementResume());
+                    eventBus.Publish(new RequestGravityOn());
                 }
             }
+        }
+
+        private IEnumerator ResumeAfterSafeWarp()
+        {
+            yield return new WaitForSeconds(warpTime);
+            playerState.healthState = HealthState.Undefined;
+            eventBus.Publish(new RequestGravityOn());
+            eventBus.Publish(new RequestMovementResume());
         }
 
         private void Death(OnDeath e)

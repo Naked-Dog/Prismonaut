@@ -14,7 +14,7 @@ namespace Unity.Behavior
         category: "Action/Navigation",
         story: "[Agent] patrols along [Waypoints]",
         id: "4227e7ceb96b74a3e108bf77fedb30c9")]
-    public partial class Patrol2DAction : Action    
+    public partial class Patrol2DAction : Action
     {
         [SerializeReference] public BlackboardVariable<GameObject> Agent;
         [SerializeReference] public BlackboardVariable<List<GameObject>> Waypoints;
@@ -22,12 +22,12 @@ namespace Unity.Behavior
         [SerializeReference] public BlackboardVariable<float> WaypointWaitTime = new BlackboardVariable<float>(1.0f);
         [SerializeReference] public BlackboardVariable<float> DistanceThreshold = new BlackboardVariable<float>(0.2f);
         [Tooltip("Should patrol restart from the latest point?")]
-        [SerializeReference] public BlackboardVariable<bool> PreserveLatestPatrolPoint = new (false);
+        [SerializeReference] public BlackboardVariable<bool> PreserveLatestPatrolPoint = new(false);
 
         private NavMeshAgent m_NavMeshAgent;
         private Animator m_Animator;
         private float m_PreviousStoppingDistance;
-        
+
         [CreateProperty]
         private Vector3 m_CurrentTarget;
         [CreateProperty]
@@ -103,11 +103,11 @@ namespace Unity.Behavior
                     if (toDestination != Vector3.zero)
                     {
                         if (toDestination.x != 0)
-                    {
-                        Vector3 localScale = Agent.Value.transform.localScale;
-                        localScale.x = -Mathf.Sign(toDestination.x) * Mathf.Abs(localScale.x);
-                        Agent.Value.transform.localScale = localScale;
-                    }
+                        {
+                            Vector3 localScale = Agent.Value.transform.localScale;
+                            localScale.x = -Mathf.Sign(toDestination.x) * Mathf.Abs(localScale.x);
+                            Agent.Value.transform.localScale = localScale;
+                        }
                     }
                 }
             }
@@ -161,7 +161,7 @@ namespace Unity.Behavior
 
             Vector3 targetPosition = m_CurrentTarget;
             Vector3 agentPosition = Agent.Value.transform.position;
-            agentPosition.y = targetPosition.y; // Ignore y for distance check.
+            agentPosition.y = targetPosition.y;
             return Vector3.Distance(
                 agentPosition,
                 targetPosition
@@ -170,7 +170,7 @@ namespace Unity.Behavior
 
         private void MoveToNextWaypoint()
         {
-            m_CurrentPatrolPoint = (m_CurrentPatrolPoint + 1) % Waypoints.Value.Count;            
+            m_CurrentPatrolPoint = (m_CurrentPatrolPoint + 1) % Waypoints.Value.Count;
 
             m_CurrentTarget = Waypoints.Value[m_CurrentPatrolPoint].transform.position;
             if (m_NavMeshAgent != null)

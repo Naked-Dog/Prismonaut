@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 232885031018728533}
   - component: {fileID: 4859994308737932962}
   - component: {fileID: 6314501881696395908}
-  - component: {fileID: 3059127383912477767}
   - component: {fileID: 814915996921541287}
   - component: {fileID: 4515224178274789044}
+  - component: {fileID: 3205058587411811514}
   m_Layer: 10
   m_Name: FallingSpike
   m_TagString: Spike
@@ -100,11 +100,11 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 485782803701707891}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -119,21 +119,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3059127383912477767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 485782803701707891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e38f7694f60ef54aa3ab9cf47251eca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 2
-  willWarp: 0
-  willDestroy: 1
 --- !u!60 &814915996921541287
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -209,6 +194,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3205058587411811514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485782803701707891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82a0c0a0f76f9d41a4b27dc358f7e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 2
+  warpPlayer: 0
+  destroyOnHit: 1
+  useTrigger: 0
 --- !u!1 &494424741856529811
 GameObject:
   m_ObjectHideFlags: 0

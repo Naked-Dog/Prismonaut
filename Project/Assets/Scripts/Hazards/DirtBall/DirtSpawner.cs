@@ -28,7 +28,7 @@ public class DirtSpawner : MonoBehaviour
     private void Start()
     {
         SetPool();
-        
+
         if (!startOnStart) return;
 
         StartSpawn();
@@ -90,7 +90,7 @@ public class DirtSpawner : MonoBehaviour
 
     private void SetPool()
     {
-        for(int i = 0; i < rocksParticlePrefabs.Count; i++)
+        for (int i = 0; i < rocksParticlePrefabs.Count; i++)
         {
             GameObject newRock = Instantiate(rocksParticlePrefabs[i]);
             newRock.transform.position = transform.position;

@@ -14,7 +14,6 @@ namespace PlayerSystem
         // private readonly float minPowerDuration = 0.2f;
         private float powerTimeSum = 0f;
         private float cooldownTimeLeft = 0f;
-        private bool isActive = false;
 
         public SquarePowerModule(EventBus eventBus, PlayerState playerState, Rigidbody2D rb2d, TriggerEventHandler groundTrigger, Knockback knockback, PlayerMovementScriptable movementValues)
         {
@@ -41,7 +40,6 @@ namespace PlayerSystem
         {
             if (0f < cooldownTimeLeft) return;
 
-            isActive = true;
             playerState.activePower = Power.Square;
             if (playerState.groundState == GroundState.Grounded) rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
             powerTimeSum = 0;
@@ -63,10 +61,6 @@ namespace PlayerSystem
             {
                 eventBus.Publish(new PlayPlayerSounEffect("SquareBreakWall", 0.5f));
             }
-            if (other.gameObject.CompareTag("Platform"))
-            {
-                if (other.gameObject.GetComponent<IPlatform>().PlatformType == PlatformType.CrumblingPlatform) eventBus.Publish(new PlayPlayerSounEffect("SquareBlock"));
-            }
             other.gameObject.GetComponent<IPlayerPowerInteractable>()?.PlayerPowerInteraction(playerState);
             if (other.gameObject.CompareTag("Spike") || other.gameObject.CompareTag("SpikeD"))
             {
@@ -83,7 +77,6 @@ namespace PlayerSystem
 
         private void deactivate()
         {
-            isActive = false;
             playerState.activePower = Power.None;
             rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
             cooldownTimeLeft = movementValues.squarePowerCooldown;

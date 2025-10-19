@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework;
 using PlayerSystem;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public enum FormState
@@ -22,52 +18,23 @@ public enum LifeIconState
     Damaged,
     Off,
 }
-public enum ObstacleType
-{
-    Asteroid,
-    Hollow,
-    Block,
-}
-
-public enum PlatformType
-{
-    MovingPlatform,
-    FallingPlatform,
-    CrumblingPlatform,
-}
-
-public enum CollectableType
-{
-    Prism,
-    Gem,
-    Power,
-}
 
 public class GameManager : MonoBehaviour
 {
     [Header("Collectables")]
-    [SerializeField] private int levelTargetGems = 3;
-    [SerializeField] private int collectedGems = 0;
     [SerializeField] private int collectedPrisms;
     [SerializeField] private int playerCharges;
 
-    [Header("GameWin")]
-    [SerializeField] private GameObject[] endGamePortals;
     [SerializeField] private List<DiegeticInfoType> diegeticInfoTypes = new List<DiegeticInfoType>();
 
     public static GameManager Instance;
 
-    public bool ShieldUnlocked {get; private set; }
-    public bool DrillUnlocked {get; private set; }
+    public bool ShieldUnlocked { get; private set; }
+    public bool DrillUnlocked { get; private set; }
     public bool DodgeUnlocked { get; private set; }
 
     const int initialPlayerCharges = 1;
     const int initialPlayerCollectedPrism = 0;
-
-    #region Old Code
-    public static int maxLifes = 3;
-    public static FormState startingForm = FormState.Square;
-    #endregion
 
     private void Awake()
     {
@@ -108,17 +75,6 @@ public class GameManager : MonoBehaviour
         DiegeticInfo.Instance.ShowDiegeticInfo(diegeticInfoTypes[id]);
     }
 
-    public void GetGem()
-    {
-        collectedGems++;
-        Debug.Log("Current Gems: " + collectedGems);
-        if (collectedGems == levelTargetGems)
-        {
-            Debug.Log("Game Cleared");
-            StartCoroutine(EnableGameEndPortals());
-        }
-    }
-
     public void GetPrism()
     {
         collectedPrisms++;
@@ -126,19 +82,6 @@ public class GameManager : MonoBehaviour
         playerCharges = PlayerBaseModule.Instance.state.maxCharges;
     }
 
-    private IEnumerator EnableGameEndPortals()
-    {
-
-        foreach (GameObject endGamePortal in endGamePortals)
-        {
-            endGamePortal.transform.localScale = Vector2.zero;
-            endGamePortal.SetActive(true);
-            InputActionMap playerInput = InputSystem.actions.FindActionMap("Player");
-            playerInput.Disable();
-        }
-
-        yield return new WaitForSeconds(2f);
-    }
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
