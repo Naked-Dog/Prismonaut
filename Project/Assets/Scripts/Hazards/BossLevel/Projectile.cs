@@ -27,4 +27,10 @@ public class Projectile : MonoBehaviour
         float newSpeed = rb.linearVelocity.x + direction * acceleration * Time.fixedDeltaTime;
         rb.linearVelocity = new Vector2(newSpeed, rb.linearVelocity.y);
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Player"))
+            Destroy(gameObject);
+    }
 }

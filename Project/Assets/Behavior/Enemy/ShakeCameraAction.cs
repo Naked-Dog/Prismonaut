@@ -11,7 +11,6 @@ public partial class ShakeCameraAction : Action
 
     protected override Status OnStart()
     {
-        Debug.Log("Shake Camera");
         ShakeManager.Instance.CameraShake();
         return Status.Success;
     }

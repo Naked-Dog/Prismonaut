@@ -8,10 +8,6 @@ public class PlatformManager : MonoBehaviour
 
     public List<LavaPlatform> lavaPlatforms = new();
     [SerializeField] private int platformIndex = -1;
-    private float gravityScale = 0.15f;
-    private bool playerOnPlatform = false;
-    private bool eventStarted = false;
-    private bool eventFinished = false;
 
     void Awake()
     {

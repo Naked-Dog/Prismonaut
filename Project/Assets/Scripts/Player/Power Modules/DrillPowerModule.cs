@@ -244,7 +244,7 @@ namespace PlayerSystem
         private void DrillHeavyEnemy(GameObject other)
         {
             enemyCollider = other.GetComponent<Collider2D>();
-            enemyHealth = other.GetComponent<Bull>().bullHealth;
+            enemyHealth = other.GetComponentInParent<Bull>().bullHealth;
             Physics2D.IgnoreCollision(playerCollider, enemyCollider, true);
             eventBus.Unsubscribe<OnUpdate>(ReduceTimeLeft);
             isDrillInside = true;
@@ -513,6 +513,6 @@ namespace PlayerSystem
         private void OnForceRespawn(ForceRespawn e)
         {
             Deactivate(true);
-        } 
+        }
     }
 }

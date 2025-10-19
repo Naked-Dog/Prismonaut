@@ -3,12 +3,12 @@ using UnityEngine;
 public class RockProjectile : MonoBehaviour
 {
     [SerializeField] private float forwardForce = 6f;
-    [SerializeField] private float verticalForce = 8f;
-    [SerializeField] private float lifeTime = 5f;
+    [SerializeField] private float verticalForce = 10f;
+    [SerializeField] private float lifeTime = 3f;
 
     [Header("Variación de la roca")]
-    [SerializeField] private float forwardRandomness = 1f;
-    [SerializeField] private float verticalRandomness = 1f;
+    [SerializeField] private float forwardRandomness = 2f;
+    [SerializeField] private float verticalRandomness = 2f;
 
     private Rigidbody2D rb;
 
