@@ -1,10 +1,10 @@
-name: Build Unity Project (Windows)
+name: Build Unity Project (Ubuntu)
 
 on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -27,11 +27,11 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          unityVersion: 6000.2.8f1   # <-- versión exacta de tu ProjectVersion.txt
           projectPath: Project
+          unityVersion: 6000.2.8f1
           targetPlatform: StandaloneWindows64
 
-      - name: Upload build
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: Build-Windows
