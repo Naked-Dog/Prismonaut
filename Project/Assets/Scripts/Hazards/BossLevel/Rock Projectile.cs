@@ -2,14 +2,17 @@ using UnityEngine;
 
 public class RockProjectile : MonoBehaviour
 {
+    [Header("Projectile Settings")]
     [SerializeField] private float forwardForce = 6f;
     [SerializeField] private float verticalForce = 10f;
-
-    [Header("Variación de la roca")]
     [SerializeField] private float forwardRandomness = 2f;
     [SerializeField] private float verticalRandomness = 2f;
 
+    [Header("References")]
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
     private Rigidbody2D rb;
+    private float direction;
 
     private void Awake()
     {
@@ -19,7 +22,7 @@ public class RockProjectile : MonoBehaviour
     private void Start()
     {
         Transform boss = transform.parent;
-        float direction = Mathf.Sign(-boss.localScale.x);
+        direction = Mathf.Sign(-boss.localScale.x);
 
         transform.SetParent(null);
 
@@ -28,6 +31,11 @@ public class RockProjectile : MonoBehaviour
 
         Vector2 force = new Vector2(direction * randomForward, randomVertical);
         rb.AddForce(force, ForceMode2D.Impulse);
+    }
+
+    private void Update()
+    {
+        spriteRenderer.transform.Rotate(0f, 0f, 90f * direction * Time.deltaTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

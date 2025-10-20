@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -15,9 +16,9 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
+        transform.localScale = Vector3.zero;
+        transform.DOScale(Vector2.one, 1f).SetEase(Ease.OutBack);
         direction = Mathf.Sign(-transform.parent.localScale.x);
-
-        rb.gravityScale = 0f;
         rb.linearVelocity = Vector2.right * direction * initialSpeed;
         Destroy(gameObject, 2f);
     }
