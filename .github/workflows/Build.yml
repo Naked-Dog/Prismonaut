@@ -20,12 +20,6 @@ jobs:
           key: Library-StandaloneWindows64
           restore-keys: Library-
 
-      - name: Setup Unity
-        uses: game-ci/unity-setup@v4
-        with:
-          unityVersion: 6000.2.8f1
-          modules: Windows
-
       - name: Build project
         uses: game-ci/unity-builder@v4
         env:
@@ -33,6 +27,7 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
+          unityVersion: 6000.2.8f1   # <-- versión exacta de tu ProjectVersion.txt
           projectPath: Project
           targetPlatform: StandaloneWindows64
 
