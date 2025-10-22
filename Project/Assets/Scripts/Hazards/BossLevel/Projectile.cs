@@ -20,7 +20,7 @@ public class Projectile : MonoBehaviour
         transform.DOScale(Vector2.one, 1f).SetEase(Ease.OutBack);
         direction = Mathf.Sign(-transform.parent.localScale.x);
         rb.linearVelocity = Vector2.right * direction * initialSpeed;
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, 1.25f);
     }
 
     private void FixedUpdate()
@@ -31,7 +31,9 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Player"))
-            Destroy(gameObject);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            GetComponent<Collider2D>().enabled = false;
+        }
     }
 }
