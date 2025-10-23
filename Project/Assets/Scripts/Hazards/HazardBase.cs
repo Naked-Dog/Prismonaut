@@ -34,6 +34,8 @@ public class HazardBase : MonoBehaviour, ICullable
             var health = other.GetComponentInParent<PlayerBaseModule>()?.healthModule;
             if (health == null) return;
 
+            if (CheckPrevDmgPlayer(other)) return;
+
             health.HazardDamage(damage, warpPlayer);
 
             OnHitPlayer(other);
@@ -41,6 +43,11 @@ public class HazardBase : MonoBehaviour, ICullable
 
         if (destroyOnHit)
             Destroy(gameObject);
+    }
+
+    protected virtual bool CheckPrevDmgPlayer(GameObject other)
+    {
+        return false;
     }
 
     protected virtual void OnHitPlayer(GameObject player)
