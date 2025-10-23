@@ -17,6 +17,9 @@ public partial class RockSlideAction : Action
     private int spawned;
     private float timer;
 
+    private float minForceMultiplier = 0.8f;
+    private float maxForceMultiplier = 1.4f;
+
     protected override Status OnStart()
     {
         if (Scarabull?.Value == null || Rock?.Value == null || RockSlideSpawnpoint?.Value == null)
@@ -55,6 +58,21 @@ public partial class RockSlideAction : Action
         );
 
         instance.transform.SetParent(Scarabull.Value.transform, true);
+
+        float t = (float)spawned / (rockCount - 1);
+
+        float amplitude = 25f;
+        float baseAngle = -10f;
+        float waveAngle = Mathf.Cos(t * Mathf.PI * 0.5f) * amplitude + baseAngle;
+
+        float forceMultiplier = Mathf.Lerp(maxForceMultiplier, minForceMultiplier, t);
+
+        RockProjectile projectile = instance.GetComponent<RockProjectile>();
+        if (projectile != null)
+        {
+            projectile.SetLaunchAngle(waveAngle);
+            projectile.SetForceMultiplier(forceMultiplier);
+        }
     }
 }
 

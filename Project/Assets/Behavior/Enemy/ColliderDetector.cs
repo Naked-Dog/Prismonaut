@@ -5,10 +5,6 @@ public class ColliderDetector : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private List<string> tagList = new List<string>();
 
-    void Start()
-    {
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         foreach (var tag in tagList)
@@ -32,5 +28,14 @@ public class ColliderDetector : MonoBehaviour
             return target;
         }
         return null;
+    }
+
+    public void ResetCollider()
+    {
+        var col = GetComponent<Collider2D>();
+        if (col == null) return;
+
+        col.enabled = false;
+        col.enabled = true;
     }
 }

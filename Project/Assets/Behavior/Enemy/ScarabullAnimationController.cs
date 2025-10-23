@@ -46,4 +46,9 @@ public class ScarabullAnimationController : MonoBehaviour
 
         currentState = newState;
     }
+
+    public void HurtAnimation()
+    {
+        animator.SetTrigger("Hurt");
+    }
 }

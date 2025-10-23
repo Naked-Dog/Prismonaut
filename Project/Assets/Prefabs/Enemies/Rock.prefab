@@ -136,9 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RockProjectile
   forwardForce: 15
-  verticalForce: 15
-  forwardRandomness: 10
-  verticalRandomness: 10
+  verticalForce: 12
   spriteRenderer: {fileID: 5940240391635708402}
 --- !u!50 &2977633931263704529
 Rigidbody2D:

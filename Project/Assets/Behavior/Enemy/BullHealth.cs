@@ -17,7 +17,7 @@ public class BullHealth : MonoBehaviour
     [SerializeField] private float regenDelay = 1f;
     [SerializeField] private HealthSegment[] segments;
     [SerializeField] private Transform target;
-    [SerializeField] private Animator animator;
+    [SerializeField] private ScarabullAnimationController animationController;
     [SerializeField] private BehaviorGraphAgent agent;
     [SerializeField] private GameObject finalTrigger;
     [SerializeField] private BoxCollider2D hazardCollider;
@@ -66,7 +66,7 @@ public class BullHealth : MonoBehaviour
 
             seg.healthBar.SetHealth(seg.currentHealth);
 
-            animator.SetTrigger("Hurt");
+            animationController.HurtAnimation();
 
             if (seg.currentHealth <= 0)
             {
@@ -87,8 +87,8 @@ public class BullHealth : MonoBehaviour
             if (hazardCollider != null)
                 hazardCollider.enabled = false;
 
-            if (animator != null)
-                animator.Play("Die");
+            if (animationController != null)
+                animationController.SetState(ScarabullAnimationState.Death);
 
             if (agent != null)
                 agent.End();
