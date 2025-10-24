@@ -1,8 +1,7 @@
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public enum ThornState{ Idle = 0, Charge, Attack, Broken}
+public enum ThornState { Idle = 0, Charge, Attack, Broken }
 public class ThornRoot : MonoBehaviour
 {
     private ThornState thornState = ThornState.Idle;

@@ -20,7 +20,7 @@ public class ShakeManager : MonoBehaviour
 
     public void CameraShake(ShakeScriptable profile = null)
     {
-        if(profile != null)
+        if (profile != null)
         {
             impulseDefinition = impulseSource.m_ImpulseDefinition;
 
@@ -32,5 +32,17 @@ public class ShakeManager : MonoBehaviour
             impulseSource.GenerateImpulseWithForce(profile.shakeForce);
         }
         else impulseSource.GenerateImpulseWithForce(globalShakeForce);
+    }
+
+    public void CustomShake(float force = 1f, float duration = 0.3f)
+    {
+        if (impulseSource == null) return;
+
+        var def = impulseSource.m_ImpulseDefinition;
+
+        def.m_ImpulseDuration = duration;
+        impulseSource.m_ImpulseDefinition = def;
+
+        impulseSource.GenerateImpulseWithForce(force);
     }
 }
