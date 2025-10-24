@@ -22,7 +22,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   shieldPowerDuration: 0.5
-  parryDuration: 0.15
+  parryDuration: 0.25
   reflectionDamage: 8
   drillMinimalFirstVelocity: 2
   drillMaxFirstVelocity: 6

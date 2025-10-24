@@ -12,7 +12,6 @@ public class ScarabullAnimationController : MonoBehaviour
         switch (newState)
         {
             case ScarabullAnimationState.Awake:
-                Debug.Log("Awake animation triggered");
                 animator.Play("Awake");
                 break;
             case ScarabullAnimationState.Idle:
@@ -37,7 +36,7 @@ public class ScarabullAnimationController : MonoBehaviour
                 animator.Play("Shockwave");
                 break;
             case ScarabullAnimationState.RockSlide:
-                animator.Play("Shockwave");
+                animator.Play("RockSlide");
                 break;
             case ScarabullAnimationState.Death:
                 animator.Play("Death");
