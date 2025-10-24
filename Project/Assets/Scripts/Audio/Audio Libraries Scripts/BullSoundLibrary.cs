@@ -1,4 +1,4 @@
- using UnityEngine;
+using UnityEngine;
 
 public enum BullSoundsEnum
 {
@@ -9,8 +9,14 @@ public enum BullSoundsEnum
     RushCharge,
     Step1,
     Step2,
-    Step3
+    Step3,
+    RockAttackPrep,
+    RockAttack,
+    RockOnGround,
+    AirAttackPrep,
+    AirAttack,
+    BossFinishZone,
 }
 
 [CreateAssetMenu(menuName = "Audio/Bull Sounds Library")]
-public class BullSoundLibrary : AudioLibrary<BullSoundsEnum> {}
+public class BullSoundLibrary : AudioLibrary<BullSoundsEnum> { }
