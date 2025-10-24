@@ -102,7 +102,7 @@ namespace PlayerSystem
             {
                 foreach (ContactPoint2D contact in snapshot.contacts)
                 {
-                    if(contact.collider.CompareTag("Ground"))
+                    if(movementConstants.groundedObjectsTags.Contains(contact.collider.tag))
                     {
                         if (0.9f < contact.normal.y && 0.01f < contact.normalImpulse)
                         {
