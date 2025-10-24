@@ -32,6 +32,7 @@ TagManager:
   - SpikeD
   - BullHorns
   - Hazard
+  - ThornRoot
   layers:
   - Default
   - TransparentFX
