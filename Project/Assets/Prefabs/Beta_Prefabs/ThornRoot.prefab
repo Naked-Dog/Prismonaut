@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 255487470839747373}
   m_Layer: 0
   m_Name: ThornRoot
-  m_TagString: Untagged
+  m_TagString: ThornRoot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 8366033734185513351}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: ThornRoot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

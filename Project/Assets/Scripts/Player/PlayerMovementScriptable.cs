@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Movement", menuName = "ScriptableObjects/Player/MovementValues", order = 1)]
@@ -12,6 +13,7 @@ public class PlayerMovementScriptable : ScriptableObject
     public float maxHorizontalVelocity = 8f;
     public float maxFallingVelocity = 20f;
     public float gravityScale = 3f;
+    public List<string> groundedObjectsTags = new();
 
     [Header("Jump")]
     public float JumpHeight = 10f;
