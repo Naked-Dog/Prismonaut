@@ -87,7 +87,7 @@ namespace PlayerSystem
             return died;
         }
 
-        public void HazardDamage(int damageAmount = 1, bool warpPlayer = true, bool knockback = false)
+        public void HazardDamage(int damageAmount = 1, bool warpPlayer = true)
         {
             if (playerState.healthState == HealthState.Stagger || playerState.healthState == HealthState.Death)
                 return;

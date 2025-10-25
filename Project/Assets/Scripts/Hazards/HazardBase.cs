@@ -39,7 +39,7 @@ public class HazardBase : MonoBehaviour, ICullable
 
             if (CheckPrevDmgPlayer(other)) return;
 
-            healthModule.HazardDamage(damage, warpPlayer, true);
+            healthModule.HazardDamage(damage, warpPlayer);
             if (knokckback) playerBaseModule.DamageKnockback(10f);
 
             OnHitPlayer(other);

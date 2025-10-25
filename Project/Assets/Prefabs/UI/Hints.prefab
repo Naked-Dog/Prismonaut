@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
-  m_SizeDelta: {x: 0, y: 500}
+  m_AnchoredPosition: {x: 0, y: 275}
+  m_SizeDelta: {x: 0, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &800112971255184080
 GameObject:
@@ -64,7 +64,7 @@ RectTransform:
   m_GameObject: {fileID: 800112971255184080}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6220600497753952149}
@@ -170,17 +170,17 @@ MonoBehaviour:
   fadeOutEase: 5
   hints:
   - type: 0
-    sprite: {fileID: 1137959726, guid: 36c3bf296074f1a47b2c8c1231a7dfd3, type: 3}
+    sprite: {fileID: 2038250018, guid: 8e436eb8fa12a1c41b544fef06c7880f, type: 3}
   - type: 1
-    sprite: {fileID: 1621921452, guid: 36c3bf296074f1a47b2c8c1231a7dfd3, type: 3}
+    sprite: {fileID: 1898211554, guid: 8e436eb8fa12a1c41b544fef06c7880f, type: 3}
   - type: 2
-    sprite: {fileID: 1233099863, guid: 36c3bf296074f1a47b2c8c1231a7dfd3, type: 3}
+    sprite: {fileID: -30253426, guid: 8e436eb8fa12a1c41b544fef06c7880f, type: 3}
   - type: 3
-    sprite: {fileID: -1664884122, guid: 36c3bf296074f1a47b2c8c1231a7dfd3, type: 3}
+    sprite: {fileID: 1469529531, guid: 8e436eb8fa12a1c41b544fef06c7880f, type: 3}
   - type: 4
-    sprite: {fileID: 109140234, guid: 36c3bf296074f1a47b2c8c1231a7dfd3, type: 3}
+    sprite: {fileID: 580054468, guid: 8e436eb8fa12a1c41b544fef06c7880f, type: 3}
   - type: 5
-    sprite: {fileID: 1088946429, guid: 36c3bf296074f1a47b2c8c1231a7dfd3, type: 3}
+    sprite: {fileID: -592168813, guid: 8e436eb8fa12a1c41b544fef06c7880f, type: 3}
 --- !u!1 &8133714362711072141
 GameObject:
   m_ObjectHideFlags: 0
