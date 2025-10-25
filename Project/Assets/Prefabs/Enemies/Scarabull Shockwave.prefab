@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HazardBase
   damage: 6
+  knokckback: 1
   warpPlayer: 0
   destroyOnHit: 0
   useTrigger: 1

@@ -8,6 +8,7 @@ public class HazardBase : MonoBehaviour, ICullable
     [SerializeField] protected int damage = 1;
 
     [Header("Hazard Behavior")]
+    [SerializeField] protected bool knokckback = false;
     [SerializeField] protected bool warpPlayer = true;
     [SerializeField] protected bool destroyOnHit = false;
     [SerializeField] protected bool useTrigger = true;
@@ -31,12 +32,15 @@ public class HazardBase : MonoBehaviour, ICullable
     {
         if (other.CompareTag("Player"))
         {
-            var health = other.GetComponentInParent<PlayerBaseModule>()?.healthModule;
-            if (health == null) return;
+            var playerBaseModule = other.GetComponentInParent<PlayerBaseModule>();
+            var healthModule = playerBaseModule?.healthModule;
+
+            if (healthModule == null) return;
 
             if (CheckPrevDmgPlayer(other)) return;
 
-            health.HazardDamage(damage, warpPlayer);
+            healthModule.HazardDamage(damage, warpPlayer, true);
+            if (knokckback) playerBaseModule.DamageKnockback(10f);
 
             OnHitPlayer(other);
         }
