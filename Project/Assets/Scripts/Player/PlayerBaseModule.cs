@@ -158,10 +158,15 @@ namespace PlayerSystem
                 if (recentlyDamaged) return;
                 if (collision.GetComponentInParent<Bull>()?.bullHealth.flinchedVar.Value == true) return;
                 healthModule.Damage(collision.GetComponentInParent<Bull>().dmgToPlayer);
-                eventBus.Publish(new RequestOppositeReaction(Vector2.up, 10f));
+                DamageKnockback(10f);
 
                 StartCoroutine(DamageCooldown());
             }
+        }
+
+        public void DamageKnockback(float force)
+        {
+            eventBus.Publish(new RequestOppositeReaction(Vector2.up, force));
         }
 
         private IEnumerator DamageCooldown()
@@ -191,6 +196,7 @@ namespace PlayerSystem
             if (fallingCamCoroutine != null) return;
             fallingCamCoroutine = StartCoroutine(CallingFallCam());
         }
+
         public void StopFallingCameraTimer()
         {
             bool isFallingCameraAlready = CameraManager.Instance.IsCameraActive(CameraManager.Instance.SearchCamera(CineCameraType.Falling));
@@ -198,6 +204,7 @@ namespace PlayerSystem
             StopCoroutine(fallingCamCoroutine);
             fallingCamCoroutine = null;
         }
+
         private IEnumerator CallingFallCam()
         {
             yield return new WaitForSeconds(1.5f);

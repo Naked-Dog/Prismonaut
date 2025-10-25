@@ -44,4 +44,23 @@ public class BullAnimationEvents : MonoBehaviour
     {
         AudioManager.Instance.Play2DSound(BullSoundsEnum.Death, false);
     }
+
+    public void PlayRockAttackPrepSound()
+    {
+        AudioManager.Instance.Play2DSound(BullSoundsEnum.RockAttackPrep, false);
+    }
+    public void PlayRockAttackSound()
+    {
+        AudioManager.Instance.Play2DSound(BullSoundsEnum.RockAttack, false);
+    }
+
+    public void PlayAirAttackPrepSound()
+    {
+        AudioManager.Instance.Play2DSound(BullSoundsEnum.AirAttackPrep, false);
+    }
+
+    public void PlayAirAttackSound()
+    {
+        AudioManager.Instance.Play2DSound(BullSoundsEnum.AirAttack, false);
+    }
 }

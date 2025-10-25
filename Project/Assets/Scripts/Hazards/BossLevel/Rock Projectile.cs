@@ -40,6 +40,7 @@ public class RockProjectile : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Hazard")) return;
+        AudioManager.Instance.Play2DSound(BullSoundsEnum.RockOnGround, false);
         Destroy(gameObject);
     }
 

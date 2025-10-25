@@ -1,4 +1,5 @@
 using System.Collections;
+using Cinemachine;
 using Unity.Behavior;
 using UnityEngine;
 
@@ -84,6 +85,10 @@ public class BullHealth : MonoBehaviour
 
         if (IsDead())
         {
+            ShakeManager.Instance.StartShakeSequence(3, 0.5f);
+            AudioManager.Instance.StopMusic();
+            AudioManager.Instance.Play2DSound(BullSoundsEnum.BossFinishZone, false);
+
             if (hazardCollider != null)
                 hazardCollider.enabled = false;
 
@@ -93,11 +98,11 @@ public class BullHealth : MonoBehaviour
             if (agent != null)
                 agent.End();
 
-            if (gameObject != null)
-                gameObject.SetActive(false);
-
             if (finalTrigger != null)
                 finalTrigger.SetActive(false);
+
+            if (gameObject != null)
+                gameObject.SetActive(false);
         }
     }
 
