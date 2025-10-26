@@ -9,8 +9,9 @@ public class AudioEvents : MonoBehaviour
     }
 
     public void StopBossRoomStartZoneSound()
-    { 
+    {
         AudioManager.Instance?.Stop(LevelEventsSoundsEnum.BossStartZone);
+        AudioManager.Instance?.Stop(EnvironmentSoundsEnum.Wind);
     }
 
     public void PlayBossRoomMusic()

@@ -8,7 +8,7 @@ public class SceneChanger : MonoBehaviour
         if (MenuController.Instance)
         {
             //Quick fix, removeeeeeeeeee later plssss
-            AudioManager.Instance.Stop(BullSoundsEnum.BossFinishZone);
+            AudioManager.Instance.Stop(EnvironmentSoundsEnum.Wind);
             MenuController.Instance.ChangeScene(sceneName);
             return;
         }

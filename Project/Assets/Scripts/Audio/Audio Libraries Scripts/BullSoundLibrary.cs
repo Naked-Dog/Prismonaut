@@ -15,7 +15,7 @@ public enum BullSoundsEnum
     RockOnGround,
     AirAttackPrep,
     AirAttack,
-    BossFinishZone,
+    WallImpact,
 }
 
 [CreateAssetMenu(menuName = "Audio/Bull Sounds Library")]

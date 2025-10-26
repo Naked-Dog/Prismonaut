@@ -87,7 +87,7 @@ public class BullHealth : MonoBehaviour
         {
             ShakeManager.Instance.StartShakeSequence(3, 0.5f);
             AudioManager.Instance.StopMusic();
-            AudioManager.Instance.Play2DSound(BullSoundsEnum.BossFinishZone, false);
+            AudioManager.Instance.Play2DSound(EnvironmentSoundsEnum.Wind, true);
 
             if (hazardCollider != null)
                 hazardCollider.enabled = false;

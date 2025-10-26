@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        AudioManager.Instance.Play2DSound(EnvironmentSoundsEnum.Wind, true);
+
         if (SceneManager.GetActiveScene().name == "Beta_Level_1")
         {
             ShieldUnlocked = false;
