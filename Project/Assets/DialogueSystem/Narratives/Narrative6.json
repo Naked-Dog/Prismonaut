@@ -4,15 +4,15 @@
             "id": "conversation_6",
             "dialogues": [
                 {
-                    "text": "Estos muros también me impulsarán, verdad?",
+                    "text": "Esa cosa luce hostil.\nAnalizala",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "Incorrecto.\nDetectando propiedades dispares.",
+                    "text": "....\nFauna con propiedades defensivas.\nPeligro: ALTO",
                     "actor": "AI"
                 },
                 {
-                    "text": "Tal vez una nueva habili...",
+                    "text": "Tenemos algo para contrarrestarlo?",
                     "actor": "Prismonaut"
                 },
                 {
