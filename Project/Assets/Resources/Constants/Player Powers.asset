@@ -38,7 +38,7 @@ MonoBehaviour:
   lightPlayerExitForce: 8
   heavyDrillDamagePerSecond: 2
   heavyDrillSpeed: 2
-  steerReturnTimer: 0.4
+  steerReturnTimer: 0.1
   heavyExitForceImpulse: 4
   drillOppositeForce: 10
   cancelPowerTime: 0.07

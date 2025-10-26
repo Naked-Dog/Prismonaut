@@ -380,7 +380,7 @@ namespace PlayerSystem
             eventBus.Subscribe<OnHorizontalInput>(TakeHorizontalInputDirection);
             eventBus.Subscribe<OnVerticalInput>(TakeVerticalInputDirection);
             eventBus.Unsubscribe<OnUpdate>(SteerControlReturn);
-            steerReturnTimer = 0.4f;
+            steerReturnTimer = powersConstants.steerReturnTimer;
             hitObstacle = false;
         }
 
