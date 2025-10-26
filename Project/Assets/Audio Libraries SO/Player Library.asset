@@ -56,7 +56,7 @@ MonoBehaviour:
         volume: 0.5
     - Key: 10
       Value:
-        clip: {fileID: 8300000, guid: f047a6807888687419163d29ad49b2c8, type: 3}
+        clip: {fileID: 8300000, guid: d999d27e79479c340b834231d8ec369e, type: 3}
         volume: 0.8
     - Key: 17
       Value:
@@ -80,8 +80,8 @@ MonoBehaviour:
         volume: 1
     - Key: 15
       Value:
-        clip: {fileID: 8300000, guid: 138d080a4ddfca04a9d0fc3e41b309ef, type: 3}
-        volume: 0.7
+        clip: {fileID: 8300000, guid: 0502f256a2b8f9f4299f612319581c3c, type: 3}
+        volume: 0.4
     - Key: 16
       Value:
         clip: {fileID: 8300000, guid: 5517be3a48f28c74492dfaf469680b80, type: 3}

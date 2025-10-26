@@ -14,9 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clips:
     _serializedList:
+    - Key: 13
+      Value:
+        clip: {fileID: 8300000, guid: 78b1084a13acbed4586ef46e46b31718, type: 3}
+        volume: 0.4
+    - Key: 12
+      Value:
+        clip: {fileID: 0}
+        volume: 1
+    - Key: 11
+      Value:
+        clip: {fileID: 8300000, guid: 2e5a6a4cca5948549a8da3dedf142166, type: 3}
+        volume: 1
+    - Key: 10
+      Value:
+        clip: {fileID: 0}
+        volume: 1
+    - Key: 9
+      Value:
+        clip: {fileID: 0}
+        volume: 1
+    - Key: 8
+      Value:
+        clip: {fileID: 8300000, guid: aaa69465a1d319448a09742a0a493b43, type: 3}
+        volume: 1
     - Key: 0
       Value:
-        clip: {fileID: 8300000, guid: c6786c129793e5a41a2104ab590bda61, type: 3}
+        clip: {fileID: 8300000, guid: c8473075343df5e4db83c87f3c38ba3b, type: 3}
         volume: 0.6
     - Key: 1
       Value:
