@@ -86,7 +86,7 @@ namespace PlayerSystem
                 }
             }
 
-            if (other.CompareTag("Slime"))
+            if (other.CompareTag("ThornRoot"))
             {
                 if (playerState.isParry)
                 {

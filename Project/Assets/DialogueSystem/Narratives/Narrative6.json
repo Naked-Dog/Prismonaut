@@ -4,23 +4,23 @@
             "id": "conversation_6",
             "dialogues": [
                 {
-                    "text": "Esa cosa luce hostil.\nAnalizala",
-                    "actor": "Prismonaut"
-                },
-                {
-                    "text": "....\nFauna con propiedades defensivas.\nPeligro: ALTO",
+                    "text": "ANALIZANDO... Raíces espinosas.\nPeligro: ALTO\nHabilidad recomendada: BLOQUEO",
                     "actor": "AI"
                 },
                 {
-                    "text": "Tenemos algo para contrarrestarlo?",
+                    "text": "Bloqueo? \nCómo se supone que me abra paso con eso?",
                     "actor": "Prismonaut"
                 },
                 {
-                    "text": "DATOS ENCONTRADOS\nHabilidad recomendada: BLOQUEO\nRepele fuerzas o impactos contrarios.",
+                    "text": "DATOS ENCONTRADOS\nLas raíces espinosas atacan al detectar \npresencia hostil.",
                     "actor": "AI"
                 },
                 {
-                    "text": "Ha-ha, justo a tiempo.\nLo intentaré.",
+                    "text": "La Habilidad BLOQUEO te permitirá defenderte \nante cualquier amenaza en movimiento",
+                    "actor": "AI"
+                },
+                {
+                    "text": "Así que refleja todo lo que recibo...\nBien, lo probaré.",
                     "actor": "Prismonaut"
                 }
             ],

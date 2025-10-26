@@ -36,6 +36,7 @@ public class ThornRoot : MonoBehaviour
             return;
         if (thornState == ThornState.Charge)
         {
+            AudioManager.Instance?.Stop(ThornRootSoundsEnum.Charge);
             ChangeState(ThornState.Idle);
         }
     }
@@ -70,6 +71,7 @@ public class ThornRoot : MonoBehaviour
     private void ChargeSequence()
     {
         animator.Play("Charge");
+        AudioManager.Instance.Play2DSound(ThornRootSoundsEnum.Charge);
         currSequence = DOTween.Sequence();
         currSequence.Append(DOVirtual.DelayedCall(chargeTime, () => ChangeState(ThornState.Attack), false));
     }
@@ -77,8 +79,10 @@ public class ThornRoot : MonoBehaviour
     {
         currSequence?.Kill();
         currSequence = DOTween.Sequence();
+        AudioManager.Instance.Stop(ThornRootSoundsEnum.Charge);
 
         animator.Play("PrevAttackGlow");
+        AudioManager.Instance.Play2DSound(ThornRootSoundsEnum.PrevAttackGlow);
         currSequence.AppendInterval(prevAttackTime);
 
         currSequence.AppendCallback(() =>
@@ -97,6 +101,8 @@ public class ThornRoot : MonoBehaviour
     private void OnBreak()
     {
         currSequence.Kill();
+        AudioManager.Instance.Stop(ThornRootSoundsEnum.PrevAttackGlow);
+        AudioManager.Instance.Stop(ThornRootSoundsEnum.StartAttack);
 
         animator.Play("Break");
 
@@ -110,8 +116,14 @@ public class ThornRoot : MonoBehaviour
     public void SetHitBox(bool active)
     {
         hitBox.SetActive(active);
-        float transformX = active ? 3f : 0.5f;
-        if(hitBox.transform.localScale.x != transformX)
+        float transformX = active ? 2.8f : 0.5f;
+        if (hitBox.transform.localScale.x != transformX)
             hitBox.transform.DOScaleX(transformX, 0.1f);
     }
+    public void PlayStartAttackSound()
+    {
+        AudioManager.Instance.Stop(ThornRootSoundsEnum.PrevAttackGlow);
+        AudioManager.Instance.Play2DSound(ThornRootSoundsEnum.StartAttack);
+    }
+    public void PlayBreakSound() => AudioManager.Instance.Play2DSound(ThornRootSoundsEnum.Break);
 }

@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 7019420803657097176}
   - component: {fileID: 7209487170026962274}
   - component: {fileID: 1731111126948323746}
+  - component: {fileID: 5713530976809905926}
   m_Layer: 0
   m_Name: HitBox
   m_TagString: Untagged
@@ -250,12 +251,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adfc8af09ba6ca748a440738417f7e24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThornHazard
-  damage: 3
+  damage: 2
   knokckback: 0
   warpPlayer: 1
   destroyOnHit: 0
   useTrigger: 0
   enableCulling: 1
+--- !u!60 &5713530976809905926
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148627420353812602}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.3196997, y: 0.4969873}
+      - {x: -0.20762363, y: 0.35528076}
+      - {x: -0.5075605, y: 0.25548333}
+      - {x: -0.30671883, y: 0.12937808}
+      - {x: -0.5005213, y: 0.011871584}
+      - {x: -0.3004384, y: -0.12361634}
+      - {x: -0.50732267, y: -0.20896824}
+      - {x: -0.2071189, y: -0.3555649}
+      - {x: -0.3391928, y: -0.49698666}
+      - {x: 0.25147924, y: -0.49397773}
+      - {x: 0.15875016, y: -0.3767783}
+      - {x: 0.49758345, y: -0.3035423}
+      - {x: 0.268889, y: -0.171827}
+      - {x: 0.50944066, y: -0.06961964}
+      - {x: 0.29292873, y: 0.048118535}
+      - {x: 0.5036861, y: 0.16585073}
+      - {x: 0.16642672, y: 0.304055}
+      - {x: 0.270971, y: 0.50301266}
+  m_UseDelaunayMesh: 0
 --- !u!1 &1190838213127245211
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,7 +459,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.82, y: 5}
+  m_Size: {x: 0.7, y: 5}
   m_EdgeRadius: 0
 --- !u!95 &1778787326476486417
 Animator:
@@ -463,6 +529,34 @@ MonoBehaviour:
       - m_Target: {fileID: 255487470839747373}
         m_TargetAssemblyTypeName: ThornRoot, Assembly-CSharp
         m_MethodName: ResetThorn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 255487470839747373}
+        m_TargetAssemblyTypeName: ThornRoot, Assembly-CSharp
+        m_MethodName: PlayStartAttackSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 255487470839747373}
+        m_TargetAssemblyTypeName: ThornRoot, Assembly-CSharp
+        m_MethodName: PlayBreakSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
