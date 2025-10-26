@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: EnvironmentSoundsLibrary
   m_EditorClassIdentifier: Assembly-CSharp::EnvironmentSoundsLibrary
   clips:
-    _serializedList: []
+    _serializedList:
+    - Key: 0
+      Value:
+        clip: {fileID: 8300000, guid: 0cdde8a2ad18b4e44b3abd5c4392c7a3, type: 3}
+        volume: 0.15

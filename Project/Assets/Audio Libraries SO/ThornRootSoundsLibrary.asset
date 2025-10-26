@@ -13,4 +13,28 @@ MonoBehaviour:
   m_Name: ThornRootSoundsLibrary
   m_EditorClassIdentifier: Assembly-CSharp::ThornRootSoundsLibrary
   clips:
-    _serializedList: []
+    _serializedList:
+    - Key: 0
+      Value:
+        clip: {fileID: 8300000, guid: 6ddbf949bdd3a9640906efef3662bd27, type: 3}
+        volume: 1
+    - Key: 5
+      Value:
+        clip: {fileID: 0}
+        volume: 1
+    - Key: 4
+      Value:
+        clip: {fileID: 8300000, guid: 9d86cdc7979359445ab0f61dc2f2ec76, type: 3}
+        volume: 1
+    - Key: 3
+      Value:
+        clip: {fileID: 0}
+        volume: 1
+    - Key: 2
+      Value:
+        clip: {fileID: 8300000, guid: 46372f1ff30533c488c4b2db227e5c93, type: 3}
+        volume: 1
+    - Key: 1
+      Value:
+        clip: {fileID: 8300000, guid: 548f98ee26d7eb442ae9942f8b530184, type: 3}
+        volume: 1
