@@ -61,8 +61,14 @@ namespace PlayerSystem
             eventBus.Subscribe<RequestGravityOff>(RequestGravityOff);
             eventBus.Subscribe<RequestGravityOn>(RequestGravityOn);
             eventBus.Subscribe<RequestOppositeReaction>(RequestOppositeReaction);
+            eventBus.Subscribe<RequestStopVelocity>(RequestStopVelocity);
 
             SetJumpValues();
+        }
+
+        private void RequestStopVelocity(RequestStopVelocity e)
+        {
+            rb2d.linearVelocity = Vector2.zero;
         }
 
         private void RequestMovementPause(RequestMovementPause e)

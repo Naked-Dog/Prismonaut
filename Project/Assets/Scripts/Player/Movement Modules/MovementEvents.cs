@@ -25,4 +25,5 @@ namespace PlayerSystem
             this.forceAmount = forceAmount;
         }
     }
+    public struct RequestStopVelocity { }
 }

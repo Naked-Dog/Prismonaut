@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -98,6 +99,7 @@ namespace PlayerSystem
             this.willWarp = warpPlayer;
 
             bool died = ApplyDamage(damageAmount);
+            eventBus.Publish(new RequestStopVelocity());
 
             if (!died)
                 StartHPRegen();
