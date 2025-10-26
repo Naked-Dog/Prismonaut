@@ -10,9 +10,8 @@ public class ThornRoot : MonoBehaviour
     [SerializeField] private float attackDuration;
     [SerializeField] private float brokenDuration;
 
-    [SerializeField] private BoxCollider2D boxCollider;
-    [SerializeField] private GameObject hurtBox;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject hitBox;
+    [SerializeField] private Animator animator;
     [SerializeField] private ThornHazard thornHazard;
     private Sequence currSequence;
 
@@ -47,7 +46,7 @@ public class ThornRoot : MonoBehaviour
         switch (thornState)
         {
             case ThornState.Idle:
-                SetToIdle();
+                IdleSequence();
                 break;
 
             case ThornState.Charge:
@@ -63,16 +62,14 @@ public class ThornRoot : MonoBehaviour
                 break;
         }
     }
-    private void SetToIdle()
+    private void IdleSequence()
     {
         currSequence?.Kill();
-        spriteRenderer.color = Color.green;
-        //returning to idle animation
-        //idle animation loop
+        animator.Play("Idle");
     }
     private void ChargeSequence()
     {
-        spriteRenderer.color = Color.yellow;
+        animator.Play("Charge");
         currSequence = DOTween.Sequence();
         currSequence.Append(DOVirtual.DelayedCall(chargeTime, () => ChangeState(ThornState.Attack), false));
     }
@@ -81,43 +78,40 @@ public class ThornRoot : MonoBehaviour
         currSequence?.Kill();
         currSequence = DOTween.Sequence();
 
-        currSequence.Append(spriteRenderer.DOColor(Color.white, prevAttackTime));
+        animator.Play("PrevAttackGlow");
+        currSequence.AppendInterval(prevAttackTime);
 
         currSequence.AppendCallback(() =>
         {
-            spriteRenderer.color = Color.red;
-            Transform hurtBoxT = hurtBox.transform;
-
-            hurtBoxT.localScale = new Vector2(0, hurtBoxT.localScale.y);
-            hurtBoxT.DOScaleX(3.5f, 0.15f);
-
-            hurtBox.SetActive(true);
+            animator.Play("StartAttack");
         });
 
         currSequence.AppendInterval(attackDuration);
 
         currSequence.AppendCallback(() =>
         {
-            hurtBox.SetActive(false);
-            ChangeState(ThornState.Idle);
+            animator.Play("EndAttack");
         });
-
     }
+
     private void OnBreak()
     {
         currSequence.Kill();
-        hurtBox.SetActive(false);
 
-        Color transparentColor = Color.white;
-        transparentColor.a = 0.5f;
-        spriteRenderer.color = transparentColor;
-
-        boxCollider.enabled = false;
+        animator.Play("Break");
 
         DOVirtual.DelayedCall(brokenDuration, () =>
         {
-            boxCollider.enabled = true;
-            ChangeState(ThornState.Idle);
+            animator.Play("Recover");
         }, false);
+    }
+    public void ResetThorn() => ChangeState(ThornState.Idle);
+
+    public void SetHitBox(bool active)
+    {
+        hitBox.SetActive(active);
+        float transformX = active ? 3f : 0.5f;
+        if(hitBox.transform.localScale.x != transformX)
+            hitBox.transform.DOScaleX(transformX, 0.1f);
     }
 }
