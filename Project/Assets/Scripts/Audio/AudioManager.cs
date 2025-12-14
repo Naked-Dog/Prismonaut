@@ -5,13 +5,11 @@ using PlayerSystem;
 using UnityEngine;
 using UnityEngine.Audio;
 
-
 public enum SoundsType
 {
     Music,
     Sfxs,
 }
-
 
 public class AudioManager : MonoBehaviour
 {
@@ -143,8 +141,6 @@ public class AudioManager : MonoBehaviour
         if (!loop) StartCoroutine(RecycleWhenDone(src));
         return src;
     }
-
-
 
     public AudioSource Play3DSountAtPosition<TEnum>(TEnum key, Vector3 position, bool loop = false) where TEnum : Enum
     {

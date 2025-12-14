@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5905121191740833872}
   - component: {fileID: 660891374109999405}
   - component: {fileID: 5114936052932786681}
-  - component: {fileID: 8195196797147147297}
   - component: {fileID: 6709985007978781986}
   m_Layer: 0
   m_Name: Player
@@ -126,14 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e2490c71c52567b8ae88a6133f2d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!81 &8195196797147147297
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1236071349304804809}
-  m_Enabled: 1
 --- !u!255 &6709985007978781986
 FixedJoint2D:
   m_ObjectHideFlags: 0

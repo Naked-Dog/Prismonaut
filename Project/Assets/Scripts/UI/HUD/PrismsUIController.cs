@@ -23,6 +23,8 @@ public class PrismsUIController : MonoBehaviour
 
     public void InitUI(int currentPrism)
     {
+        if (gameObject == null) return;
+
         for (int i = 0; i < prisms.Length; i++)
         {
             prisms[i].SetActive(i + 1 <= currentPrism);
