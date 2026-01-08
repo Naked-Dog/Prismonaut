@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class UIManagerGlobal : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    public static UIManagerGlobal Instance;
+    public static UIManager Instance;
 
     [SerializeField] private CanvasGroup m_fadeCanvas;
     [SerializeField] private float m_defaultFadeDuration = 0.5f;

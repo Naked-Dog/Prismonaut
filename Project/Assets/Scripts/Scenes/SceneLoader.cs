@@ -50,8 +50,8 @@ public class SceneLoader : MonoBehaviour
 
     private IEnumerator LoadSceneRoutine(SceneDatabase.SceneEntry entry)
     {
-        if (UIManagerGlobal.Instance != null)
-            yield return UIManagerGlobal.Instance.FadeToBlack(m_fadeDuration);
+        if (UIManager.Instance != null)
+            yield return UIManager.Instance.FadeToBlack(m_fadeDuration);
 
         yield return SceneManager.LoadSceneAsync(entry.SceneName, LoadSceneMode.Single);
 
@@ -61,8 +61,8 @@ public class SceneLoader : MonoBehaviour
         if (AudioManager.Instance != null && !AudioManager.Instance.IsSameMusicPlaying(entry.MusicKey))
             AudioManager.Instance.PlayMusic(entry.MusicKey);
 
-        if (UIManagerGlobal.Instance != null)
-            yield return UIManagerGlobal.Instance.FadeFromBlack(m_fadeDuration);
+        if (UIManager.Instance != null)
+            yield return UIManager.Instance.FadeFromBlack(m_fadeDuration);
 
         OnSceneLoaded?.Invoke(m_currentScene);
     }
