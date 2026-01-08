@@ -24,7 +24,7 @@ MonoBehaviour:
     MusicKey: 1
   - Type: 3
     SceneName: Beta_Boss_1
-    MusicKey: 2
+    MusicKey: 1
   - Type: 4
     SceneName: FinalScene
     MusicKey: 3
