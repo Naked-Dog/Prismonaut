@@ -6,11 +6,14 @@ public class LavaHazard : HazardBase
     protected override void OnHitPlayer(GameObject player)
     {
         base.OnHitPlayer(player);
-        if (LavaManager.Instance.eventFinished) return;
         DOVirtual.DelayedCall(0.25f, () =>
         {
-            LavaManager.Instance.Reset();
-            PlatformManager.Instance.StartSequence();
+            if (!LavaManager.Instance.eventFinished)
+            {
+                LavaManager.Instance.Reset();
+                LavaManager.Instance.StartLava();
+                PlatformManager.Instance.StartSequence();
+            }
         });
 
     }
