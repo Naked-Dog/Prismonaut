@@ -18,11 +18,17 @@ public class EnsureCoreInEditor : MonoBehaviour
         if (CoreManager.s_IsInitialized)
         {
             Debug.Log("@EnsureCoreInEditor - Core initialized.");
-            yield break;
+        }
+        else
+        {
+            yield return SceneManager.LoadSceneAsync(m_coreSceneName, LoadSceneMode.Additive);
+            yield return null;
+            Debug.Log($"@EnsureCoreInEditor - Core loaded to test: {SceneManager.GetActiveScene().name}");
         }
 
-        yield return SceneManager.LoadSceneAsync(m_coreSceneName, LoadSceneMode.Additive);
-        yield return null;
-        Debug.Log($"@EnsureCoreInEditor - Core loaded to test: {SceneManager.GetActiveScene().name}");
+        if (SceneLoader.Instance != null)
+        {
+            SceneLoader.Instance.PlayMusicForScene(SceneLoader.Instance.CurrentScene);
+        }
     }
 }

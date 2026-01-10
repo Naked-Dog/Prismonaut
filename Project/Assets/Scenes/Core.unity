@@ -274,7 +274,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1128730352}
   - component: {fileID: 1128730351}
-  - component: {fileID: 1128730353}
   m_Layer: 0
   m_Name: Bootstrapper
   m_TagString: Untagged
@@ -295,7 +294,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   m_firstScene: 0
-  m_forceFullFlowInEditor: 1
 --- !u!4 &1128730352
 Transform:
   m_ObjectHideFlags: 0
@@ -311,14 +309,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1128730353
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128730350}
-  m_Enabled: 1
 --- !u!1 &1320068637
 GameObject:
   m_ObjectHideFlags: 0

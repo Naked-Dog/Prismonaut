@@ -1,21 +1,14 @@
 using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Bootstrapper : MonoBehaviour
 {
     [Header("Bootstrap Settings")]
     [SerializeField] private SceneType m_firstScene = SceneType.MainMenu;
-    [SerializeField] private bool m_forceFullFlowInEditor = false;
 
-    private IEnumerator Start()
+    private void Start()
     {
-#if UNITY_EDITOR
-        if (!m_forceFullFlowInEditor)
-        {
-            GetComponent<AudioListener>().enabled = false;
-            yield break;
-        }
-#endif
+        if (SceneManager.sceneCount > 1) return;
 
         if (SceneLoader.Instance != null)
         {

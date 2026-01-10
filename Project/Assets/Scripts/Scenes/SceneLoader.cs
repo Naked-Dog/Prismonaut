@@ -12,6 +12,8 @@ public class SceneLoader : MonoBehaviour
 
     private string m_currentScene;
 
+    public string CurrentScene => m_currentScene;
+
     public event Action<string> OnSceneLoaded;
 
     private void Awake()
@@ -58,12 +60,23 @@ public class SceneLoader : MonoBehaviour
         m_currentScene = entry.SceneName;
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(entry.SceneName));
 
-        if (AudioManager.Instance != null && !AudioManager.Instance.IsSameMusicPlaying(entry.MusicKey))
+        if (entry != null && AudioManager.Instance != null && !AudioManager.Instance.IsSameMusicPlaying(entry.MusicKey))
             AudioManager.Instance.PlayMusic(entry.MusicKey);
 
         if (UIManager.Instance != null)
             yield return UIManager.Instance.FadeFromBlack(m_fadeDuration);
 
         OnSceneLoaded?.Invoke(m_currentScene);
+    }
+
+    public void PlayMusicForScene(string sceneName)
+    {
+        if (m_sceneDatabase == null) return;
+
+        var entry = m_sceneDatabase.Scenes.Find(s => s.SceneName == sceneName);
+        if (entry != null && AudioManager.Instance != null && !AudioManager.Instance.IsSameMusicPlaying(entry.MusicKey))
+        {
+            AudioManager.Instance.PlayMusic(entry.MusicKey);
+        }
     }
 }

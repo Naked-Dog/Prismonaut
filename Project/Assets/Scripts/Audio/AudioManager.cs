@@ -283,7 +283,7 @@ public class AudioManager : MonoBehaviour
 
                 foreach (var src in allSources)
                 {
-                    if (src.isPlaying && src.outputAudioMixerGroup == sfxMixer)
+                    if (src && src.isPlaying && src.outputAudioMixerGroup == sfxMixer)
                     {
                         var clipVol = 1f;
                         foreach (var lib in libraryMap.Values)
