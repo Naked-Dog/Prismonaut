@@ -1,51 +1,31 @@
-
-using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-public class OptionItemUI : MonoBehaviour, ISelectHandler, IDeselectHandler
+public class OptionItemUI : MonoBehaviour, ISelectHandler, IDeselectHandler, ISubmitHandler
 {
-    [SerializeField] private GameObject selectorObject;
-    [SerializeField] private TextMeshProUGUI label;
-    [SerializeField] private Color selectedColor;
-    private void Awake(){
-        InitOptionItem();
+    [SerializeField] private GameObject selectionIcon;
+
+    private void Awake()
+    {
+        if (selectionIcon != null)
+            selectionIcon.SetActive(false);
     }
 
     public void OnSelect(BaseEventData eventData)
     {
-        DisplaySelectorObject(true);
+        if (selectionIcon != null)
+            selectionIcon.SetActive(true);
+        AudioManager.Instance.Play2DSound(MenuSoundsEnum.Scroll);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        DisplaySelectorObject(false);
-        AudioManager.Instance.Play2DSound(MenuSoundsEnum.Scroll);
+        if (selectionIcon != null)
+            selectionIcon.SetActive(false);
     }
 
-    private void InitOptionItem(){
-        if(!gameObject.GetComponent<Selectable>()){
-            gameObject.AddComponent<Selectable>();
-        }
-    }
-
-    private void DisplaySelectorObject(bool active){
-        if(selectedColor != null){
-            if(active == true) label.color = selectedColor;
-            else label.color = Color.white;
-        } 
-        
-        if (!selectorObject) return;
-        selectorObject.SetActive(active);
-    }
-
-    public void ResetOptionItem(){
-        gameObject.GetComponent<Selectable>().interactable = true;
-    }
-
-    public void playSelectSound(){
+    public void OnSubmit(BaseEventData eventData)
+    {
         AudioManager.Instance?.Play2DSound(MenuSoundsEnum.Select);
     }
 }

@@ -37,7 +37,6 @@ public class CinematicController : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(MenuController.Instance.FadeOutSolidPanel());
         videoPlayer.loopPointReached += OnVideoEnd;
         DisableInputs();
         cinematicMap = InputSystem.actions.FindActionMap("Cinematic");
@@ -51,7 +50,7 @@ public class CinematicController : MonoBehaviour
 
     private void OnVideoEnd(VideoPlayer vp)
     {
-        MenuController.Instance.ChangeScene("Beta_Level_1");
+        SceneLoader.Instance.LoadScene(SceneType.Level1);
     }
 
     private void SkipCinematic()
@@ -62,7 +61,7 @@ public class CinematicController : MonoBehaviour
         skipAction.started -= skipActionDelegate;
         skipAction?.Disable();
         cinematicMap.Disable();
-        MenuController.Instance.ChangeScene("Beta_Level_1");
+        SceneLoader.Instance.LoadScene(SceneType.Level1);
     }
 
     private void TextChange(InputDevice device)

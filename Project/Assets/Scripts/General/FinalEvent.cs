@@ -4,6 +4,6 @@ public class FinalEvent : MonoBehaviour
 {
     public void GoToMenu()
     {
-        MenuController.Instance?.ChangeScene("Menu");
+        SceneLoader.Instance.LoadScene(SceneType.MainMenu);
     }
 }

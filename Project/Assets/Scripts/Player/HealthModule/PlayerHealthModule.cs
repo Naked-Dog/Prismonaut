@@ -143,14 +143,14 @@ namespace PlayerSystem
 
         private IEnumerator RespawnSequence()
         {
-            yield return mb.StartCoroutine(MenuController.Instance.FadeInSolidPanel());
+            yield return UIManager.Instance.FadeToBlack(0.2f);
 
             ResetHealthValues();
             SetRespawnPosition();
 
             yield return new WaitForSeconds(0.2f);
 
-            yield return mb.StartCoroutine(MenuController.Instance.FadeOutSolidPanel());
+            yield return UIManager.Instance.FadeFromBlack(0.2f);
 
             eventBus.Publish(new RequestUnpause());
         }
