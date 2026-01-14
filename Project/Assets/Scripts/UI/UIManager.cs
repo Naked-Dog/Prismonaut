@@ -49,11 +49,7 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator FadeRoutine(float targetAlpha, float duration)
     {
-        if (m_currentFadeRoutine != null)
-            StopCoroutine(m_currentFadeRoutine);
-
-        m_currentFadeRoutine = StartCoroutine(FadeCoroutine(targetAlpha, duration));
-        yield return m_currentFadeRoutine;
+        yield return FadeCoroutine(targetAlpha, duration);
     }
 
     private IEnumerator FadeCoroutine(float targetAlpha, float duration)

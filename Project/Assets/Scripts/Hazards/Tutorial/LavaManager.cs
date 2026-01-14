@@ -1,23 +1,24 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LavaManager : MonoBehaviour
 {
     [SerializeField] private Transform lavaTransform;
-    [SerializeField] private List<LavaPositions> lavaPositions = new List<LavaPositions>();
+    [SerializeField] private List<LavaPositions> lavaPositions = new();
     [SerializeField] private ShakeScriptable shakeProfile;
 
-    private float initialHeight;
-    private float finalHeight;
-    private float riseDuration;
-    private float timeElapsed;
-    private int lavaPosIndex;
-
-    private bool eventStarted;
-    public bool eventFinished { get; private set; }
-
     public static LavaManager Instance { get; private set; }
+
+    private Coroutine currentRiseCoroutine;
+    private int currentIndex;
+    private bool isActive;
+
+    private Vector3 cachedPosition;
+
+    public bool IsActive => isActive;
+    public bool IsFinished => currentIndex >= lavaPositions.Count;
 
     private void Awake()
     {
@@ -27,133 +28,115 @@ public class LavaManager : MonoBehaviour
             return;
         }
         Instance = this;
-        InitializeLava();
     }
 
     private void Start()
     {
         PlayLavaSound();
-    }
-
-    private void Update()
-    {
-        if (eventStarted)
-            HandleLavaRise();
+        Reset();
     }
 
     public void Reset()
     {
-        lavaPosIndex = 0;
-        timeElapsed = 0;
-        eventStarted = false;
-        eventFinished = false;
+        StopCurrentCoroutine();
+
+        currentIndex = 0;
+        isActive = false;
 
         if (lavaPositions.Count > 0)
         {
-            initialHeight = lavaPositions[0].position;
-            lavaTransform.position = new Vector3(lavaTransform.position.x, initialHeight, lavaTransform.position.z);
-        }
-        else
-        {
-            initialHeight = lavaTransform.position.y;
+            SetHeight(lavaPositions[0].position);
         }
     }
 
     public void StartLava()
     {
-        if (eventStarted) return;
-        eventStarted = true;
+        if (isActive || IsFinished || lavaPositions.Count == 0) return;
+
+        isActive = true;
+        currentRiseCoroutine = StartCoroutine(RiseLavaSequence());
     }
 
-    public void MoveToNextLavaGoal()
+    public void ForceFinish(float forceTime = 1f)
     {
-        if (lavaPosIndex < lavaPositions.Count - 1)
+        if (!isActive || lavaPositions.Count == 0) return;
+
+        StopCurrentCoroutine();
+        currentRiseCoroutine = StartCoroutine(ForceRiseToEnd(forceTime));
+    }
+
+    private void StopCurrentCoroutine()
+    {
+        if (currentRiseCoroutine != null)
         {
-            lavaPosIndex++;
-            PrepareNextRise();
+            StopCoroutine(currentRiseCoroutine);
+            currentRiseCoroutine = null;
         }
-        else
+    }
+
+    private IEnumerator ForceRiseToEnd(float duration)
+    {
+        isActive = true;
+
+        float startHeight = lavaTransform.position.y;
+        float targetHeight = lavaPositions[^1].position;
+
+        yield return MoveLava(startHeight, targetHeight, duration);
+
+        currentIndex = lavaPositions.Count;
+        isActive = false;
+
+        AudioManager.Instance?.Stop(LevelEventsSoundsEnum.Lava);
+    }
+
+    private IEnumerator RiseLavaSequence()
+    {
+        while (currentIndex < lavaPositions.Count)
         {
-            StopEvent();
+            LavaPositions currentPos = lavaPositions[currentIndex];
+            float startHeight = lavaTransform.position.y;
+
+            yield return MoveLava(startHeight, currentPos.position, currentPos.time);
+
+            currentIndex++;
         }
+
+        isActive = false;
+        AudioManager.Instance?.Stop(LevelEventsSoundsEnum.Lava);
+    }
+
+    private IEnumerator MoveLava(float startHeight, float targetHeight, float duration)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            float newHeight = Mathf.Lerp(startHeight, targetHeight, t);
+            SetHeight(newHeight);
+            yield return null;
+        }
+
+        SetHeight(targetHeight);
+    }
+
+    private void SetHeight(float y)
+    {
+        cachedPosition = lavaTransform.position;
+        cachedPosition.y = y;
+        lavaTransform.position = cachedPosition;
     }
 
     public void Shake()
     {
-        ShakeManager.Instance.CameraShake(shakeProfile);
-        AudioManager.Instance.Play2DSound(LevelEventsSoundsEnum.Earthquake);
-    }
-
-    public void FinishEvent()
-    {
-        if (lavaPosIndex >= lavaPositions.Count - 1) return;
-
-        eventFinished = true;
-        eventStarted = true;
-        lavaPosIndex = lavaPositions.Count - 1;
-        PrepareNextRise();
-    }
-
-
-    private void InitializeLava()
-    {
-        initialHeight = lavaTransform.position.y;
-        lavaTransform.position = new Vector3(lavaTransform.position.x, initialHeight, lavaTransform.position.z);
+        ShakeManager.Instance?.CameraShake(shakeProfile);
+        AudioManager.Instance?.Play2DSound(LevelEventsSoundsEnum.Earthquake);
     }
 
     private void PlayLavaSound()
     {
-        AudioManager.Instance.Play3DSoundAttached(LevelEventsSoundsEnum.Lava, lavaTransform, true);
-    }
-
-    private void HandleLavaRise()
-    {
-        if (lavaPosIndex >= lavaPositions.Count) return;
-
-        riseDuration = lavaPositions[lavaPosIndex].time;
-        finalHeight = lavaPositions[lavaPosIndex].position;
-        timeElapsed += Time.deltaTime;
-
-        if (timeElapsed <= riseDuration)
-        {
-            float riseAmount = Mathf.Lerp(initialHeight, finalHeight, timeElapsed / riseDuration);
-            lavaTransform.position = new Vector3(lavaTransform.position.x, riseAmount, lavaTransform.position.z);
-        }
-        else
-        {
-            SetLavaAtGoal();
-        }
-    }
-
-    private void PrepareNextRise()
-    {
-        timeElapsed = 0;
-        initialHeight = lavaTransform.position.y;
-    }
-
-    private void SetLavaAtGoal()
-    {
-        lavaTransform.position = new Vector3(lavaTransform.position.x, finalHeight, lavaTransform.position.z);
-        initialHeight = finalHeight;
-        timeElapsed = 0;
-
-        if (lavaPosIndex >= lavaPositions.Count - 1)
-        {
-            StopEvent();
-        }
-        else
-        {
-            lavaPosIndex++;
-            riseDuration = lavaPositions[lavaPosIndex].time;
-            finalHeight = lavaPositions[lavaPosIndex].position;
-        }
-    }
-
-    private void StopEvent()
-    {
-        eventStarted = false;
-        eventFinished = true;
-        AudioManager.Instance?.Stop(LevelEventsSoundsEnum.Lava);
+        AudioManager.Instance?.Play3DSoundAttached(LevelEventsSoundsEnum.Lava, lavaTransform, true);
     }
 }
 

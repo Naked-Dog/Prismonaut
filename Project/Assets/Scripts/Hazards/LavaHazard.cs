@@ -8,7 +8,7 @@ public class LavaHazard : HazardBase
         base.OnHitPlayer(player);
         DOVirtual.DelayedCall(0.25f, () =>
         {
-            if (!LavaManager.Instance.eventFinished)
+            if (!LavaManager.Instance.IsFinished)
             {
                 LavaManager.Instance.Reset();
                 LavaManager.Instance.StartLava();
