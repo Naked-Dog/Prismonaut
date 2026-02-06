@@ -875,11 +875,11 @@ Tilemap:
       e00: 0.000000047683717
       e01: 0.79999995
       e02: 0
-      e03: 0
+      e03: 0.1
       e10: -0.79999995
       e11: 0.000000047683717
       e12: 0
-      e13: 0.1
+      e13: 0
       e20: 0
       e21: 0
       e22: 1
@@ -893,11 +893,11 @@ Tilemap:
       e00: 0.000000047683717
       e01: -0.79999995
       e02: 0
-      e03: 0
+      e03: -0.1
       e10: 0.79999995
       e11: 0.000000047683717
       e12: 0
-      e13: 0.1
+      e13: 0
       e20: 0
       e21: 0
       e22: 1
@@ -1044,6 +1044,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8215487134330469383, guid: 63a9447a1b792ac4385f708f10a1de6e, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215487134330469383, guid: 63a9447a1b792ac4385f708f10a1de6e, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1054,7 +1062,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7891405261678599353, guid: 63a9447a1b792ac4385f708f10a1de6e, type: 3}
   m_PrefabInstance: {fileID: 3294245636694246111}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6227083074644635257
+--- !u!114 &7326263852134801167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
