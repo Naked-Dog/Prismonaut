@@ -1,9 +1,7 @@
-using System;
 using UnityEngine;
 
 namespace PlayerSystem
 {
-    [Serializable]
     public class PlayerState
     {
         public bool isPaused = false;

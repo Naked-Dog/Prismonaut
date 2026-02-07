@@ -4777,6 +4777,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4798,6 +4800,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -4888,6 +4891,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4909,8 +4914,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1993005769
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 48f29b441db65a24ca73d68f95168dcd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5038,15 +5044,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54696ff5fda4b064e9b74e0e24753d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dirtBallPrefab: {fileID: 3303956168736152531, guid: 666e0615059413542a089aea794e6963, type: 3}
-  spawnPoint: {fileID: 3986637258112459205}
-  direction: {x: -1, y: 0}
+  startOnStart: 0
+  startOnEnable: 0
+  startReload: 1
   speed: 4
-  reloadTime: 1
-  startReload: 0
+  reloadTime: 2
   anim: {fileID: 4136546245554890567}
   particleSystem: {fileID: 53716822892851426}
-  rocksPrefabs:
+  dirtBallPrefab: {fileID: 3303956168736152531, guid: 666e0615059413542a089aea794e6963, type: 3}
+  direction: {x: -1, y: 0}
+  spawnPoint: {fileID: 3986637258112459205}
+  rocksParticlePrefabs:
   - {fileID: 1397763780192468008, guid: 094f0d8f816f30e498d8d40820688b44, type: 3}
   - {fileID: 7373210416518207063, guid: 6c90cde3970fe0d45a15e21e057e593a, type: 3}
   - {fileID: 955272922428765297, guid: db8dcf6f8ecec9e46a94d05652af7ac7, type: 3}
@@ -5056,8 +5064,8 @@ MonoBehaviour:
   - {fileID: 4464342018315948792, guid: 13d948ca3eeb643459144e7cc7658f84, type: 3}
   - {fileID: 7671894498396493460, guid: 4149c1777b06f2e4d9b7c0f29c6efd64, type: 3}
   - {fileID: 8491594646280039671, guid: b6fa47d6c1a0792408d1ce14bcd576ec, type: 3}
-  rocksDestroying: []
-  start: 1
+  rocksParticlesPool: []
+  currentRocksParticles: []
 --- !u!61 &1913785524751810904
 BoxCollider2D:
   m_ObjectHideFlags: 0
