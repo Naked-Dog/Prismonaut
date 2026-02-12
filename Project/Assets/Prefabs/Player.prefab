@@ -425,6 +425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8268929626828535130}
   - component: {fileID: 6704855287402592127}
+  - component: {fileID: 362727493251856192}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Player
@@ -493,6 +494,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.4512388, y: 0.46425617}
   m_EdgeRadius: 0.05
+--- !u!114 &362727493251856192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4208075343354509418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22276f84fc9a0c8448f80a87eb13abe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
+  m_capacity: 20
+  m_itemDatabase: {fileID: 11400000, guid: aac8ea5836feb004db81b23e983a0688, type: 2}
 --- !u!1 &4260568483234297242
 GameObject:
   m_ObjectHideFlags: 0
