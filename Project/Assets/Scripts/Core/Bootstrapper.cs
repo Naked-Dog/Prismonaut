@@ -6,6 +6,12 @@ public class Bootstrapper : MonoBehaviour
     [Header("Bootstrap Settings")]
     [SerializeField] private SceneType m_firstScene = SceneType.MainMenu;
 
+    void Awake()
+    {
+        Application.targetFrameRate =
+            (int)Screen.currentResolution.refreshRateRatio.value;
+    }
+
     private void Start()
     {
         if (SceneManager.sceneCount > 1) return;

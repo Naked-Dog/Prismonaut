@@ -6,11 +6,41 @@ public class UIControllerMenu : UIControllerBase
     [SerializeField] private PanelBase m_settingsPanel;
     [SerializeField] private PanelBase m_creditsPanel;
 
-    public void OnPlayButton() =>
-        SceneLoader.Instance.LoadScene(SceneType.StartCinematic);
+    public void OnPlayButton()
+    {
+        if (SceneLoader.Instance != null)
+        {
+            SceneLoader.Instance.LoadScene(SceneType.StartCinematic);
+        }
+        else
+        {
+            Debug.LogError("[UIControllerMenu] SceneLoader.Instance is null on play.");
+        }
+    }
 
-    public void OnSettingsButton() => OpenPanel(m_settingsPanel);
-    public void OnCreditsButton() => OpenPanel(m_creditsPanel);
+    public void OnSettingsButton()
+    {
+        if (m_settingsPanel != null)
+        {
+            OpenPanel(m_settingsPanel);
+        }
+        else
+        {
+            Debug.LogWarning("[UIControllerMenu] Settings panel is null on settings button.");
+        }
+    }
+
+    public void OnCreditsButton()
+    {
+        if (m_creditsPanel != null)
+        {
+            OpenPanel(m_creditsPanel);
+        }
+        else
+        {
+            Debug.LogWarning("[UIControllerMenu] Credits panel is null on credits button.");
+        }
+    }
 
     public void OnExitButton()
     {

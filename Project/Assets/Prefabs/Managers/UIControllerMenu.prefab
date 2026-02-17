@@ -9344,7 +9344,6 @@ GameObject:
   - component: {fileID: 2346534822284768738}
   - component: {fileID: 1239694897159239125}
   - component: {fileID: 8338696947506272769}
-  - component: {fileID: 3928834876897651033}
   - component: {fileID: 693936100694882003}
   m_Layer: 5
   m_Name: UIControllerMenu
@@ -9422,23 +9421,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &3928834876897651033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8020689348556652635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &693936100694882003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9456,7 +9438,7 @@ MonoBehaviour:
   - {fileID: 8670372789441104475}
   - {fileID: 2839080232340712147}
   - {fileID: 1058306104004193952}
-  InputActions: {fileID: -944628639613478452, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
+  inputActions: {fileID: -944628639613478452, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
   m_settingsPanel: {fileID: 2839080232340712147}
   m_creditsPanel: {fileID: 1058306104004193952}
 --- !u!1 &8142199203079341184

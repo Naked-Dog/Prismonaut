@@ -9,8 +9,8 @@ public class UIControllerBase : MonoBehaviour
     [SerializeField] private PanelBase m_startPanel;
     [SerializeField] private List<PanelBase> m_allPanels = new();
 
-    [Header("Input")]
-    [SerializeField] public InputActionAsset InputActions;
+    [Header("Input Actions")]
+    [SerializeField] private InputActionAsset inputActions;
 
     private PanelBase m_currentPanel;
     private InputAction m_cancelAction;
@@ -21,7 +21,7 @@ public class UIControllerBase : MonoBehaviour
     {
         foreach (var p in m_allPanels)
         {
-            if (p != m_startPanel)
+            if (p != null && p != m_startPanel)
                 p.HideInstant();
         }
     }
@@ -35,7 +35,7 @@ public class UIControllerBase : MonoBehaviour
             OnPanelChanged?.Invoke(m_currentPanel);
         }
 
-        var uiMap = InputActions.FindActionMap("UI", true);
+        var uiMap = inputActions.FindActionMap("UI", true);
         m_cancelAction = uiMap.FindAction("Cancel", true);
         m_cancelAction.performed += OnCancel;
         m_cancelAction.Enable();
@@ -58,10 +58,12 @@ public class UIControllerBase : MonoBehaviour
 
     public void OpenPanel(PanelBase newPanel)
     {
-        if (newPanel == null || newPanel == m_currentPanel) return;
+        if (newPanel == m_currentPanel) return;
 
         if (m_currentPanel != null)
+        {
             m_currentPanel.Close();
+        }
 
         newPanel.Open();
         m_currentPanel = newPanel;
@@ -70,8 +72,10 @@ public class UIControllerBase : MonoBehaviour
 
     public void BackToStart()
     {
-        if (m_currentPanel != null)
+        if (m_currentPanel != null && m_currentPanel != m_startPanel)
+        {
             m_currentPanel.Close();
+        }
 
         if (m_startPanel != null)
         {
@@ -84,4 +88,8 @@ public class UIControllerBase : MonoBehaviour
     public void ClearCurrentPanel() => m_currentPanel = null;
 
     public PanelBase GetCurrentPanel() => m_currentPanel;
+
+    public IReadOnlyList<PanelBase> AllPanels => m_allPanels;
+    public PanelBase StartPanel => m_startPanel;
+    public InputActionAsset InputActions => inputActions;
 }

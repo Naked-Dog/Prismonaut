@@ -206129,17 +206129,17 @@ MonoBehaviour:
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
-  m_PointAction: {fileID: 0}
+  m_PointAction: {fileID: -6438078627688038227, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
   m_MoveAction: {fileID: -8784545083839296357, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
   m_SubmitAction: {fileID: 392368643174621059, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
   m_CancelAction: {fileID: 7727032971491509709, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
-  m_LeftClickAction: {fileID: 0}
+  m_LeftClickAction: {fileID: -5652637989344053806, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
   m_MiddleClickAction: {fileID: 0}
   m_RightClickAction: {fileID: 0}
   m_ScrollWheelAction: {fileID: 0}
   m_TrackedDevicePositionAction: {fileID: 0}
   m_TrackedDeviceOrientationAction: {fileID: 0}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6

@@ -19,7 +19,9 @@ public class PanelBase : MonoBehaviour
     private void Awake()
     {
         if (m_canvasGroup == null)
+        {
             m_canvasGroup = GetComponent<CanvasGroup>();
+        }
     }
 
     public virtual void Open()
@@ -33,12 +35,23 @@ public class PanelBase : MonoBehaviour
         m_canvasGroup.interactable = true;
         m_canvasGroup.blocksRaycasts = true;
 
-        m_canvasGroup.DOFade(1, m_fadeDuration).SetUpdate(true);
+        m_canvasGroup.DOFade(1, m_fadeDuration)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                if (m_firstSelected != null)
+                {
+                    StartCoroutine(SelectFirstButtonNextFrame());
+                }
+                OnOpen?.Invoke();
+            });
+    }
 
-        if (m_firstSelected != null)
-            EventSystem.current.SetSelectedGameObject(m_firstSelected);
-
-        OnOpen?.Invoke();
+    private System.Collections.IEnumerator SelectFirstButtonNextFrame()
+    {
+        yield return null;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(m_firstSelected);
     }
 
     public virtual void Close()

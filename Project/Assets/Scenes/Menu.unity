@@ -432,11 +432,11 @@ MonoBehaviour:
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
-  m_PointAction: {fileID: 0}
+  m_PointAction: {fileID: -6438078627688038227, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
   m_MoveAction: {fileID: -8784545083839296357, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
   m_SubmitAction: {fileID: 392368643174621059, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
   m_CancelAction: {fileID: 7727032971491509709, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
-  m_LeftClickAction: {fileID: 0}
+  m_LeftClickAction: {fileID: -5652637989344053806, guid: 3e5a85fdddce7074b983b50f978da69e, type: 3}
   m_MiddleClickAction: {fileID: 0}
   m_RightClickAction: {fileID: 0}
   m_ScrollWheelAction: {fileID: 0}
@@ -1162,6 +1162,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2346534822284768738, guid: 92c830a5a847e86488ae2be91ec49194, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088785034036741709, guid: 92c830a5a847e86488ae2be91ec49194, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088785034036741709, guid: 92c830a5a847e86488ae2be91ec49194, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4426075982468851669, guid: 92c830a5a847e86488ae2be91ec49194, type: 3}

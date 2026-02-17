@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db55dece346041e428dc2a17a125bc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnsureCoreInEditor
-  coreSceneName: Core
+  m_coreSceneName: Core
 --- !u!4 &644594945
 Transform:
   m_ObjectHideFlags: 0
@@ -554,7 +554,6 @@ GameObject:
   - component: {fileID: 1064237788}
   - component: {fileID: 1064237787}
   - component: {fileID: 1064237786}
-  - component: {fileID: 1064237785}
   - component: {fileID: 1064237784}
   - component: {fileID: 1064237789}
   m_Layer: 5
@@ -586,23 +585,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1064237785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1064237783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &1064237786
 MonoBehaviour:
   m_ObjectHideFlags: 0
