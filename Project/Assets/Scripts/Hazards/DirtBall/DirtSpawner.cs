@@ -14,6 +14,7 @@ public class DirtSpawner : MonoBehaviour
     [SerializeField] private GameObject dirtBallPrefab;
     [SerializeField] private Vector2 direction;
     [SerializeField] private Transform spawnPoint;
+    [SerializeField] private bool willSpawnRocks = true;
     private Coroutine spawnRoutine;
 
     [SerializeField] private List<GameObject> rocksParticlePrefabs;
@@ -68,7 +69,7 @@ public class DirtSpawner : MonoBehaviour
         particleSystem?.Play();
         AudioManager.Instance?.Play3DSountAtPosition(RocksSounds.PrepareThrow, transform.position);
 
-        if (isActiveAndEnabled) StartCoroutine(ThrowRocks());
+        if (isActiveAndEnabled && willSpawnRocks) StartCoroutine(ThrowRocks());
 
         yield return new WaitForSeconds(spawnTime);
 
