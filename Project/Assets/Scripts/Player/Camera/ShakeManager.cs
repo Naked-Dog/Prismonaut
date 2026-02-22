@@ -7,7 +7,7 @@ public class ShakeManager : MonoBehaviour
     public static ShakeManager Instance;
     [SerializeField] private float globalShakeForce = 0.6f;
 
-    private CinemachineImpulseSource impulseSource;
+    [SerializeField] private CinemachineImpulseSource impulseSource;
     private void Awake()
     {
         if (Instance != null && Instance != this)

@@ -32,7 +32,7 @@ public class SceneLoader : MonoBehaviour
         m_currentScene = SceneManager.GetActiveScene().name;
     }
 
-    public void LoadScene(SceneType sceneType)
+    public void LoadScene(SceneType sceneType, bool willFade = true)
     {
         if (m_sceneDatabase == null)
         {
@@ -47,12 +47,12 @@ public class SceneLoader : MonoBehaviour
             return;
         }
 
-        StartCoroutine(LoadSceneRoutine(entry));
+        StartCoroutine(LoadSceneRoutine(entry, willFade));
     }
 
-    private IEnumerator LoadSceneRoutine(SceneDatabase.SceneEntry entry)
+    private IEnumerator LoadSceneRoutine(SceneDatabase.SceneEntry entry, bool willFade = true)
     {
-        if (UIManager.Instance != null)
+        if (UIManager.Instance != null && willFade)
             yield return UIManager.Instance.FadeToBlack(m_fadeDuration);
 
         yield return SceneManager.LoadSceneAsync(entry.SceneName, LoadSceneMode.Single);
@@ -63,7 +63,7 @@ public class SceneLoader : MonoBehaviour
         if (entry != null && AudioManager.Instance != null && !AudioManager.Instance.IsSameMusicPlaying(entry.MusicKey))
             AudioManager.Instance.PlayMusic(entry.MusicKey);
 
-        if (UIManager.Instance != null)
+        if (UIManager.Instance != null && willFade)
             yield return UIManager.Instance.FadeFromBlack(m_fadeDuration);
 
         OnSceneLoaded?.Invoke(m_currentScene);
