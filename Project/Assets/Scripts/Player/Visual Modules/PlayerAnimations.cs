@@ -90,8 +90,19 @@ namespace PlayerSystem
 
             if (isGrounded)
             {
-                if (isMoving) SetState(AnimationState.Running);
-                else SetState(AnimationState.Idle);
+                if(playerState.isPowerUp)
+                {
+                    SetState(AnimationState.PowerUp);
+                    return;
+                }
+                else if (isMoving)
+                {
+                    SetState(AnimationState.Running);
+                }
+                else
+                {
+                    SetState(AnimationState.Idle);
+                } 
             }
             else
             {
@@ -148,6 +159,9 @@ namespace PlayerSystem
                     break;
                 case AnimationState.Explode:
                     animator.Play("Explode");
+                    break;
+                case AnimationState.PowerUp:
+                    animator.Play("PowerUp");
                     break;
             }
 
