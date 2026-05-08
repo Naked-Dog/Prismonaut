@@ -249,7 +249,7 @@ namespace PlayerSystem
         {
             yield return new WaitForSeconds(1.5f);
             state.isPowerUp = false;
-            eventBus.Publish(new RequestStopPlayerInputs());
+            eventBus.Publish(new RequestPlayerInputs());
         }
     }
 }
