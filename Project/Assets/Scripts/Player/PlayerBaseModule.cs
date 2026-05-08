@@ -224,6 +224,9 @@ namespace PlayerSystem
             state.currentCharges = state.maxCharges;
             GameManager.Instance.GetPrism();
             chargesUIController.SetChargesContainer(state.maxCharges);
+            state.isPowerUp = true;
+            eventBus.Publish(new RequestStopPlayerInputs());
+            StartCoroutine(PowerUpSequence());
         }
 
         public void ShowDiegeticInfoPrism()
@@ -240,6 +243,13 @@ namespace PlayerSystem
             state.maxCharges = chargeAmount;
             state.currentCharges = state.maxCharges;
             chargesUIController.SetChargesContainer(state.maxCharges, false);
+        }
+
+        private IEnumerator PowerUpSequence()
+        {
+            yield return new WaitForSeconds(1.5f);
+            state.isPowerUp = false;
+            eventBus.Publish(new RequestStopPlayerInputs());
         }
     }
 }

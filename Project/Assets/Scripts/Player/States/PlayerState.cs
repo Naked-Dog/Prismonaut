@@ -32,5 +32,9 @@ namespace PlayerSystem
         public float currentCharges = 1f;
         public float chargeCooldown = 2f;
         public bool isRecharging = false;
+
+        // PowerUp
+
+        public bool isPowerUp = false;
     }
 }

@@ -19,5 +19,6 @@ namespace PlayerSystem
         Hurt,
         Defeat,
         Explode,
+        PowerUp,
     }
 }
