@@ -35,6 +35,7 @@ namespace PlayerSystem
         private float requestedMovement = 0f;
         private float landingMoveCooldown = 0f;
         private float groundedGraceTimer = 0f;
+        private float lastAirborneFallVelocity = 0f;
         private PlayerBaseModule baseModule;
         readonly float maxLandingBreakCooldown = 0.1f;
         private bool pauseMovement = false;
@@ -160,6 +161,12 @@ namespace PlayerSystem
 
         private void OnFixedUpdate(OnFixedUpdate e)
         {
+            // Track last airborne fall speed before physics may zero it out via ground collision.
+            if (playerState.groundState == GroundState.Airborne && rb2d.linearVelocity.y < 0f)
+            {
+                lastAirborneFallVelocity = -rb2d.linearVelocity.y;
+            }
+
             playerState.velocity = rb2d.linearVelocity;
             playerState.rotation = rb2d.rotation;
             DoGroundCheck();
@@ -191,6 +198,7 @@ namespace PlayerSystem
             jumpRequested = false;
 
             AudioManager.Instance?.Play2DSound(PlayerSoundsEnum.Jump);
+            eventBus.Publish(new OnJumpMovement());
         }
 
         private void PerformJumpGravity(OnFixedUpdate e)
@@ -275,6 +283,9 @@ namespace PlayerSystem
 
         private void PerformLanding()
         {
+            eventBus.Publish(new OnLandedMovement(lastAirborneFallVelocity));
+            lastAirborneFallVelocity = 0f;
+
             playerState.groundState = GroundState.Grounded;
             baseModule.StopFallingCameraTimer();
             if (AudioManager.Instance)

@@ -11,6 +11,11 @@ namespace PlayerSystem
     public struct OnJumpMovement { }
     public struct OnUngroundedMovement { }
     public struct OnGroundedMovement { }
+    public struct OnLandedMovement
+    {
+        public float fallVelocity;
+        public OnLandedMovement(float fallVelocity) { this.fallVelocity = fallVelocity; }
+    }
     public struct RequestMovementPause { }
     public struct RequestMovementResume { }
     public struct RequestGravityOff { }

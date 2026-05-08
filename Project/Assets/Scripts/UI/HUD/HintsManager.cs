@@ -12,6 +12,9 @@ public enum HintType
     Charges2,
     Charges3,
     Boss,
+    Dash2,
+    Dash3,
+    Drill2,
 }
 
 [Serializable]

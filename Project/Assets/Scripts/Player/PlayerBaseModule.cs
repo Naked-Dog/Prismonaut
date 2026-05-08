@@ -23,6 +23,11 @@ namespace PlayerSystem
         [SerializeField] private Collider2D playerMainCollider;
         [SerializeField] private bool canMoveAtStart = true;
 
+        [Header("VFX")]
+        [SerializeField] private ParticleSystem dustTrailVFX;
+        [SerializeField] private ParticleSystem jumpPuffVFX;
+        [SerializeField] private ParticleSystem landPuffVFX;
+
         public static PlayerBaseModule Instance;
         public ChargesUIController chargesUIController;
         public Knockback knockback;
@@ -34,6 +39,7 @@ namespace PlayerSystem
         private PlayerInput inputModule;
         private PlayerMovement movementModule;
         public PlayerAnimations animationsModule;
+        public PlayerVFX vfxModule;
         public PlayerPowersModule powersModule;
         public PlayerHealthModule healthModule;
         private PlayerAudioModule audioModule;
@@ -60,6 +66,7 @@ namespace PlayerSystem
             inputModule = new PlayerInput(eventBus, playerInputAsset);
             movementModule = new Physics2DMovement(eventBus, state, avatarRigidbody2D, this);
             animationsModule = new PlayerAnimations(eventBus, state, animator);
+            vfxModule = new PlayerVFX(eventBus, state, dustTrailVFX, jumpPuffVFX, landPuffVFX);
             powersModule = new PlayerPowersModule(eventBus, state, avatarRigidbody2D, drillPhysicsRelay, drillExitPhysicsRelay, drillJoint, shieldPhysicsRelay, dodgeCollider, playerMainCollider, this);
             healthModule = new PlayerHealthModule(eventBus, state, avatarRigidbody2D, this);
             interactionModule = new PlayerInteractionModule(eventBus, gameObject.GetComponent<PhysicsEventsRelay>(), interactSign, state);
