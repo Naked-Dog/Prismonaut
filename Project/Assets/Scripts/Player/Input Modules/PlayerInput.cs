@@ -61,7 +61,7 @@ namespace PlayerSystem
 
             RegisterCallback(playerGameMap.FindAction("Jump"), ctx => eventBus.Publish(new OnJumpInput(ctx)));
             RegisterCallback(playerGameMap.FindAction("TrianglePower"), ctx => eventBus.Publish(new OnTrianglePowerInput()));
-            RegisterCallback(playerGameMap.FindAction("CirclePower"), ctx => eventBus.Publish(new OnCirclePowerInput()));
+            RegisterCallback(playerGameMap.FindAction("CirclePower"), ctx => { if (ctx.performed) eventBus.Publish(new OnCirclePowerInput()); });
             RegisterCallback(playerGameMap.FindAction("SquarePower"), ctx => eventBus.Publish(new OnSquarePowerInput(ctx)));
 
             RegisterCallback(playerGameMap.FindAction("Interaction"), ctx => eventBus.Publish(new OnInteractionInput()));

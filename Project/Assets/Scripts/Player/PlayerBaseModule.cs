@@ -200,13 +200,13 @@ namespace PlayerSystem
         public void StartFallingCameraTimer()
         {
             if (fallingCamCoroutine != null) return;
+            if (CameraManager.Instance.IsCameraActive(CameraManager.Instance.SearchCamera(CineCameraType.Falling))) return;
             fallingCamCoroutine = StartCoroutine(CallingFallCam());
         }
 
         public void StopFallingCameraTimer()
         {
-            bool isFallingCameraAlready = CameraManager.Instance.IsCameraActive(CameraManager.Instance.SearchCamera(CineCameraType.Falling));
-            if (fallingCamCoroutine == null || isFallingCameraAlready) return;
+            if (fallingCamCoroutine == null) return;
             StopCoroutine(fallingCamCoroutine);
             fallingCamCoroutine = null;
         }

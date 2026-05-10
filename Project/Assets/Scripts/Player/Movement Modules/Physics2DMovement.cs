@@ -32,6 +32,7 @@ namespace PlayerSystem
         private float jumpForce;
         private float jumpGravity;
         private float jumpTimer;
+        private float jumpBufferTimer = 0f;
         private float requestedMovement = 0f;
         private float landingMoveCooldown = 0f;
         private float groundedGraceTimer = 0f;
@@ -148,15 +149,20 @@ namespace PlayerSystem
             if (e.context.canceled)
             {
                 jumpReleased = true;
+                return;
             }
-
-            if (!CanJump()) return;
 
             if (e.context.performed)
             {
-                jumpRequested = true;
+                if (CanJump())
+                {
+                    jumpRequested = true;
+                }
+                else
+                {
+                    jumpBufferTimer = movementConstants.jumpBufferTime;
+                }
             }
-
         }
 
         private void OnFixedUpdate(OnFixedUpdate e)
@@ -170,6 +176,15 @@ namespace PlayerSystem
             playerState.velocity = rb2d.linearVelocity;
             playerState.rotation = rb2d.rotation;
             DoGroundCheck();
+            if (jumpBufferTimer > 0f)
+            {
+                jumpBufferTimer -= Time.fixedDeltaTime;
+                if (CanJump())
+                {
+                    jumpRequested = true;
+                    jumpBufferTimer = 0f;
+                }
+            }
             if (jumpRequested) PerformJump();
             if (pauseMovement) return;
             if (requestedMovement != 0f) PerformMovement();
@@ -288,6 +303,8 @@ namespace PlayerSystem
 
             playerState.groundState = GroundState.Grounded;
             baseModule.StopFallingCameraTimer();
+            var standingCamera = CameraManager.Instance.SearchCamera(CineCameraType.Regular);
+            CameraManager.Instance.ChangeCamera(standingCamera);
             if (AudioManager.Instance)
             {
                 AudioManager.Instance.Stop(PlayerSoundsEnum.LoopWindFall);
@@ -297,8 +314,6 @@ namespace PlayerSystem
             rb2d.AddForce(Vector2.right * -rb2d.linearVelocity.x * 0.75f, ForceMode2D.Impulse);
             landingMoveCooldown = maxLandingBreakCooldown;
             eventBus.Subscribe<OnUpdate>(ReduceLandingMoveCooldown);
-            var standingCamera = CameraManager.Instance.SearchCamera(CineCameraType.Regular);
-            CameraManager.Instance.ChangeCamera(standingCamera);
         }
 
         private void ReduceLandingMoveCooldown(OnUpdate e)
